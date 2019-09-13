@@ -1,6 +1,6 @@
 package com.CezaryZal.user;
 
-//import com.CezaryZal.bodySize.BodySize;
+import com.CezaryZal.bodySize.BodySize;
 
 import javax.persistence.*;
 
@@ -33,10 +33,10 @@ public class User {
 
     @Column(name = "sex")
     private int sex;
-//
-//    @OneToOne(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "body_size_id")
-//    private BodySize bodySize;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "body_size_id")
+    private BodySize bodySize;
 
 
     public User() {
@@ -116,13 +116,13 @@ public class User {
         this.sex = sex;
     }
 
-//    public BodySize getBodySize() {
-//        return bodySize;
-//    }
-//
-//    public void setBodySize(BodySize bodySize) {
-//        this.bodySize = bodySize;
-//    }
+    public BodySize getBodySize() {
+        return bodySize;
+    }
+
+    public void setBodySize(BodySize bodySize) {
+        this.bodySize = bodySize;
+    }
 
     @Override
     public String toString() {
@@ -135,7 +135,7 @@ public class User {
                 ", loginName='" + loginName + '\'' +
                 ", password='" + password + '\'' +
                 ", sex=" + sex +
-//                ", bodySize=" + bodySize +
+                ", bodySize=" + bodySize +
                 '}';
     }
 }
