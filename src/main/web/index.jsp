@@ -9,6 +9,13 @@
 
 <hr>
 
+<a href=${pageContext.request.contextPath}"/user/listUsers">The list of users </a>
+
+<hr>
+
+<a href=${pageContext.request.contextPath}"/user/test">Test user </a>
+
+<hr>
 
 
 </body>

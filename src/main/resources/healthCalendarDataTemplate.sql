@@ -38,7 +38,7 @@ CREATE TABLE `body_size`(
                        `waist` INTEGER DEFAULT NULL,
                        `hip_size` INTEGER DEFAULT NULL,
                        `femoral_size` INTEGER DEFAULT NULL,
-                       `sural` INTEGER DEFAULT NULL,
+                       `calf` INTEGER DEFAULT NULL,
                        PRIMARY KEY (`id`)
 ) ENGINE = InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 

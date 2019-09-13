@@ -1,7 +1,10 @@
 package com.CezaryZal.testDB;
 
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+
 import java.sql.*;
-import java.util.List;
 
 public class ConnectDB {
     public static void main(String[] args) {
@@ -30,4 +33,14 @@ public class ConnectDB {
 
     }
 
+    @RestController
+    @RequestMapping("/test")
+    public static class TestController {
+
+        @ResponseBody
+        @RequestMapping("/hello")
+        public String showHello () {
+            return "Hello!";
+        }
+    }
 }
