@@ -7,8 +7,10 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class BodySizeRepository {
 
-
-    @Autowired
     private SessionFactory sessionFactory;
 
+    @Autowired
+    public BodySizeRepository(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
 }

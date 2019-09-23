@@ -12,15 +12,12 @@ import java.util.List;
 @RequestMapping("/user")
 public class UserController {
 
-    @GetMapping("/test")
-    public User getUser(){
-        User user = new User("Tom", "tomy", "tomy@gmail.com", 458658356,
-                "tomek", "test", 0);
-        return user;
-    }
+    private UserService userService;
 
     @Autowired
-    private UserService userService;
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
 
     @GetMapping("/listUsers")
     public List<User> getUsers(){

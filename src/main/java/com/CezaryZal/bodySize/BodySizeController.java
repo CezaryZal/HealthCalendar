@@ -8,6 +8,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/body")
 public class BodySizeController {
 
-    @Autowired
     private BodySizeService bodyService;
+
+    @Autowired
+    public BodySizeController(BodySizeService bodyService) {
+        this.bodyService = bodyService;
+    }
 }

@@ -6,18 +6,21 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@Transactional
 @Service
 public class UserService {
 
-    @Autowired
     private UserRepository userRepository;
 
-    @Transactional
+    @Autowired
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
     public List<User> getUsers(){
         return userRepository.getUsers();
     }
 
-    @Transactional
     public User getUser(int id){
         return userRepository.getUser(id);
     }

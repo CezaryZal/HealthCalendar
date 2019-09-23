@@ -46,6 +46,27 @@ INSERT INTO `body_size` VALUES
 (1, 65, 38, 31, 98, 75, 88, 45, 36),
 (2, 60, 36, 30, 91, 70, 83, 43, 35);
 
+
+CREATE TABLE `body_size`(
+                            `id` INTEGER NOT NULL AUTO_INCREMENT,
+                            `body_weight` INTEGER DEFAULT NULL,
+                            `neck_size` INTEGER DEFAULT NULL,
+                            `arm_size` INTEGER DEFAULT NULL,
+                            `bust_size` INTEGER DEFAULT NULL,
+                            `waist` INTEGER DEFAULT NULL,
+                            `hip_size` INTEGER DEFAULT NULL,
+                            `femoral_size` INTEGER DEFAULT NULL,
+                            `calf` INTEGER DEFAULT NULL,
+                            PRIMARY KEY (`id`)
+) ENGINE = InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+
+INSERT INTO `body_size` VALUES
+(1, 65, 38, 31, 98, 75, 88, 45, 36),
+(2, 60, 36, 30, 91, 70, 83, 43, 35);
+
+
+
+
 SET FOREIGN_KEY_CHECKS = 1;
 
 
