@@ -17,15 +17,19 @@ public class DrinkLiquids {
     @Column(name = "amount")
     private int amount;
 
+    @Column(name = "min_portions")
+    private int minPortions;
+
     @Column(name = "alcohol")
     private boolean alcohol;
 
     public DrinkLiquids() {
     }
 
-    public DrinkLiquids(int portions, int amount, boolean alcohol) {
+    public DrinkLiquids(int portions, int amount, int minPortions, boolean alcohol) {
         this.portions = portions;
         this.amount = amount;
+        this.minPortions = minPortions;
         this.alcohol = alcohol;
     }
 
@@ -61,12 +65,21 @@ public class DrinkLiquids {
         this.alcohol = alcohol;
     }
 
+    public int getMinPortions() {
+        return minPortions;
+    }
+
+    public void setMinPortions(int minPortions) {
+        this.minPortions = minPortions;
+    }
+
     @Override
     public String toString() {
         return "DrinkLiquids{" +
                 "id=" + id +
                 ", portions=" + portions +
                 ", amount=" + amount +
+                ", minPortions=" + minPortions +
                 ", alcohol=" + alcohol +
                 '}';
     }

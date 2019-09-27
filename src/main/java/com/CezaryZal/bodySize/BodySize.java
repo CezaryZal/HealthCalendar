@@ -1,6 +1,7 @@
 package com.CezaryZal.bodySize;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "body_size")
@@ -35,11 +36,14 @@ public class BodySize {
     @Column(name = "calf")
     private int calf;
 
+    @Column(name = "date")
+    private LocalDate date;
+
 
     public BodySize() {
     }
 
-    public BodySize(int bodyWeight, int neckSize, int armSize, int bustSize, int waist, int hipSize, int femoralSize, int calf) {
+    public BodySize(int bodyWeight, int neckSize, int armSize, int bustSize, int waist, int hipSize, int femoralSize, int calf, LocalDate date) {
         this.bodyWeight = bodyWeight;
         this.neckSize = neckSize;
         this.armSize = armSize;
@@ -48,6 +52,7 @@ public class BodySize {
         this.hipSize = hipSize;
         this.femoralSize = femoralSize;
         this.calf = calf;
+        this.date = date;
     }
 
     public int getId() {
@@ -122,6 +127,14 @@ public class BodySize {
         this.calf = calf;
     }
 
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
     @Override
     public String toString() {
         return "BodySize{" +
@@ -134,6 +147,7 @@ public class BodySize {
                 ", hipSize=" + hipSize +
                 ", femoralSize=" + femoralSize +
                 ", calf=" + calf +
+                ", date=" + date +
                 '}';
     }
 }

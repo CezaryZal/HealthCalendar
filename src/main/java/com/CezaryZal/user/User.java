@@ -39,10 +39,6 @@ public class User {
     @JoinColumn(name = "body_size_id")
     private BodySize bodySize;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "drink_liquids_id")
-    private DrinkLiquids drinkLiquids;
-
 
     public User() {
     }
@@ -129,14 +125,6 @@ public class User {
         this.bodySize = bodySize;
     }
 
-    public DrinkLiquids getDrinkLiquids() {
-        return drinkLiquids;
-    }
-
-    public void setDrinkLiquids(DrinkLiquids drinkLiquids) {
-        this.drinkLiquids = drinkLiquids;
-    }
-
     @Override
     public String toString() {
         return "User{" +
@@ -149,7 +137,6 @@ public class User {
                 ", password='" + password + '\'' +
                 ", sex=" + sex +
                 ", bodySize=" + bodySize +
-                ", drinkLiquids=" + drinkLiquids +
                 '}';
     }
 }
