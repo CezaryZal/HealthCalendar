@@ -2,6 +2,7 @@ package com.CezaryZal.day;
 
 import com.CezaryZal.diet.Diet;
 import com.CezaryZal.drinkLiquids.DrinkLiquids;
+import com.CezaryZal.note.Note;
 import com.CezaryZal.user.User;
 
 import javax.persistence.*;
@@ -35,14 +36,19 @@ public class Day {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "note_id")
+    private Note note;
+
     public Day() {
     }
 
-    public Day(LocalDate date, Diet dietID, DrinkLiquids drink, User user) {
+    public Day(LocalDate date, Diet dietID, DrinkLiquids drink, User user, Note note) {
         this.date = date;
         this.dietID = dietID;
         this.drink = drink;
         this.user = user;
+        this.note = note;
     }
 
     public int getId() {
@@ -85,6 +91,14 @@ public class Day {
         this.user = user;
     }
 
+    public Note getNote() {
+        return note;
+    }
+
+    public void setNote(Note note) {
+        this.note = note;
+    }
+
     @Override
     public String toString() {
         return "Day{" +
@@ -93,6 +107,7 @@ public class Day {
                 ", dietID=" + dietID +
                 ", drink=" + drink +
                 ", user=" + user +
+                ", note=" + note +
                 '}';
     }
 }
