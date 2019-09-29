@@ -26,7 +26,7 @@ public class Day {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "diet_id")
-    private Diet dietID;
+    private Diet diet;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "drink_liquids_id")
@@ -43,9 +43,9 @@ public class Day {
     public Day() {
     }
 
-    public Day(LocalDate date, Diet dietID, DrinkLiquids drink, User user, Note note) {
+    public Day(LocalDate date, Diet diet, DrinkLiquids drink, User user, Note note) {
         this.date = date;
-        this.dietID = dietID;
+        this.diet = diet;
         this.drink = drink;
         this.user = user;
         this.note = note;
@@ -68,11 +68,11 @@ public class Day {
     }
 
     public Diet getDietID() {
-        return dietID;
+        return diet;
     }
 
     public void setDietID(Diet dietID) {
-        this.dietID = dietID;
+        this.diet = dietID;
     }
 
     public DrinkLiquids getDrink() {
@@ -104,7 +104,7 @@ public class Day {
         return "Day{" +
                 "id=" + id +
                 ", date=" + date +
-                ", dietID=" + dietID +
+                ", dietID=" + diet +
                 ", drink=" + drink +
                 ", user=" + user +
                 ", note=" + note +

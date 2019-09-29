@@ -1,9 +1,10 @@
 package com.CezaryZal.user;
 
 import com.CezaryZal.bodySize.BodySize;
-import com.CezaryZal.drinkLiquids.DrinkLiquids;
+import com.CezaryZal.day.Day;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "user")
@@ -35,9 +36,11 @@ public class User {
     @Column(name = "sex")
     private int sex;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "body_size_id")
-    private BodySize bodySize;
+    //Default fetch is LAZY, when we want to show all data must be EAGER
+    //or cut relation between 'user' with 'bodySize'
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
+    private List<BodySize> listBodySize;
 
 
     public User() {
@@ -117,12 +120,12 @@ public class User {
         this.sex = sex;
     }
 
-    public BodySize getBodySize() {
-        return bodySize;
+    public List<BodySize> getListBodySize() {
+        return listBodySize;
     }
 
-    public void setBodySize(BodySize bodySize) {
-        this.bodySize = bodySize;
+    public void setListBodySize(List<BodySize> listBodySize) {
+        this.listBodySize = listBodySize;
     }
 
     @Override
@@ -136,7 +139,7 @@ public class User {
                 ", loginName='" + loginName + '\'' +
                 ", password='" + password + '\'' +
                 ", sex=" + sex +
-                ", bodySize=" + bodySize +
+                ", listBodySize=" + listBodySize +
                 '}';
     }
 }

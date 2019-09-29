@@ -16,12 +16,45 @@ CREATE TABLE `body_size`(
                        `femoral_size` INTEGER DEFAULT NULL,
                        `calf` INTEGER DEFAULT NULL,
                        `date` DATE NOT NULL,
-                       PRIMARY KEY (`id`)
+                       `user_id` INTEGER NOT NULL,
+                       PRIMARY KEY (`id`),
+                       KEY `USER_SIZE_idx` (`user_id`),
+                       CONSTRAINT `USER_SIZE` FOREIGN KEY (`user_id`)
+                           REFERENCES `user` (`id`)
+                           ON DELETE NO ACTION ON UPDATE NO ACTION
+
 ) ENGINE = InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
 INSERT INTO `body_size` VALUES
-(1, 65, 38, 31, 98, 75, 88, 45, 36, '2018-05-23'),
-(2, 60, 36, 30, 91, 70, 83, 43, 35, '2018-05-23');
+(1, 65, 38, 31, 98, 75, 88, 45, 36, '2018-05-23', 1),
+(2, 70, 40, 32, 100, 78, 90, 48, 38, '2018-02-23', 1),
+(3, 66, 37, 35, 96, 74, 87, 47, 37, '2018-06-23', 2),
+(4, 60, 36, 30, 91, 70, 83, 43, 35, '2018-05-25', 2);
+
+
+
+DROP TABLE IF EXISTS `user`;
+
+CREATE TABLE `user`(
+                       `id` INTEGER NOT NULL AUTO_INCREMENT,
+                       `first_name` varchar(45) Not NULL,
+                       `nick` varchar(45) NOT NULL,
+                       `email` varchar(45) DEFAULT NULL,
+                       `phone_number` INTEGER DEFAULT NULL,
+                       `login_name` varchar(45) NOT NULL,
+                       `password` varchar(45) NOT NULL,
+                       `sex` INTEGER NOT NULL,
+                       PRIMARY KEY (`id`),
+                       UNIQUE KEY `NICK_UNIQUE` (`nick`),
+                       UNIQUE KEY `LOGIN_UNIQUE` (`login_name`),
+                       UNIQUE KEY `EMAIL_UNIQUE` (`email`)
+
+) ENGINE = InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+
+
+INSERT INTO `user` VALUES
+(1,'Anna','Ann','anna@gmail.com','569842365', 'Ann123', 'test1', 0),
+(2,'Fiona','Shrek','fiona@gmail.com','846152365','shrek123', 'test2', 0);
 
 
 
@@ -40,31 +73,6 @@ INSERT INTO `drink_liquids` VALUES
 (1, 2, 500, 2000, false),
 (2, 3, 750, 2500, true);
 
-
-DROP TABLE IF EXISTS `user`;
-
-CREATE TABLE `user`(
-                       `id` INTEGER NOT NULL AUTO_INCREMENT,
-                       `first_name` varchar(45) Not NULL,
-                       `nick` varchar(45) NOT NULL,
-                       `email` varchar(45) DEFAULT NULL,
-                       `phone_number` INTEGER DEFAULT NULL,
-                       `login_name` varchar(45) NOT NULL,
-                       `password` varchar(45) NOT NULL,
-                       `sex` INTEGER NOT NULL,
-                       `body_size_id` INTEGER DEFAULT NULL,
-                       PRIMARY KEY (`id`),
-                           KEY `BodyS_SIZE_idx` (`body_size_id`),
-                       CONSTRAINT `BodyS_SIZE` FOREIGN KEY (`body_size_id`)
-                           REFERENCES `body_size` (`id`)
-                           ON DELETE NO ACTION ON UPDATE NO ACTION
-
-) ENGINE = InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
-
-
-INSERT INTO `user` VALUES
-(1,'Anna','Ann','anna@gmail.com','569842365', 'Ann123', 'test1', 0, 1),
-(2,'Fiona','Shrek','fiona@gmail.com','846152365','shrek123', 'test2', 0, 2);
 
 
 DROP TABLE IF EXISTS `diet`;
@@ -92,9 +100,9 @@ DROP TABLE IF EXISTS `note`;
 
 CREATE TABLE `note`(
                        `id` INTEGER NOT NULL AUTO_INCREMENT,
-                       `header1` varchar(100) NOT NULL,
-                       `header2` varchar(100) DEFAULT NULL,
-                       `details` varchar(1000) DEFAULT NULL,
+                       `header1` varchar(128) NOT NULL,
+                       `header2` varchar(128) DEFAULT NULL,
+                       `details` varchar(256) DEFAULT NULL,
                        PRIMARY KEY (`id`)
 
 ) ENGINE = InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
@@ -112,7 +120,7 @@ CREATE TABLE `day`(
                        `date` DATE NOT NULL,
                        `diet_id` INTEGER DEFAULT NULL,
                        `drink_liquids_id` INTEGER DEFAULT NULL,
-                       `user_id` INTEGER DEFAULT NULL,
+                       `user_id` INTEGER NOT NULL,
                        `note_id` INTEGER DEFAULT NULL,
                        PRIMARY KEY (`id`),
                        KEY `D_SIZE_idx` (`diet_id`),
@@ -142,31 +150,3 @@ INSERT INTO `day` VALUES
 
 SET FOREIGN_KEY_CHECKS = 1;
 
-
-
--- CREATE TABLE `diet`(
---                     `id` int(11) NOT NULL AUTO_INCREMENT,
---                     `first_name` varchar(45) DEFAULT NULL,
---                     `user_name` varchar(45) DEFAULT NULL,
---                     `email` varchar(45) DEFAULT NULL,
---                     `phone_number` int(10) DEFAULT NULL,
---                     `login_name` varchar(45) DEFAULT NULL,
---                     `password` varchar(45) DEFAULT NULL,
---                     `login_name` varchar(45) DEFAULT NULL,
---                     PRIMARY KEY (`id`)
---
-
--- sugar in drinks
---
---
---
--- CREATE TABLE `training`(
---                        `id` int(11) NOT NULL AUTO_INCREMENT,
---                        `first_name` varchar(45) DEFAULT NULL,
---                        `user_name` varchar(45) DEFAULT NULL,
---                        `email` varchar(45) DEFAULT NULL,
---                        `phone_number` int(10) DEFAULT NULL,
---                        `login_name` varchar(45) DEFAULT NULL,
---                        `password` varchar(45) DEFAULT NULL,
---                        `login_name` varchar(45) DEFAULT NULL,
---                        PRIMARY KEY (`id`)

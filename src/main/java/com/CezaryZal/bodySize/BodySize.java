@@ -1,5 +1,7 @@
 package com.CezaryZal.bodySize;
 
+import com.CezaryZal.user.User;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 
@@ -43,7 +45,8 @@ public class BodySize {
     public BodySize() {
     }
 
-    public BodySize(int bodyWeight, int neckSize, int armSize, int bustSize, int waist, int hipSize, int femoralSize, int calf, LocalDate date) {
+    public BodySize(int bodyWeight, int neckSize, int armSize, int bustSize, int waist, int hipSize, int femoralSize,
+                    int calf, LocalDate date) {
         this.bodyWeight = bodyWeight;
         this.neckSize = neckSize;
         this.armSize = armSize;
@@ -134,6 +137,14 @@ public class BodySize {
     public void setDate(LocalDate date) {
         this.date = date;
     }
+//
+//    public User getUser() {
+//        return user;
+//    }
+//
+//    public void setUser(User user) {
+//        this.user = user;
+//    }
 
     @Override
     public String toString() {
