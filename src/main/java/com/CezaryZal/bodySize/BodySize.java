@@ -41,12 +41,15 @@ public class BodySize {
     @Column(name = "date")
     private LocalDate date;
 
+    @Column(name = "user_id")
+    private int userId;
+
 
     public BodySize() {
     }
 
-    public BodySize(int bodyWeight, int neckSize, int armSize, int bustSize, int waist, int hipSize, int femoralSize,
-                    int calf, LocalDate date) {
+    public BodySize(int bodyWeight, int neckSize, int armSize, int bustSize, int waist, int hipSize,
+                    int femoralSize, int calf, LocalDate date, int userId) {
         this.bodyWeight = bodyWeight;
         this.neckSize = neckSize;
         this.armSize = armSize;
@@ -56,6 +59,7 @@ public class BodySize {
         this.femoralSize = femoralSize;
         this.calf = calf;
         this.date = date;
+        this.userId = userId;
     }
 
     public int getId() {
@@ -137,14 +141,14 @@ public class BodySize {
     public void setDate(LocalDate date) {
         this.date = date;
     }
-//
-//    public User getUser() {
-//        return user;
-//    }
-//
-//    public void setUser(User user) {
-//        this.user = user;
-//    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
 
     @Override
     public String toString() {
@@ -159,6 +163,7 @@ public class BodySize {
                 ", femoralSize=" + femoralSize +
                 ", calf=" + calf +
                 ", date=" + date +
+                ", userId=" + userId +
                 '}';
     }
 }
