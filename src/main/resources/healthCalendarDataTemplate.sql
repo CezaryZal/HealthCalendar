@@ -44,54 +44,37 @@ CREATE TABLE `user`(
                        `login_name` varchar(45) NOT NULL,
                        `password` varchar(45) NOT NULL,
                        `sex` INTEGER NOT NULL,
+                       `daily_limits_id` INTEGER NOT NULL,
                        PRIMARY KEY (`id`),
                        UNIQUE KEY `NICK_UNIQUE` (`nick`),
                        UNIQUE KEY `LOGIN_UNIQUE` (`login_name`),
-                       UNIQUE KEY `EMAIL_UNIQUE` (`email`)
+                       UNIQUE KEY `EMAIL_UNIQUE` (`email`),
+                           KEY `DL_SIZE_idx` (`daily_limits_id`),
+                       CONSTRAINT `DL_SIZE` FOREIGN KEY (`daily_limits_id`)
+                           REFERENCES `daily_limits` (`id`)
+                           ON DELETE NO ACTION ON UPDATE NO ACTION
 
 ) ENGINE = InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
 
 INSERT INTO `user` VALUES
-(1,'Anna','Ann','anna@gmail.com','569842365', 'Ann123', 'test1', 0),
-(2,'Fiona','Shrek','fiona@gmail.com','846152365','shrek123', 'test2', 0);
+(1,'Anna','Ann','anna@gmail.com',569842365, 'Ann123', 'test1', 0, 1),
+(2,'Fiona','Shrek','fiona@gmail.com', 846152365,'shrek123', 'test2', 1, 2);
 
 
 
-DROP TABLE IF EXISTS `drink_liquids`;
+DROP TABLE IF EXISTS `daily_limits`;
 
-CREATE TABLE `drink_liquids`(
+CREATE TABLE `daily_limits`(
                             `id` INTEGER NOT NULL AUTO_INCREMENT,
-                            `portions` INTEGER DEFAULT NULL,
-                            `amount` INTEGER DEFAULT NULL,
-                            `min_portions` INTEGER DEFAULT NULL,
-                            `alcohol` BOOLEAN DEFAULT NULL,
+                            `limit_kcal` INTEGER DEFAULT NULL,
+                            `limit_dink` INTEGER DEFAULT NULL,
                             PRIMARY KEY (`id`)
 ) ENGINE = InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
-INSERT INTO `drink_liquids` VALUES
-(1, 2, 500, 2000, false),
-(2, 3, 750, 2500, true);
-
-
-
-DROP TABLE IF EXISTS `diet`;
-
-
-CREATE TABLE `diet`(
-                      `id` INTEGER NOT NULL AUTO_INCREMENT,
-                      `date` DATE NOT NULL,
-                      `kcal` INTEGER DEFAULT NULL,
-                      `min_kcal` INTEGER DEFAULT NULL,
-                      `max_kcal` INTEGER DEFAULT NULL,
-                      PRIMARY KEY (`id`)
-
-) ENGINE = InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
-
-
-INSERT INTO `diet` VALUES
-(1, '2018-05-23', 1500, 1300, 1800),
-(2, '2018-05-23', 1800, 1500, 2300);
+INSERT INTO `daily_limits` VALUES
+(1, 2500, 2000),
+(2, 4000, 3000);
 
 
 
@@ -102,15 +85,96 @@ CREATE TABLE `note`(
                        `id` INTEGER NOT NULL AUTO_INCREMENT,
                        `header1` varchar(128) NOT NULL,
                        `header2` varchar(128) DEFAULT NULL,
-                       `details` varchar(256) DEFAULT NULL,
-                       PRIMARY KEY (`id`)
+                       `details_note_id` INTEGER DEFAULT NULL,
+                       PRIMARY KEY (`id`),
+                       KEY `DN_SIZE_idx` (`details_note_id`),
+                       CONSTRAINT `DN_SIZE` FOREIGN KEY (`details_note_id`)
+                           REFERENCES `details_note` (`id`)
+                           ON DELETE NO ACTION ON UPDATE NO ACTION
 
 ) ENGINE = InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
 
 INSERT INTO `note` VALUES
-(1, 'wyjazd', 'rocznica', 'dieta nie utrzymana'),
-(2, 'wakacje', 'urodzina', 'zjedzone znacznie wiecej');
+(1, 'wyjazd', 'rocznica', 1),
+(2, 'wakacje', 'urodzina', 2);
+
+
+DROP TABLE IF EXISTS `details_note`;
+
+CREATE TABLE `details_note`(
+                       `id` INTEGER NOT NULL AUTO_INCREMENT,
+                       `details1` varchar(45) DEFAULT NULL,
+                       `details2` varchar(45) DEFAULT NULL,
+                       PRIMARY KEY (`id`)
+
+) ENGINE = InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+
+
+INSERT INTO `details_note` VALUES
+(1, 'dieta nie utrzymana', 'wypito kilka drinków i szampana'),
+(2, 'zjedzone znacznie wiecej', 'bez cwiczen ale z tancami');
+
+
+
+DROP TABLE IF EXISTS `training`;
+
+CREATE TABLE `training`(
+                               `id` INTEGER NOT NULL AUTO_INCREMENT,
+                               `date` DATE NOT NULL,
+                               `trainingI_text` varchar(128) DEFAULT NULL,
+                               `trainingI_time` INTEGER DEFAULT NULL,
+                               `trainingI_kcal` INTEGER DEFAULT NULL,
+                               `trainingII_text` varchar(128) DEFAULT NULL,
+                               `trainingII_time` INTEGER DEFAULT NULL,
+                               `trainingII_kcal` INTEGER DEFAULT NULL,
+                               `trainingIII_text` varchar(128) DEFAULT NULL,
+                               `trainingIII_time` INTEGER DEFAULT NULL,
+                               `trainingIII_kcal` INTEGER DEFAULT NULL,
+                               `trainingIV_text` varchar(128) DEFAULT NULL,
+                               `trainingIV_time` INTEGER DEFAULT NULL,
+                               `trainingIV_kcal` INTEGER DEFAULT NULL,
+                               `trainingV_text` varchar(128) DEFAULT NULL,
+                               `trainingV_time` INTEGER DEFAULT NULL,
+                               `trainingV_kcal` INTEGER DEFAULT NULL,
+                               PRIMARY KEY (`id`)
+
+) ENGINE = InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+
+
+INSERT INTO `training` VALUES
+(1, '2018-09-23', 'silka', 90, 1000, 'spacer', 30, 300,null, null, null, null, null, null, null, null, null),
+(2, '2018-09-24', 'spacer', 30, 300, null, null, null, null, null, null, null, null, null, null, null, null);
+
+
+
+
+DROP TABLE IF EXISTS `diet`;
+
+CREATE TABLE `diet`(
+                           `id` INTEGER NOT NULL AUTO_INCREMENT,
+                           `date` DATE NOT NULL,
+                           `breakfast_kcal` INTEGER DEFAULT NULL,
+                           `breakfast_text` varchar(128) DEFAULT NULL,
+                           `breakfastII_kcal` INTEGER DEFAULT NULL,
+                           `breakfastII_text` varchar(128) DEFAULT NULL,
+                           `dinner_kcal` INTEGER DEFAULT NULL,
+                           `dinner_text` varchar(128) DEFAULT NULL,
+                           `afternoon_meal_kcal` INTEGER DEFAULT NULL,
+                           `afternoon_meal_text` varchar(128) DEFAULT NULL,
+                           `supper_kcal` INTEGER DEFAULT NULL,
+                           `supper_text` varchar(128) DEFAULT NULL,
+                           PRIMARY KEY (`id`)
+
+) ENGINE = InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+
+
+INSERT INTO `diet` VALUES
+(1, '2018-09-23',  450, 'kanapki', 100, 'jablko', 800, 'zeberka', 250, 'jogurt', 150, 'salatke'),
+(2, '2018-09-24',  350, 'jajowa', 120, 'owsianka', 950, 'schabowy', 150, 'banany', 350, 'kanpki');
+
+
+
 
 
 DROP TABLE IF EXISTS `day`;
@@ -118,23 +182,29 @@ DROP TABLE IF EXISTS `day`;
 CREATE TABLE `day`(
                        `id` INTEGER NOT NULL AUTO_INCREMENT,
                        `date` DATE NOT NULL,
-                       `diet_id` INTEGER DEFAULT NULL,
-                       `drink_liquids_id` INTEGER DEFAULT NULL,
                        `user_id` INTEGER NOT NULL,
+                       `body_size_id` INTEGER DEFAULT NULL,
+                       `last_date_measure_body` DATE DEFAULT NULL,
+                       `amount_portions_dink` INTEGER DEFAULT NULL,
+                       `min_amount_portions_dink` INTEGER DEFAULT NULL,
+                       `amount_portions_alcohol` INTEGER DEFAULT NULL,
+                       `diet_id` INTEGER DEFAULT NULL,
+                       `amount_portions_snack` INTEGER DEFAULT NULL,
                        `note_id` INTEGER DEFAULT NULL,
+                       `training_id` INTEGER DEFAULT NULL,
                        PRIMARY KEY (`id`),
-                       KEY `D_SIZE_idx` (`diet_id`),
-                       CONSTRAINT `D_SIZE` FOREIGN KEY (`diet_id`)
-                           REFERENCES `diet` (`id`),
-                       KEY `DL_SIZE_idx` (`drink_liquids_id`),
-                       CONSTRAINT `FK_SIZE` FOREIGN KEY (`drink_liquids_id`)
-                           REFERENCES `drink_liquids` (`id`),
                        KEY `U_SIZE_idx` (`user_id`),
                        CONSTRAINT `U_SIZE` FOREIGN KEY (`user_id`)
                            REFERENCES `user` (`id`),
                        KEY `N_SIZE_idx` (`note_id`),
                        CONSTRAINT `N_SIZE` FOREIGN KEY (`note_id`)
-                           REFERENCES `note` (`id`)
+                           REFERENCES `note` (`id`),
+                       KEY `T_SIZE_idx` (`training_id`),
+                       CONSTRAINT `T_SIZE` FOREIGN KEY (`training_id`)
+                           REFERENCES `training` (`id`),
+                       KEY `D_SIZE_idx` (`diet_id`),
+                       CONSTRAINT `D_SIZE` FOREIGN KEY (`diet_id`)
+                           REFERENCES `diet` (`id`)
                            ON DELETE NO ACTION ON UPDATE NO ACTION
 
 
@@ -142,9 +212,28 @@ CREATE TABLE `day`(
 
 
 INSERT INTO `day` VALUES
-(1, '2018-05-23', 1, 1, 1, 2),
-(2, '2018-05-23', 2, 2, 2, 1);
+(1, '2018-05-23', 1, 2, '2018-04-03', 5, 6, 2, 1, 2, 1, 2),
+(2, '2018-05-23', 2, 1, '2018-04-14', 8, 9, 0, 2, 0, 2, 1);
 
+
+
+DROP TABLE IF EXISTS `short_day`;
+
+CREATE TABLE `short_day`(
+                               `id` INTEGER NOT NULL AUTO_INCREMENT,
+                               `user_id` INTEGER NOT NULL,
+                               `date` DATE NOT NULL,
+                               `is_limit_kcal` BOOLEAN DEFAULT NULL,
+                               `is_limit_dink` BOOLEAN DEFAULT NULL,
+                               `is_alcohol` BOOLEAN DEFAULT NULL,
+                               `is_snacks` BOOLEAN DEFAULT NULL,
+
+                               PRIMARY KEY (`id`)
+) ENGINE = InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+
+INSERT INTO `short_day` VALUES
+(1, 2, '2018-09-23', TRUE, TRUE, FALSE, FALSE),
+(2, 1, '2018-09-24', TRUE, FALSE, TRUE, FALSE);
 
 
 
