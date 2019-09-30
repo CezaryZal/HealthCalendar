@@ -1,6 +1,6 @@
 package com.CezaryZal.note;
 
-import com.CezaryZal.note.detailsNote.DetailsNote;
+import com.CezaryZal.note.details.DetailsNote;
 
 import javax.persistence.*;
 
