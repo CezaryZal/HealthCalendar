@@ -1,7 +1,6 @@
 package com.CezaryZal.user;
 
 import com.CezaryZal.bodySize.BodySize;
-import com.CezaryZal.day.Day;
 
 import javax.persistence.*;
 import java.util.List;

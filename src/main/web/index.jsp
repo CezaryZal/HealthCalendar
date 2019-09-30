@@ -17,6 +17,13 @@
 
 <hr>
 
+<a href=${pageContext.request.contextPath}"/day/listDays">List days </a>
+
+<hr>
+
+<h2>
+    Test t
+</h2>
 
 </body>
 </html>
