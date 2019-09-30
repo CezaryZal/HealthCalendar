@@ -1,5 +1,7 @@
 package com.CezaryZal.note;
 
+import com.CezaryZal.note.detailsNote.DetailsNote;
+
 import javax.persistence.*;
 
 @Entity
@@ -17,16 +19,17 @@ public class Note {
     @Column(name = "header2")
     private String header2;
 
-    @Column(name = "details")
-    private String details;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "details_note_id")
+    private DetailsNote detailsNote;
 
     public Note() {
     }
 
-    public Note(String header1, String header2, String details) {
+    public Note(String header1, String header2, DetailsNote detailsNote) {
         this.header1 = header1;
         this.header2 = header2;
-        this.details = details;
+        this.detailsNote = detailsNote;
     }
 
     public int getId() {
@@ -53,12 +56,12 @@ public class Note {
         this.header2 = header2;
     }
 
-    public String getDetails() {
-        return details;
+    public DetailsNote getDetailsNote() {
+        return detailsNote;
     }
 
-    public void setDetails(String details) {
-        this.details = details;
+    public void setDetailsNote(DetailsNote detailsNote) {
+        this.detailsNote = detailsNote;
     }
 
     @Override
@@ -67,7 +70,7 @@ public class Note {
                 "id=" + id +
                 ", header1='" + header1 + '\'' +
                 ", header2='" + header2 + '\'' +
-                ", details='" + details + '\'' +
+                ", detailsNote=" + detailsNote +
                 '}';
     }
 }
