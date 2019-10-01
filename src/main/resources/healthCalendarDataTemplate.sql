@@ -145,24 +145,17 @@ DROP TABLE IF EXISTS `diet`;
 CREATE TABLE `diet`(
                            `id` INTEGER NOT NULL AUTO_INCREMENT,
                            `date` DATE NOT NULL,
-                           `breakfast_kcal` INTEGER DEFAULT NULL,
-                           `breakfast_text` varchar(128) DEFAULT NULL,
-                           `breakfastII_kcal` INTEGER DEFAULT NULL,
-                           `breakfastII_text` varchar(128) DEFAULT NULL,
-                           `dinner_kcal` INTEGER DEFAULT NULL,
-                           `dinner_text` varchar(128) DEFAULT NULL,
-                           `afternoon_meal_kcal` INTEGER DEFAULT NULL,
-                           `afternoon_meal_text` varchar(128) DEFAULT NULL,
-                           `supper_kcal` INTEGER DEFAULT NULL,
-                           `supper_text` varchar(128) DEFAULT NULL,
+                           `type_meal` varchar(128) DEFAULT NULL,
+                           `meal_kcal` INTEGER DEFAULT NULL,
+                           `meal_text` varchar(128) DEFAULT NULL,
                            PRIMARY KEY (`id`)
 
 ) ENGINE = InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
 
 INSERT INTO `diet` VALUES
-(1, '2018-09-23',  450, 'kanapki', 100, 'jablko', 800, 'zeberka', 250, 'jogurt', 150, 'salatke'),
-(2, '2018-09-24',  350, 'jajowa', 120, 'owsianka', 950, 'schabowy', 150, 'banany', 350, 'kanpki');
+(1, '2018-09-23', 'śniadanie', 260, 'jajecznica'),
+(2, '2018-09-24', 'obiad', 420, 'schabowy');
 
 
 
