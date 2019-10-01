@@ -1,7 +1,7 @@
 package com.CezaryZal.day;
 
+import com.CezaryZal.bodySize.BodySize;
 import com.CezaryZal.diet.Diet;
-import com.CezaryZal.drinkLiquids.DrinkLiquids;
 import com.CezaryZal.note.Note;
 import com.CezaryZal.user.User;
 
@@ -25,16 +25,32 @@ public class Day {
     private LocalDate date;
 
     @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
+    private User user;
+
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "body_size_id")
+    private BodySize bodySize;
+
+    @Column(name = "last_date_measure_body")
+    private LocalDate lastDateMeasureBody;
+
+    @Column(name = "amount_portions_drink")
+    private int amountPortionsDrink;
+
+    @Column(name = "min_amount_portions_drink")
+    private int minAmountPortionsDrink;
+
+    @Column(name = "amount_portions_alcohol")
+    private int amountPortionsAlcohol;
+
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "diet_id")
     private Diet diet;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "drink_liquids_id")
-    private DrinkLiquids drink;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id")
-    private User user;
+    @Column(name = "amount_portions_snack")
+    private int amountPortionsSnack;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "note_id")
@@ -43,11 +59,17 @@ public class Day {
     public Day() {
     }
 
-    public Day(LocalDate date, Diet diet, DrinkLiquids drink, User user, Note note) {
+    public Day(LocalDate date, User user, BodySize bodySize, LocalDate lastDateMeasureBody, int amountPortionsDrink,
+               int minAmountPortionsDrink, int amountPortionsAlcohol, Diet diet, int amountPortionsSnack, Note note) {
         this.date = date;
-        this.diet = diet;
-        this.drink = drink;
         this.user = user;
+        this.bodySize = bodySize;
+        this.lastDateMeasureBody = lastDateMeasureBody;
+        this.amountPortionsDrink = amountPortionsDrink;
+        this.minAmountPortionsDrink = minAmountPortionsDrink;
+        this.amountPortionsAlcohol = amountPortionsAlcohol;
+        this.diet = diet;
+        this.amountPortionsSnack = amountPortionsSnack;
         this.note = note;
     }
 
@@ -67,28 +89,68 @@ public class Day {
         this.date = date;
     }
 
-    public Diet getDietID() {
-        return diet;
-    }
-
-    public void setDietID(Diet dietID) {
-        this.diet = dietID;
-    }
-
-    public DrinkLiquids getDrink() {
-        return drink;
-    }
-
-    public void setDrink(DrinkLiquids drink) {
-        this.drink = drink;
-    }
-
     public User getUser() {
         return user;
     }
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public BodySize getBodySize() {
+        return bodySize;
+    }
+
+    public void setBodySize(BodySize bodySize) {
+        this.bodySize = bodySize;
+    }
+
+    public LocalDate getLastDateMeasureBody() {
+        return lastDateMeasureBody;
+    }
+
+    public void setLastDateMeasureBody(LocalDate lastDateMeasureBody) {
+        this.lastDateMeasureBody = lastDateMeasureBody;
+    }
+
+    public int getAmountPortionsDrink() {
+        return amountPortionsDrink;
+    }
+
+    public void setAmountPortionsDrink(int amountPortionsDrink) {
+        this.amountPortionsDrink = amountPortionsDrink;
+    }
+
+    public int getMinAmountPortionsDrink() {
+        return minAmountPortionsDrink;
+    }
+
+    public void setMinAmountPortionsDrink(int minAmountPortionsDrink) {
+        this.minAmountPortionsDrink = minAmountPortionsDrink;
+    }
+
+    public int getAmountPortionsAlcohol() {
+        return amountPortionsAlcohol;
+    }
+
+    public void setAmountPortionsAlcohol(int amountPortionsAlcohol) {
+        this.amountPortionsAlcohol = amountPortionsAlcohol;
+    }
+
+    public Diet getDiet() {
+        return diet;
+    }
+
+    public void setDiet(Diet diet) {
+        this.diet = diet;
+    }
+
+    public int getAmountPortionsSnack() {
+        return amountPortionsSnack;
+    }
+
+    public void setAmountPortionsSnack(int amountPortionsSnack) {
+        this.amountPortionsSnack = amountPortionsSnack;
     }
 
     public Note getNote() {
@@ -104,9 +166,14 @@ public class Day {
         return "Day{" +
                 "id=" + id +
                 ", date=" + date +
-                ", dietID=" + diet +
-                ", drink=" + drink +
                 ", user=" + user +
+                ", bodySize=" + bodySize +
+                ", lastDateMeasureBody=" + lastDateMeasureBody +
+                ", amountPortionsDrink=" + amountPortionsDrink +
+                ", minAmountPortionsDrink=" + minAmountPortionsDrink +
+                ", amountPortionsAlcohol=" + amountPortionsAlcohol +
+                ", diet=" + diet +
+                ", amountPortionsSnack=" + amountPortionsSnack +
                 ", note=" + note +
                 '}';
     }

@@ -23,7 +23,7 @@ CREATE TABLE `body_size`(
                            REFERENCES `user` (`id`)
                            ON DELETE NO ACTION ON UPDATE NO ACTION
 
-) ENGINE = InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+) ENGINE = InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=UTF8;
 
 INSERT INTO `body_size` VALUES
 (1, 65, 38, 31, 98, 75, 88, 45, 36, '2018-05-23', 1),
@@ -54,7 +54,7 @@ CREATE TABLE `user`(
                            REFERENCES `daily_limits` (`id`)
                            ON DELETE NO ACTION ON UPDATE NO ACTION
 
-) ENGINE = InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+) ENGINE = InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=UTF8;
 
 
 INSERT INTO `user` VALUES
@@ -70,7 +70,7 @@ CREATE TABLE `daily_limits`(
                         `limit_kcal` INTEGER DEFAULT NULL,
                         `limit_dink` INTEGER DEFAULT NULL,
                         PRIMARY KEY (`id`)
-) ENGINE = InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+) ENGINE = InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=UTF8;
 
 INSERT INTO `daily_limits` VALUES
 (1, 2500, 2000),
@@ -91,11 +91,11 @@ CREATE TABLE `note`(
                            REFERENCES `details_note` (`id`)
                            ON DELETE NO ACTION ON UPDATE NO ACTION
 
-) ENGINE = InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+) ENGINE = InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=UTF8;
 
 
 INSERT INTO `note` VALUES
-(1, 'wyjazd', 1),
+(1, 'wyjazd do świdnika', 1),
 (2, 'wakacje', 2);
 
 
@@ -106,7 +106,7 @@ CREATE TABLE `details_note`(
                        `details` varchar(45) DEFAULT NULL,
                        PRIMARY KEY (`id`)
 
-) ENGINE = InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+) ENGINE = InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=UTF8;
 
 
 INSERT INTO `details_note` VALUES
@@ -124,18 +124,18 @@ CREATE TABLE `training`(
                        `training_time` INTEGER DEFAULT NULL,
                        `training_kcal` INTEGER DEFAULT NULL,
                        `day_id` INTEGER DEFAULT NULL,
-                       PRIMARY KEY (`id`)
-                           KEY `T_SIZE_idx` (`day_id`),
-                       CONSTRAINT `T_SIZE` FOREIGN KEY (`day_id`)
+                       PRIMARY KEY (`id`),
+                           KEY `FK_DAY_idx` (`day_id`),
+                       CONSTRAINT `FK_DAY` FOREIGN KEY (`day_id`)
                            REFERENCES `day` (`id`)
                            ON DELETE NO ACTION ON UPDATE NO ACTION
 
-) ENGINE = InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+) ENGINE = InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=UTF8;
 
 
 INSERT INTO `training` VALUES
-(1, '2018-09-23', 'silka', 90, 1000),
-(2, '2018-09-24', 'spacer', 30, 300);
+(1, '2018-09-23', 'silka', 90, 1000, 1),
+(2, '2018-09-24', 'spacer', 30, 300, 2);
 
 
 
@@ -150,11 +150,11 @@ CREATE TABLE `diet`(
                            `meal_text` varchar(128) DEFAULT NULL,
                            PRIMARY KEY (`id`)
 
-) ENGINE = InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+) ENGINE = InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=UTF8;
 
 
 INSERT INTO `diet` VALUES
-(1, '2018-09-23', 'śniadanie', 260, 'jajecznica'),
+(1, '2018-09-23', 'sniadanie', 260, 'jajecznica z 2jaj'),
 (2, '2018-09-24', 'obiad', 420, 'schabowy');
 
 
@@ -169,8 +169,8 @@ CREATE TABLE `day`(
                        `user_id` INTEGER NOT NULL,
                        `body_size_id` INTEGER DEFAULT NULL,
                        `last_date_measure_body` DATE DEFAULT NULL,
-                       `amount_portions_dink` INTEGER DEFAULT NULL,
-                       `min_amount_portions_dink` INTEGER DEFAULT NULL,
+                       `amount_portions_drink` INTEGER DEFAULT NULL,
+                       `min_amount_portions_drink` INTEGER DEFAULT NULL,
                        `amount_portions_alcohol` INTEGER DEFAULT NULL,
                        `diet_id` INTEGER DEFAULT NULL,
                        `amount_portions_snack` INTEGER DEFAULT NULL,
@@ -188,12 +188,12 @@ CREATE TABLE `day`(
                            ON DELETE NO ACTION ON UPDATE NO ACTION
 
 
-) ENGINE = InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+) ENGINE = InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=UTF8;
 
 
 INSERT INTO `day` VALUES
-(1, '2018-05-23', 1, 2, '2018-04-03', 5, 6, 2, 1, 2, 1, 2),
-(2, '2018-05-23', 2, 1, '2018-04-14', 8, 9, 0, 2, 0, 2, 1);
+(1, '2018-05-23', 1, 2, '2018-04-03', 5, 6, 2, 1, 2, 1),
+(2, '2018-05-23', 2, 1, '2018-04-14', 8, 9, 0, 2, 0, 2);
 
 
 
@@ -204,12 +204,12 @@ CREATE TABLE `short_day`(
                                `user_id` INTEGER NOT NULL,
                                `date` DATE NOT NULL,
                                `is_limit_kcal` BOOLEAN DEFAULT NULL,
-                               `is_limit_dink` BOOLEAN DEFAULT NULL,
+                               `is_limit_drink` BOOLEAN DEFAULT NULL,
                                `is_alcohol` BOOLEAN DEFAULT NULL,
                                `is_snacks` BOOLEAN DEFAULT NULL,
 
                                PRIMARY KEY (`id`)
-) ENGINE = InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+) ENGINE = InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=UTF8;
 
 INSERT INTO `short_day` VALUES
 (1, 2, '2018-09-23', TRUE, TRUE, FALSE, FALSE),
