@@ -165,7 +165,7 @@ DROP TABLE IF EXISTS `day`;
 
 CREATE TABLE `day`(
                        `id` INTEGER NOT NULL AUTO_INCREMENT,
-                       `date` DATE NOT NULL,
+                       `dateRecord` DATE NOT NULL,
                        `user_id` INTEGER NOT NULL,
                        `body_size_id` INTEGER DEFAULT NULL,
                        `last_date_measure_body` DATE DEFAULT NULL,
@@ -192,8 +192,8 @@ CREATE TABLE `day`(
 
 
 INSERT INTO `day` VALUES
-(1, '2018-05-23', 1, 2, '2018-04-03', 5, 6, 2, 1, 2, 1),
-(2, '2018-05-23', 2, 1, '2018-04-14', 8, 9, 0, 2, 0, 2);
+(1, '2018-05-24', 1, 1, '2018-04-03', 5, 6, 2, 1, 2, 1),
+(2, '2018-05-23', 2, 2, '2018-04-14', 8, 9, 0, 2, 0, 2);
 
 
 

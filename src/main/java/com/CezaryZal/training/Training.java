@@ -15,6 +15,8 @@ public class Training {
     @Column(name = "date")
     private LocalDate date;
 
+//    DATETIME
+
     @Column(name = "training_text")
     private String trainingText;
 

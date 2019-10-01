@@ -15,6 +15,8 @@ public class Diet {
     @Column(name = "date")
     private LocalDate date;
 
+//    DATETIME
+
     @Column(name = "type_meal")
     private String typeMeal;
 

@@ -7,6 +7,7 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
@@ -32,5 +33,19 @@ public class DayRepository {
         Day day = currentSession.get(Day.class, id);
 
         return day;
+    }
+
+    public Day getDayByDateAndUser (int userId, LocalDate tmpDate){
+
+        System.out.println("userId: " + userId + " localDate: " + tmpDate);
+
+        Session currentSession = sessionFactory.getCurrentSession();
+        Query<Day> query = currentSession.createQuery("FROM Day WHERE dateRecord=:inputDate AND user_id=:nrId");
+        query.setParameter("nrId", userId);
+        query.setParameter("inputDate", tmpDate);
+
+        Day tmpDay = query.getSingleResult();
+
+        return tmpDay;
     }
 }

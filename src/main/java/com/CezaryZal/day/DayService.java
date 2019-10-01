@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Transactional
@@ -23,5 +24,13 @@ public class DayService {
 
     public Day getDay(int id){
         return dayRepository.getDay(id);
+    }
+
+    public Day getDayByDateAndUser (int userId, String inputDate){
+
+        LocalDate tmpDate = LocalDate.parse(inputDate);
+
+
+        return dayRepository.getDayByDateAndUser(userId, tmpDate);
     }
 }

@@ -21,7 +21,7 @@ public class Day {
     @Column(name = "id")
     private int id;
 
-    @Column(name = "date")
+    @Column(name = "dateRecord")
     private LocalDate date;
 
     @OneToOne(cascade = CascadeType.ALL)
