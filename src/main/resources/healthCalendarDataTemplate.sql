@@ -66,10 +66,10 @@ INSERT INTO `user` VALUES
 DROP TABLE IF EXISTS `daily_limits`;
 
 CREATE TABLE `daily_limits`(
-                            `id` INTEGER NOT NULL AUTO_INCREMENT,
-                            `limit_kcal` INTEGER DEFAULT NULL,
-                            `limit_dink` INTEGER DEFAULT NULL,
-                            PRIMARY KEY (`id`)
+                        `id` INTEGER NOT NULL AUTO_INCREMENT,
+                        `limit_kcal` INTEGER DEFAULT NULL,
+                        `limit_dink` INTEGER DEFAULT NULL,
+                        PRIMARY KEY (`id`)
 ) ENGINE = InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
 INSERT INTO `daily_limits` VALUES
@@ -83,8 +83,7 @@ DROP TABLE IF EXISTS `note`;
 
 CREATE TABLE `note`(
                        `id` INTEGER NOT NULL AUTO_INCREMENT,
-                       `header1` varchar(128) NOT NULL,
-                       `header2` varchar(128) DEFAULT NULL,
+                       `header` varchar(128) NOT NULL,
                        `details_note_id` INTEGER DEFAULT NULL,
                        PRIMARY KEY (`id`),
                        KEY `DN_SIZE_idx` (`details_note_id`),
@@ -96,55 +95,47 @@ CREATE TABLE `note`(
 
 
 INSERT INTO `note` VALUES
-(1, 'wyjazd', 'rocznica', 1),
-(2, 'wakacje', 'urodzina', 2);
+(1, 'wyjazd', 1),
+(2, 'wakacje', 2);
 
 
 DROP TABLE IF EXISTS `details_note`;
 
 CREATE TABLE `details_note`(
                        `id` INTEGER NOT NULL AUTO_INCREMENT,
-                       `details1` varchar(45) DEFAULT NULL,
-                       `details2` varchar(45) DEFAULT NULL,
+                       `details` varchar(45) DEFAULT NULL,
                        PRIMARY KEY (`id`)
 
 ) ENGINE = InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
 
 INSERT INTO `details_note` VALUES
-(1, 'dieta nie utrzymana', 'wypito kilka drinków i szampana'),
-(2, 'zjedzone znacznie wiecej', 'bez cwiczen ale z tancami');
+(1, 'dieta nie utrzymana'),
+(2, 'zjedzone znacznie wiecej');
 
 
 
 DROP TABLE IF EXISTS `training`;
 
 CREATE TABLE `training`(
-                               `id` INTEGER NOT NULL AUTO_INCREMENT,
-                               `date` DATE NOT NULL,
-                               `trainingI_text` varchar(128) DEFAULT NULL,
-                               `trainingI_time` INTEGER DEFAULT NULL,
-                               `trainingI_kcal` INTEGER DEFAULT NULL,
-                               `trainingII_text` varchar(128) DEFAULT NULL,
-                               `trainingII_time` INTEGER DEFAULT NULL,
-                               `trainingII_kcal` INTEGER DEFAULT NULL,
-                               `trainingIII_text` varchar(128) DEFAULT NULL,
-                               `trainingIII_time` INTEGER DEFAULT NULL,
-                               `trainingIII_kcal` INTEGER DEFAULT NULL,
-                               `trainingIV_text` varchar(128) DEFAULT NULL,
-                               `trainingIV_time` INTEGER DEFAULT NULL,
-                               `trainingIV_kcal` INTEGER DEFAULT NULL,
-                               `trainingV_text` varchar(128) DEFAULT NULL,
-                               `trainingV_time` INTEGER DEFAULT NULL,
-                               `trainingV_kcal` INTEGER DEFAULT NULL,
-                               PRIMARY KEY (`id`)
+                       `id` INTEGER NOT NULL AUTO_INCREMENT,
+                       `date` DATE NOT NULL,
+                       `training_text` varchar(128) DEFAULT NULL,
+                       `training_time` INTEGER DEFAULT NULL,
+                       `training_kcal` INTEGER DEFAULT NULL,
+                       `day_id` INTEGER DEFAULT NULL,
+                       PRIMARY KEY (`id`)
+                           KEY `T_SIZE_idx` (`day_id`),
+                       CONSTRAINT `T_SIZE` FOREIGN KEY (`day_id`)
+                           REFERENCES `day` (`id`)
+                           ON DELETE NO ACTION ON UPDATE NO ACTION
 
 ) ENGINE = InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
 
 INSERT INTO `training` VALUES
-(1, '2018-09-23', 'silka', 90, 1000, 'spacer', 30, 300,null, null, null, null, null, null, null, null, null),
-(2, '2018-09-24', 'spacer', 30, 300, null, null, null, null, null, null, null, null, null, null, null, null);
+(1, '2018-09-23', 'silka', 90, 1000),
+(2, '2018-09-24', 'spacer', 30, 300);
 
 
 
@@ -191,7 +182,6 @@ CREATE TABLE `day`(
                        `diet_id` INTEGER DEFAULT NULL,
                        `amount_portions_snack` INTEGER DEFAULT NULL,
                        `note_id` INTEGER DEFAULT NULL,
-                       `training_id` INTEGER DEFAULT NULL,
                        PRIMARY KEY (`id`),
                        KEY `U_SIZE_idx` (`user_id`),
                        CONSTRAINT `U_SIZE` FOREIGN KEY (`user_id`)
@@ -199,9 +189,6 @@ CREATE TABLE `day`(
                        KEY `N_SIZE_idx` (`note_id`),
                        CONSTRAINT `N_SIZE` FOREIGN KEY (`note_id`)
                            REFERENCES `note` (`id`),
-                       KEY `T_SIZE_idx` (`training_id`),
-                       CONSTRAINT `T_SIZE` FOREIGN KEY (`training_id`)
-                           REFERENCES `training` (`id`),
                        KEY `D_SIZE_idx` (`diet_id`),
                        CONSTRAINT `D_SIZE` FOREIGN KEY (`diet_id`)
                            REFERENCES `diet` (`id`)
