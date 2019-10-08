@@ -35,6 +35,7 @@ public class BodySizeRepository {
 //        query.setParameter("nrId", userId);
 //        query.setParameter("inputDate", tmpDate);
 
+
         //również ucieka 1 dzień.
         TypedQuery<BodySize> query = currentSession.createQuery("SELECT a FROM BodySize a WHERE a.date=:id", BodySize.class);
         query.setParameter("id", tmpDate);
