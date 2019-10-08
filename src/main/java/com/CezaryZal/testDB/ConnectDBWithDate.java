@@ -8,7 +8,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-public class ConnectDB {
+public class ConnectDBWithDate {
     public static void main(String[] args) {
 
         final String JDB_URL = "jdbc:mysql://localhost:3306/health_calendar?useSSL=false&serverTimezone=UTC";
@@ -20,9 +20,22 @@ public class ConnectDB {
 
             System.out.println("Test connect");
 
+            //dziala
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            Calendar calendar = new GregorianCalendar(2018,4,24);
+            System.out.println(sdf.format(calendar.getTime()));
+            //dziala
+            String tmpDate = "2018-05-23";
+            //dziala, lecz lepiej stosować LocalDate
+            SimpleDateFormat foo = new SimpleDateFormat("dd-MM-yyyy");
+            Date d = foo.parse("23-05-2018");
+            System.out.println(foo.format(d));
 
-            PreparedStatement stat = connection.prepareStatement("SELECT * FROM day WHERE id=1");
 
+
+            PreparedStatement stat = connection.prepareStatement("SELECT * FROM day WHERE dateRecord=?");
+
+            stat.setString(1, sdf.format(d));
             ResultSet resultSet = stat.executeQuery();
 
 
@@ -30,7 +43,7 @@ public class ConnectDB {
                 System.out.println(resultSet.getString("id"));
             }
 
-        } catch (SQLException e) {
+        } catch (SQLException | ParseException e) {
             e.printStackTrace();
         }
 

@@ -27,9 +27,7 @@ public class DayService {
     }
 
     public Day getDayByDateAndUser (int userId, String inputDate){
-
         LocalDate tmpDate = LocalDate.parse(inputDate);
-
 
         return dayRepository.getDayByDateAndUser(userId, tmpDate);
     }

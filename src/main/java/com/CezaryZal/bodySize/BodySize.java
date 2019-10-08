@@ -1,6 +1,5 @@
 package com.CezaryZal.bodySize;
 
-import com.CezaryZal.user.User;
 
 import javax.persistence.*;
 import java.time.LocalDate;

@@ -8,6 +8,7 @@ import com.CezaryZal.user.User;
 import javax.persistence.*;
 import java.time.LocalDate;
 
+
 @Entity
 @Table(name = "day")
 public class Day {
@@ -21,8 +22,10 @@ public class Day {
     @Column(name = "id")
     private int id;
 
+//    @Basic
+//    @Temporal(TemporalType.DATE)
     @Column(name = "dateRecord")
-    private LocalDate date;
+    private LocalDate dateRecord;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
@@ -59,9 +62,9 @@ public class Day {
     public Day() {
     }
 
-    public Day(LocalDate date, User user, BodySize bodySize, LocalDate lastDateMeasureBody, int amountPortionsDrink,
-               int minAmountPortionsDrink, int amountPortionsAlcohol, Diet diet, int amountPortionsSnack, Note note) {
-        this.date = date;
+    public Day(LocalDate dateRecord, User user, BodySize bodySize, LocalDate lastDateMeasureBody,
+               int amountPortionsDrink, int minAmountPortionsDrink, int amountPortionsAlcohol, Diet diet, int amountPortionsSnack, Note note) {
+        this.dateRecord = dateRecord;
         this.user = user;
         this.bodySize = bodySize;
         this.lastDateMeasureBody = lastDateMeasureBody;
@@ -81,12 +84,12 @@ public class Day {
         this.id = id;
     }
 
-    public LocalDate getDate() {
-        return date;
+    public LocalDate getDateRecord() {
+        return dateRecord;
     }
 
-    public void setDate(LocalDate date) {
-        this.date = date;
+    public void setDateRecord(LocalDate dateRecord) {
+        this.dateRecord = dateRecord;
     }
 
     public User getUser() {
@@ -165,7 +168,7 @@ public class Day {
     public String toString() {
         return "Day{" +
                 "id=" + id +
-                ", date=" + date +
+                ", dateRecord=" + dateRecord +
                 ", user=" + user +
                 ", bodySize=" + bodySize +
                 ", lastDateMeasureBody=" + lastDateMeasureBody +

@@ -39,12 +39,16 @@ public class DayRepository {
 
         System.out.println("userId: " + userId + " localDate: " + tmpDate);
 
+        LocalDate currentDate = LocalDate.of(2018, 5, 24);
+
         Session currentSession = sessionFactory.getCurrentSession();
         Query<Day> query = currentSession.createQuery("FROM Day WHERE dateRecord=:inputDate AND user_id=:nrId");
         query.setParameter("nrId", userId);
         query.setParameter("inputDate", tmpDate);
 
         Day tmpDay = query.getSingleResult();
+
+        System.out.println(tmpDay);
 
         return tmpDay;
     }

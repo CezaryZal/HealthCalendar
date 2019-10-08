@@ -23,4 +23,11 @@ public class BodySizeController {
 
         return bodySize;
     }
+
+    @GetMapping("/dateAndUser/{userId}/{date}")
+    public BodySize getBodySizeByDateAndUserId (@PathVariable int userId, @PathVariable String date){
+        BodySize bodySize = bodyService.getBodySizeByDateAndUserId(userId, date);
+
+        return bodySize;
+    }
 }

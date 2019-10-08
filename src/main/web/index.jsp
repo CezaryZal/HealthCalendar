@@ -17,8 +17,12 @@
 <a href=${pageContext.request.contextPath}"/day/dateAndUser/1/2018-05-24">Request GET Day by userId and date </a>
 <hr>
 
+//MySql see date 1 day earlier
+<a href=${pageContext.request.contextPath}"/body/dateAndUser/1/2018-05-22">Request GET BodySize by userId and date </a>
+<hr>
+
 <h2>
-    Test p
+    Test m
 </h2>
 
 </body>
