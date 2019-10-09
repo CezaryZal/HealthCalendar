@@ -11,7 +11,7 @@ import java.util.GregorianCalendar;
 public class ConnectDB {
     public static void main(String[] args) {
 
-        final String JDB_URL = "jdbc:mysql://localhost:3306/health_calendar?serverTimezone=UTC";
+        final String JDB_URL = "jdbc:mysql://localhost:3306/health_calendar?useSSL=false";
 //        final String JDB_URL = "jdbc:mysql://localhost:3306/health_calendar?useSSL=false&serverTimezone=UTC";
 //        final String JDB_URL = "jdbc:mysql://localhost:3306/health_calendar?zeroDateTimeBehavior=CONVERT_TO_NULL&serverTimezone=UTC";
         final String USENAME = "hbstudent";
@@ -21,15 +21,17 @@ public class ConnectDB {
 
             System.out.println("Test connect");
 
+            int userId = 2;
+            PreparedStatement stat = connection.prepareStatement("SELECT date FROM body_size WHERE user_id=?");
+            stat.setInt(1, userId);
 
-//            PreparedStatement stat = connection.prepareStatement("SELECT * FROM body_size WHERE id=1");
-//
-//            ResultSet resultSet = stat.executeQuery();
-//
-//
-//            while (resultSet.next()) {
-//                System.out.println(resultSet.getString("id"));
-//            }
+
+            ResultSet resultSet = stat.executeQuery();
+
+
+            while (resultSet.next()) {
+                System.out.println(resultSet.getString("date"));
+            }
 
         } catch (SQLException e) {
             e.printStackTrace();

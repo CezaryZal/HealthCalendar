@@ -9,6 +9,8 @@
 <hr>
 <a href=${pageContext.request.contextPath}"/body/id/1">Get record from Body Size where id=1 </a>
 <br>
+<a href=${pageContext.request.contextPath}"/body/byUserIdAllDate/3">Get all date from Body Size by user ide </a>
+<br>
 <a href=${pageContext.request.contextPath}"/body/byDateAndUserId/2018-06-13/9">Get record from Body Size by date and user id </a>
 <br>
 <a href=${pageContext.request.contextPath}"/body/getAll">Get all record from Body Size </a>
@@ -35,6 +37,8 @@
 Brak update, żeby nikt nie oszukiwał. Można tylko usunąc lub dodać
 <br>
 <a href=${pageContext.request.contextPath}"/body/delete/3">Delete record where id=3 from Body size method DELETE</a>
+<br>
+
 
 
 <hr>

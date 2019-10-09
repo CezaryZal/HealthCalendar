@@ -3,6 +3,7 @@ package com.CezaryZal.bodySize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -19,16 +20,17 @@ public class BodySizeController {
 
     @GetMapping("/id/{nrId}")
     public BodySize getBodySize (@PathVariable int nrId){
-        BodySize bodySize = BSService.findById(nrId);
+        return BSService.findById(nrId);
+    }
 
-        return bodySize;
+    @GetMapping("/byUserIdAllDate/{userId}")
+    public List<LocalDate> findByUserIdAllDate (@PathVariable int userId){
+        return BSService.findByUserIdAllDate(userId);
     }
 
     @GetMapping("/byDateAndUserId/{date}/{userId}")
     public BodySize findByDateAndUserId (@PathVariable String date, @PathVariable int userId){
-        BodySize bodySize = BSService.findByDateAndUserId(date, userId);
-
-        return bodySize;
+        return BSService.findByDateAndUserId(date, userId);
     }
 
     @GetMapping("/getAll")
@@ -38,9 +40,7 @@ public class BodySizeController {
 
     @PostMapping("/addBody")
     public boolean addBody (@RequestBody BodySize bodySize){
-
-        boolean answer = BSService.addBody(bodySize);
-        return answer;
+        return BSService.addBody(bodySize);
     }
 
     @DeleteMapping("/delete/{id}")

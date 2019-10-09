@@ -20,18 +20,28 @@ public class BodySizeService {
     }
 
     public BodySize findById (int id){
+        BodySize bodySize = BSRepository.findById(id);
 
-        return BSRepository.findById(id);
+        return bodySize;
+    }
+
+    public List<LocalDate> findByUserIdAllDate(int userId) {
+        List<LocalDate> tmpList = BSRepository.findByUserIdAllDate(userId);
+
+        return tmpList;
     }
 
     public BodySize findByDateAndUserId(String inputDate, int userId){
         LocalDate localDate = LocalDate.parse(inputDate);
+        BodySize bodySize = BSRepository.findByDateAndUserId(localDate, userId);
 
-        return BSRepository.findByDateAndUserId(localDate, userId);
+        return bodySize;
     }
 
     public List<BodySize> getAll(){
-        return BSRepository.getAll();
+        List<BodySize> listBody = BSRepository.getAll();
+
+        return listBody;
     }
 
     public boolean addBody (BodySize bodySize){

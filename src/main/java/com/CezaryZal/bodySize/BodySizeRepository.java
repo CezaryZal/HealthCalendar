@@ -18,9 +18,14 @@ public class BodySizeRepository {
     private EntityManager entityManager;
 
     public BodySize findById (int id){
-        BodySize bodySize = entityManager.find(BodySize.class, id);
+        return entityManager.find(BodySize.class, id);
+    }
 
-        return bodySize;
+    public List<LocalDate> findByUserIdAllDate(int userId) {
+        Query query = entityManager.createQuery("SELECT date FROM BodySize b WHERE userId=:userId");
+        query.setParameter("userId", userId);
+
+        return query.getResultList();
     }
 
     public BodySize findByDateAndUserId(LocalDate localDate, int userId) {
@@ -28,8 +33,7 @@ public class BodySizeRepository {
         query.setParameter("inputDate", localDate);
         query.setParameter("userId", userId);
 
-        BodySize bodySize = (BodySize) query.getSingleResult();
-        return bodySize;
+        return (BodySize) query.getSingleResult();
     }
 
     public List<BodySize> getAll(){
@@ -49,5 +53,6 @@ public class BodySizeRepository {
         }
         return false;
     }
+
 
 }
