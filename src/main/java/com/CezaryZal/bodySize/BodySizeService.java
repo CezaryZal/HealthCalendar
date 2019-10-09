@@ -25,6 +25,12 @@ public class BodySizeService {
         return bodySize;
     }
 
+    public LocalDate findDateLastMeasureByUserId (int userId){
+        LocalDate localDate = BSRepository.findDateLastMeasureByUserId(userId);
+
+        return localDate;
+    }
+
     public List<LocalDate> findByUserIdAllDate(int userId) {
         List<LocalDate> tmpList = BSRepository.findByUserIdAllDate(userId);
 

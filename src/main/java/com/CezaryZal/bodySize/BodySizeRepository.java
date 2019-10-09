@@ -21,6 +21,15 @@ public class BodySizeRepository {
         return entityManager.find(BodySize.class, id);
     }
 
+    public LocalDate findDateLastMeasureByUserId (int userId){
+        Query query = entityManager.createQuery(
+                "SELECT date FROM BodySize WHERE userId=:userId ORDER BY date DESC");
+        query.setParameter("userId", userId);
+        query.setMaxResults(1);
+
+        return (LocalDate) query.getSingleResult();
+    }
+
     public List<LocalDate> findByUserIdAllDate(int userId) {
         Query query = entityManager.createQuery("SELECT date FROM BodySize b WHERE userId=:userId");
         query.setParameter("userId", userId);

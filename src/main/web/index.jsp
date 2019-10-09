@@ -9,6 +9,8 @@
 <hr>
 <a href=${pageContext.request.contextPath}"/body/id/1">Get record from Body Size where id=1 </a>
 <br>
+<a href=${pageContext.request.contextPath}"/body/byLastDate/2">Get last date measure from Body Size where user id=2 </a>
+<br>
 <a href=${pageContext.request.contextPath}"/body/byUserIdAllDate/3">Get all date from Body Size by user ide </a>
 <br>
 <a href=${pageContext.request.contextPath}"/body/byDateAndUserId/2018-06-13/9">Get record from Body Size by date and user id </a>

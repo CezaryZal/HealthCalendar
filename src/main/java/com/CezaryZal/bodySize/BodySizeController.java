@@ -23,6 +23,11 @@ public class BodySizeController {
         return BSService.findById(nrId);
     }
 
+    @GetMapping("/byLastDate/{userId}")
+    public LocalDate findDateLastMeasureByUserId(@PathVariable int userId){
+        return BSService.findDateLastMeasureByUserId(userId);
+    }
+
     @GetMapping("/byUserIdAllDate/{userId}")
     public List<LocalDate> findByUserIdAllDate (@PathVariable int userId){
         return BSService.findByUserIdAllDate(userId);
