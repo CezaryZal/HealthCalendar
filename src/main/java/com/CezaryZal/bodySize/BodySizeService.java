@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.List;
 
 
 @Transactional
@@ -19,17 +20,31 @@ public class BodySizeService {
     }
 
     public BodySize findById (int id){
-        BodySize bodySize = BSRepository.findById(id);
 
-        return bodySize;
+        return BSRepository.findById(id);
     }
 
-    public Boolean addBody (BodySize bodySize){
-        BodySize bodySize1 = new BodySize(1, 2, 3, 4, 5, 6, 7,
-                8, LocalDate.of(2018,6,13), 9);
-        bodySize1.setId(0);
-        BSRepository.save(bodySize1);
+    public BodySize findByDateAndUserId(String inputDate, int userId){
+        LocalDate localDate = LocalDate.parse(inputDate);
+
+        return BSRepository.findByDateAndUserId(localDate, userId);
+    }
+
+    public List<BodySize> getAll(){
+        return BSRepository.getAll();
+    }
+
+    public boolean addBody (BodySize bodySize){
+        BSRepository.save(bodySize);
 
         return true;
+    }
+
+    public String delete (int id) {
+        BodySize bodySize = BSRepository.findById(id);
+        if (BSRepository.delete(bodySize)){
+            return "delete record";
+        }
+        return "Body size id not found";
     }
 }

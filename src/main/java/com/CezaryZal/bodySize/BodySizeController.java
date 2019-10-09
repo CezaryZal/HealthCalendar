@@ -3,6 +3,8 @@ package com.CezaryZal.bodySize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/body")
 public class BodySizeController {
@@ -22,17 +24,29 @@ public class BodySizeController {
         return bodySize;
     }
 
-    @PostMapping("/addBody")
-    public Boolean addBody (@RequestBody BodySize bodySize){
+    @GetMapping("/byDateAndUserId/{date}/{userId}")
+    public BodySize findByDateAndUserId (@PathVariable String date, @PathVariable int userId){
+        BodySize bodySize = BSService.findByDateAndUserId(date, userId);
 
-        Boolean answer = BSService.addBody(bodySize);
+        return bodySize;
+    }
+
+    @GetMapping("/getAll")
+    public List<BodySize> getAll(){
+        return BSService.getAll();
+    }
+
+    @PostMapping("/addBody")
+    public boolean addBody (@RequestBody BodySize bodySize){
+
+        boolean answer = BSService.addBody(bodySize);
         return answer;
     }
 
-//    @GetMapping("/dateAndUser/{userId}/{date}")
-//    public BodySize getBodySizeByDateAndUserId (@PathVariable int userId, @PathVariable String date){
-//        BodySize bodySize = bodyService.getBodySizeByDateAndUserId(userId, date);
-//
-//        return bodySize;
-//    }
+    @DeleteMapping("/delete/{id}")
+    public String delete (@PathVariable int id) {
+        return BSService.delete(id);
+    }
+
+
 }

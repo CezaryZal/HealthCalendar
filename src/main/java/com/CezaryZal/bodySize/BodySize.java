@@ -44,7 +44,7 @@ public class BodySize {
     private int calf;
 
     //    @NotBlank
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+//    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     @JsonDeserialize(using = LocalDateDeserializer.class)
     @JsonSerialize(using = LocalDateSerializer.class)
     @Column(name = "date")
@@ -54,13 +54,20 @@ public class BodySize {
     private int userId;
 
 //    {
-//        "body_weight": 56,
-//            "neck_size" : 36,
-//            "arm_size" : 23,
-//            "bust_size" : 68,
-//            "waist" : 53,
-//            "date": "2018-05-21",
-//            "user_id": 2
+//        "bodyWeight": 12,
+//            "neckSize": 22,
+//            "armSize": 32,
+//            "bustSize": 42,
+//            "waist": 52,
+//            "femoralSize": 72,
+//            "calf": 82,
+//            "date": [
+//        2018,
+//                5,
+//                3
+//],
+//        "userId": 2,
+//            "hipSize": 62
 //    }
 
     public BodySize() {
