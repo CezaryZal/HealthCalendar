@@ -1,6 +1,7 @@
 package com.CezaryZal.bodySize;
 
 
+import com.CezaryZal.user.User;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -135,12 +136,12 @@ public class BodySize {
         this.waist = waist;
     }
 
-    public int getHipSize() {
+    public int getHipsSize() {
         return hipsSize;
     }
 
-    public void setHipSize(int hipSize) {
-        this.hipsSize = hipSize;
+    public void setHipsSize(int hipsSize) {
+        this.hipsSize = hipsSize;
     }
 
     public int getFemoralSize() {
@@ -184,7 +185,7 @@ public class BodySize {
                 ", armSize=" + armSize +
                 ", bustSize=" + bustSize +
                 ", waist=" + waist +
-                ", hipSize=" + hipsSize +
+                ", hipsSize=" + hipsSize +
                 ", femoralSize=" + femoralSize +
                 ", calf=" + calf +
                 ", date=" + date +

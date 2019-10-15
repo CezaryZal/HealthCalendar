@@ -1,65 +1,13 @@
-CREATE DATABASE  IF NOT EXISTS `health_calendar`;
-
-SET FOREIGN_KEY_CHECKS = 0;
-
-
-DROP TABLE IF EXISTS `body_size`;
-
-CREATE TABLE `body_size`(
-                       `id` INTEGER NOT NULL AUTO_INCREMENT,
-                       `body_weight` INTEGER DEFAULT NULL,
-                       `neck_size` INTEGER DEFAULT NULL,
-                       `arm_size` INTEGER DEFAULT NULL,
-                       `bust_size` INTEGER DEFAULT NULL,
-                       `waist` INTEGER DEFAULT NULL,
-                       `hip_size` INTEGER DEFAULT NULL,
-                       `femoral_size` INTEGER DEFAULT NULL,
-                       `calf` INTEGER DEFAULT NULL,
-                       `date` DATE NOT NULL,
-                       `user_id` INTEGER NOT NULL,
-                       PRIMARY KEY (`id`),
-                       KEY `USER_SIZE_idx` (`user_id`),
-                       CONSTRAINT `USER_SIZE` FOREIGN KEY (`user_id`)
-                           REFERENCES `user` (`id`)
-                           ON DELETE NO ACTION ON UPDATE NO ACTION
-
-) ENGINE = InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=UTF8;
-
-INSERT INTO `body_size` VALUES
-(1, 65, 38, 31, 98, 75, 88, 45, 36, '2018-05-23', 1),
-(2, 70, 40, 32, 100, 78, 90, 48, 38, '2018-02-23', 1),
-(3, 66, 37, 35, 96, 74, 87, 47, 37, '2018-06-23', 2),
-(4, 60, 36, 30, 91, 70, 83, 43, 35, '2018-05-25', 2);
-
-
-
-DROP TABLE IF EXISTS `user`;
-
-CREATE TABLE `user`(
-                       `id` INTEGER NOT NULL AUTO_INCREMENT,
-                       `first_name` varchar(45) Not NULL,
-                       `nick` varchar(45) NOT NULL,
-                       `email` varchar(45) DEFAULT NULL,
-                       `phone_number` INTEGER DEFAULT NULL,
-                       `login_name` varchar(45) NOT NULL,
-                       `password` varchar(45) NOT NULL,
-                       `sex` INTEGER NOT NULL,
-                       `daily_limits_id` INTEGER NOT NULL,
-                       PRIMARY KEY (`id`),
-                       UNIQUE KEY `NICK_UNIQUE` (`nick`),
-                       UNIQUE KEY `LOGIN_UNIQUE` (`login_name`),
-                       UNIQUE KEY `EMAIL_UNIQUE` (`email`),
-                           KEY `DL_SIZE_idx` (`daily_limits_id`),
-                       CONSTRAINT `DL_SIZE` FOREIGN KEY (`daily_limits_id`)
-                           REFERENCES `daily_limits` (`id`)
-                           ON DELETE NO ACTION ON UPDATE NO ACTION
-
-) ENGINE = InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=UTF8;
-
 
 INSERT INTO `user` VALUES
-(1,'Anna','Ann','anna@gmail.com',569842365, 'Ann123', 'test1', 0, 1),
-(2,'Fiona','Shrek','fiona@gmail.com', 846152365,'shrek123', 'test2', 1, 2);
+(1, 'anna@gmail.com', 'Anna','Ann', 'Ann123', 'test1', 569842365, 0),
+(2, 'fiona@gmail.com', 'Fiona','Shrek', 'shrek123', 'test2', 846152365, 1);
+
+INSERT INTO `body_size` VALUES
+(1, 65, 38, 31, 98, '2018-05-23', 75, 88, 45, 1, 36),
+(2, 70, 40, 32, 100, '2018-02-23', 78, 90, 48, 1, 38),
+(3, 66, 37, 35, 96, '2018-06-23', 74, 87, 47, 2, 37),
+(4, 60, 36, 30, 91, '2018-05-25', 70, 83, 43, 2, 35);
 
 
 

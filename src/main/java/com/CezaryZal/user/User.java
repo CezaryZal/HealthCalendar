@@ -1,6 +1,7 @@
 package com.CezaryZal.user;
 
 import com.CezaryZal.bodySize.BodySize;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.List;
@@ -37,8 +38,9 @@ public class User {
 
     //Default fetch is LAZY, when we want to show all data must be EAGER
     //or cut relation between 'user' with 'bodySize'
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
+//    @JsonIgnore
     private List<BodySize> listBodySize;
 
 
