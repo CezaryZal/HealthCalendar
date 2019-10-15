@@ -20,16 +20,26 @@ public class UserRepository {
         return entityManager.find(UserAllInf.class, id);
     }
 
-//    public List<User> getUsers (){
-//        Session currentSession = sessionFactory.getCurrentSession();
-//        Query<User> query = currentSession.createQuery("from User order by nick", User.class);
-//        List<User> users = query.getResultList();
-//
-//        return users;
-//    }
+    public List<UserAllInf> getAllUsers (){
+        Query query = entityManager.createQuery("SELECT u FROM UserAllInf u");
 
-    public void save (User user){
-        entityManager.persist(user);
+        return query.getResultList();
+    }
+
+    public void save (UserAllInf userAllInf){
+        entityManager.persist(userAllInf);
+    }
+
+    public void update(UserAllInf userAllInf){
+        entityManager.merge(userAllInf);
+    }
+
+    public boolean delete (UserAllInf userAllInf){
+        if(entityManager.contains(userAllInf)){
+            entityManager.remove(userAllInf);
+            return true;
+        }
+        return false;
     }
 
 

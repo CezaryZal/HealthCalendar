@@ -1,10 +1,5 @@
 package com.CezaryZal.user;
 
-import com.CezaryZal.bodySize.BodySize;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import javax.persistence.*;
-import java.util.List;
 
 public class User {
 
@@ -16,12 +11,14 @@ public class User {
     private String loginName;
     private String password;
     private int sex;
+    private int dailyWaterDemand;
+    private int dailyKcalDemand;
 
     public User() {
     }
 
-    public User(int userAllInfId, String firstName, String nick, String email, int poneNumber,
-                String loginName, String password, int sex) {
+    public User(int userAllInfId, String firstName, String nick, String email, int poneNumber, String loginName,
+                String password, int sex, int dailyWaterDemand, int dailyKcalDemand) {
         this.userAllInfId = userAllInfId;
         this.firstName = firstName;
         this.nick = nick;
@@ -30,6 +27,8 @@ public class User {
         this.loginName = loginName;
         this.password = password;
         this.sex = sex;
+        this.dailyWaterDemand = dailyWaterDemand;
+        this.dailyKcalDemand = dailyKcalDemand;
     }
 
     public int getUserAllInfId() {
@@ -96,6 +95,22 @@ public class User {
         this.sex = sex;
     }
 
+    public int getDailyWaterDemand() {
+        return dailyWaterDemand;
+    }
+
+    public void setDailyWaterDemand(int dailyWaterDemand) {
+        this.dailyWaterDemand = dailyWaterDemand;
+    }
+
+    public int getDailyKcalDemand() {
+        return dailyKcalDemand;
+    }
+
+    public void setDailyKcalDemand(int dailyKcalDemand) {
+        this.dailyKcalDemand = dailyKcalDemand;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -107,6 +122,8 @@ public class User {
                 ", loginName='" + loginName + '\'' +
                 ", password='" + password + '\'' +
                 ", sex=" + sex +
+                ", dailyWaterDemand=" + dailyWaterDemand +
+                ", dailyKcalDemand=" + dailyKcalDemand +
                 '}';
     }
 }

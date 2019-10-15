@@ -18,20 +18,37 @@ public class UserController {
 
     @GetMapping("/id/{userId}")
     public User getUser (@PathVariable int userId){
-
         return UService.getUserById(userId);
     }
 
-
+    @GetMapping("/getAllUsers")
+    public List<User> getAllUsers(){
+        return  UService.getAllUsers();
+    }
 
     @PostMapping("/addUser")
-    public boolean addUser (@RequestBody User user){
+    public boolean addUser (@RequestBody UserAllInf user){
         return UService.addUser(user);
+    }
+
+    //send "id:3", not 'userAllInfId'
+    @PutMapping("/update")
+    public boolean updateUser (@RequestBody UserAllInf userAllInf){
+        return UService.updateUser(userAllInf);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public String delete (@PathVariable int id){
+        return UService.delete(id);
     }
 
     @GetMapping("/userAllInf/id/{userId}")
     public UserAllInf getUserAllInf (@PathVariable int userId){
-
         return UService.getUserAllInfById(userId);
+    }
+
+    @GetMapping("/getAllUsersInf")
+    public List<UserAllInf> getAllInf(){
+        return UService.getAllUsersAllInf();
     }
 }

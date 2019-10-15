@@ -1,7 +1,7 @@
 
 INSERT INTO `user` VALUES
-(1, 'anna@gmail.com', 'Anna','Ann', 'Ann123', 'test1', 569842365, 0),
-(2, 'fiona@gmail.com', 'Fiona','Shrek', 'shrek123', 'test2', 846152365, 1);
+(1, 2500, 3000, 'anna@gmail.com', 'Anna','Ann', 'Ann123', 'test1', 569842365, 0),
+(2, 2800, 3200, 'fiona@gmail.com', 'Fiona','Shrek', 'shrek123', 'test2', 846152365, 1);
 
 INSERT INTO `body_size` VALUES
 (1, 65, 38, 31, 98, '2018-05-23', 75, 88, 45, 1, 36),

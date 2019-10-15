@@ -44,9 +44,35 @@ Brak update, żeby nikt nie oszukiwał. Można tylko usunąc lub dodać
 
 <hr>
 <a href=${pageContext.request.contextPath}"/user/id/2">Get record from User (main info) where id=2 </a>
-
+<br>
+<a href=${pageContext.request.contextPath}"/user/getAllUsers">Get all record from User (main info) </a>
 <br>
 <a href=${pageContext.request.contextPath}"/user/userAllInf/id/2">Get record from User (all info) where id=2 </a>
+<br>
+<a href=${pageContext.request.contextPath}"/user/getAllUsersInf">Get all record from User (all information) </a>
+<br>
+<a href=${pageContext.request.contextPath}"/user/addUser">Add user, method POST </a>
+<br>
+{
+"firstName": "Fiona1",
+"nick": "shrek1231",
+"email": "fiona1@gmail.com",
+"poneNumber": 846152111,
+"loginName": "Shrek1",
+"password": "test21",
+"sex": 1,
+"dailyWaterDemand": 3201,
+"dailyKcalDemand": 2801
+}
+<br>
+<a href=${pageContext.request.contextPath}"/user/update">Update record from User method PUT</a>
+<br>
+<a href=${pageContext.request.contextPath}"/user/delete/4">Delete record where id=4 from User method DELETE</a>
+<br>
+
+
+<hr>
+
 
 <br>
 <br>
