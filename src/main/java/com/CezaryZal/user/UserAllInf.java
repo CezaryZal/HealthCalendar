@@ -6,23 +6,48 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import java.util.List;
 
-public class User {
+@Entity
+@Table(name = "user")
+public class UserAllInf {
 
-    private int userAllInfId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private int id;
+
+    @Column(name = "first_name")
     private String firstName;
+
+    @Column(name = "nick")
     private String nick;
+
+    @Column(name = "email")
     private String email;
+
+    @Column(name = "phone_number")
     private int poneNumber;
+
+    @Column(name = "login_name")
     private String loginName;
+
+    @Column(name = "password")
     private String password;
+
+    @Column(name = "sex")
     private int sex;
 
-    public User() {
+    //Default fetch is LAZY, when we want to show all data must be EAGER
+    //or cut relation between 'user' with 'bodySize'
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
+//    @JsonIgnore
+    private List<BodySize> listBodySize;
+
+
+    public UserAllInf() {
     }
 
-    public User(int userAllInfId, String firstName, String nick, String email, int poneNumber,
-                String loginName, String password, int sex) {
-        this.userAllInfId = userAllInfId;
+    public UserAllInf(String firstName, String nick, String email, int poneNumber, String loginName, String password, int sex) {
         this.firstName = firstName;
         this.nick = nick;
         this.email = email;
@@ -32,12 +57,12 @@ public class User {
         this.sex = sex;
     }
 
-    public int getUserAllInfId() {
-        return userAllInfId;
+    public int getId() {
+        return id;
     }
 
-    public void setUserAllInfId(int userAllInfId) {
-        this.userAllInfId = userAllInfId;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getFirstName() {
@@ -96,10 +121,18 @@ public class User {
         this.sex = sex;
     }
 
+    public List<BodySize> getListBodySize() {
+        return listBodySize;
+    }
+
+    public void setListBodySize(List<BodySize> listBodySize) {
+        this.listBodySize = listBodySize;
+    }
+
     @Override
     public String toString() {
         return "User{" +
-                "userAllInfId=" + userAllInfId +
+                "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", nick='" + nick + '\'' +
                 ", email='" + email + '\'' +
@@ -107,6 +140,7 @@ public class User {
                 ", loginName='" + loginName + '\'' +
                 ", password='" + password + '\'' +
                 ", sex=" + sex +
+                ", listBodySize=" + listBodySize +
                 '}';
     }
 }

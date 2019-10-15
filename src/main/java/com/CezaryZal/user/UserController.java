@@ -19,7 +19,7 @@ public class UserController {
     @GetMapping("/id/{userId}")
     public User getUser (@PathVariable int userId){
 
-        return UService.findById(userId);
+        return UService.getUserById(userId);
     }
 
 
@@ -27,5 +27,11 @@ public class UserController {
     @PostMapping("/addUser")
     public boolean addUser (@RequestBody User user){
         return UService.addUser(user);
+    }
+
+    @GetMapping("/userAllInf/id/{userId}")
+    public UserAllInf getUserAllInf (@PathVariable int userId){
+
+        return UService.getUserAllInfById(userId);
     }
 }

@@ -43,8 +43,13 @@ Brak update, żeby nikt nie oszukiwał. Można tylko usunąc lub dodać
 
 
 <hr>
-<a href=${pageContext.request.contextPath}"/user/id/2">Get record from User where id=2 </a>
+<a href=${pageContext.request.contextPath}"/user/id/2">Get record from User (main info) where id=2 </a>
 
+<br>
+<a href=${pageContext.request.contextPath}"/user/userAllInf/id/2">Get record from User (all info) where id=2 </a>
+
+<br>
+<br>
 <hr>
 <a href=${pageContext.request.contextPath}"/day/listDays">List days </a>
 

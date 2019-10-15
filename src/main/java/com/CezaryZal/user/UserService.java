@@ -17,8 +17,11 @@ public class UserService {
         this.URepository = URepository;
     }
 
-    public User findById(int id){
-        User user = URepository.findById(id);
+    public User getUserById(int id){
+        UserAllInf userAllInf = URepository.getUserAllInfById(id);
+
+        User user = new User(userAllInf.getId(), userAllInf.getFirstName(), userAllInf.getNick(), userAllInf.getEmail(),
+                userAllInf.getPoneNumber(), userAllInf.getLoginName(), userAllInf.getPassword(), userAllInf.getSex());
 
         return user;
     }
@@ -31,6 +34,12 @@ public class UserService {
         URepository.save(user);
 
         return true;
+    }
+
+    public UserAllInf getUserAllInfById(int id){
+        UserAllInf user = URepository.getUserAllInfById(id);
+
+        return user;
     }
 
 }
