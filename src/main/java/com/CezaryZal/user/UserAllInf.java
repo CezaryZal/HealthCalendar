@@ -1,7 +1,8 @@
 package com.CezaryZal.user;
 
 import com.CezaryZal.bodySize.BodySize;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.CezaryZal.dailyLimits.DailyLimits;
+import com.CezaryZal.day.Day;
 
 import javax.persistence.*;
 import java.util.List;
@@ -36,11 +37,9 @@ public class UserAllInf {
     @Column(name = "sex")
     private int sex;
 
-    @Column(name = "daily_water_demand")
-    private int dailyWaterDemand;
-
-    @Column(name = "daily_kcal_demand")
-    private int dailyKcalDemand;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "daily_limits_id")
+    private DailyLimits dailyLimits;
 
     //Default fetch is LAZY, when we want to show all data must be EAGER
     //or cut relation between 'user' with 'bodySize'
@@ -48,6 +47,10 @@ public class UserAllInf {
     @JoinColumn(name = "user_id")
 //    @JsonIgnore
     private List<BodySize> listBodySize;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
+    private List<Day> listDays;
 
 //    {
 //        "firstName": "Fiona1",
@@ -65,7 +68,7 @@ public class UserAllInf {
     }
 
     public UserAllInf(String firstName, String nick, String email, int poneNumber, String loginName, String password,
-                      int sex, int dailyWaterDemand, int dailyKcalDemand, List<BodySize> listBodySize) {
+                      int sex, DailyLimits dailyLimits, List<BodySize> listBodySize, List<Day> listDays) {
         this.firstName = firstName;
         this.nick = nick;
         this.email = email;
@@ -73,9 +76,9 @@ public class UserAllInf {
         this.loginName = loginName;
         this.password = password;
         this.sex = sex;
-        this.dailyWaterDemand = dailyWaterDemand;
-        this.dailyKcalDemand = dailyKcalDemand;
+        this.dailyLimits = dailyLimits;
         this.listBodySize = listBodySize;
+        this.listDays = listDays;
     }
 
     public int getId() {
@@ -142,20 +145,12 @@ public class UserAllInf {
         this.sex = sex;
     }
 
-    public int getDailyWaterDemand() {
-        return dailyWaterDemand;
+    public DailyLimits getDailyLimits() {
+        return dailyLimits;
     }
 
-    public void setDailyWaterDemand(int dailyWaterDemand) {
-        this.dailyWaterDemand = dailyWaterDemand;
-    }
-
-    public int getDailyKcalDemand() {
-        return dailyKcalDemand;
-    }
-
-    public void setDailyKcalDemand(int dailyKcalDemand) {
-        this.dailyKcalDemand = dailyKcalDemand;
+    public void setDailyLimits(DailyLimits dailyLimits) {
+        this.dailyLimits = dailyLimits;
     }
 
     public List<BodySize> getListBodySize() {
@@ -166,20 +161,28 @@ public class UserAllInf {
         this.listBodySize = listBodySize;
     }
 
-//    @Override
-//    public String toString() {
-//        return "UserAllInf{" +
-//                "id=" + id +
-//                ", firstName='" + firstName + '\'' +
-//                ", nick='" + nick + '\'' +
-//                ", email='" + email + '\'' +
-//                ", poneNumber=" + poneNumber +
-//                ", loginName='" + loginName + '\'' +
-//                ", password='" + password + '\'' +
-//                ", sex=" + sex +
-//                ", dailyWaterDemand=" + dailyWaterDemand +
-//                ", dailyKcalDemand=" + dailyKcalDemand +
-//                ", listBodySize=" + listBodySize +
-//                '}';
-//    }
+    public List<Day> getListDays() {
+        return listDays;
+    }
+
+    public void setListDays(List<Day> listDays) {
+        this.listDays = listDays;
+    }
+
+    @Override
+    public String toString() {
+        return "UserAllInf{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", nick='" + nick + '\'' +
+                ", email='" + email + '\'' +
+                ", poneNumber=" + poneNumber +
+                ", loginName='" + loginName + '\'' +
+                ", password='" + password + '\'' +
+                ", sex=" + sex +
+                ", dailyLimits=" + dailyLimits +
+                ", listBodySize=" + listBodySize +
+                ", listDays=" + listDays +
+                '}';
+    }
 }

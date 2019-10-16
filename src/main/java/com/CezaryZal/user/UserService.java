@@ -69,8 +69,7 @@ public class UserService {
 
     public User convertUserClass (UserAllInf userAllInf){
         User user = new User(userAllInf.getId(), userAllInf.getFirstName(), userAllInf.getNick(), userAllInf.getEmail(),
-                userAllInf.getPoneNumber(), userAllInf.getLoginName(), userAllInf.getPassword(), userAllInf.getSex(),
-                userAllInf.getDailyWaterDemand(), userAllInf.getDailyKcalDemand());
+                userAllInf.getPoneNumber(), userAllInf.getLoginName(), userAllInf.getPassword(), userAllInf.getSex());
 
         return user;
     }
