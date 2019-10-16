@@ -38,11 +38,9 @@ public class UserAllInf {
     private int sex;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "daily_limits_id")
+    @JoinColumn(name = "user_id")
     private DailyLimits dailyLimits;
 
-    //Default fetch is LAZY, when we want to show all data must be EAGER
-    //or cut relation between 'user' with 'bodySize'
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
 //    @JsonIgnore
@@ -60,8 +58,6 @@ public class UserAllInf {
 //            "loginName": "Shrek1",
 //            "password": "test21",
 //            "sex": 1,
-//            "dailyWaterDemand": 3201,
-//            "dailyKcalDemand": 2801
 //    }
 
     public UserAllInf() {
