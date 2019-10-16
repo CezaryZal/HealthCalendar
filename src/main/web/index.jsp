@@ -72,24 +72,29 @@ Brak update, żeby nikt nie oszukiwał. Można tylko usunąc lub dodać
 
 
 <hr>
-
-
+<a href=${pageContext.request.contextPath}"/limit/id/2">Get record from Daily limit where id=2 </a>
 <br>
+<a href=${pageContext.request.contextPath}"/limit/byUserId/1">Get record from Daily limit where userId=1 </a>
 <br>
-<hr>
-<a href=${pageContext.request.contextPath}"/day/listDays">List days </a>
+<a href=${pageContext.request.contextPath}"/limit/getAll">Get all record from Daily limit </a>
+<br>
+<a href=${pageContext.request.contextPath}"/limit/add">Add Daily limits, method POST </a>
+<br>
+<a href=${pageContext.request.contextPath}"/limit/update">Update record from Daily limits method PUT</a>
+<br>
+<a href=${pageContext.request.contextPath}"/limit/delete/4">Delete record where id=4 from Daily limits method DELETE</a>
+<br>
+
+
+
+
 
 <hr>
-//MySql see date 1 day earlier
-<a href=${pageContext.request.contextPath}"/day/dateAndUser/1/2018-05-24">Request GET Day by userId and date </a>
-<hr>
 
-//MySql see date 1 day earlier
-<a href=${pageContext.request.contextPath}"/body/dateAndUser/1/2018-05-22">Request GET BodySize by userId and date </a>
-<hr>
+
 
 <h2>
-    Test m
+    Test ddd
 </h2>
 
 </body>

@@ -1,6 +1,5 @@
 package com.CezaryZal.dailyLimits;
 
-import com.CezaryZal.user.UserAllInf;
 
 import javax.persistence.*;
 
@@ -19,17 +18,16 @@ public class DailyLimits {
     @Column(name = "drink_demand")
     private int drinkDemand;
 
-    @OneToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-    @JoinColumn(name = "user_id")
-    private UserAllInf userAllInf;
+    @Column(name = "user_id")
+    private int userId;
 
     public DailyLimits() {
     }
 
-    public DailyLimits(int kcalDemand, int drinkDemand, UserAllInf userAllInf) {
+    public DailyLimits(int kcalDemand, int drinkDemand, int userId) {
         this.kcalDemand = kcalDemand;
         this.drinkDemand = drinkDemand;
-        this.userAllInf = userAllInf;
+        this.userId = userId;
     }
 
     public int getId() {
@@ -56,12 +54,12 @@ public class DailyLimits {
         this.drinkDemand = drinkDemand;
     }
 
-    public UserAllInf getUserAllInf() {
-        return userAllInf;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setUserAllInf(UserAllInf userAllInf) {
-        this.userAllInf = userAllInf;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     @Override
@@ -70,7 +68,7 @@ public class DailyLimits {
                 "id=" + id +
                 ", kcalDemand=" + kcalDemand +
                 ", drinkDemand=" + drinkDemand +
-                ", userAllInf=" + userAllInf +
+                ", userId=" + userId +
                 '}';
     }
 }
