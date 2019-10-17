@@ -45,7 +45,7 @@ Brak update, żeby nikt nie oszukiwał. Można tylko usunąc lub dodać
 <hr>
 <a href=${pageContext.request.contextPath}"/user/id/2">Get record from User (main info) where id=2 </a>
 <br>
-<a href=${pageContext.request.contextPath}"/user/getAllUsers">Get all record from User (main info) </a>
+<a href=${pageContext.request.contextPath}"/user/getAll">Get all record from User (main info) </a>
 <br>
 <a href=${pageContext.request.contextPath}"/user/userAllInf/id/2">Get record from User (all info) where id=2 </a>
 <br>
@@ -86,7 +86,13 @@ Brak update, żeby nikt nie oszukiwał. Można tylko usunąc lub dodać
 <br>
 
 
-
+<hr>
+<a href=${pageContext.request.contextPath}"/meal/id/2">Get record from Diet where id=2 </a>
+<br>
+<a href=${pageContext.request.contextPath}"/meal/byUserId/1">Get record from Daily limit where userId=1 </a>
+<br>
+<a href=${pageContext.request.contextPath}"/meal/getAll">Get all record from Diet </a>
+<br>
 
 
 <hr>

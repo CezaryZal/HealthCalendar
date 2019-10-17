@@ -17,13 +17,13 @@ public class DailyLimitsService {
         this.DLRepository = DLRepository;
     }
 
-    public DailyLimits findById(int id){
+    public DailyLimits getLimitsById(int id){
         DailyLimits dailyLimits = DLRepository.findById(id);
 
         return dailyLimits;
     }
 
-    public DailyLimits findByUserId(int id){
+    public DailyLimits getLimitsByUserId(int id){
         DailyLimits dailyLimits = DLRepository.findByUserId(id);
 
         return dailyLimits;
@@ -35,19 +35,19 @@ public class DailyLimitsService {
         return listLimits;
     }
 
-    public boolean addDailyLimits (DailyLimits dailyLimits){
+    public boolean addLimits (DailyLimits dailyLimits){
         DLRepository.save(dailyLimits);
 
         return true;
     }
 
-    public boolean updateDailyLimits (DailyLimits dailyLimits){
+    public boolean updateLimits (DailyLimits dailyLimits){
         DLRepository.update(dailyLimits);
 
         return true;
     }
 
-    public String delete (int id){
+    public String deleteLimitsById (int id){
         DailyLimits dailyLimits = DLRepository.findById(id);
         if(DLRepository.delete(dailyLimits)){
             return "delete record";

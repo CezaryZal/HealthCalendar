@@ -17,32 +17,32 @@ public class DailyLimitsController {
     }
 
     @GetMapping("/id/{nrId}")
-    public DailyLimits getDailyLimitsById (@PathVariable int nrId){
-        return DLService.findById(nrId);
+    public DailyLimits getLimitsById (@PathVariable int nrId){
+        return DLService.getLimitsById(nrId);
     }
 
     @GetMapping("/byUserId/{userId}")
-    public DailyLimits dailyLimits (@PathVariable int userId){
-        return DLService.findByUserId(userId);
+    public DailyLimits getLimitsByUserId (@PathVariable int userId){
+        return DLService.getLimitsByUserId(userId);
     }
 
     @GetMapping("/getAll")
-    public List<DailyLimits> listLimits(){
+    public List<DailyLimits> getAll(){
         return DLService.getAll();
     }
 
     @PostMapping("/add")
     public boolean addLimits (@RequestBody DailyLimits dailyLimits){
-        return DLService.addDailyLimits(dailyLimits);
+        return DLService.addLimits(dailyLimits);
     }
 
     @PutMapping("/update")
     public boolean updateLimits (@RequestBody DailyLimits dailyLimits){
-        return DLService.updateDailyLimits(dailyLimits);
+        return DLService.updateLimits(dailyLimits);
     }
 
     @DeleteMapping("/delete/{nrId}")
-    public String delete (@PathVariable int nrId){
-        return DLService.delete(nrId);
+    public String deleteLimitsById (@PathVariable int nrId){
+        return DLService.deleteLimitsById(nrId);
     }
 }

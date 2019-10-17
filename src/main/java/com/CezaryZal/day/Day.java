@@ -1,6 +1,6 @@
 package com.CezaryZal.day;
 
-import com.CezaryZal.diet.Diet;
+import com.CezaryZal.meal.Meal;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
@@ -41,7 +41,7 @@ public class Day {
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "day_id")
-    private List<Diet> listDiets;
+    private List<Meal> listMeals;
 
 
 //    @Column(name = "amount_portions_snack")
@@ -54,12 +54,12 @@ public class Day {
     public Day() {
     }
 
-    public Day(LocalDate date, int userId, int portionsDrink, int portionsAlcohol, List<Diet> listDiets) {
+    public Day(LocalDate date, int userId, int portionsDrink, int portionsAlcohol, List<Meal> listMeals) {
         this.date = date;
         this.userId = userId;
         this.portionsDrink = portionsDrink;
         this.portionsAlcohol = portionsAlcohol;
-        this.listDiets = listDiets;
+        this.listMeals = listMeals;
     }
 
     public int getId() {
@@ -102,12 +102,12 @@ public class Day {
         this.portionsAlcohol = portionsAlcohol;
     }
 
-    public List<Diet> getListDiets() {
-        return listDiets;
+    public List<Meal> getListMeals() {
+        return listMeals;
     }
 
-    public void setListDiets(List<Diet> listDiets) {
-        this.listDiets = listDiets;
+    public void setListMeals(List<Meal> listMeals) {
+        this.listMeals = listMeals;
     }
 
     @Override
@@ -118,7 +118,7 @@ public class Day {
                 ", userId=" + userId +
                 ", portionsDrink=" + portionsDrink +
                 ", portionsAlcohol=" + portionsAlcohol +
-                ", listDiets=" + listDiets +
+                ", listMeals=" + listMeals +
                 '}';
     }
 }

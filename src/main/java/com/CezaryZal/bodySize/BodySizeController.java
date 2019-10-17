@@ -19,23 +19,23 @@ public class BodySizeController {
 
 
     @GetMapping("/id/{nrId}")
-    public BodySize getBodySize (@PathVariable int nrId){
-        return BSService.findById(nrId);
+    public BodySize getBodyById (@PathVariable int nrId){
+        return BSService.getBodyById(nrId);
     }
 
     @GetMapping("/byLastDate/{userId}")
-    public LocalDate findDateLastMeasureByUserId(@PathVariable int userId){
-        return BSService.findDateLastMeasureByUserId(userId);
+    public LocalDate getDateLastMeasureByUserId(@PathVariable int userId){
+        return BSService.getDateLastMeasureByUserId(userId);
     }
 
     @GetMapping("/byUserIdAllDate/{userId}")
-    public List<LocalDate> findByUserIdAllDate (@PathVariable int userId){
-        return BSService.findByUserIdAllDate(userId);
+    public List<LocalDate> getListDatesByUserIdAllDate (@PathVariable int userId){
+        return BSService.getListDatesByUserIdAllDate(userId);
     }
 
     @GetMapping("/byDateAndUserId/{date}/{userId}")
-    public BodySize findByDateAndUserId (@PathVariable String date, @PathVariable int userId){
-        return BSService.findByDateAndUserId(date, userId);
+    public BodySize getBodyByDateAndUserId (@PathVariable String date, @PathVariable int userId){
+        return BSService.getBodyByDateAndUserId(date, userId);
     }
 
     @GetMapping("/getAll")
@@ -49,8 +49,8 @@ public class BodySizeController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public String delete (@PathVariable int id) {
-        return BSService.delete(id);
+    public String deleteBodyById (@PathVariable int id) {
+        return BSService.deleteBodyById(id);
     }
 
 

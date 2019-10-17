@@ -47,7 +47,7 @@ public class UserService {
         return true;
     }
 
-    public String delete (int id) {
+    public String deleteUserById (int id) {
         UserAllInf userAllInf = URepository.getUserAllInfById(id);
         if(URepository.delete(userAllInf)){
             return "delete record";
@@ -62,7 +62,7 @@ public class UserService {
     }
 
     public List<UserAllInf> getAllUsersAllInf(){
-        List<UserAllInf> listUsersAllInf = URepository.getAllUsers();
+        List<UserAllInf> listUsersAllInf = URepository.getAll();
 
         return listUsersAllInf;
     }

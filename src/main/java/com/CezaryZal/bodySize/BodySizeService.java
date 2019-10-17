@@ -19,25 +19,25 @@ public class BodySizeService {
         this.BSRepository = BSRepository;
     }
 
-    public BodySize findById (int id){
+    public BodySize getBodyById (int id){
         BodySize bodySize = BSRepository.findById(id);
 
         return bodySize;
     }
 
-    public LocalDate findDateLastMeasureByUserId (int userId){
+    public LocalDate getDateLastMeasureByUserId (int userId){
         LocalDate localDate = BSRepository.findDateLastMeasureByUserId(userId);
 
         return localDate;
     }
 
-    public List<LocalDate> findByUserIdAllDate(int userId) {
+    public List<LocalDate> getListDatesByUserIdAllDate(int userId) {
         List<LocalDate> tmpList = BSRepository.findByUserIdAllDate(userId);
 
         return tmpList;
     }
 
-    public BodySize findByDateAndUserId(String inputDate, int userId){
+    public BodySize getBodyByDateAndUserId(String inputDate, int userId){
         LocalDate localDate = LocalDate.parse(inputDate);
         BodySize bodySize = BSRepository.findByDateAndUserId(localDate, userId);
 
@@ -56,7 +56,7 @@ public class BodySizeService {
         return true;
     }
 
-    public String delete (int id) {
+    public String deleteBodyById (int id) {
         BodySize bodySize = BSRepository.findById(id);
         if (BSRepository.delete(bodySize)){
             return "delete record";

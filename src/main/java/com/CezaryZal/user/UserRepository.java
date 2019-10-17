@@ -20,7 +20,7 @@ public class UserRepository {
         return entityManager.find(UserAllInf.class, id);
     }
 
-    public List<UserAllInf> getAllUsers (){
+    public List<UserAllInf> getAll (){
         Query query = entityManager.createQuery("SELECT u FROM UserAllInf u");
 
         return query.getResultList();

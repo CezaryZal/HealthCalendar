@@ -21,7 +21,7 @@ public class UserController {
         return UService.getUserById(userId);
     }
 
-    @GetMapping("/getAllUsers")
+    @GetMapping("/getAll")
     public List<User> getAllUsers(){
         return  UService.getAllUsers();
     }
@@ -37,9 +37,9 @@ public class UserController {
         return UService.updateUser(userAllInf);
     }
 
-    @DeleteMapping("/delete/{id}")
-    public String delete (@PathVariable int id){
-        return UService.delete(id);
+    @DeleteMapping("/delete/{userId}")
+    public String delete (@PathVariable int userId){
+        return UService.deleteUserById(userId);
     }
 
     @GetMapping("/userAllInf/id/{userId}")
