@@ -68,8 +68,17 @@ public class UserService {
     }
 
     public User convertUserClass (UserDB userDB){
-        User user = new User(userDB.getId(), userDB.getFirstName(), userDB.getNick(), userDB.getEmail(),
-                userDB.getPoneNumber(), userDB.getLoginName(), userDB.getPassword(), userDB.getSex());
+        User user = new User(userDB.getId(),
+                userDB.getId(),
+                userDB.getFirstName(),
+                userDB.getNick(),
+                userDB.getEmail(),
+                userDB.getPoneNumber(),
+                userDB.getLoginName(),
+                userDB.getPassword(),
+                userDB.getSex(),
+                userDB.getDailyLimits().getDrinkDemand(),
+                userDB.getDailyLimits().getKcalDemand());
 
         return user;
     }

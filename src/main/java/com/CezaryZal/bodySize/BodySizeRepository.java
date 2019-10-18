@@ -30,14 +30,14 @@ public class BodySizeRepository {
         return (LocalDate) query.getSingleResult();
     }
 
-    public List<LocalDate> findByUserIdAllDate(int userId) {
+    public List<LocalDate> findByUserIdAllDate(int userId){
         Query query = entityManager.createQuery("SELECT date FROM BodySize b WHERE userId=:userId");
         query.setParameter("userId", userId);
 
         return query.getResultList();
     }
 
-    public BodySize findByDateAndUserId(LocalDate localDate, int userId) {
+    public BodySize findByDateAndUserId(LocalDate localDate, int userId){
         Query query = entityManager.createQuery("SELECT b FROM BodySize b WHERE date=:inputDate AND userId=:userId");
         query.setParameter("inputDate", localDate);
         query.setParameter("userId", userId);
@@ -55,7 +55,7 @@ public class BodySizeRepository {
         entityManager.persist(bodySize);
     }
 
-    public boolean delete (BodySize bodySize) {
+    public boolean delete (BodySize bodySize){
         if (entityManager.contains(bodySize)){
             entityManager.remove(bodySize);
             return true;

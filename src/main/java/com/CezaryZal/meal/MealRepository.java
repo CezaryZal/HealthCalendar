@@ -24,7 +24,7 @@ public class MealRepository {
     public List<MealDB> findByDateAndDayId(LocalDate currentDateMin, int dayId){
 
         Query query = entityManager.createQuery(
-                "SELECT m FROM Meal m WHERE dayId=:dayId AND date_time<=:max AND date_time>=:min");
+                "SELECT m FROM MealDB m WHERE dayId=:dayId AND date_time<=:max AND date_time>=:min");
         query.setParameter("dayId", dayId);
         query.setParameter("max", currentDateMin.plusDays(1));
         query.setParameter("min", currentDateMin);
@@ -33,7 +33,7 @@ public class MealRepository {
     }
 
     public List<MealDB> getAll (){
-        Query query = entityManager.createQuery("SELECT m FROM Meal m");
+        Query query = entityManager.createQuery("SELECT m FROM MealDB m");
 
         return query.getResultList();
     }
@@ -46,7 +46,7 @@ public class MealRepository {
         entityManager.merge(mealDB);
     }
 
-    public boolean detele (MealDB mealDB){
+    public boolean delete (MealDB mealDB){
         if(entityManager.contains(mealDB)){
             entityManager.remove(mealDB);
             return true;

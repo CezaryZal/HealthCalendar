@@ -57,7 +57,7 @@ public class MealService {
 
     public String deleteMealById (int id){
         MealDB mealDB = MRepository.findById(id);
-        if(MRepository.detele(mealDB)){
+        if(MRepository.delete(mealDB)){
             return "delete record";
         }
         return "Diet id not found";

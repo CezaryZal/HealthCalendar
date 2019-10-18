@@ -3,6 +3,7 @@ package com.CezaryZal.user;
 
 public class User {
 
+    private int id;
     private int userAllInfId;
     private String firstName;
     private String nick;
@@ -11,12 +12,15 @@ public class User {
     private String loginName;
     private String password;
     private int sex;
+    private int drinkDemand;
+    private int kcalDemand;
 
     public User() {
     }
 
-    public User(int userAllInfId, String firstName, String nick, String email, int poneNumber, String loginName,
-                String password, int sex) {
+    public User(int id, int userAllInfId, String firstName, String nick, String email, int poneNumber,
+                String loginName, String password, int sex, int drinkDemand, int kcalDemand) {
+        this.id = id;
         this.userAllInfId = userAllInfId;
         this.firstName = firstName;
         this.nick = nick;
@@ -25,76 +29,59 @@ public class User {
         this.loginName = loginName;
         this.password = password;
         this.sex = sex;
+        this.drinkDemand = drinkDemand;
+        this.kcalDemand = kcalDemand;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public int getUserAllInfId() {
         return userAllInfId;
     }
 
-    public void setUserAllInfId(int userAllInfId) {
-        this.userAllInfId = userAllInfId;
-    }
-
     public String getFirstName() {
         return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
     }
 
     public String getNick() {
         return nick;
     }
 
-    public void setNick(String nick) {
-        this.nick = nick;
-    }
-
     public String getEmail() {
         return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public int getPoneNumber() {
         return poneNumber;
     }
 
-    public void setPoneNumber(int poneNumber) {
-        this.poneNumber = poneNumber;
-    }
-
     public String getLoginName() {
         return loginName;
-    }
-
-    public void setLoginName(String loginName) {
-        this.loginName = loginName;
     }
 
     public String getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public int getSex() {
         return sex;
     }
 
-    public void setSex(int sex) {
-        this.sex = sex;
+    public int getDrinkDemand() {
+        return drinkDemand;
+    }
+
+    public int getKcalDemand() {
+        return kcalDemand;
     }
 
     @Override
     public String toString() {
         return "User{" +
-                "userAllInfId=" + userAllInfId +
+                "id=" + id +
+                ", userAllInfId=" + userAllInfId +
                 ", firstName='" + firstName + '\'' +
                 ", nick='" + nick + '\'' +
                 ", email='" + email + '\'' +
@@ -102,6 +89,8 @@ public class User {
                 ", loginName='" + loginName + '\'' +
                 ", password='" + password + '\'' +
                 ", sex=" + sex +
+                ", drinkDemand=" + drinkDemand +
+                ", kcalDemand=" + kcalDemand +
                 '}';
     }
 }
