@@ -36,13 +36,25 @@ public class DayService {
 
     public Day getDayByDateAndUserId(String inputDate, int userId, int dayId) {
         LocalDate localDate = LocalDate.parse(inputDate);
+
         DayDB dayDB = DRepository.findByDateAndUserId(localDate, userId);
         int drinkDemand = DLService.getLimitsByUserId(userId).getDrinkDemand();
         boolean isDrinkDemand = drinkDemand<=dayDB.getPortionsDrink() * 250;
         DailyDiet dailyDiet = MService.getDailyDiet(inputDate, dayId);
+        int kcalDemand = DLService.getLimitsByUserId(userId).getKcalDemand();
+        int sumKcal = dailyDiet.getSumKcal();
+        boolean isKcalDemand = sumKcal>=kcalDemand-kcalDemand*0.05 && sumKcal<=kcalDemand+kcalDemand*0.05;
 
-        Day day = new Day(dayDB.getId(), dayDB.getDate(), dayDB.getUserId(), BSService.getDateLastMeasureByUserId(userId),
-                dayDB.getPortionsDrink(), isDrinkDemand, dayDB.getPortionsAlcohol(), dailyDiet, dayDB.getPortionsSnack());
+        Day day = new Day(dayDB.getId(),
+                dayDB.getDate(),
+                dayDB.getUserId(),
+                BSService.getDateLastMeasureByUserId(userId),
+                dayDB.getPortionsDrink(),
+                isDrinkDemand,
+                dayDB.getPortionsAlcohol(),
+                dailyDiet,
+                isKcalDemand,
+                dayDB.getPortionsSnack());
         return day;
     }
 

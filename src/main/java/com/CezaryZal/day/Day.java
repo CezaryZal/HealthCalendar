@@ -16,10 +16,11 @@ public class Day {
     private boolean isDrinkDemand;
     private int portionsAlcohol;
     private DailyDiet dailyDiet;
+    private boolean isKcalDemand;
     private int portionsSnack;
 
     public Day(int id, LocalDate date, int userId, LocalDate lastDateMeasureBody, int portionsDrink,
-               boolean isDrinkDemand, int portionsAlcohol, DailyDiet dailyDiet, int portionsSnack) {
+               boolean isDrinkDemand, int portionsAlcohol, DailyDiet dailyDiet, boolean isKcalDemand, int portionsSnack) {
         this.id = id;
         this.date = date;
         this.userId = userId;
@@ -28,6 +29,7 @@ public class Day {
         this.isDrinkDemand = isDrinkDemand;
         this.portionsAlcohol = portionsAlcohol;
         this.dailyDiet = dailyDiet;
+        this.isKcalDemand = isKcalDemand;
         this.portionsSnack = portionsSnack;
     }
 
@@ -63,6 +65,10 @@ public class Day {
         return dailyDiet;
     }
 
+    public boolean isKcalDemand() {
+        return isKcalDemand;
+    }
+
     public int getPortionsSnack() {
         return portionsSnack;
     }
@@ -78,6 +84,7 @@ public class Day {
                 ", isDrinkDemand=" + isDrinkDemand +
                 ", portionsAlcohol=" + portionsAlcohol +
                 ", dailyDiet=" + dailyDiet +
+                ", isKcalDemand=" + isKcalDemand +
                 ", portionsSnack=" + portionsSnack +
                 '}';
     }
