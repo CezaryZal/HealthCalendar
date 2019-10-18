@@ -87,21 +87,34 @@ Brak update, żeby nikt nie oszukiwał. Można tylko usunąc lub dodać
 
 
 <hr>
-<a href=${pageContext.request.contextPath}"/meal/id/2">Get record from Meal where id=2 </a>
+<a href=${pageContext.request.contextPath}"/mealDB/id/2">Get record from Meal where id=2 </a>
 <br>
-<a href=${pageContext.request.contextPath}"/meal/byDateAndDayId/2018-09-25/2">
+<a href=${pageContext.request.contextPath}"/mealDB/byDateAndDayId/2018-09-25/2">
     Get all records from Meal where date=2018-09-25 and dayId=2 </a>
 <br>
-<a href=${pageContext.request.contextPath}"/meal/getAll">Get all records from Meal </a>
+<a href=${pageContext.request.contextPath}"/mealDB/getAll">Get all records from Meal </a>
 <br>
-<a href=${pageContext.request.contextPath}"/meal/add">Add Meal, method POST </a>
+<a href=${pageContext.request.contextPath}"/mealDB/add">Add Meal, method POST </a>
 <br>
-<a href=${pageContext.request.contextPath}"/meal/update">Update record from Meal method PUT</a>
+<a href=${pageContext.request.contextPath}"/mealDB/update">Update record from Meal method PUT</a>
 <br>
-<a href=${pageContext.request.contextPath}"/meal/delete/4">Delete record where id=4 from Meal method DELETE</a>
+<a href=${pageContext.request.contextPath}"/mealDB/delete/4">Delete record where id=4 from Meal method DELETE</a>
 <br>
 
 
+<hr>
+<a href=${pageContext.request.contextPath}"/day/id/2">Get record from Meal where id=2 </a>
+<br>
+
+
+<a href=${pageContext.request.contextPath}"/mealDB/getAll">Get all records from Meal </a>
+<br>
+<a href=${pageContext.request.contextPath}"/mealDB/add">Add Meal, method POST </a>
+<br>
+<a href=${pageContext.request.contextPath}"/mealDB/update">Update record from Meal method PUT</a>
+<br>
+<a href=${pageContext.request.contextPath}"/mealDB/delete/4">Delete record where id=4 from Meal method DELETE</a>
+<br>
 
 
 
