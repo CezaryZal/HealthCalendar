@@ -1,55 +1,58 @@
-//package com.CezaryZal.day;
-//
-//
-//import org.hibernate.Session;
-//import org.hibernate.SessionFactory;
-//import org.hibernate.query.Query;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.stereotype.Repository;
-//
-//import java.time.LocalDate;
-//import java.util.List;
-//
-//@Repository
-//public class DayRepository {
-//
-//    private SessionFactory sessionFactory;
-//
-//    @Autowired
-//    public DayRepository(SessionFactory sessionFactory) {
-//        this.sessionFactory = sessionFactory;
-//    }
-//
-//    public List<Day> getDays(){
-//        Session currentSession = sessionFactory.getCurrentSession();
-//        Query<Day> query = currentSession.createQuery("from Day order by date", Day.class);
-//        List<Day> days = query.getResultList();
-//
-//        return days;
-//    }
-//
-//    public Day getDay(int id){
-//        Session currentSession = sessionFactory.getCurrentSession();
-//        Day day = currentSession.get(Day.class, id);
-//
-//        return day;
-//    }
-//
-//    public Day getDayByDateAndUser (int userId, LocalDate tmpDate){
-//
-//        System.out.println("userId: " + userId + " localDate: " + tmpDate);
-//
-//        LocalDate currentDate = LocalDate.of(2018, 5, 24);
-//
-//        Session currentSession = sessionFactory.getCurrentSession();
-//        Query<Day> query = currentSession.createQuery("FROM Day WHERE dateRecord=:inputDate AND user_id=:nrId");
-//        query.setParameter("nrId", userId);
-//        query.setParameter("inputDate", tmpDate);
-//
-//        Day tmpDay = query.getSingleResult();
-//
-//        System.out.println(tmpDay);
-//
-//        return tmpDay;
-//    }
-//}
+package com.CezaryZal.day;
+
+
+import org.hibernate.Session;
+import org.springframework.stereotype.Repository;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.transaction.Transactional;
+import java.time.LocalDate;
+import java.util.List;
+
+@Repository
+@Transactional
+public class DayRepository {
+
+    @PersistenceContext
+    private EntityManager entityManager;
+
+    public DayDB findById(int id) {
+        return entityManager.find(DayDB.class, id);
+    }
+
+    public DayDB findByDateAndUserId(LocalDate localDate, int userId){
+        LocalDate currentDateMin = LocalDate.of(2018, 5, 24);
+        Query query = entityManager.createQuery("SELECT d FROM DayDB d WHERE date=:inputDate AND userId=:userId");
+//        query.setParameter("inputDate", localDate);
+        query.setParameter("inputDate", currentDateMin);
+        query.setParameter("userId", userId);
+
+        return (DayDB) query.getSingleResult();
+    }
+
+    public List<DayDB> getAll() {
+        Query query = entityManager.createQuery("SELECT d FROM DayDB d");
+
+        return query.getResultList();
+    }
+
+    public void save(DayDB dayDB) {
+        entityManager.persist(dayDB);
+    }
+
+    public void update(DayDB dayDB) {
+        entityManager.merge(dayDB);
+    }
+
+    public boolean delete(DayDB dayDB) {
+        if (entityManager.contains(dayDB)) {
+            entityManager.remove(dayDB);
+            return true;
+        }
+        return false;
+    }
+
+
+}

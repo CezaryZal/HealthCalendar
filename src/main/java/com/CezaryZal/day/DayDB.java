@@ -52,7 +52,8 @@ public class DayDB {
     public DayDB() {
     }
 
-    public DayDB(LocalDate date, int userId, int portionsDrink, int portionsAlcohol, List<MealDB> listMealDBS, int portionsSnack) {
+    public DayDB(LocalDate date, int userId, int portionsDrink, int portionsAlcohol, List<MealDB> listMealDBS,
+                 int portionsSnack) {
         this.date = date;
         this.userId = userId;
         this.portionsDrink = portionsDrink;
@@ -125,7 +126,7 @@ public class DayDB {
                 ", userId=" + userId +
                 ", portionsDrink=" + portionsDrink +
                 ", portionsAlcohol=" + portionsAlcohol +
-                ", listMeals=" + listMealDBS +
+                ", listMealDBS=" + listMealDBS +
                 ", portionsSnack=" + portionsSnack +
                 '}';
     }

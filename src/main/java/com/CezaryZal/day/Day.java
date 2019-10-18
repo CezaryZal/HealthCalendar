@@ -13,19 +13,19 @@ public class Day {
     private int userId;
     private LocalDate lastDateMeasureBody;
     private int portionsDrink;
-    private boolean isMinDrink;
+    private boolean isDrinkDemand;
     private int portionsAlcohol;
     private DailyDiet dailyDiet;
     private int portionsSnack;
 
     public Day(int id, LocalDate date, int userId, LocalDate lastDateMeasureBody, int portionsDrink,
-               boolean isMinDrink, int portionsAlcohol, DailyDiet dailyDiet, int portionsSnack) {
+               boolean isDrinkDemand, int portionsAlcohol, DailyDiet dailyDiet, int portionsSnack) {
         this.id = id;
         this.date = date;
         this.userId = userId;
         this.lastDateMeasureBody = lastDateMeasureBody;
         this.portionsDrink = portionsDrink;
-        this.isMinDrink = isMinDrink;
+        this.isDrinkDemand = isDrinkDemand;
         this.portionsAlcohol = portionsAlcohol;
         this.dailyDiet = dailyDiet;
         this.portionsSnack = portionsSnack;
@@ -51,8 +51,8 @@ public class Day {
         return portionsDrink;
     }
 
-    public boolean isMinDrink() {
-        return isMinDrink;
+    public boolean isDrinkDemand() {
+        return isDrinkDemand;
     }
 
     public int getPortionsAlcohol() {
@@ -75,7 +75,7 @@ public class Day {
                 ", userId=" + userId +
                 ", lastDateMeasureBody=" + lastDateMeasureBody +
                 ", portionsDrink=" + portionsDrink +
-                ", isMinDrink=" + isMinDrink +
+                ", isDrinkDemand=" + isDrinkDemand +
                 ", portionsAlcohol=" + portionsAlcohol +
                 ", dailyDiet=" + dailyDiet +
                 ", portionsSnack=" + portionsSnack +
