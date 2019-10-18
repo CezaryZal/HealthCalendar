@@ -13,11 +13,13 @@ INSERT INTO `daily_limits` VALUES
 (1, 2500, 2000, 1),
 (2, 4000, 3000, 2);
 
-INSERT INTO `diet` VALUES
-(1, '2018-09-23 11:21:11', 260, 'sniadanie', 'jajecznica z 2jaj', 1),
-(2, '2018-09-24 12:22:22' , 420, 'obiad', 'schabowy', 1),
-(3, '2018-09-24 03:33:33', 300, 'II sniadanie', 'kanapki', 2),
-(4, '2018-09-24 04:44:44', 510, 'obiad', 'gulasz', 2);
+INSERT INTO `meal` VALUES
+(1, 1, 'jajecznica z 2jaj', 260, '2018-09-23 11:21', 'sniadanie'),
+(2, 1, 'schabowy', 420, '2018-09-24 12:22', 'obiad'),
+(3, 2, 'kanapki', 300, '2018-09-24 03:33', 'II sniadanie'),
+(4, 2, 'gulasz', 510, '2018-09-25 04:44', 'obiad'),
+(5, 2, 'gulasz', 510, '2018-09-25 05:55', 'obiad'),
+(6, 2, 'gulasz', 510, '2018-09-26 06:06', 'obiad');
 
 
 INSERT INTO `day` VALUES

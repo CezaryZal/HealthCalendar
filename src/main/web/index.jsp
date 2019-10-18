@@ -11,11 +11,11 @@
 <br>
 <a href=${pageContext.request.contextPath}"/body/byLastDate/2">Get last date measure from Body Size where user id=2 </a>
 <br>
-<a href=${pageContext.request.contextPath}"/body/byUserIdAllDate/3">Get all date from Body Size by user ide </a>
+<a href=${pageContext.request.contextPath}"/body/byUserIdAllDate/3">Get all dates from Body Size by user ide </a>
 <br>
-<a href=${pageContext.request.contextPath}"/body/byDateAndUserId/2018-06-13/9">Get record from Body Size by date and user id </a>
+<a href=${pageContext.request.contextPath}"/body/byDateAndUserId/2018-06-23/2">Get record from Body Size by date and user id </a>
 <br>
-<a href=${pageContext.request.contextPath}"/body/getAll">Get all record from Body Size </a>
+<a href=${pageContext.request.contextPath}"/body/getAll">Get all records from Body Size </a>
 <br>
 <a href=${pageContext.request.contextPath}"/body/addBody">Add body size, method POST </a>
 <br>
@@ -45,11 +45,11 @@ Brak update, żeby nikt nie oszukiwał. Można tylko usunąc lub dodać
 <hr>
 <a href=${pageContext.request.contextPath}"/user/id/2">Get record from User (main info) where id=2 </a>
 <br>
-<a href=${pageContext.request.contextPath}"/user/getAll">Get all record from User (main info) </a>
+<a href=${pageContext.request.contextPath}"/user/getAll">Get all records from User (main info) </a>
 <br>
 <a href=${pageContext.request.contextPath}"/user/userAllInf/id/2">Get record from User (all info) where id=2 </a>
 <br>
-<a href=${pageContext.request.contextPath}"/user/getAllUsersInf">Get all record from User (all information) </a>
+<a href=${pageContext.request.contextPath}"/user/getAllUsersInf">Get all records from User (all information) </a>
 <br>
 <a href=${pageContext.request.contextPath}"/user/addUser">Add user, method POST </a>
 <br>
@@ -76,7 +76,7 @@ Brak update, żeby nikt nie oszukiwał. Można tylko usunąc lub dodać
 <br>
 <a href=${pageContext.request.contextPath}"/limit/byUserId/1">Get record from Daily limit where userId=1 </a>
 <br>
-<a href=${pageContext.request.contextPath}"/limit/getAll">Get all record from Daily limit </a>
+<a href=${pageContext.request.contextPath}"/limit/getAll">Get all records from Daily limit </a>
 <br>
 <a href=${pageContext.request.contextPath}"/limit/add">Add Daily limits, method POST </a>
 <br>
@@ -87,12 +87,23 @@ Brak update, żeby nikt nie oszukiwał. Można tylko usunąc lub dodać
 
 
 <hr>
-<a href=${pageContext.request.contextPath}"/meal/id/2">Get record from Diet where id=2 </a>
+<a href=${pageContext.request.contextPath}"/meal/id/2">Get record from Meal where id=2 </a>
 <br>
-<a href=${pageContext.request.contextPath}"/meal/byUserId/1">Get record from Daily limit where userId=1 </a>
+<a href=${pageContext.request.contextPath}"/meal/byDateAndDayId/2018-09-25/2">
+    Get all records from Meal where date=2018-09-25 and dayId=2 </a>
 <br>
-<a href=${pageContext.request.contextPath}"/meal/getAll">Get all record from Diet </a>
+<a href=${pageContext.request.contextPath}"/meal/getAll">Get all records from Meal </a>
 <br>
+<a href=${pageContext.request.contextPath}"/meal/add">Add Meal, method POST </a>
+<br>
+<a href=${pageContext.request.contextPath}"/meal/update">Update record from Meal method PUT</a>
+<br>
+<a href=${pageContext.request.contextPath}"/meal/delete/4">Delete record where id=4 from Meal method DELETE</a>
+<br>
+
+
+
+
 
 
 <hr>
@@ -100,7 +111,7 @@ Brak update, żeby nikt nie oszukiwał. Można tylko usunąc lub dodać
 
 
 <h2>
-    Test ddd
+    Test m
 </h2>
 
 </body>
