@@ -1,5 +1,6 @@
 package com.CezaryZal.meal;
 
+import com.CezaryZal.meal.diet.DailyDiet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,11 +25,16 @@ public class MealService {
         return meal;
     }
 
-    public List<Meal> getListByDateAndDayId (String  inputDate, int dayId){
+    public DailyDiet getDailyDiet (String  inputDate, int dayId){
         LocalDate localDate = LocalDate.parse(inputDate);
         List<Meal> listMeals = MRepository.findByDateAndDayId(localDate, dayId);
+        int sumKcal = 0;
+        for (Meal meal : listMeals){
+            sumKcal += meal.getKcal();
+        }
+        DailyDiet dailyDiet = new DailyDiet(listMeals, sumKcal);
 
-        return listMeals;
+        return dailyDiet;
     }
 
     public List<Meal> getAll (){

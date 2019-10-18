@@ -1,6 +1,7 @@
 package com.CezaryZal.meal;
 
 
+import com.CezaryZal.meal.diet.DailyDiet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,8 +25,8 @@ public class MealController {
     }
 
     @GetMapping("/byDateAndDayId/{date}/{dayId}")
-    public List<Meal> getListByDateAndDayId(@PathVariable String date, @PathVariable int dayId){
-        return MService.getListByDateAndDayId(date, dayId);
+    public DailyDiet getListByDateAndDayId(@PathVariable String date, @PathVariable int dayId){
+        return MService.getDailyDiet(date, dayId);
     }
 
     @GetMapping("/getAll")
