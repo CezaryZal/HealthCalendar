@@ -2,7 +2,7 @@ package com.CezaryZal.user;
 
 import com.CezaryZal.bodySize.BodySize;
 import com.CezaryZal.dailyLimits.DailyLimits;
-import com.CezaryZal.day.Day;
+import com.CezaryZal.day.DayDB;
 
 import javax.persistence.*;
 import java.util.List;
@@ -48,7 +48,7 @@ public class UserDB {
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
-    private List<Day> listDays;
+    private List<DayDB> listDayDBS;
 
 //    {
 //        "firstName": "Fiona1",
@@ -64,7 +64,7 @@ public class UserDB {
     }
 
     public UserDB(String firstName, String nick, String email, int poneNumber, String loginName, String password,
-                  int sex, DailyLimits dailyLimits, List<BodySize> listBodySize, List<Day> listDays) {
+                  int sex, DailyLimits dailyLimits, List<BodySize> listBodySize, List<DayDB> listDayDBS) {
         this.firstName = firstName;
         this.nick = nick;
         this.email = email;
@@ -74,7 +74,7 @@ public class UserDB {
         this.sex = sex;
         this.dailyLimits = dailyLimits;
         this.listBodySize = listBodySize;
-        this.listDays = listDays;
+        this.listDayDBS = listDayDBS;
     }
 
     public int getId() {
@@ -157,12 +157,12 @@ public class UserDB {
         this.listBodySize = listBodySize;
     }
 
-    public List<Day> getListDays() {
-        return listDays;
+    public List<DayDB> getListDayDBS() {
+        return listDayDBS;
     }
 
-    public void setListDays(List<Day> listDays) {
-        this.listDays = listDays;
+    public void setListDayDBS(List<DayDB> listDayDBS) {
+        this.listDayDBS = listDayDBS;
     }
 
     @Override
@@ -178,7 +178,7 @@ public class UserDB {
                 ", sex=" + sex +
                 ", dailyLimits=" + dailyLimits +
                 ", listBodySize=" + listBodySize +
-                ", listDays=" + listDays +
+                ", listDays=" + listDayDBS +
                 '}';
     }
 }

@@ -1,21 +1,21 @@
 package com.CezaryZal.meal.diet;
 
-import com.CezaryZal.meal.Meal;
+import com.CezaryZal.meal.MealDB;
 
 import java.util.List;
 
 public class DailyDiet {
 
-    private List<Meal> listMeals;
+    private List<MealDB> listMealDBS;
     private int sumKcal;
 
-    public DailyDiet(List<Meal> listMeals, int sumKcal) {
-        this.listMeals = listMeals;
+    public DailyDiet(List<MealDB> listMealDBS, int sumKcal) {
+        this.listMealDBS = listMealDBS;
         this.sumKcal = sumKcal;
     }
 
-    public List<Meal> getListMeals() {
-        return listMeals;
+    public List<MealDB> getListMealDBS() {
+        return listMealDBS;
     }
 
     public int getSumKcal() {
@@ -25,7 +25,7 @@ public class DailyDiet {
     @Override
     public String toString() {
         return "DailyDiet{" +
-                "listMeals=" + listMeals +
+                "listMeals=" + listMealDBS +
                 ", sumKcal=" + sumKcal +
                 '}';
     }

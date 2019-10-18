@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "meal")
-public class Meal {
+public class MealDB {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,10 +27,10 @@ public class Meal {
     @Column(name = "day_id")
     private int dayId;
 
-    public Meal() {
+    public MealDB() {
     }
 
-    public Meal(LocalDateTime dateTime, String type, int kcal, String description, int dayId) {
+    public MealDB(LocalDateTime dateTime, String type, int kcal, String description, int dayId) {
         this.dateTime = dateTime;
         this.type = type;
         this.kcal = kcal;

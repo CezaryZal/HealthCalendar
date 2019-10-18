@@ -17,11 +17,11 @@ public class MealRepository {
     @PersistenceContext
     private EntityManager entityManager;
 
-    public Meal findById(int id){
-        return entityManager.find(Meal.class, id);
+    public MealDB findById(int id){
+        return entityManager.find(MealDB.class, id);
     }
 
-    public List<Meal> findByDateAndDayId(LocalDate currentDateMin, int dayId){
+    public List<MealDB> findByDateAndDayId(LocalDate currentDateMin, int dayId){
 
         Query query = entityManager.createQuery(
                 "SELECT m FROM Meal m WHERE dayId=:dayId AND date_time<=:max AND date_time>=:min");
@@ -32,23 +32,23 @@ public class MealRepository {
         return query.getResultList();
     }
 
-    public List<Meal> getAll (){
+    public List<MealDB> getAll (){
         Query query = entityManager.createQuery("SELECT m FROM Meal m");
 
         return query.getResultList();
     }
 
-    public void save (Meal meal){
-        entityManager.persist(meal);
+    public void save (MealDB mealDB){
+        entityManager.persist(mealDB);
     }
 
-    public void update(Meal meal){
-        entityManager.merge(meal);
+    public void update(MealDB mealDB){
+        entityManager.merge(mealDB);
     }
 
-    public boolean detele (Meal meal){
-        if(entityManager.contains(meal)){
-            entityManager.remove(meal);
+    public boolean detele (MealDB mealDB){
+        if(entityManager.contains(mealDB)){
+            entityManager.remove(mealDB);
             return true;
         }
         return false;

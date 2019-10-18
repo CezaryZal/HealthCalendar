@@ -19,45 +19,45 @@ public class MealService {
         this.MRepository = MRepository;
     }
 
-    public Meal findById (int id){
-        Meal meal = MRepository.findById(id);
+    public MealDB findById (int id){
+        MealDB mealDB = MRepository.findById(id);
 
-        return meal;
+        return mealDB;
     }
 
     public DailyDiet getDailyDiet (String  inputDate, int dayId){
         LocalDate localDate = LocalDate.parse(inputDate);
-        List<Meal> listMeals = MRepository.findByDateAndDayId(localDate, dayId);
+        List<MealDB> listMealDBS = MRepository.findByDateAndDayId(localDate, dayId);
         int sumKcal = 0;
-        for (Meal meal : listMeals){
-            sumKcal += meal.getKcal();
+        for (MealDB mealDB : listMealDBS){
+            sumKcal += mealDB.getKcal();
         }
-        DailyDiet dailyDiet = new DailyDiet(listMeals, sumKcal);
+        DailyDiet dailyDiet = new DailyDiet(listMealDBS, sumKcal);
 
         return dailyDiet;
     }
 
-    public List<Meal> getAll (){
-        List<Meal> listMeal = MRepository.getAll();
+    public List<MealDB> getAll (){
+        List<MealDB> listMealDB = MRepository.getAll();
 
-        return listMeal;
+        return listMealDB;
     }
 
-    public boolean addMeal (Meal meal){
-        MRepository.save(meal);
+    public boolean addMeal (MealDB mealDB){
+        MRepository.save(mealDB);
 
         return true;
     }
 
-    public boolean updateMeal (Meal meal){
-        MRepository.update(meal);
+    public boolean updateMeal (MealDB mealDB){
+        MRepository.update(mealDB);
 
         return true;
     }
 
     public String deleteMealById (int id){
-        Meal meal = MRepository.findById(id);
-        if(MRepository.detele(meal)){
+        MealDB mealDB = MRepository.findById(id);
+        if(MRepository.detele(mealDB)){
             return "delete record";
         }
         return "Diet id not found";

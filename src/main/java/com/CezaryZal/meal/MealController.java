@@ -5,7 +5,6 @@ import com.CezaryZal.meal.diet.DailyDiet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -20,7 +19,7 @@ public class MealController {
     }
 
     @GetMapping("/id/{nrId}")
-    public Meal getMealById (@PathVariable int nrId){
+    public MealDB getMealById (@PathVariable int nrId){
         return MService.findById(nrId);
     }
 
@@ -30,18 +29,18 @@ public class MealController {
     }
 
     @GetMapping("/getAll")
-    public List<Meal> getAll(){
+    public List<MealDB> getAll(){
         return MService.getAll();
     }
 
     @PostMapping("/add")
-    public boolean addDiet (@RequestBody Meal meal){
-        return MService.addMeal(meal);
+    public boolean addDiet (@RequestBody MealDB mealDB){
+        return MService.addMeal(mealDB);
     }
 
     @PutMapping("/update")
-    public boolean updateMeal (@RequestBody Meal meal){
-        return MService.updateMeal(meal);
+    public boolean updateMeal (@RequestBody MealDB mealDB){
+        return MService.updateMeal(mealDB);
     }
 
     @DeleteMapping("/delete/{id}")
