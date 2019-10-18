@@ -21,6 +21,14 @@ INSERT INTO `meal` VALUES
 (5, '2018-05-24 05:55', 2, 'gulasz', 510, 'obiad'),
 (6, '2018-05-24 06:06', 2, 'gulasz', 510, 'obiad');
 
+INSERT INTO `training` VALUES
+(1, 260, '2018-05-23 11:21', 1, 'silka', '1:20'),
+(2, 220, '2018-05-23 12:22', 1, 'sex', '0:40'),
+(3, 300, '2018-05-24 03:33', 2, 'plywalnia', '0:55'),
+(4, 210, '2018-05-24 04:44', 2, 'rower', '0:45'),
+(5, 430, '2018-05-24 05:55', 2, 'bieganie', '1:00'),
+(6, 300, '2018-05-24 06:06', 2, 'silka', '1:10');
+
 
 INSERT INTO `day` VALUES
 (1, '2018-05-24', 11, 12, 4, 1),
@@ -64,31 +72,6 @@ CREATE TABLE `details_note`(
 INSERT INTO `details_note` VALUES
 (1, 'dieta nie utrzymana'),
 (2, 'zjedzone znacznie wiecej');
-
-
-
-DROP TABLE IF EXISTS `training`;
-
-CREATE TABLE `training`(
-                       `id` INTEGER NOT NULL AUTO_INCREMENT,
-                       `date` DATE NOT NULL,
-                       `training_text` varchar(128) DEFAULT NULL,
-                       `training_time` INTEGER DEFAULT NULL,
-                       `training_kcal` INTEGER DEFAULT NULL,
-                       `day_id` INTEGER DEFAULT NULL,
-                       PRIMARY KEY (`id`),
-                           KEY `FK_DAY_idx` (`day_id`),
-                       CONSTRAINT `FK_DAY` FOREIGN KEY (`day_id`)
-                           REFERENCES `day` (`id`)
-                           ON DELETE NO ACTION ON UPDATE NO ACTION
-
-) ENGINE = InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=UTF8;
-
-
-INSERT INTO `training` VALUES
-(1, '2018-09-23', 'silka', 90, 1000, 1),
-(2, '2018-09-24', 'spacer', 30, 300, 2);
-
 
 
 DROP TABLE IF EXISTS `short_day`;

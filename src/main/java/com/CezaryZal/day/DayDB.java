@@ -1,6 +1,7 @@
 package com.CezaryZal.day;
 
 import com.CezaryZal.meal.MealDB;
+import com.CezaryZal.training.TrainingDB;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
@@ -38,13 +39,17 @@ public class DayDB {
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "day_id")
-    private List<MealDB> listMealDBS;
+    private List<MealDB> listMealDB;
 
     @Column(name = "portions_snack")
     private int portionsSnack;
 
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "day_id")
+    private List<TrainingDB> listTrainingDB;
 
-//
+
+
 //    @OneToOne(cascade = CascadeType.ALL)
 //    @JoinColumn(name = "note_id")
 //    private Note note;
@@ -52,14 +57,15 @@ public class DayDB {
     public DayDB() {
     }
 
-    public DayDB(LocalDate date, int userId, int portionsDrink, int portionsAlcohol, List<MealDB> listMealDBS,
-                 int portionsSnack) {
+    public DayDB(LocalDate date, int userId, int portionsDrink, int portionsAlcohol, List<MealDB> listMealDB,
+                 int portionsSnack, List<TrainingDB> listTrainingDB) {
         this.date = date;
         this.userId = userId;
         this.portionsDrink = portionsDrink;
         this.portionsAlcohol = portionsAlcohol;
-        this.listMealDBS = listMealDBS;
+        this.listMealDB = listMealDB;
         this.portionsSnack = portionsSnack;
+        this.listTrainingDB = listTrainingDB;
     }
 
     public int getId() {
@@ -102,12 +108,12 @@ public class DayDB {
         this.portionsAlcohol = portionsAlcohol;
     }
 
-    public List<MealDB> getListMealDBS() {
-        return listMealDBS;
+    public List<MealDB> getListMealDB() {
+        return listMealDB;
     }
 
-    public void setListMealDBS(List<MealDB> listMealDBS) {
-        this.listMealDBS = listMealDBS;
+    public void setListMealDB(List<MealDB> listMealDB) {
+        this.listMealDB = listMealDB;
     }
 
     public int getPortionsSnack() {
@@ -118,6 +124,14 @@ public class DayDB {
         this.portionsSnack = portionsSnack;
     }
 
+    public List<TrainingDB> getListTrainingDB() {
+        return listTrainingDB;
+    }
+
+    public void setListTrainingDB(List<TrainingDB> listTrainingDB) {
+        this.listTrainingDB = listTrainingDB;
+    }
+
     @Override
     public String toString() {
         return "DayDB{" +
@@ -126,8 +140,9 @@ public class DayDB {
                 ", userId=" + userId +
                 ", portionsDrink=" + portionsDrink +
                 ", portionsAlcohol=" + portionsAlcohol +
-                ", listMealDBS=" + listMealDBS +
+                ", listMealDB=" + listMealDB +
                 ", portionsSnack=" + portionsSnack +
+                ", listTrainingDB=" + listTrainingDB +
                 '}';
     }
 }
