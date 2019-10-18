@@ -47,7 +47,7 @@ Brak update, żeby nikt nie oszukiwał. Można tylko usunąc lub dodać
 <br>
 <a href=${pageContext.request.contextPath}"/user/getAll">Get all records from User (main info) </a>
 <br>
-<a href=${pageContext.request.contextPath}"/user/userAllInf/id/2">Get record from User (all info) where id=2 </a>
+<a href=${pageContext.request.contextPath}"/user/userDB/id/2">Get record from User (all info) where id=2 </a>
 <br>
 <a href=${pageContext.request.contextPath}"/user/getAllUsersInf">Get all records from User (all information) </a>
 <br>

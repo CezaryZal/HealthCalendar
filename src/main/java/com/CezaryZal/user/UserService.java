@@ -19,57 +19,57 @@ public class UserService {
     }
 
     public User getUserById(int id){
-        UserAllInf userAllInf = getUserAllInfById(id);
-        User user = convertUserClass(userAllInf);
+        UserDB userDB = getUserDBById(id);
+        User user = convertUserClass(userDB);
 
         return user;
     }
 
     public List<User> getAllUsers(){
-        List<UserAllInf> listUsersAllInf = getAllUsersAllInf();
+        List<UserDB> listUsersDB = getAllUsersDB();
 
         List<User> listUsers = new ArrayList<>();
-        for (UserAllInf userAllInf : listUsersAllInf){
-            listUsers.add(convertUserClass(userAllInf));
+        for (UserDB userDB : listUsersDB){
+            listUsers.add(convertUserClass(userDB));
         }
         return listUsers;
     }
 
-    public boolean addUser(UserAllInf user){
+    public boolean addUser(UserDB user){
         URepository.save(user);
 
         return true;
     }
 
-    public boolean updateUser(UserAllInf userAllInf){
-        URepository.update(userAllInf);
+    public boolean updateUser(UserDB userDB){
+        URepository.update(userDB);
 
         return true;
     }
 
     public String deleteUserById (int id) {
-        UserAllInf userAllInf = URepository.getUserAllInfById(id);
-        if(URepository.delete(userAllInf)){
+        UserDB userDB = URepository.getUserDBById(id);
+        if(URepository.delete(userDB)){
             return "delete record";
         }
         return "User id not found";
     }
 
-    public UserAllInf getUserAllInfById(int id){
-        UserAllInf user = URepository.getUserAllInfById(id);
+    public UserDB getUserDBById(int id){
+        UserDB user = URepository.getUserDBById(id);
 
         return user;
     }
 
-    public List<UserAllInf> getAllUsersAllInf(){
-        List<UserAllInf> listUsersAllInf = URepository.getAll();
+    public List<UserDB> getAllUsersDB(){
+        List<UserDB> listUsersDB = URepository.getAll();
 
-        return listUsersAllInf;
+        return listUsersDB;
     }
 
-    public User convertUserClass (UserAllInf userAllInf){
-        User user = new User(userAllInf.getId(), userAllInf.getFirstName(), userAllInf.getNick(), userAllInf.getEmail(),
-                userAllInf.getPoneNumber(), userAllInf.getLoginName(), userAllInf.getPassword(), userAllInf.getSex());
+    public User convertUserClass (UserDB userDB){
+        User user = new User(userDB.getId(), userDB.getFirstName(), userDB.getNick(), userDB.getEmail(),
+                userDB.getPoneNumber(), userDB.getLoginName(), userDB.getPassword(), userDB.getSex());
 
         return user;
     }

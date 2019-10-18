@@ -9,7 +9,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "user")
-public class UserAllInf {
+public class UserDB {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -60,11 +60,11 @@ public class UserAllInf {
 //            "sex": 1,
 //    }
 
-    public UserAllInf() {
+    public UserDB() {
     }
 
-    public UserAllInf(String firstName, String nick, String email, int poneNumber, String loginName, String password,
-                      int sex, DailyLimits dailyLimits, List<BodySize> listBodySize, List<Day> listDays) {
+    public UserDB(String firstName, String nick, String email, int poneNumber, String loginName, String password,
+                  int sex, DailyLimits dailyLimits, List<BodySize> listBodySize, List<Day> listDays) {
         this.firstName = firstName;
         this.nick = nick;
         this.email = email;
