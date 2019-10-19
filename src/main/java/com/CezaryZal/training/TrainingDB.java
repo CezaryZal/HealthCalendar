@@ -3,6 +3,7 @@ package com.CezaryZal.training;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.temporal.TemporalAmount;
 
 @Entity
 @Table(name = "training")
@@ -63,7 +64,7 @@ public class TrainingDB {
         this.description = description;
     }
 
-    public LocalTime getTime() {
+    public TemporalAmount getTime() {
         return time;
     }
 

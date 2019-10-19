@@ -7,26 +7,26 @@ import java.util.List;
 public class DailyDiet {
 
     private List<MealDB> listMealDBS;
-    private int sumKcal;
+    private int sumOfKcal;
 
-    public DailyDiet(List<MealDB> listMealDBS, int sumKcal) {
+    public DailyDiet(List<MealDB> listMealDBS, int sumOfKcal) {
         this.listMealDBS = listMealDBS;
-        this.sumKcal = sumKcal;
+        this.sumOfKcal = sumOfKcal;
     }
 
     public List<MealDB> getListMealDBS() {
         return listMealDBS;
     }
 
-    public int getSumKcal() {
-        return sumKcal;
+    public int getSumOfKcal() {
+        return sumOfKcal;
     }
 
     @Override
     public String toString() {
         return "DailyDiet{" +
                 "listMeals=" + listMealDBS +
-                ", sumKcal=" + sumKcal +
+                ", sumOfKcal=" + sumOfKcal +
                 '}';
     }
 }

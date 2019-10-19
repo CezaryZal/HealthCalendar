@@ -28,11 +28,11 @@ public class MealService {
     public DailyDiet getDailyDiet (String  inputDate, int dayId){
         LocalDate localDate = LocalDate.parse(inputDate);
         List<MealDB> listMealDBS = MRepository.findByDateAndDayId(localDate, dayId);
-        int sumKcal = 0;
+        int sumOfKcal = 0;
         for (MealDB mealDB : listMealDBS){
-            sumKcal += mealDB.getKcal();
+            sumOfKcal += mealDB.getKcal();
         }
-        DailyDiet dailyDiet = new DailyDiet(listMealDBS, sumKcal);
+        DailyDiet dailyDiet = new DailyDiet(listMealDBS, sumOfKcal);
 
         return dailyDiet;
     }

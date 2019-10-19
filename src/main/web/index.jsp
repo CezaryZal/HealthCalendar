@@ -122,10 +122,22 @@ Brak update, żeby nikt nie oszukiwał. Można tylko usunąc lub dodać
 <br>
 
 
+<hr>
+<a href=${pageContext.request.contextPath}"/training/id/2">Get record from Training where id=2 </a>
+<br>
+<a href=${pageContext.request.contextPath}"/training/getDietByDateAndDayId/2018-09-25/2">
+    Get all trainings by day from Training where date=2018-09-25 and dayId=2 </a>
+<br>
+<a href=${pageContext.request.contextPath}"/training/getAll">Get all records from Training </a>
+<br>
+<a href=${pageContext.request.contextPath}"/training/add">Add Training, method POST </a>
+<br>
+<a href=${pageContext.request.contextPath}"/training/update">Update record from Training method PUT</a>
+<br>
+<a href=${pageContext.request.contextPath}"/training/delete/4">Delete record where id=4 from Training method DELETE</a>
+<br>
 
 
-
-Sprawdzić wpisywanie Polskich znaków!!!!!
 
 
 <hr>
