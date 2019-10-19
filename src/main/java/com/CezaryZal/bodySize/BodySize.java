@@ -55,20 +55,20 @@ public class BodySize {
     private int userId;
 
 //    {
-//        "bodyWeight": 12,
-//            "neckSize": 22,
-//            "armSize": 32,
-//            "bustSize": 42,
-//            "waist": 52,
-//            "femoralSize": 72,
-//            "calf": 82,
+//            "bodyWeight": 38,
+//            "neckSize": 45,
+//            "armSize": 65,
+//            "bustSize": 31,
+//            "waist": 36,
+//            "hipsSize": 88,
+//            "femoralSize": 75,
+//            "calf": 98,
 //            "date": [
 //        2018,
 //                5,
-//                3
+//                23
 //],
-//        "userId": 2,
-//            "hipSize": 62
+//        "userId": 1
 //    }
 
     public BodySize() {

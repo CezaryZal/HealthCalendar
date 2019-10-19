@@ -10,6 +10,9 @@
     <packaging>war</packaging>
 
     <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
         <springframework.version>4.3.7.RELEASE</springframework.version>
         <mysql.connector.version>5.1.39</mysql.connector.version>
         <hibernate.version>5.2.9.Final</hibernate.version>

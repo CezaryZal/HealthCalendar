@@ -17,7 +17,7 @@ public class MealRepository {
     @PersistenceContext
     private EntityManager entityManager;
 
-    public MealDB findById(int id){
+    public com.CezaryZal.meal.MealDB findById(int id){
         return entityManager.find(MealDB.class, id);
     }
 

@@ -18,7 +18,7 @@ INSERT INTO `meal` VALUES
 (2, '2018-05-23 12:22', 1, 'schabowy', 420, 'obiad'),
 (3, '2018-05-24 03:33', 2, 'kanapki', 300, 'II sniadanie'),
 (4, '2018-05-24 04:44', 2, 'gulasz', 510, 'obiad'),
-(5, '2018-05-24 05:55', 2, 'gulasz', 510, 'obiad'),
+(5, '2018-05-24 05:55', 2, 'żeberka', 510, 'obiad'),
 (6, '2018-05-24 06:06', 2, 'gulasz', 510, 'obiad');
 
 INSERT INTO `training` VALUES
@@ -29,12 +29,16 @@ INSERT INTO `training` VALUES
 (5, 430, '2018-05-24 05:55', 2, 'bieganie', '1:00'),
 (6, 300, '2018-05-24 06:06', 2, 'silka', '1:10');
 
-
 INSERT INTO `day` VALUES
 (1, '2018-05-24', 11, 12, 4, 1),
 (2, '2018-05-23', 21, 22, 1, 1),
 (3, '2018-05-24', 31, 32, 4, 2),
 (4, '2018-05-23', 41, 42, 1, 2);
+
+
+ALTER TABLE `meal` CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+
 
 
 

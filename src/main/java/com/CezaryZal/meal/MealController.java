@@ -23,7 +23,7 @@ public class MealController {
         return MService.findById(nrId);
     }
 
-    @GetMapping("/byDateAndDayId/{date}/{dayId}")
+    @GetMapping("/getDietByDateAndDayId/{date}/{dayId}")
     public DailyDiet getListByDateAndDayId(@PathVariable String date, @PathVariable int dayId){
         return MService.getDailyDiet(date, dayId);
     }

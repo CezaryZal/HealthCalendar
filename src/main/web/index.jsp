@@ -1,3 +1,4 @@
+<%@ page contentType="text/html; charset=UTF-8" %>
 <html>
 <body>
 
@@ -17,7 +18,7 @@
 <br>
 <a href=${pageContext.request.contextPath}"/body/getAll">Get all records from Body Size </a>
 <br>
-<a href=${pageContext.request.contextPath}"/body/addBody">Add body size, method POST </a>
+<a href=${pageContext.request.contextPath}"/body/add">Add body size, method POST </a>
 <br>
 {
 "bodyWeight": 12,
@@ -89,8 +90,8 @@ Brak update, żeby nikt nie oszukiwał. Można tylko usunąc lub dodać
 <hr>
 <a href=${pageContext.request.contextPath}"/meal/id/2">Get record from Meal where id=2 </a>
 <br>
-<a href=${pageContext.request.contextPath}"/meal/byDateAndDayId/2018-09-25/2">
-    Get all records from Meal where date=2018-09-25 and dayId=2 </a>
+<a href=${pageContext.request.contextPath}"/meal/getDietByDateAndDayId/2018-09-25/2">
+    Get daily Diet from Meal where date=2018-09-25 and dayId=2 </a>
 <br>
 <a href=${pageContext.request.contextPath}"/meal/getAll">Get all records from Meal </a>
 <br>
@@ -121,6 +122,10 @@ Brak update, żeby nikt nie oszukiwał. Można tylko usunąc lub dodać
 <br>
 
 
+
+
+
+Sprawdzić wpisywanie Polskich znaków!!!!!
 
 
 <hr>

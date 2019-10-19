@@ -43,7 +43,7 @@ public class BodySizeController {
         return BSService.getAll();
     }
 
-    @PostMapping("/addBody")
+    @PostMapping("/add")
     public boolean addBody (@RequestBody BodySize bodySize){
         return BSService.addBody(bodySize);
     }
