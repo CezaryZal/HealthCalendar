@@ -29,6 +29,12 @@ INSERT INTO `training` VALUES
 (5, 430, '2018-05-24 05:55', 2, 'bieganie', '1:00'),
 (6, 300, '2018-05-24 06:06', 2, 'silka', '1:10');
 
+INSERT INTO `note` VALUES
+(1, 1, 'dieta nie utrzymana', 'wyjazd do świdnika'),
+(2, 1, 'pite duzo alkoholu', 'wakacje'),
+(3, 2, 'duzo tlustego jedzenia i alkoholu', 'wyjazd do tesciow'),
+(4, 2, 'nieregularne jedzenie i pyty alkohol', 'wakacje');
+
 INSERT INTO `day` VALUES
 (1, '2018-05-24', 11, 12, 4, 1),
 (2, '2018-05-23', 21, 22, 1, 1),
@@ -36,46 +42,13 @@ INSERT INTO `day` VALUES
 (4, '2018-05-23', 41, 42, 1, 2);
 
 
-ALTER TABLE `meal` CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 
 
+ALTER TABLE `meal` CONVERT TO CHARACTER SET utf8 COLLATE utf8_polish_ci;
 
 
-DROP TABLE IF EXISTS `note`;
 
-
-CREATE TABLE `note`(
-                       `id` INTEGER NOT NULL AUTO_INCREMENT,
-                       `header` varchar(128) NOT NULL,
-                       `details_note_id` INTEGER DEFAULT NULL,
-                       PRIMARY KEY (`id`),
-                       KEY `DN_SIZE_idx` (`details_note_id`),
-                       CONSTRAINT `DN_SIZE` FOREIGN KEY (`details_note_id`)
-                           REFERENCES `details_note` (`id`)
-                           ON DELETE NO ACTION ON UPDATE NO ACTION
-
-) ENGINE = InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=UTF8;
-
-
-INSERT INTO `note` VALUES
-(1, 'wyjazd do świdnika', 1),
-(2, 'wakacje', 2);
-
-
-DROP TABLE IF EXISTS `details_note`;
-
-CREATE TABLE `details_note`(
-                       `id` INTEGER NOT NULL AUTO_INCREMENT,
-                       `details` varchar(45) DEFAULT NULL,
-                       PRIMARY KEY (`id`)
-
-) ENGINE = InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=UTF8;
-
-
-INSERT INTO `details_note` VALUES
-(1, 'dieta nie utrzymana'),
-(2, 'zjedzone znacznie wiecej');
 
 
 DROP TABLE IF EXISTS `short_day`;

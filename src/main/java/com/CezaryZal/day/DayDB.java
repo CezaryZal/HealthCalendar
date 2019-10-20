@@ -1,6 +1,7 @@
 package com.CezaryZal.day;
 
 import com.CezaryZal.meal.MealDB;
+import com.CezaryZal.note.NoteDB;
 import com.CezaryZal.training.TrainingDB;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -39,33 +40,33 @@ public class DayDB {
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "day_id")
-    private List<MealDB> listMealDB;
+    private List<MealDB> listMealsDB;
 
     @Column(name = "portions_snack")
     private int portionsSnack;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "day_id")
-    private List<TrainingDB> listTrainingDB;
+    private List<TrainingDB> listTrainingsDB;
 
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "day_id")
+    private List<NoteDB> listNotesDB;
 
-
-//    @OneToOne(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "note_id")
-//    private Note note;
 
     public DayDB() {
     }
 
-    public DayDB(LocalDate date, int userId, int portionsDrink, int portionsAlcohol, List<MealDB> listMealDB,
-                 int portionsSnack, List<TrainingDB> listTrainingDB) {
+    public DayDB(LocalDate date, int userId, int portionsDrink, int portionsAlcohol, List<MealDB> listMealsDB,
+                 int portionsSnack, List<TrainingDB> listTrainingsDB, List<NoteDB> listNotesDB) {
         this.date = date;
         this.userId = userId;
         this.portionsDrink = portionsDrink;
         this.portionsAlcohol = portionsAlcohol;
-        this.listMealDB = listMealDB;
+        this.listMealsDB = listMealsDB;
         this.portionsSnack = portionsSnack;
-        this.listTrainingDB = listTrainingDB;
+        this.listTrainingsDB = listTrainingsDB;
+        this.listNotesDB = listNotesDB;
     }
 
     public int getId() {
@@ -108,12 +109,12 @@ public class DayDB {
         this.portionsAlcohol = portionsAlcohol;
     }
 
-    public List<MealDB> getListMealDB() {
-        return listMealDB;
+    public List<MealDB> getListMealsDB() {
+        return listMealsDB;
     }
 
-    public void setListMealDB(List<MealDB> listMealDB) {
-        this.listMealDB = listMealDB;
+    public void setListMealsDB(List<MealDB> listMealsDB) {
+        this.listMealsDB = listMealsDB;
     }
 
     public int getPortionsSnack() {
@@ -124,12 +125,20 @@ public class DayDB {
         this.portionsSnack = portionsSnack;
     }
 
-    public List<TrainingDB> getListTrainingDB() {
-        return listTrainingDB;
+    public List<TrainingDB> getListTrainingsDB() {
+        return listTrainingsDB;
     }
 
-    public void setListTrainingDB(List<TrainingDB> listTrainingDB) {
-        this.listTrainingDB = listTrainingDB;
+    public void setListTrainingsDB(List<TrainingDB> listTrainingsDB) {
+        this.listTrainingsDB = listTrainingsDB;
+    }
+
+    public List<NoteDB> getListNotesDB() {
+        return listNotesDB;
+    }
+
+    public void setListNotesDB(List<NoteDB> listNotesDB) {
+        this.listNotesDB = listNotesDB;
     }
 
     @Override
@@ -140,9 +149,10 @@ public class DayDB {
                 ", userId=" + userId +
                 ", portionsDrink=" + portionsDrink +
                 ", portionsAlcohol=" + portionsAlcohol +
-                ", listMealDB=" + listMealDB +
+                ", listMealsDB=" + listMealsDB +
                 ", portionsSnack=" + portionsSnack +
-                ", listTrainingDB=" + listTrainingDB +
+                ", listTrainingsDB=" + listTrainingsDB +
+                ", listNotesDB=" + listNotesDB +
                 '}';
     }
 }
