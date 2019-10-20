@@ -11,11 +11,11 @@ import java.util.List;
 @Service
 public class UserService {
 
-    private UserRepository URepository;
+    private UserRepository UserR;
 
     @Autowired
     public UserService(UserRepository URepository) {
-        this.URepository = URepository;
+        this.UserR = URepository;
     }
 
     public User getUserById(int id){
@@ -36,40 +36,39 @@ public class UserService {
     }
 
     public boolean addUser(UserDB user){
-        URepository.save(user);
+        UserR.save(user);
 
         return true;
     }
 
     public boolean updateUser(UserDB userDB){
-        URepository.update(userDB);
+        UserR.update(userDB);
 
         return true;
     }
 
     public String deleteUserById (int id) {
-        UserDB userDB = URepository.getUserDBById(id);
-        if(URepository.delete(userDB)){
+        UserDB userDB = UserR.getUserDBById(id);
+        if(UserR.delete(userDB)){
             return "delete record";
         }
         return "User id not found";
     }
 
     public UserDB getUserDBById(int id){
-        UserDB user = URepository.getUserDBById(id);
+        UserDB user = UserR.getUserDBById(id);
 
         return user;
     }
 
     public List<UserDB> getAllUsersDB(){
-        List<UserDB> listUsersDB = URepository.getAll();
+        List<UserDB> listUsersDB = UserR.getAll();
 
         return listUsersDB;
     }
 
     public User convertUserClass (UserDB userDB){
         User user = new User(userDB.getId(),
-                userDB.getId(),
                 userDB.getFirstName(),
                 userDB.getNick(),
                 userDB.getEmail(),

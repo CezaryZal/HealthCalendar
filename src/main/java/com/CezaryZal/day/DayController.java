@@ -9,46 +9,51 @@ import java.util.List;
 @RequestMapping("/day")
 public class DayController {
 
-    private DayService DService;
+    private DayService dayS;
 
     @Autowired
     public DayController(DayService DService) {
-        this.DService = DService;
+        this.dayS = DService;
     }
 
     @GetMapping("/id/{nrId}")
     public DayDB getDayDBById(@PathVariable int nrId){
-        return DService.findById(nrId);
+        return dayS.findById(nrId);
     }
 
-    @GetMapping("/getDayByDateAndUserId/{date}/{userId}/{dayId}")
-    public Day getDayByDateAndUserId(@PathVariable String date, @PathVariable int userId, @PathVariable int dayId){
-        return DService.getDayByDateAndUserId(date, userId, dayId);
+    @GetMapping("/getDayByDateAndUserId/{date}/{userId}")
+    public Day getDayByDateAndUserId(@PathVariable String date, @PathVariable int userId){
+        return dayS.getDayByDateAndUserId(date, userId);
+    }
+
+    @GetMapping("/getDayId/{date}/{userId}")
+    public int getIntDayIdByDateAndUserId(@PathVariable String date, @PathVariable int userId){
+        return dayS.getDayIdByDateAndUserId(date, userId);
     }
 
     @GetMapping("/getDayDBbyDateAndUserId/{date}/{userId}")
     public DayDB getDayDBByDateAndUserId(@PathVariable String date, @PathVariable int userId){
-        return DService.getDayDBByDateAndUserId(date, userId);
+        return dayS.getDayDBByDateAndUserId(date, userId);
     }
 
     @GetMapping("/getAll")
     public List<DayDB> getAll(){
-        return DService.getAll();
+        return dayS.getAll();
     }
 
     @PostMapping("/add")
     public boolean addDiet (@RequestBody DayDB dayDB){
-        return DService.addDay(dayDB);
+        return dayS.addDay(dayDB);
     }
 
     @PutMapping("/update")
     public boolean updateDay (@RequestBody DayDB dayDB){
-        return DService.updateDay(dayDB);
+        return dayS.updateDay(dayDB);
     }
 
     @DeleteMapping("/delete/{id}")
     public String delete (@PathVariable int id){
-        return DService.deleteDayById(id);
+        return dayS.deleteDayById(id);
     }
 
 }

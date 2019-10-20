@@ -1,7 +1,6 @@
 package com.CezaryZal.meal;
 
 
-import com.CezaryZal.meal.diet.DailyDiet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,41 +10,42 @@ import java.util.List;
 @RequestMapping("/meal")
 public class MealController {
 
-    private MealService MService;
+    private MealService MealS;
 
     @Autowired
     public MealController(MealService MService) {
-        this.MService = MService;
+        this.MealS = MService;
     }
 
     @GetMapping("/id/{nrId}")
     public MealDB getMealById (@PathVariable int nrId){
-        return MService.findById(nrId);
+        return MealS.getMealById(nrId);
     }
 
-    @GetMapping("/getDietByDateAndDayId/{date}/{dayId}")
-    public DailyDiet getListByDateAndDayId(@PathVariable String date, @PathVariable int dayId){
-        return MService.getDailyDiet(date, dayId);
+
+    @GetMapping("/getDietByDayId/{dayId}")
+    public DailyDiet getDailyDietByDayId(@PathVariable int dayId){
+        return MealS.getDailyDiet(dayId);
     }
 
     @GetMapping("/getAll")
     public List<MealDB> getAll(){
-        return MService.getAll();
+        return MealS.getAll();
     }
 
     @PostMapping("/add")
     public boolean addDiet (@RequestBody MealDB mealDB){
-        return MService.addMeal(mealDB);
+        return MealS.addMeal(mealDB);
     }
 
     @PutMapping("/update")
     public boolean updateMeal (@RequestBody MealDB mealDB){
-        return MService.updateMeal(mealDB);
+        return MealS.updateMeal(mealDB);
     }
 
     @DeleteMapping("/delete/{id}")
     public String delete (@PathVariable int id){
-        return MService.deleteMealById(id);
+        return MealS.deleteMealById(id);
     }
 
 }

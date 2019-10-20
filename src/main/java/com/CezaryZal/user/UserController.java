@@ -9,46 +9,46 @@ import java.util.List;
 @RequestMapping("/user")
 public class UserController {
 
-    private UserService UService;
+    private UserService UserS;
 
     @Autowired
     public UserController(UserService UService) {
-        this.UService = UService;
+        this.UserS = UService;
     }
 
     @GetMapping("/id/{userId}")
     public User getUser (@PathVariable int userId){
-        return UService.getUserById(userId);
+        return UserS.getUserById(userId);
     }
 
     @GetMapping("/getAll")
     public List<User> getAllUsers(){
-        return  UService.getAllUsers();
+        return  UserS.getAllUsers();
     }
 
     @PostMapping("/addUser")
     public boolean addUser (@RequestBody UserDB user){
-        return UService.addUser(user);
+        return UserS.addUser(user);
     }
 
     //send "id:3", not 'userAllInfId'
     @PutMapping("/update")
     public boolean updateUser (@RequestBody UserDB userDB){
-        return UService.updateUser(userDB);
+        return UserS.updateUser(userDB);
     }
 
     @DeleteMapping("/delete/{userId}")
     public String delete (@PathVariable int userId){
-        return UService.deleteUserById(userId);
+        return UserS.deleteUserById(userId);
     }
 
     @GetMapping("/userDB/id/{userId}")
     public UserDB getUserAllInf (@PathVariable int userId){
-        return UService.getUserDBById(userId);
+        return UserS.getUserDBById(userId);
     }
 
     @GetMapping("/getAllUsersInf")
     public List<UserDB> getAllInf(){
-        return UService.getAllUsersDB();
+        return UserS.getAllUsersDB();
     }
 }

@@ -1,13 +1,11 @@
 package com.CezaryZal.training;
 
 
-import com.CezaryZal.training.trainingsByDay.AllTrainingsByDay;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Duration;
-import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
@@ -15,29 +13,30 @@ import java.util.List;
 @Service
 public class TrainingService {
 
-    private TrainingRepository TRepository;
+    private TrainingRepository TrainingR;
 
     @Autowired
     public TrainingService(TrainingRepository TRepository) {
-        this.TRepository = TRepository;
+        this.TrainingR = TRepository;
     }
 
     public TrainingDB findById (int id){
-        TrainingDB trainingDB = TRepository.findById(id);
+        TrainingDB trainingDB = TrainingR.findById(id);
 
         return trainingDB;
     }
 
-    public AllTrainingsByDay getTrainingsByDay (String  inputDate, int dayId){
-        LocalDate localDate = LocalDate.parse(inputDate);
-        List<TrainingDB> listTrainingDB = TRepository.findByDateAndDayId(localDate, dayId);
+    public AllTrainingsByDay getTrainingsByDay (int dayId){
+        List<TrainingDB> listTrainingDB = TrainingR.findByDayId(dayId);
         int sumOfBurnKcal = 0;
         LocalTime sumOfTimes = LocalTime.of(0,0);
-        for (TrainingDB trainingDB : listTrainingDB){
-            sumOfBurnKcal += trainingDB.getBurnKcal();
-            long hour = trainingDB.getTime().getHour();
-            long minute = trainingDB.getTime().getMinute();
-            sumOfTimes = sumOfTimes.plus(Duration.ofHours(hour)).plus(Duration.ofMinutes(minute));
+        for (TrainingDB trainingDB : listTrainingDB) {
+            if (trainingDB != null) {
+                sumOfBurnKcal += trainingDB.getBurnKcal();
+                long hour = trainingDB.getTime().getHour();
+                long minute = trainingDB.getTime().getMinute();
+                sumOfTimes = sumOfTimes.plus(Duration.ofHours(hour)).plus(Duration.ofMinutes(minute));
+            }
         }
         AllTrainingsByDay trainingsByDay = new AllTrainingsByDay(listTrainingDB, sumOfBurnKcal, sumOfTimes);
 
@@ -45,28 +44,28 @@ public class TrainingService {
     }
 
     public List<TrainingDB> getAll (){
-        List<TrainingDB> listMealDB = TRepository.getAll();
+        List<TrainingDB> listMealDB = TrainingR.getAll();
 
         return listMealDB;
     }
 
     public boolean addTraining (TrainingDB trainingDB){
-        TRepository.save(trainingDB);
+        TrainingR.save(trainingDB);
 
         return true;
     }
 
     public boolean updateTraining (TrainingDB trainingDB){
-        TRepository.update(trainingDB);
+        TrainingR.update(trainingDB);
 
         return true;
     }
 
     public String deleteTrainingById (int id){
-        TrainingDB trainingDB = TRepository.findById(id);
-        if(TRepository.delete(trainingDB)){
+        TrainingDB trainingDB = TrainingR.findById(id);
+        if(TrainingR.delete(trainingDB)){
             return "delete record";
         }
-        return "Diet id not found";
+        return "Training id not found";
     }
 }

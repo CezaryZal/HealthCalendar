@@ -17,17 +17,13 @@ public class MealRepository {
     @PersistenceContext
     private EntityManager entityManager;
 
-    public com.CezaryZal.meal.MealDB findById(int id){
+    public MealDB findById(int id){
         return entityManager.find(MealDB.class, id);
     }
 
-    public List<MealDB> findByDateAndDayId(LocalDate currentDateMin, int dayId){
-
-        Query query = entityManager.createQuery(
-                "SELECT m FROM MealDB m WHERE dayId=:dayId AND date_time<=:max AND date_time>=:min");
+    public List<MealDB> findByDayId(int dayId){
+        Query query = entityManager.createQuery("SELECT m FROM MealDB m WHERE dayId=:dayId");
         query.setParameter("dayId", dayId);
-        query.setParameter("max", currentDateMin.plusDays(1));
-        query.setParameter("min", currentDateMin);
 
         return query.getResultList();
     }

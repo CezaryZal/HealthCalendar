@@ -22,11 +22,17 @@ public class DayRepository {
         return entityManager.find(DayDB.class, id);
     }
 
+    public int findDayIdByDateAndUserId(LocalDate localDate, int userId){
+        Query query = entityManager.createQuery("SELECT id FROM DayDB WHERE date=:inputDate AND userId=:userId");
+        query.setParameter("inputDate", localDate);
+        query.setParameter("userId", userId);
+
+        return (int) query.getSingleResult();
+    }
+
     public DayDB findByDateAndUserId(LocalDate localDate, int userId){
-        LocalDate currentDateMin = LocalDate.of(2018, 5, 24);
         Query query = entityManager.createQuery("SELECT d FROM DayDB d WHERE date=:inputDate AND userId=:userId");
-//        query.setParameter("inputDate", localDate);
-        query.setParameter("inputDate", currentDateMin);
+        query.setParameter("inputDate", localDate);
         query.setParameter("userId", userId);
 
         return (DayDB) query.getSingleResult();

@@ -9,40 +9,40 @@ import java.util.List;
 @RequestMapping("/limit")
 public class DailyLimitsController {
 
-    private DailyLimitsService DLService;
+    private DailyLimitsService DailyLimitsS;
 
     @Autowired
-    public DailyLimitsController(DailyLimitsService DLService) {
-        this.DLService = DLService;
+    public DailyLimitsController(DailyLimitsService dailyLimitsS) {
+        DailyLimitsS = dailyLimitsS;
     }
 
     @GetMapping("/id/{nrId}")
     public DailyLimits getLimitsById (@PathVariable int nrId){
-        return DLService.getLimitsById(nrId);
+        return DailyLimitsS.getLimitsById(nrId);
     }
 
     @GetMapping("/byUserId/{userId}")
     public DailyLimits getLimitsByUserId (@PathVariable int userId){
-        return DLService.getLimitsByUserId(userId);
+        return DailyLimitsS.getLimitsByUserId(userId);
     }
 
     @GetMapping("/getAll")
     public List<DailyLimits> getAll(){
-        return DLService.getAll();
+        return DailyLimitsS.getAll();
     }
 
     @PostMapping("/add")
     public boolean addLimits (@RequestBody DailyLimits dailyLimits){
-        return DLService.addLimits(dailyLimits);
+        return DailyLimitsS.addLimits(dailyLimits);
     }
 
     @PutMapping("/update")
     public boolean updateLimits (@RequestBody DailyLimits dailyLimits){
-        return DLService.updateLimits(dailyLimits);
+        return DailyLimitsS.updateLimits(dailyLimits);
     }
 
     @DeleteMapping("/delete/{nrId}")
     public String deleteLimitsById (@PathVariable int nrId){
-        return DLService.deleteLimitsById(nrId);
+        return DailyLimitsS.deleteLimitsById(nrId);
     }
 }

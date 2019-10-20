@@ -1,4 +1,4 @@
-package com.CezaryZal.training.trainingsByDay;
+package com.CezaryZal.training;
 
 import com.CezaryZal.training.TrainingDB;
 

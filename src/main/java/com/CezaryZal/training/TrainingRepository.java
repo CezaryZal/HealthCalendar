@@ -21,13 +21,9 @@ public class TrainingRepository {
         return entityManager.find(TrainingDB.class, id);
     }
 
-    public List<TrainingDB> findByDateAndDayId(LocalDate currentDateMin, int dayId){
-
-        Query query = entityManager.createQuery(
-                "SELECT t FROM TrainingDB t WHERE dayId=:dayId AND date_time<=:max AND date_time>=:min");
+    public List<TrainingDB> findByDayId(int dayId){
+        Query query = entityManager.createQuery("SELECT t FROM TrainingDB t WHERE dayId=:dayId");
         query.setParameter("dayId", dayId);
-        query.setParameter("max", currentDateMin.plusDays(1));
-        query.setParameter("min", currentDateMin);
 
         return query.getResultList();
     }

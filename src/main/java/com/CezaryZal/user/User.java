@@ -4,7 +4,6 @@ package com.CezaryZal.user;
 public class User {
 
     private int id;
-    private int userAllInfId;
     private String firstName;
     private String nick;
     private String email;
@@ -18,10 +17,9 @@ public class User {
     public User() {
     }
 
-    public User(int id, int userAllInfId, String firstName, String nick, String email, int poneNumber,
+    public User(int id, String firstName, String nick, String email, int poneNumber,
                 String loginName, String password, int sex, int drinkDemand, int kcalDemand) {
         this.id = id;
-        this.userAllInfId = userAllInfId;
         this.firstName = firstName;
         this.nick = nick;
         this.email = email;
@@ -35,10 +33,6 @@ public class User {
 
     public int getId() {
         return id;
-    }
-
-    public int getUserAllInfId() {
-        return userAllInfId;
     }
 
     public String getFirstName() {
@@ -81,7 +75,6 @@ public class User {
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", userAllInfId=" + userAllInfId +
                 ", firstName='" + firstName + '\'' +
                 ", nick='" + nick + '\'' +
                 ", email='" + email + '\'' +

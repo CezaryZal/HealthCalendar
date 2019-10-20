@@ -10,46 +10,47 @@ import java.util.List;
 @Service
 public class DailyLimitsService {
 
-    private DailyLimitsRepository DLRepository;
+    private DailyLimitsRepository DailyLimitsR;
 
     @Autowired
-    public DailyLimitsService(DailyLimitsRepository DLRepository) {
-        this.DLRepository = DLRepository;
+    public DailyLimitsService(DailyLimitsRepository dailyLimitsR) {
+        DailyLimitsR = dailyLimitsR;
     }
 
+
     public DailyLimits getLimitsById(int id){
-        DailyLimits dailyLimits = DLRepository.findById(id);
+        DailyLimits dailyLimits = DailyLimitsR.findById(id);
 
         return dailyLimits;
     }
 
     public DailyLimits getLimitsByUserId(int id){
-        DailyLimits dailyLimits = DLRepository.findByUserId(id);
+        DailyLimits dailyLimits = DailyLimitsR.findByUserId(id);
 
         return dailyLimits;
     }
 
     public List<DailyLimits> getAll(){
-        List<DailyLimits> listLimits = DLRepository.getAll();
+        List<DailyLimits> listLimits = DailyLimitsR.getAll();
 
         return listLimits;
     }
 
     public boolean addLimits (DailyLimits dailyLimits){
-        DLRepository.save(dailyLimits);
+        DailyLimitsR.save(dailyLimits);
 
         return true;
     }
 
     public boolean updateLimits (DailyLimits dailyLimits){
-        DLRepository.update(dailyLimits);
+        DailyLimitsR.update(dailyLimits);
 
         return true;
     }
 
     public String deleteLimitsById (int id){
-        DailyLimits dailyLimits = DLRepository.findById(id);
-        if(DLRepository.delete(dailyLimits)){
+        DailyLimits dailyLimits = DailyLimitsR.findById(id);
+        if(DailyLimitsR.delete(dailyLimits)){
             return "delete record";
         }
         return "Daily limits id not found";

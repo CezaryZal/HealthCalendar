@@ -106,8 +106,11 @@ Brak update, żeby nikt nie oszukiwał. Można tylko usunąc lub dodać
 <hr>
 <a href=${pageContext.request.contextPath}"/day/id/2">Ge DayDB where id=2 </a>
 <br>
-<a href=${pageContext.request.contextPath}"/day/getDayByDateAndUserId/2018-05-24/1/2">
-    Get Day (main info) where date=2018-05-24, userId=1 and dayId=2 </a>
+<a href=${pageContext.request.contextPath}"/day/getDayByDateAndUserId/2018-05-24/1">
+    Get Day (main info) where date=2018-05-24 and userId=1 </a>
+<br>
+<a href=${pageContext.request.contextPath}"/day/getDayId/2018-05-24/1">
+    Get day id where date=2018-05-24 and userId=1 </a>
 <br>
 <a href=${pageContext.request.contextPath}"/day/getDayDBbyDateAndUserId/2018-05-24/1">
     Get DayDB (all info) where date=2018-05-24 and userId=1 </a>
@@ -125,7 +128,7 @@ Brak update, żeby nikt nie oszukiwał. Można tylko usunąc lub dodać
 <hr>
 <a href=${pageContext.request.contextPath}"/training/id/2">Get TrainingDB where id=2 </a>
 <br>
-<a href=${pageContext.request.contextPath}"/training/getDietByDayId/2">
+<a href=${pageContext.request.contextPath}"/training/getTrainingsByDayId/2">
     Get all trainings by day from Training where dayId=2 </a>
 <br>
 <a href=${pageContext.request.contextPath}"/training/getAll">Get all records TrainingDB </a>
@@ -143,6 +146,9 @@ Brak update, żeby nikt nie oszukiwał. Można tylko usunąc lub dodać
 <br>
 <a href=${pageContext.request.contextPath}"/note/getHeadersByDayId/2">
     Get list Headers by day where dayId=2 </a>
+<br>
+<a href=${pageContext.request.contextPath}"/note/getNotesByDayId/2">
+    Get list Nodes by day where dayId=2 </a>
 <br>
 <a href=${pageContext.request.contextPath}"/note/getAll">Get all records NoteDB </a>
 <br>

@@ -1,4 +1,4 @@
-package com.CezaryZal.meal.diet;
+package com.CezaryZal.meal;
 
 import com.CezaryZal.meal.MealDB;
 

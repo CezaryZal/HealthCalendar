@@ -12,53 +12,52 @@ import java.util.List;
 @Service
 public class BodySizeService {
 
-    private BodySizeRepository BSRepository;
+    private BodySizeRepository BodySizeR;
 
     @Autowired
     public BodySizeService(BodySizeRepository BSRepository) {
-        this.BSRepository = BSRepository;
+        this.BodySizeR = BSRepository;
     }
 
     public BodySize getBodyById (int id){
-        BodySize bodySize = BSRepository.findById(id);
+        BodySize bodySize = BodySizeR.findById(id);
 
         return bodySize;
     }
 
     public LocalDate getDateLastMeasureByUserId (int userId){
-        LocalDate localDate = BSRepository.findDateLastMeasureByUserId(userId);
+        LocalDate localDate = BodySizeR.findDateLastMeasureByUserId(userId);
 
         return localDate;
     }
 
     public List<LocalDate> getListDatesByUserIdAllDate(int userId) {
-        List<LocalDate> tmpList = BSRepository.findByUserIdAllDate(userId);
+        List<LocalDate> tmpList = BodySizeR.findByUserIdAllDate(userId);
 
         return tmpList;
     }
 
     public BodySize getBodyByDateAndUserId(String inputDate, int userId){
-        LocalDate localDate = LocalDate.parse(inputDate);
-        BodySize bodySize = BSRepository.findByDateAndUserId(localDate, userId);
+        BodySize bodySize = BodySizeR.findByDateAndUserId(LocalDate.parse(inputDate), userId);
 
         return bodySize;
     }
 
     public List<BodySize> getAll(){
-        List<BodySize> listBody = BSRepository.getAll();
+        List<BodySize> listBody = BodySizeR.getAll();
 
         return listBody;
     }
 
     public boolean addBody (BodySize bodySize){
-        BSRepository.save(bodySize);
+        BodySizeR.save(bodySize);
 
         return true;
     }
 
     public String deleteBodyById (int id) {
-        BodySize bodySize = BSRepository.findById(id);
-        if (BSRepository.delete(bodySize)){
+        BodySize bodySize = BodySizeR.findById(id);
+        if (BodySizeR.delete(bodySize)){
             return "delete record";
         }
         return "Body size id not found";
