@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.xml.datatype.Duration;
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
@@ -32,10 +32,12 @@ public class TrainingService {
         LocalDate localDate = LocalDate.parse(inputDate);
         List<TrainingDB> listTrainingDB = TRepository.findByDateAndDayId(localDate, dayId);
         int sumOfBurnKcal = 0;
-        LocalTime sumOfTimes = null;
+        LocalTime sumOfTimes = LocalTime.of(0,0);
         for (TrainingDB trainingDB : listTrainingDB){
             sumOfBurnKcal += trainingDB.getBurnKcal();
-            sumOfTimes.plus(trainingDB.getTime());
+            long hour = trainingDB.getTime().getHour();
+            long minute = trainingDB.getTime().getMinute();
+            sumOfTimes = sumOfTimes.plus(Duration.ofHours(hour)).plus(Duration.ofMinutes(minute));
         }
         AllTrainingsByDay trainingsByDay = new AllTrainingsByDay(listTrainingDB, sumOfBurnKcal, sumOfTimes);
 

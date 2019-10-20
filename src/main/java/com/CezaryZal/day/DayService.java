@@ -42,8 +42,8 @@ public class DayService {
         boolean isDrinkDemand = drinkDemand<=dayDB.getPortionsDrink() * 250;
         DailyDiet dailyDiet = MService.getDailyDiet(inputDate, dayId);
         int kcalDemand = DLService.getLimitsByUserId(userId).getKcalDemand();
-        int sumKcal = dailyDiet.getSumKcal();
-        boolean isKcalDemand = sumKcal>=kcalDemand-kcalDemand*0.05 && sumKcal<=kcalDemand+kcalDemand*0.05;
+        int sumOfKcal = dailyDiet.getSumOfKcal();
+        boolean isKcalDemand = sumOfKcal>=kcalDemand-kcalDemand*0.05 && sumOfKcal<=kcalDemand+kcalDemand*0.05;
 
         Day day = new Day(dayDB.getId(),
                 dayDB.getDate(),

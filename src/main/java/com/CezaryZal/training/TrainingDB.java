@@ -64,7 +64,7 @@ public class TrainingDB {
         this.description = description;
     }
 
-    public TemporalAmount getTime() {
+    public LocalTime getTime() {
         return time;
     }
 

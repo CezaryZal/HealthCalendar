@@ -90,8 +90,8 @@ Brak update, żeby nikt nie oszukiwał. Można tylko usunąc lub dodać
 <hr>
 <a href=${pageContext.request.contextPath}"/meal/id/2">Get record from Meal where id=2 </a>
 <br>
-<a href=${pageContext.request.contextPath}"/meal/getDietByDateAndDayId/2018-09-25/2">
-    Get daily Diet from Meal where date=2018-09-25 and dayId=2 </a>
+<a href=${pageContext.request.contextPath}"/meal/getDietByDateAndDayId/2018-05-24/2">
+    Get daily Diet from Meal where date=2018-05-24 and dayId=2 </a>
 <br>
 <a href=${pageContext.request.contextPath}"/meal/getAll">Get all records from Meal </a>
 <br>
@@ -125,8 +125,8 @@ Brak update, żeby nikt nie oszukiwał. Można tylko usunąc lub dodać
 <hr>
 <a href=${pageContext.request.contextPath}"/training/id/2">Get record from Training where id=2 </a>
 <br>
-<a href=${pageContext.request.contextPath}"/training/getDietByDateAndDayId/2018-09-25/2">
-    Get all trainings by day from Training where date=2018-09-25 and dayId=2 </a>
+<a href=${pageContext.request.contextPath}"/training/getDietByDateAndDayId/2018-05-24/2">
+    Get all trainings by day from Training where date=2018-05-24 and dayId=2 </a>
 <br>
 <a href=${pageContext.request.contextPath}"/training/getAll">Get all records from Training </a>
 <br>
