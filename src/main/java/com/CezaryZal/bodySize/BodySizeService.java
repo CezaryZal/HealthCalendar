@@ -20,33 +20,24 @@ public class BodySizeService {
     }
 
     public BodySize getBodyById (int id){
-        BodySize bodySize = BodySizeR.findById(id);
-
-        return bodySize;
+        return BodySizeR.findById(id);
     }
 
     public LocalDate getDateLastMeasureByUserId (int userId){
-        LocalDate localDate = BodySizeR.findDateLastMeasureByUserId(userId);
-
-        return localDate;
+        return BodySizeR.findDateLastMeasureByUserId(userId);
     }
 
     public List<LocalDate> getListDatesByUserIdAllDate(int userId) {
-        List<LocalDate> tmpList = BodySizeR.findByUserIdAllDate(userId);
+        return BodySizeR.findByUserIdAllDate(userId);
 
-        return tmpList;
     }
 
     public BodySize getBodyByDateAndUserId(String inputDate, int userId){
-        BodySize bodySize = BodySizeR.findByDateAndUserId(LocalDate.parse(inputDate), userId);
-
-        return bodySize;
+        return BodySizeR.findByDateAndUserId(LocalDate.parse(inputDate), userId);
     }
 
     public List<BodySize> getAll(){
-        List<BodySize> listBody = BodySizeR.getAll();
-
-        return listBody;
+        return BodySizeR.getAll();
     }
 
     public boolean addBody (BodySize bodySize){

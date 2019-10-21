@@ -8,11 +8,14 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
+import org.hibernate.annotations.BatchSize;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
 
+//@BatchSize-jakbym potrzebował ściągnąć pełne dane z kilku dni (dla poprawy wydajności, N+1)
+//Do optymalizacji można spróbować EAGER(przy obecnej koncepcji. Przy biżącym pobieraniu danych LAZY)
 
 @Entity
 @Table(name = "day")
@@ -39,8 +42,9 @@ public class DayDB {
     @Column(name = "portions_alcohol")
     private int portionsAlcohol;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "day_id")
+    @BatchSize(size = 5)
     private List<MealDB> listMealsDB;
 
     @Column(name = "portions_snack")
@@ -48,13 +52,14 @@ public class DayDB {
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "day_id")
+    @BatchSize(size = 2)
     private List<TrainingDB> listTrainingsDB;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "day_id")
     private List<NoteDB> listNotesDB;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "short_day_id")
     private ShortDay shortDay;
 

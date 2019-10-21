@@ -29,7 +29,6 @@ public class DayService {
     private ShortDayService shortDayS;
 
 
-    //Można uzyskać wszystkie dane z jednego requestu i w service wszystko obrobić
     //Posiadając obecne endpointy możliwe jest stworzenie strony bieżaco doładowując dane
     @Autowired
     public DayService(DayRepository dayR, UserService userS, BodySizeService bodySizeS, MealService mealS,
@@ -53,7 +52,7 @@ public class DayService {
     public Day getDayByDateAndUserId(String inputDate, int userId) {
         DayDB dayDB = dayR.findByDateAndUserId(LocalDate.parse(inputDate), userId);
         UserDB userDB = userS.getUserDBById(userId);
-        DailyDiet dailyDiet = mealS.getDailyDiet(getDayIdByDateAndUserId(inputDate, userId));
+        DailyDiet dailyDiet = mealS.createDailyDiet(dayDB.getListMealsDB());
 
         return new Day(dayDB.getId(),
                 dayDB.getDate(),
@@ -66,8 +65,8 @@ public class DayService {
                 dailyDiet,
                 checkIsAchievedKcal(userDB, dailyDiet),
                 dayDB.getPortionsSnack(),
-                trainingS.getTrainingsByDay(getDayIdByDateAndUserId(inputDate, userId)),
-                noteS.getHeadersByDay(getDayIdByDateAndUserId(inputDate, userId)),
+                trainingS.createAllTrainingsByDay(dayDB.getListTrainingsDB()),
+                noteS.getHeadersByNotesDB(dayDB.getListNotesDB()),
                 shortDayS.getShortDaysByDateAndUserId(inputDate, userId)
         );
     }
@@ -124,9 +123,8 @@ public class DayService {
     }
 
     public ShortDay createShortDayByDayDB(DayDB dayDB){
-        String inputDate = dayDB.getDate().toString();
         UserDB userDB = userS.getUserDBById(dayDB.getUserId());
-        DailyDiet dailyDiet = mealS.getDailyDiet(getDayIdByDateAndUserId(inputDate, dayDB.getUserId()));
+        DailyDiet dailyDiet = mealS.getDailyDiet(dayDB.getId());
 
         return new ShortDay(
                 dayDB.getUserId(),

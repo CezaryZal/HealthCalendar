@@ -19,9 +19,7 @@ public class ShortDayService {
     }
 
     public ShortDay getShortDayById (int id){
-        ShortDay shortDay = shortDayR.findById(id);
-
-        return shortDay;
+        return shortDayR.findById(id);
     }
 
     public List<ShortDay> getShortDaysByDateAndUserId(String inputDate, int userId){
@@ -32,12 +30,8 @@ public class ShortDayService {
         return listShortDay;
     }
 
-
-
     public List<ShortDay> getAll(){
-        List<ShortDay> listShortDay = shortDayR.getAll();
-
-        return listShortDay;
+        return shortDayR.getAll();
     }
 
     public boolean updateShortDay (ShortDay shortDay){

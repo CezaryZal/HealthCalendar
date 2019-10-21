@@ -37,7 +37,8 @@ public class UserDB {
     @Column(name = "sex")
     private int sex;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "daily_limits_id")
     private DailyLimits dailyLimits;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)

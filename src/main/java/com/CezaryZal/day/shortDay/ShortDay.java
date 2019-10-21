@@ -8,6 +8,8 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import javax.persistence.*;
 import java.time.LocalDate;
 
+//Mógłbym otrzymać obiekt na podstawie encji Day, ale w celu wyższej wydajności (m.in.N+1)
+//stworzyłem oddzielną encje ShortDay
 @Entity
 @Table(name = "short_day")
 public class ShortDay {

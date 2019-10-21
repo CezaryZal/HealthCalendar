@@ -19,34 +19,22 @@ public class NoteService {
     }
 
     public NoteDB findById (int id){
-        NoteDB noteDB = NoteR.findById(id);
-
-        return noteDB;
+        return NoteR.findById(id);
     }
 
     public List<HeaderByDay> getHeadersByDay(int dayId){
         List<NoteDB> listNoteDB = getNotesDBByDay(dayId);
-        List<HeaderByDay> listHeaders = new ArrayList<>();
-        for(NoteDB noteDB : listNoteDB){
-            if(noteDB!=null){
-                HeaderByDay header = new HeaderByDay(noteDB.getId(), noteDB.getHeader());
-                listHeaders.add(header);
-            }
-        }
-        return listHeaders;
+
+        return getHeadersByNotesDB(listNoteDB);
     }
 
     public List<NoteDB> getNotesDBByDay (int dayId){
-        List<NoteDB> listNoteDb = NoteR.findByDayId(dayId);
-
-        return listNoteDb;
+        return NoteR.findByDayId(dayId);
     }
 
 
     public List<NoteDB> getAll (){
-        List<NoteDB> listNoteDB = NoteR.getAll();
-
-        return listNoteDB;
+        return NoteR.getAll();
     }
 
     public boolean addNote (NoteDB noteDB){
@@ -67,5 +55,16 @@ public class NoteService {
             return "delete record";
         }
         return "Note id not found";
+    }
+
+    public List<HeaderByDay> getHeadersByNotesDB(List<NoteDB> listNoteDB){
+        List<HeaderByDay> listHeaders = new ArrayList<>();
+        for(NoteDB noteDB : listNoteDB){
+            if(noteDB!=null){
+                HeaderByDay header = new HeaderByDay(noteDB.getId(), noteDB.getHeader());
+                listHeaders.add(header);
+            }
+        }
+        return listHeaders;
     }
 }

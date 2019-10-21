@@ -1,7 +1,5 @@
 package com.CezaryZal.day;
 
-
-import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;

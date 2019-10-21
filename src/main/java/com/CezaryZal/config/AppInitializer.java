@@ -16,7 +16,7 @@ public class AppInitializer implements WebApplicationInitializer  {
         ctx.register(com.CezaryZal.config.AppConfig.class);
         ctx.setServletContext(container);
         ServletRegistration.Dynamic servlet = container.addServlet("dispatcher", new DispatcherServlet(ctx));
-        servlet.setLoadOnStartup(1);
+        servlet.setLoadOnStartup(4);
         servlet.addMapping("/");
 
         FilterRegistration.Dynamic fr = container.addFilter("encodingFilter", new CharacterEncodingFilter());

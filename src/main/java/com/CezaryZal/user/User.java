@@ -1,6 +1,8 @@
 package com.CezaryZal.user;
 
 
+import com.CezaryZal.dailyLimits.DailyLimits;
+
 public class User {
 
     private int id;
@@ -11,14 +13,13 @@ public class User {
     private String loginName;
     private String password;
     private int sex;
-    private int drinkDemand;
-    private int kcalDemand;
+    private DailyLimits dailyLimits;
 
     public User() {
     }
 
-    public User(int id, String firstName, String nick, String email, int poneNumber,
-                String loginName, String password, int sex, int drinkDemand, int kcalDemand) {
+    public User(int id, String firstName, String nick, String email, int poneNumber, String loginName,
+                String password, int sex, DailyLimits dailyLimits) {
         this.id = id;
         this.firstName = firstName;
         this.nick = nick;
@@ -27,8 +28,7 @@ public class User {
         this.loginName = loginName;
         this.password = password;
         this.sex = sex;
-        this.drinkDemand = drinkDemand;
-        this.kcalDemand = kcalDemand;
+        this.dailyLimits = dailyLimits;
     }
 
     public int getId() {
@@ -63,12 +63,8 @@ public class User {
         return sex;
     }
 
-    public int getDrinkDemand() {
-        return drinkDemand;
-    }
-
-    public int getKcalDemand() {
-        return kcalDemand;
+    public DailyLimits getDailyLimits() {
+        return dailyLimits;
     }
 
     @Override
@@ -82,8 +78,7 @@ public class User {
                 ", loginName='" + loginName + '\'' +
                 ", password='" + password + '\'' +
                 ", sex=" + sex +
-                ", drinkDemand=" + drinkDemand +
-                ", kcalDemand=" + kcalDemand +
+                ", dailyLimits=" + dailyLimits +
                 '}';
     }
 }

@@ -18,11 +18,20 @@ public class UserService {
         this.UserR = URepository;
     }
 
+
+    public UserDB getUserDBById(int id){
+        return UserR.getUserDBById(id);
+    }
+
     public User getUserById(int id){
         UserDB userDB = getUserDBById(id);
-        User user = convertUserClass(userDB);
 
-        return user;
+        return convertUserClass(userDB);
+    }
+
+
+    public List<UserDB> getAllUsersDB(){
+        return UserR.getAll();
     }
 
     public List<User> getAllUsers(){
@@ -55,20 +64,8 @@ public class UserService {
         return "User id not found";
     }
 
-    public UserDB getUserDBById(int id){
-        UserDB user = UserR.getUserDBById(id);
-
-        return user;
-    }
-
-    public List<UserDB> getAllUsersDB(){
-        List<UserDB> listUsersDB = UserR.getAll();
-
-        return listUsersDB;
-    }
-
     public User convertUserClass (UserDB userDB){
-        User user = new User(userDB.getId(),
+        return new User(userDB.getId(),
                 userDB.getFirstName(),
                 userDB.getNick(),
                 userDB.getEmail(),
@@ -76,10 +73,8 @@ public class UserService {
                 userDB.getLoginName(),
                 userDB.getPassword(),
                 userDB.getSex(),
-                userDB.getDailyLimits().getDrinkDemand(),
-                userDB.getDailyLimits().getKcalDemand());
-
-        return user;
+                userDB.getDailyLimits()
+        );
     }
 
 }

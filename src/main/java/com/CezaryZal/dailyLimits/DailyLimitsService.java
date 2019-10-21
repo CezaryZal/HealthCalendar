@@ -19,21 +19,15 @@ public class DailyLimitsService {
 
 
     public DailyLimits getLimitsById(int id){
-        DailyLimits dailyLimits = DailyLimitsR.findById(id);
-
-        return dailyLimits;
+        return DailyLimitsR.findById(id);
     }
 
     public DailyLimits getLimitsByUserId(int id){
-        DailyLimits dailyLimits = DailyLimitsR.findByUserId(id);
-
-        return dailyLimits;
+        return DailyLimitsR.findByUserId(id);
     }
 
     public List<DailyLimits> getAll(){
-        List<DailyLimits> listLimits = DailyLimitsR.getAll();
-
-        return listLimits;
+        return DailyLimitsR.getAll();
     }
 
     public boolean addLimits (DailyLimits dailyLimits){
@@ -55,5 +49,4 @@ public class DailyLimitsService {
         }
         return "Daily limits id not found";
     }
-
 }

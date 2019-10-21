@@ -1,6 +1,5 @@
 package com.CezaryZal.training;
 
-import com.CezaryZal.training.TrainingDB;
 
 import java.time.LocalTime;
 import java.util.List;

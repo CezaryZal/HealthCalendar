@@ -21,32 +21,17 @@ public class TrainingService {
     }
 
     public TrainingDB findById (int id){
-        TrainingDB trainingDB = TrainingR.findById(id);
-
-        return trainingDB;
+        return TrainingR.findById(id);
     }
 
     public AllTrainingsByDay getTrainingsByDay (int dayId){
         List<TrainingDB> listTrainingDB = TrainingR.findByDayId(dayId);
-        int sumOfBurnKcal = 0;
-        LocalTime sumOfTimes = LocalTime.of(0,0);
-        for (TrainingDB trainingDB : listTrainingDB) {
-            if (trainingDB != null) {
-                sumOfBurnKcal += trainingDB.getBurnKcal();
-                long hour = trainingDB.getTime().getHour();
-                long minute = trainingDB.getTime().getMinute();
-                sumOfTimes = sumOfTimes.plus(Duration.ofHours(hour)).plus(Duration.ofMinutes(minute));
-            }
-        }
-        AllTrainingsByDay trainingsByDay = new AllTrainingsByDay(listTrainingDB, sumOfBurnKcal, sumOfTimes);
 
-        return trainingsByDay;
+        return createAllTrainingsByDay(listTrainingDB);
     }
 
     public List<TrainingDB> getAll (){
-        List<TrainingDB> listMealDB = TrainingR.getAll();
-
-        return listMealDB;
+        return TrainingR.getAll();
     }
 
     public boolean addTraining (TrainingDB trainingDB){
@@ -67,5 +52,19 @@ public class TrainingService {
             return "delete record";
         }
         return "Training id not found";
+    }
+
+    public AllTrainingsByDay createAllTrainingsByDay(List<TrainingDB> listTrainingDB){
+        int sumOfBurnKcal = 0;
+        LocalTime sumOfTimes = LocalTime.of(0,0);
+        for (TrainingDB trainingDB : listTrainingDB) {
+            if (trainingDB != null) {
+                sumOfBurnKcal += trainingDB.getBurnKcal();
+                long hour = trainingDB.getTime().getHour();
+                long minute = trainingDB.getTime().getMinute();
+                sumOfTimes = sumOfTimes.plus(Duration.ofHours(hour)).plus(Duration.ofMinutes(minute));
+            }
+        }
+        return new AllTrainingsByDay(listTrainingDB, sumOfBurnKcal, sumOfTimes);
     }
 }

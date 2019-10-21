@@ -1,6 +1,5 @@
 package com.CezaryZal.meal;
 
-import com.CezaryZal.meal.MealDB;
 
 import java.util.List;
 
