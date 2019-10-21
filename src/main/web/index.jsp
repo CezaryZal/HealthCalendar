@@ -104,28 +104,6 @@ Brak update, żeby nikt nie oszukiwał. Można tylko usunąc lub dodać
 
 
 <hr>
-<a href=${pageContext.request.contextPath}"/day/id/2">Ge DayDB where id=2 </a>
-<br>
-<a href=${pageContext.request.contextPath}"/day/getDayByDateAndUserId/2018-05-24/1">
-    Get Day (main info) where date=2018-05-24 and userId=1 </a>
-<br>
-<a href=${pageContext.request.contextPath}"/day/getDayId/2018-05-24/1">
-    Get day id where date=2018-05-24 and userId=1 </a>
-<br>
-<a href=${pageContext.request.contextPath}"/day/getDayDBbyDateAndUserId/2018-05-24/1">
-    Get DayDB (all info) where date=2018-05-24 and userId=1 </a>
-<br>
-<a href=${pageContext.request.contextPath}"/day/getAll">Get all records DayDB </a>
-<br>
-<a href=${pageContext.request.contextPath}"/day/add">Add DayDB to database, method POST </a>
-<br>
-<a href=${pageContext.request.contextPath}"/day/update">Update record DayDB method PUT</a>
-<br>
-<a href=${pageContext.request.contextPath}"/day/delete/4">Delete record where id=4 from DayDB method DELETE</a>
-<br>
-
-
-<hr>
 <a href=${pageContext.request.contextPath}"/training/id/2">Get TrainingDB where id=2 </a>
 <br>
 <a href=${pageContext.request.contextPath}"/training/getTrainingsByDayId/2">
@@ -160,10 +138,44 @@ Brak update, żeby nikt nie oszukiwał. Można tylko usunąc lub dodać
 <br>
 
 
+<hr>
+<a href=${pageContext.request.contextPath}"/day/id/2">Get DayDB where id=2 </a>
+<br>
+<a href=${pageContext.request.contextPath}"/day/getDayByDateAndUserId/2018-05-24/1">
+    Get Day (main info) where date=2018-05-24 and userId=1 </a>
+<br>
+<a href=${pageContext.request.contextPath}"/day/getDayId/2018-05-24/1">
+    Get day id where date=2018-05-24 and userId=1 </a>
+<br>
+<a href=${pageContext.request.contextPath}"/day/getDayDBbyDateAndUserId/2018-05-24/1">
+    Get DayDB (all info) where date=2018-05-24 and userId=1 </a>
+<br>
+<a href=${pageContext.request.contextPath}"/day/getAll">Get all records DayDB </a>
+<br>
+<a href=${pageContext.request.contextPath}"/day/add">Add DayDB to database, method POST </a>
+<br>
+<a href=${pageContext.request.contextPath}"/day/update">Update record DayDB method PUT</a>
+<br>
+<a href=${pageContext.request.contextPath}"/day/delete/4">Delete record where id=4 from DayDB method DELETE</a>
+<br>
+
 
 <hr>
+<a href=${pageContext.request.contextPath}"/shortDay/id/2">Get ShortDay where id=2 </a>
+<br>
+<a href=${pageContext.request.contextPath}"/shortDay/byDateAndUserId/2018-05-24/1">
+    Get Short Days where date=2018-05-24 (30 day plus and 30 day minus) and userId=1 </a>
+<br>
+<a href=${pageContext.request.contextPath}"/shortDay/getAll">Get all records ShortDay </a>
+<br>
+<a href=${pageContext.request.contextPath}"/shortDay/add">Add ShortDay to database, method POST </a>
+<br>
+<a href=${pageContext.request.contextPath}"/shortDay/update">Update record ShortDay method PUT</a>
+<br>
+<a href=${pageContext.request.contextPath}"/shortDay/delete/4">Delete record where id=4 from ShortDay method DELETE</a>
+<br>
 
-
+<hr>
 
 <h2>
     Test m

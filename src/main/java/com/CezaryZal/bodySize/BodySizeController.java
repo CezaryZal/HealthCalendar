@@ -10,47 +10,47 @@ import java.util.List;
 @RequestMapping("/body")
 public class BodySizeController {
 
-    private BodySizeService BodySizeS;
+    private BodySizeService bodySizeS;
 
     @Autowired
-    public BodySizeController(BodySizeService BSService) {
-        this.BodySizeS = BSService;
+    public BodySizeController(BodySizeService bodySizeS) {
+        this.bodySizeS = bodySizeS;
     }
 
 
     @GetMapping("/id/{nrId}")
     public BodySize getBodyById (@PathVariable int nrId){
-        return BodySizeS.getBodyById(nrId);
+        return bodySizeS.getBodyById(nrId);
     }
 
     @GetMapping("/byLastDate/{userId}")
     public LocalDate getDateLastMeasureByUserId(@PathVariable int userId){
-        return BodySizeS.getDateLastMeasureByUserId(userId);
+        return bodySizeS.getDateLastMeasureByUserId(userId);
     }
 
     @GetMapping("/byUserIdAllDate/{userId}")
     public List<LocalDate> getListDatesByUserIdAllDate (@PathVariable int userId){
-        return BodySizeS.getListDatesByUserIdAllDate(userId);
+        return bodySizeS.getListDatesByUserIdAllDate(userId);
     }
 
     @GetMapping("/byDateAndUserId/{date}/{userId}")
     public BodySize getBodyByDateAndUserId (@PathVariable String date, @PathVariable int userId){
-        return BodySizeS.getBodyByDateAndUserId(date, userId);
+        return bodySizeS.getBodyByDateAndUserId(date, userId);
     }
 
     @GetMapping("/getAll")
     public List<BodySize> getAll(){
-        return BodySizeS.getAll();
+        return bodySizeS.getAll();
     }
 
     @PostMapping("/add")
     public boolean addBody (@RequestBody BodySize bodySize){
-        return BodySizeS.addBody(bodySize);
+        return bodySizeS.addBody(bodySize);
     }
 
     @DeleteMapping("/delete/{id}")
     public String deleteBodyById (@PathVariable int id) {
-        return BodySizeS.deleteBodyById(id);
+        return bodySizeS.deleteBodyById(id);
     }
 
 

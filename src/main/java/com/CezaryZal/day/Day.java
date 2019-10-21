@@ -1,6 +1,7 @@
 package com.CezaryZal.day;
 
 
+import com.CezaryZal.day.shortDay.ShortDay;
 import com.CezaryZal.meal.DailyDiet;
 import com.CezaryZal.note.HeaderByDay;
 import com.CezaryZal.training.AllTrainingsByDay;
@@ -24,10 +25,11 @@ public class Day {
     private int portionsSnack;
     private AllTrainingsByDay trainings;
     private List<HeaderByDay> listHeaders;
+    private List<ShortDay> listShortDays;
 
     public Day(int id, LocalDate date, int userId, String nick, LocalDate lastDateMeasureBody, int portionsDrink,
                boolean isAchievedDrink, int portionsAlcohol, DailyDiet dailyDiet, boolean isAchievedKcal,
-               int portionsSnack, AllTrainingsByDay trainings, List<HeaderByDay> listHeaders) {
+               int portionsSnack, AllTrainingsByDay trainings, List<HeaderByDay> listHeaders, List<ShortDay> listShortDays) {
         this.id = id;
         this.date = date;
         this.userId = userId;
@@ -41,6 +43,7 @@ public class Day {
         this.portionsSnack = portionsSnack;
         this.trainings = trainings;
         this.listHeaders = listHeaders;
+        this.listShortDays = listShortDays;
     }
 
     public int getId() {
@@ -95,6 +98,10 @@ public class Day {
         return listHeaders;
     }
 
+    public List<ShortDay> getListShortDays() {
+        return listShortDays;
+    }
+
     @Override
     public String toString() {
         return "Day{" +
@@ -111,6 +118,7 @@ public class Day {
                 ", portionsSnack=" + portionsSnack +
                 ", trainings=" + trainings +
                 ", listHeaders=" + listHeaders +
+                ", listShortDays=" + listShortDays +
                 '}';
     }
 }
