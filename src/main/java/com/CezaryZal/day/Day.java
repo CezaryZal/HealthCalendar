@@ -17,16 +17,16 @@ public class Day {
     private String nick;
     private LocalDate lastDateMeasureBody;
     private int portionsDrink;
-    private boolean isDrinkDemand;
+    private boolean isAchievedDrink;
     private int portionsAlcohol;
     private DailyDiet dailyDiet;
-    private boolean isKcalDemand;
+    private boolean isAchievedKcal;
     private int portionsSnack;
     private AllTrainingsByDay trainings;
     private List<HeaderByDay> listHeaders;
 
     public Day(int id, LocalDate date, int userId, String nick, LocalDate lastDateMeasureBody, int portionsDrink,
-               boolean isDrinkDemand, int portionsAlcohol, DailyDiet dailyDiet, boolean isKcalDemand,
+               boolean isAchievedDrink, int portionsAlcohol, DailyDiet dailyDiet, boolean isAchievedKcal,
                int portionsSnack, AllTrainingsByDay trainings, List<HeaderByDay> listHeaders) {
         this.id = id;
         this.date = date;
@@ -34,10 +34,10 @@ public class Day {
         this.nick = nick;
         this.lastDateMeasureBody = lastDateMeasureBody;
         this.portionsDrink = portionsDrink;
-        this.isDrinkDemand = isDrinkDemand;
+        this.isAchievedDrink = isAchievedDrink;
         this.portionsAlcohol = portionsAlcohol;
         this.dailyDiet = dailyDiet;
-        this.isKcalDemand = isKcalDemand;
+        this.isAchievedKcal = isAchievedKcal;
         this.portionsSnack = portionsSnack;
         this.trainings = trainings;
         this.listHeaders = listHeaders;
@@ -67,8 +67,8 @@ public class Day {
         return portionsDrink;
     }
 
-    public boolean isDrinkDemand() {
-        return isDrinkDemand;
+    public boolean isAchievedDrink() {
+        return isAchievedDrink;
     }
 
     public int getPortionsAlcohol() {
@@ -79,8 +79,8 @@ public class Day {
         return dailyDiet;
     }
 
-    public boolean isKcalDemand() {
-        return isKcalDemand;
+    public boolean isAchievedKcal() {
+        return isAchievedKcal;
     }
 
     public int getPortionsSnack() {
@@ -104,10 +104,10 @@ public class Day {
                 ", nick='" + nick + '\'' +
                 ", lastDateMeasureBody=" + lastDateMeasureBody +
                 ", portionsDrink=" + portionsDrink +
-                ", isDrinkDemand=" + isDrinkDemand +
+                ", isAchievedDrink=" + isAchievedDrink +
                 ", portionsAlcohol=" + portionsAlcohol +
                 ", dailyDiet=" + dailyDiet +
-                ", isKcalDemand=" + isKcalDemand +
+                ", isAchievedKcal=" + isAchievedKcal +
                 ", portionsSnack=" + portionsSnack +
                 ", trainings=" + trainings +
                 ", listHeaders=" + listHeaders +

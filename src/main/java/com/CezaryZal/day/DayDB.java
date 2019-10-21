@@ -1,5 +1,6 @@
 package com.CezaryZal.day;
 
+import com.CezaryZal.day.shortDay.ShortDay;
 import com.CezaryZal.meal.MealDB;
 import com.CezaryZal.note.NoteDB;
 import com.CezaryZal.training.TrainingDB;
@@ -53,12 +54,16 @@ public class DayDB {
     @JoinColumn(name = "day_id")
     private List<NoteDB> listNotesDB;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "short_day_id")
+    private ShortDay shortDay;
+
 
     public DayDB() {
     }
 
     public DayDB(LocalDate date, int userId, int portionsDrink, int portionsAlcohol, List<MealDB> listMealsDB,
-                 int portionsSnack, List<TrainingDB> listTrainingsDB, List<NoteDB> listNotesDB) {
+                 int portionsSnack, List<TrainingDB> listTrainingsDB, List<NoteDB> listNotesDB, ShortDay shortDay) {
         this.date = date;
         this.userId = userId;
         this.portionsDrink = portionsDrink;
@@ -67,6 +72,7 @@ public class DayDB {
         this.portionsSnack = portionsSnack;
         this.listTrainingsDB = listTrainingsDB;
         this.listNotesDB = listNotesDB;
+        this.shortDay = shortDay;
     }
 
     public int getId() {
@@ -141,6 +147,14 @@ public class DayDB {
         this.listNotesDB = listNotesDB;
     }
 
+    public ShortDay getShortDay() {
+        return shortDay;
+    }
+
+    public void setShortDay(ShortDay shortDay) {
+        this.shortDay = shortDay;
+    }
+
     @Override
     public String toString() {
         return "DayDB{" +
@@ -153,6 +167,7 @@ public class DayDB {
                 ", portionsSnack=" + portionsSnack +
                 ", listTrainingsDB=" + listTrainingsDB +
                 ", listNotesDB=" + listNotesDB +
+                ", shortDay=" + shortDay +
                 '}';
     }
 }

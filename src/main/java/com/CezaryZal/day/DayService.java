@@ -27,7 +27,7 @@ public class DayService {
 
 
     //Można uzyskać wszystkie dane z jednego requestu i w service wszystko obrobić
-    //Po siadając obecne endpointy możliwe jest stworzenie strony bieżaco doładowując dane
+    //Posiadając obecne endpointy możliwe jest stworzenie strony bieżaco doładowując dane
     @Autowired
     public DayService(DayRepository dayR, UserService userS, BodySizeService bodySizeS, MealService mealS,
                       TrainingService trainingS, NoteService noteS) {

@@ -35,41 +35,21 @@ INSERT INTO `note` VALUES
 (3, 2, 'duzo tlustego jedzenia i alkoholu', 'wyjazd do tesciow'),
 (4, 2, 'nieregularne jedzenie i pyty alkohol', 'wakacje');
 
+INSERT INTO `short_day` VALUES
+(1, '2018-05-24', TRUE, FALSE, TRUE, TRUE, 1),
+(2, '2018-05-23', TRUE, FALSE, TRUE, TRUE, 1),
+(3, '2018-05-24', TRUE, FALSE, TRUE, TRUE, 2),
+(4, '2018-05-23', TRUE, FALSE, TRUE, TRUE, 2);
+
 INSERT INTO `day` VALUES
-(1, '2018-05-24', 11, 12, 4, 1),
-(2, '2018-05-23', 21, 22, 1, 1),
-(3, '2018-05-24', 31, 32, 4, 2),
-(4, '2018-05-23', 41, 42, 1, 2);
-
-
+(1, '2018-05-24', 11, 12, 4, 1, 1),
+(2, '2018-05-23', 21, 22, 1, 1, 2),
+(3, '2018-05-24', 31, 32, 4, 2, 3),
+(4, '2018-05-23', 41, 42, 1, 2, 4);
 
 
 
 ALTER TABLE `meal` CONVERT TO CHARACTER SET utf8 COLLATE utf8_polish_ci;
-
-
-
-
-
-DROP TABLE IF EXISTS `short_day`;
-
-CREATE TABLE `short_day`(
-                               `id` INTEGER NOT NULL AUTO_INCREMENT,
-                               `user_id` INTEGER NOT NULL,
-                               `date` DATE NOT NULL,
-                               `is_limit_kcal` BOOLEAN DEFAULT NULL,
-                               `is_limit_drink` BOOLEAN DEFAULT NULL,
-                               `is_alcohol` BOOLEAN DEFAULT NULL,
-                               `is_snacks` BOOLEAN DEFAULT NULL,
-
-                               PRIMARY KEY (`id`)
-) ENGINE = InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=UTF8;
-
-INSERT INTO `short_day` VALUES
-(1, 2, '2018-09-23', TRUE, TRUE, FALSE, FALSE),
-(2, 1, '2018-09-24', TRUE, FALSE, TRUE, FALSE);
-
-
 
 SET FOREIGN_KEY_CHECKS = 1;
 
