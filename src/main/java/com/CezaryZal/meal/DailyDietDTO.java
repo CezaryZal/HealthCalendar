@@ -3,12 +3,12 @@ package com.CezaryZal.meal;
 
 import java.util.List;
 
-public class DailyDiet {
+public class DailyDietDTO {
 
     private List<MealDB> listMealDBS;
     private int sumOfKcal;
 
-    public DailyDiet(List<MealDB> listMealDBS, int sumOfKcal) {
+    public DailyDietDTO(List<MealDB> listMealDBS, int sumOfKcal) {
         this.listMealDBS = listMealDBS;
         this.sumOfKcal = sumOfKcal;
     }

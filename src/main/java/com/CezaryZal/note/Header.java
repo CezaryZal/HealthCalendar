@@ -1,12 +1,12 @@
 package com.CezaryZal.note;
 
 
-public class HeaderByDay {
+public class Header {
 
     private int id;
     private String header;
 
-    public HeaderByDay(int id, String header) {
+    public Header(int id, String header) {
         this.id = id;
         this.header = header;
     }

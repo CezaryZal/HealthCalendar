@@ -16,25 +16,35 @@ public class UserController {
         this.UserS = UService;
     }
 
-    @GetMapping("/id/{userId}")
+    @GetMapping("/getUserDTO/id/{userId}")
+    public UserDTO getUserDTO (@PathVariable int userId){
+        return UserS.getUserDTOById(userId);
+    }
+
+    @GetMapping("/getUsersDTO")
+    public List<UserDTO> getUsersDTO(){
+        return  UserS.getAllUsersDTO();
+    }
+
+    @GetMapping("/getUser/id/{userId}")
     public User getUser (@PathVariable int userId){
         return UserS.getUserById(userId);
     }
 
-    @GetMapping("/getAll")
-    public List<User> getAllUsers(){
-        return  UserS.getAllUsers();
+    @GetMapping("/getUsers")
+    public List<User> getUsers(){
+        return UserS.getAllUsers();
     }
 
     @PostMapping("/addUser")
-    public boolean addUser (@RequestBody UserDB user){
+    public boolean addUser (@RequestBody User user){
         return UserS.addUser(user);
     }
 
     //send "id:3", not 'userAllInfId'
     @PutMapping("/update")
-    public boolean updateUser (@RequestBody UserDB userDB){
-        return UserS.updateUser(userDB);
+    public boolean updateUser (@RequestBody User user){
+        return UserS.updateUser(user);
     }
 
     @DeleteMapping("/delete/{userId}")
@@ -42,13 +52,4 @@ public class UserController {
         return UserS.deleteUserById(userId);
     }
 
-    @GetMapping("/userDB/id/{userId}")
-    public UserDB getUserAllInf (@PathVariable int userId){
-        return UserS.getUserDBById(userId);
-    }
-
-    @GetMapping("/getAllUsersInf")
-    public List<UserDB> getAllInf(){
-        return UserS.getAllUsersDB();
-    }
 }

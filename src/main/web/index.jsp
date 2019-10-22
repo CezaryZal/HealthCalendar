@@ -44,15 +44,15 @@ Brak update, żeby nikt nie oszukiwał. Można tylko usunąc lub dodać
 
 
 <hr>
-<a href=${pageContext.request.contextPath}"/user/id/2">Get User (main info) where id=2 </a>
+<a href=${pageContext.request.contextPath}"/user/getUserDTO/id/2">Get UserDTO (main info) where id=2 </a>
 <br>
-<a href=${pageContext.request.contextPath}"/user/getAll">Get all Users (main info) </a>
+<a href=${pageContext.request.contextPath}"/user/getUsersDTO">Get all UsersDTO (main info) </a>
 <br>
-<a href=${pageContext.request.contextPath}"/user/userDB/id/1">Get UserDB (all info) where id=1 </a>
+<a href=${pageContext.request.contextPath}"/user/getUser/id/1">Get User (all info) where id=1 </a>
 <br>
-<a href=${pageContext.request.contextPath}"/user/getAllUsersInf">Get all records UserDB (all information) </a>
+<a href=${pageContext.request.contextPath}"/user/getUsers">Get all records Users (all info) </a>
 <br>
-<a href=${pageContext.request.contextPath}"/user/addUser">Add UserDB to database, method POST </a>
+<a href=${pageContext.request.contextPath}"/user/addUser">Add User to database, method POST </a>
 <br>
 {
 "firstName": "Fiona1",
@@ -90,7 +90,7 @@ Brak update, żeby nikt nie oszukiwał. Można tylko usunąc lub dodać
 <hr>
 <a href=${pageContext.request.contextPath}"/meal/id/2">Get MealDB where id=2 </a>
 <br>
-<a href=${pageContext.request.contextPath}"/meal/getDietByDayId/2">
+<a href=${pageContext.request.contextPath}"/meal/getDietDTOByDayId/2">
     Get daily Diet where dayId=2 </a>
 <br>
 <a href=${pageContext.request.contextPath}"/meal/getAll">Get all records MealDB </a>
@@ -106,7 +106,7 @@ Brak update, żeby nikt nie oszukiwał. Można tylko usunąc lub dodać
 <hr>
 <a href=${pageContext.request.contextPath}"/training/id/2">Get TrainingDB where id=2 </a>
 <br>
-<a href=${pageContext.request.contextPath}"/training/getTrainingsByDayId/2">
+<a href=${pageContext.request.contextPath}"/training/getAllTrainingsDTOByDayId/2">
     Get all trainings by day from Training where dayId=2 </a>
 <br>
 <a href=${pageContext.request.contextPath}"/training/getAll">Get all records TrainingDB </a>
@@ -141,7 +141,7 @@ Brak update, żeby nikt nie oszukiwał. Można tylko usunąc lub dodać
 <hr>
 <a href=${pageContext.request.contextPath}"/day/id/2">Get DayDB where id=2 </a>
 <br>
-<a href=${pageContext.request.contextPath}"/day/getDayByDateAndUserId/2018-05-24/1">
+<a href=${pageContext.request.contextPath}"/day/getDayDTOByDateAndUserId/2018-05-24/1">
     Get Day (main info) where date=2018-05-24 and userId=1 </a>
 <br>
 <a href=${pageContext.request.contextPath}"/day/getDayId/2018-05-24/1">

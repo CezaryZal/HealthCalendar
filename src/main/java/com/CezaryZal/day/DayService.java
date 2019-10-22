@@ -4,10 +4,10 @@ import com.CezaryZal.bodySize.BodySizeService;
 import com.CezaryZal.day.shortDay.ShortDay;
 import com.CezaryZal.day.shortDay.ShortDayService;
 import com.CezaryZal.meal.MealService;
-import com.CezaryZal.meal.DailyDiet;
+import com.CezaryZal.meal.DailyDietDTO;
 import com.CezaryZal.note.NoteService;
 import com.CezaryZal.training.TrainingService;
-import com.CezaryZal.user.UserDB;
+import com.CezaryZal.user.User;
 import com.CezaryZal.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,31 +42,30 @@ public class DayService {
         this.shortDayS = shortDayS;
     }
 
+    public Day getDayById(int id){
+        Day day = dayR.findById(id);
 
-    public DayDB findById(int id){
-        DayDB dayDB = dayR.findById(id);
-
-        return dayDB;
+        return day;
     }
 
-    public Day getDayByDateAndUserId(String inputDate, int userId) {
-        DayDB dayDB = dayR.findByDateAndUserId(LocalDate.parse(inputDate), userId);
-        UserDB userDB = userS.getUserDBById(userId);
-        DailyDiet dailyDiet = mealS.createDailyDiet(dayDB.getListMealsDB());
+    public DayDTO getDayDTOByDateAndUserId(String inputDate, int userId) {
+        Day day = dayR.findDayByDateAndUserId(LocalDate.parse(inputDate), userId);
+        User user = userS.getUserById(userId);
+        DailyDietDTO dailyDietDTO = mealS.getDailyDietDTO(day.getId());
 
-        return new Day(dayDB.getId(),
-                dayDB.getDate(),
+        return new DayDTO(day.getId(),
+                day.getDate(),
                 userId,
-                userDB.getNick(),
+                user.getNick(),
                 bodySizeS.getDateLastMeasureByUserId(userId),
-                dayDB.getPortionsDrink(),
-                checkIsAchievedDrink(userDB, dayDB),
-                dayDB.getPortionsAlcohol(),
-                dailyDiet,
-                checkIsAchievedKcal(userDB, dailyDiet),
-                dayDB.getPortionsSnack(),
-                trainingS.createAllTrainingsByDay(dayDB.getListTrainingsDB()),
-                noteS.getHeadersByNotesDB(dayDB.getListNotesDB()),
+                day.getPortionsDrink(),
+                checkIsAchievedDrink(user, day),
+                day.getPortionsAlcohol(),
+                dailyDietDTO,
+                checkIsAchievedKcal(user, dailyDietDTO),
+                day.getPortionsSnack(),
+                trainingS.createAllTrainingsDTOByDay(day.getListTrainingsDB()),
+                noteS.getHeadersByNotesDB(day.getListNotesDB()),
                 shortDayS.getShortDaysByDateAndUserId(inputDate, userId)
         );
     }
@@ -77,62 +76,62 @@ public class DayService {
         return dayId;
     }
 
-    public DayDB getDayDBByDateAndUserId(String inputDate, int userId){
-        DayDB dayDB = dayR.findByDateAndUserId(LocalDate.parse(inputDate), userId);
+    public Day getDayDBByDateAndUserId(String inputDate, int userId){
+        Day day = dayR.findDayByDateAndUserId(LocalDate.parse(inputDate), userId);
 
-        return dayDB;
+        return day;
     }
 
-    public List<DayDB> getAll (){
-        List<DayDB> listDayDb = dayR.getAll();
+    public List<Day> getAll (){
+        List<Day> listDay = dayR.getAll();
 
-        return listDayDb;
+        return listDay;
     }
 
-    public boolean addDay (DayDB dayDB){
-        dayR.save(dayDB);
-        shortDayS.addShortDay(createShortDayByDayDB(dayDB));
+    public boolean addDay (Day day){
+        dayR.save(day);
+        shortDayS.addShortDay(createShortDayByDay(day));
 
         return true;
     }
 
-    public boolean updateDay (DayDB dayDB){
-        dayR.update(dayDB);
-        ShortDay shortDay = createShortDayByDayDB(dayDB);
-        shortDay.setId(dayDB.getId());
+    public boolean updateDay (Day day){
+        dayR.update(day);
+        ShortDay shortDay = createShortDayByDay(day);
+        shortDay.setId(day.getId());
         shortDayS.updateShortDay(shortDay);
         return true;
     }
 
     public String deleteDayById(int id){
-        DayDB dayDB = dayR.findById(id);
-        if(dayR.delete(dayDB)){
+        Day day = dayR.findById(id);
+        if(dayR.delete(day)){
             return "delete record";
         }
         return "Day id not found";
     }
 
-    public boolean checkIsAchievedDrink(UserDB userDB, DayDB dayDB){
-        return userDB.getDailyLimits().getDrinkDemand()<=dayDB.getPortionsDrink() * 250;
+    public boolean checkIsAchievedDrink(User user, Day day){
+        return user.getDailyLimits().getDrinkDemand()<= day.getPortionsDrink() * 250;
     }
 
-    public boolean checkIsAchievedKcal(UserDB userDB, DailyDiet dailyDiet){
-        int kcalDemand = userDB.getDailyLimits().getKcalDemand();
-        int sumOfKcal = dailyDiet.getSumOfKcal();
+    public boolean checkIsAchievedKcal(User user, DailyDietDTO dailyDietDTO){
+        int kcalDemand = user.getDailyLimits().getKcalDemand();
+        int sumOfKcal = dailyDietDTO.getSumOfKcal();
         return sumOfKcal>=kcalDemand-kcalDemand*0.05 && sumOfKcal<=kcalDemand+kcalDemand*0.05;
     }
 
-    public ShortDay createShortDayByDayDB(DayDB dayDB){
-        UserDB userDB = userS.getUserDBById(dayDB.getUserId());
-        DailyDiet dailyDiet = mealS.getDailyDiet(dayDB.getId());
+    public ShortDay createShortDayByDay(Day day){
+        User user = userS.getUserById(day.getUserId());
+        DailyDietDTO dailyDietDTO = mealS.getDailyDietDTO(day.getId());
 
         return new ShortDay(
-                dayDB.getUserId(),
-                dayDB.getDate(),
-                checkIsAchievedKcal(userDB, dailyDiet),
-                checkIsAchievedDrink(userDB, dayDB),
-                dayDB.getPortionsAlcohol()!=0,
-                dayDB.getPortionsSnack()!=0
+                day.getUserId(),
+                day.getDate(),
+                checkIsAchievedKcal(user, dailyDietDTO),
+                checkIsAchievedDrink(user, day),
+                day.getPortionsAlcohol()!=0,
+                day.getPortionsSnack()!=0
         );
     }
 

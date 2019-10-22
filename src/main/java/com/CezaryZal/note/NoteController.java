@@ -22,7 +22,7 @@ public class NoteController {
     }
 
     @GetMapping("/getHeadersByDayId/{dayId}")
-    public List<HeaderByDay> getListHeaderByDayId(@PathVariable int dayId){
+    public List<Header> getListHeaderByDayId(@PathVariable int dayId){
         return NoteS.getHeadersByDay(dayId);
     }
 

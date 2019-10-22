@@ -17,28 +17,28 @@ public class TrainingController {
     }
 
     @GetMapping("/id/{nrId}")
-    public TrainingDB getMealById (@PathVariable int nrId){
-        return TrainingS.findById(nrId);
+    public Training getMealById (@PathVariable int nrId){
+        return TrainingS.getTrainingById(nrId);
     }
 
-    @GetMapping("/getTrainingsByDayId/{dayId}")
-    public AllTrainingsByDay getTrainings(@PathVariable int dayId){
-        return TrainingS.getTrainingsByDay(dayId);
+    @GetMapping("/getAllTrainingsDTOByDayId/{dayId}")
+    public AllTrainingsDTO getTrainingsDTO(@PathVariable int dayId){
+        return TrainingS.getTrainingsDTOByDayId(dayId);
     }
 
     @GetMapping("/getAll")
-    public List<TrainingDB> getAll(){
-        return TrainingS.getAll();
+    public List<Training> getAllTrainings(){
+        return TrainingS.getAllTrainings();
     }
 
     @PostMapping("/add")
-    public boolean addDiet (@RequestBody TrainingDB trainingDB){
-        return TrainingS.addTraining(trainingDB);
+    public boolean addDiet (@RequestBody Training training){
+        return TrainingS.addTraining(training);
     }
 
     @PutMapping("/update")
-    public boolean updateMeal (@RequestBody TrainingDB trainingDB){
-        return TrainingS.updateTraining(trainingDB);
+    public boolean updateMeal (@RequestBody Training training){
+        return TrainingS.updateTraining(training);
     }
 
     @DeleteMapping("/delete/{id}")

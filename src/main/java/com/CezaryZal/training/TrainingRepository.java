@@ -16,35 +16,34 @@ public class TrainingRepository {
     @PersistenceContext
     private EntityManager entityManager;
 
-    public TrainingDB findById(int id){
-        return entityManager.find(TrainingDB.class, id);
+    public Training findById(int id){
+        return entityManager.find(Training.class, id);
     }
 
-    public List<TrainingDB> findByDayId(int dayId){
+    public List<Training> findByDayId(int dayId){
         Query query = entityManager.createQuery("SELECT t FROM TrainingDB t WHERE dayId=:dayId");
         query.setParameter("dayId", dayId);
 
         return query.getResultList();
     }
 
-
-    public List<TrainingDB> getAll (){
+    public List<Training> getAll (){
         Query query = entityManager.createQuery("SELECT t FROM TrainingDB t");
 
         return query.getResultList();
     }
 
-    public void save (TrainingDB trainingDB){
-        entityManager.persist(trainingDB);
+    public void save (Training training){
+        entityManager.persist(training);
     }
 
-    public void update(TrainingDB trainingDB){
-        entityManager.merge(trainingDB);
+    public void update(Training training){
+        entityManager.merge(training);
     }
 
-    public boolean delete (TrainingDB trainingDB){
-        if(entityManager.contains(trainingDB)){
-            entityManager.remove(trainingDB);
+    public boolean delete (Training training){
+        if(entityManager.contains(training)){
+            entityManager.remove(training);
             return true;
         }
         return false;

@@ -1,124 +1,178 @@
 package com.CezaryZal.day;
 
-
 import com.CezaryZal.day.shortDay.ShortDay;
-import com.CezaryZal.meal.DailyDiet;
-import com.CezaryZal.note.HeaderByDay;
-import com.CezaryZal.training.AllTrainingsByDay;
+import com.CezaryZal.meal.MealDB;
+import com.CezaryZal.note.NoteDB;
+import com.CezaryZal.training.Training;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
+import org.hibernate.annotations.BatchSize;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
 
+//@BatchSize-jakbym potrzebował ściągnąć pełne dane z kilku dni (dla poprawy wydajności, N+1)
+//Do optymalizacji można spróbować EAGER(przy obecnej koncepcji. Przy biżącym pobieraniu danych LAZY)
 
+@Entity
+@Table(name = "day")
 public class Day {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private int id;
-    private LocalDate date;
-    private int userId;
-    private String nick;
-    private LocalDate lastDateMeasureBody;
-    private int portionsDrink;
-    private boolean isAchievedDrink;
-    private int portionsAlcohol;
-    private DailyDiet dailyDiet;
-    private boolean isAchievedKcal;
-    private int portionsSnack;
-    private AllTrainingsByDay trainings;
-    private List<HeaderByDay> listHeaders;
-    private List<ShortDay> listShortDays;
 
-    public Day(int id, LocalDate date, int userId, String nick, LocalDate lastDateMeasureBody, int portionsDrink,
-               boolean isAchievedDrink, int portionsAlcohol, DailyDiet dailyDiet, boolean isAchievedKcal,
-               int portionsSnack, AllTrainingsByDay trainings, List<HeaderByDay> listHeaders, List<ShortDay> listShortDays) {
-        this.id = id;
+    //    @NotBlank
+//    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    @JsonDeserialize(using = LocalDateDeserializer.class)
+    @JsonSerialize(using = LocalDateSerializer.class)
+    @Column(name = "date")
+    private LocalDate date;
+
+    @Column(name = "user_id")
+    private int userId;
+
+    @Column(name = "portions_drink")
+    private int portionsDrink;
+
+    @Column(name = "portions_alcohol")
+    private int portionsAlcohol;
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "day_id")
+    @BatchSize(size = 5)
+    private List<MealDB> listMealsDB;
+
+    @Column(name = "portions_snack")
+    private int portionsSnack;
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "day_id")
+    @BatchSize(size = 2)
+    private List<Training> listTrainingsDB;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "day_id")
+    private List<NoteDB> listNotesDB;
+
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "short_day_id")
+    private ShortDay shortDay;
+
+
+    public Day() {
+    }
+
+    public Day(LocalDate date, int userId, int portionsDrink, int portionsAlcohol, List<MealDB> listMealsDB,
+               int portionsSnack, List<Training> listTrainingsDB, List<NoteDB> listNotesDB, ShortDay shortDay) {
         this.date = date;
         this.userId = userId;
-        this.nick = nick;
-        this.lastDateMeasureBody = lastDateMeasureBody;
         this.portionsDrink = portionsDrink;
-        this.isAchievedDrink = isAchievedDrink;
         this.portionsAlcohol = portionsAlcohol;
-        this.dailyDiet = dailyDiet;
-        this.isAchievedKcal = isAchievedKcal;
+        this.listMealsDB = listMealsDB;
         this.portionsSnack = portionsSnack;
-        this.trainings = trainings;
-        this.listHeaders = listHeaders;
-        this.listShortDays = listShortDays;
+        this.listTrainingsDB = listTrainingsDB;
+        this.listNotesDB = listNotesDB;
+        this.shortDay = shortDay;
     }
 
     public int getId() {
         return id;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public LocalDate getDate() {
         return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 
     public int getUserId() {
         return userId;
     }
 
-    public String getNick() {
-        return nick;
-    }
-
-    public LocalDate getLastDateMeasureBody() {
-        return lastDateMeasureBody;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public int getPortionsDrink() {
         return portionsDrink;
     }
 
-    public boolean isAchievedDrink() {
-        return isAchievedDrink;
+    public void setPortionsDrink(int portionsDrink) {
+        this.portionsDrink = portionsDrink;
     }
 
     public int getPortionsAlcohol() {
         return portionsAlcohol;
     }
 
-    public DailyDiet getDailyDiet() {
-        return dailyDiet;
+    public void setPortionsAlcohol(int portionsAlcohol) {
+        this.portionsAlcohol = portionsAlcohol;
     }
 
-    public boolean isAchievedKcal() {
-        return isAchievedKcal;
+    public List<MealDB> getListMealsDB() {
+        return listMealsDB;
+    }
+
+    public void setListMealsDB(List<MealDB> listMealsDB) {
+        this.listMealsDB = listMealsDB;
     }
 
     public int getPortionsSnack() {
         return portionsSnack;
     }
 
-    public AllTrainingsByDay getTrainings() {
-        return trainings;
+    public void setPortionsSnack(int portionsSnack) {
+        this.portionsSnack = portionsSnack;
     }
 
-    public List<HeaderByDay> getListHeaders() {
-        return listHeaders;
+    public List<Training> getListTrainingsDB() {
+        return listTrainingsDB;
     }
 
-    public List<ShortDay> getListShortDays() {
-        return listShortDays;
+    public void setListTrainingsDB(List<Training> listTrainingsDB) {
+        this.listTrainingsDB = listTrainingsDB;
+    }
+
+    public List<NoteDB> getListNotesDB() {
+        return listNotesDB;
+    }
+
+    public void setListNotesDB(List<NoteDB> listNotesDB) {
+        this.listNotesDB = listNotesDB;
+    }
+
+    public ShortDay getShortDay() {
+        return shortDay;
+    }
+
+    public void setShortDay(ShortDay shortDay) {
+        this.shortDay = shortDay;
     }
 
     @Override
     public String toString() {
-        return "Day{" +
+        return "DayDB{" +
                 "id=" + id +
                 ", date=" + date +
                 ", userId=" + userId +
-                ", nick='" + nick + '\'' +
-                ", lastDateMeasureBody=" + lastDateMeasureBody +
                 ", portionsDrink=" + portionsDrink +
-                ", isAchievedDrink=" + isAchievedDrink +
                 ", portionsAlcohol=" + portionsAlcohol +
-                ", dailyDiet=" + dailyDiet +
-                ", isAchievedKcal=" + isAchievedKcal +
+                ", listMealsDB=" + listMealsDB +
                 ", portionsSnack=" + portionsSnack +
-                ", trainings=" + trainings +
-                ", listHeaders=" + listHeaders +
-                ", listShortDays=" + listShortDays +
+                ", listTrainingsDB=" + listTrainingsDB +
+                ", listNotesDB=" + listNotesDB +
+                ", shortDay=" + shortDay +
                 '}';
     }
 }

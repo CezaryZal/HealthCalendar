@@ -17,13 +17,13 @@ public class DayController {
     }
 
     @GetMapping("/id/{nrId}")
-    public DayDB getDayDBById(@PathVariable int nrId){
-        return dayS.findById(nrId);
+    public Day getDayById(@PathVariable int nrId){
+        return dayS.getDayById(nrId);
     }
 
-    @GetMapping("/getDayByDateAndUserId/{date}/{userId}")
-    public Day getDayByDateAndUserId(@PathVariable String date, @PathVariable int userId){
-        return dayS.getDayByDateAndUserId(date, userId);
+    @GetMapping("/getDayDTOByDateAndUserId/{date}/{userId}")
+    public DayDTO getDayDTOByDateAndUserId(@PathVariable String date, @PathVariable int userId){
+        return dayS.getDayDTOByDateAndUserId(date, userId);
     }
 
     @GetMapping("/getDayId/{date}/{userId}")
@@ -32,23 +32,23 @@ public class DayController {
     }
 
     @GetMapping("/getDayDBbyDateAndUserId/{date}/{userId}")
-    public DayDB getDayDBByDateAndUserId(@PathVariable String date, @PathVariable int userId){
+    public Day getDayDBByDateAndUserId(@PathVariable String date, @PathVariable int userId){
         return dayS.getDayDBByDateAndUserId(date, userId);
     }
 
     @GetMapping("/getAll")
-    public List<DayDB> getAll(){
+    public List<Day> getAll(){
         return dayS.getAll();
     }
 
     @PostMapping("/add")
-    public boolean addDiet (@RequestBody DayDB dayDB){
-        return dayS.addDay(dayDB);
+    public boolean addDiet (@RequestBody Day day){
+        return dayS.addDay(day);
     }
 
     @PutMapping("/update")
-    public boolean updateDay (@RequestBody DayDB dayDB){
-        return dayS.updateDay(dayDB);
+    public boolean updateDay (@RequestBody Day day){
+        return dayS.updateDay(day);
     }
 
     @DeleteMapping("/delete/{id}")

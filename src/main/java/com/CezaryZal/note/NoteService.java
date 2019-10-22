@@ -22,7 +22,7 @@ public class NoteService {
         return NoteR.findById(id);
     }
 
-    public List<HeaderByDay> getHeadersByDay(int dayId){
+    public List<Header> getHeadersByDay(int dayId){
         List<NoteDB> listNoteDB = getNotesDBByDay(dayId);
 
         return getHeadersByNotesDB(listNoteDB);
@@ -57,11 +57,11 @@ public class NoteService {
         return "Note id not found";
     }
 
-    public List<HeaderByDay> getHeadersByNotesDB(List<NoteDB> listNoteDB){
-        List<HeaderByDay> listHeaders = new ArrayList<>();
+    public List<Header> getHeadersByNotesDB(List<NoteDB> listNoteDB){
+        List<Header> listHeaders = new ArrayList<>();
         for(NoteDB noteDB : listNoteDB){
             if(noteDB!=null){
-                HeaderByDay header = new HeaderByDay(noteDB.getId(), noteDB.getHeader());
+                Header header = new Header(noteDB.getId(), noteDB.getHeader());
                 listHeaders.add(header);
             }
         }

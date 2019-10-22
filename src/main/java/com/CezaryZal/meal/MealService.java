@@ -21,10 +21,10 @@ public class MealService {
         return MealR.findById(id);
     }
 
-    public DailyDiet getDailyDiet (int dayId){
+    public DailyDietDTO getDailyDietDTO (int dayId){
         List<MealDB> listMealDBS = MealR.findByDayId(dayId);
 
-        return createDailyDiet(listMealDBS);
+        return createDailyDietDTO(listMealDBS);
     }
 
     public List<MealDB> getAll (){
@@ -51,12 +51,12 @@ public class MealService {
         return "Meal id not found";
     }
 
-    public DailyDiet createDailyDiet (List<MealDB> listMealDBS){
+    public DailyDietDTO createDailyDietDTO (List<MealDB> listMealDBS){
         int sumOfKcal = 0;
         for (MealDB mealDB : listMealDBS){
             sumOfKcal += mealDB.getKcal();
         }
-        return new DailyDiet(listMealDBS, sumOfKcal);
+        return new DailyDietDTO(listMealDBS, sumOfKcal);
     }
 
 }

@@ -4,19 +4,19 @@ package com.CezaryZal.training;
 import java.time.LocalTime;
 import java.util.List;
 
-public class AllTrainingsByDay {
+public class AllTrainingsDTO {
 
-    private List<TrainingDB> listTrainings;
+    private List<Training> listTrainings;
     private int sumOfBurnKcal;
     private LocalTime sumOfTimes;
 
-    public AllTrainingsByDay(List<TrainingDB> listTrainings, int sumOfBurnKcal, LocalTime sumOfTimes) {
+    public AllTrainingsDTO(List<Training> listTrainings, int sumOfBurnKcal, LocalTime sumOfTimes) {
         this.listTrainings = listTrainings;
         this.sumOfBurnKcal = sumOfBurnKcal;
         this.sumOfTimes = sumOfTimes;
     }
 
-    public List<TrainingDB> getListTrainings() {
+    public List<Training> getListTrainings() {
         return listTrainings;
     }
 

@@ -16,27 +16,27 @@ public class UserRepository {
     private EntityManager entityManager;
 
 
-    public UserDB getUserDBById(int id){
-        return entityManager.find(UserDB.class, id);
+    public User getUserById(int id){
+        return entityManager.find(User.class, id);
     }
 
-    public List<UserDB> getAll (){
+    public List<User> getAll (){
         Query query = entityManager.createQuery("SELECT u FROM UserDB u");
 
         return query.getResultList();
     }
 
-    public void save (UserDB userDB){
-        entityManager.persist(userDB);
+    public void save (User user){
+        entityManager.persist(user);
     }
 
-    public void update(UserDB userDB){
-        entityManager.merge(userDB);
+    public void update(User user){
+        entityManager.merge(user);
     }
 
-    public boolean delete (UserDB userDB){
-        if(entityManager.contains(userDB)){
-            entityManager.remove(userDB);
+    public boolean delete (User user){
+        if(entityManager.contains(user)){
+            entityManager.remove(user);
             return true;
         }
         return false;

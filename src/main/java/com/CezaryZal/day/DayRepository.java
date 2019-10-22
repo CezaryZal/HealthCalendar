@@ -16,8 +16,8 @@ public class DayRepository {
     @PersistenceContext
     private EntityManager entityManager;
 
-    public DayDB findById(int id) {
-        return entityManager.find(DayDB.class, id);
+    public Day findById(int id) {
+        return entityManager.find(Day.class, id);
     }
 
     public int findDayIdByDateAndUserId(LocalDate localDate, int userId){
@@ -28,31 +28,31 @@ public class DayRepository {
         return (int) query.getSingleResult();
     }
 
-    public DayDB findByDateAndUserId(LocalDate localDate, int userId){
+    public Day findDayByDateAndUserId(LocalDate localDate, int userId){
         Query query = entityManager.createQuery("SELECT d FROM DayDB d WHERE date=:inputDate AND userId=:userId");
         query.setParameter("inputDate", localDate);
         query.setParameter("userId", userId);
 
-        return (DayDB) query.getSingleResult();
+        return (Day) query.getSingleResult();
     }
 
-    public List<DayDB> getAll() {
+    public List<Day> getAll() {
         Query query = entityManager.createQuery("SELECT d FROM DayDB d");
 
         return query.getResultList();
     }
 
-    public void save(DayDB dayDB) {
-        entityManager.persist(dayDB);
+    public void save(Day day) {
+        entityManager.persist(day);
     }
 
-    public void update(DayDB dayDB) {
-        entityManager.merge(dayDB);
+    public void update(Day day) {
+        entityManager.merge(day);
     }
 
-    public boolean delete(DayDB dayDB) {
-        if (entityManager.contains(dayDB)) {
-            entityManager.remove(dayDB);
+    public boolean delete(Day day) {
+        if (entityManager.contains(day)) {
+            entityManager.remove(day);
             return true;
         }
         return false;

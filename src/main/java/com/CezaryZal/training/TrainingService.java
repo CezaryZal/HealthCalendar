@@ -20,51 +20,51 @@ public class TrainingService {
         this.TrainingR = TRepository;
     }
 
-    public TrainingDB findById (int id){
+    public Training getTrainingById (int id){
         return TrainingR.findById(id);
     }
 
-    public AllTrainingsByDay getTrainingsByDay (int dayId){
-        List<TrainingDB> listTrainingDB = TrainingR.findByDayId(dayId);
+    public AllTrainingsDTO getTrainingsDTOByDayId (int dayId){
+        List<Training> listTraining = TrainingR.findByDayId(dayId);
 
-        return createAllTrainingsByDay(listTrainingDB);
+        return createAllTrainingsDTOByDay(listTraining);
     }
 
-    public List<TrainingDB> getAll (){
+    public List<Training> getAllTrainings (){
         return TrainingR.getAll();
     }
 
-    public boolean addTraining (TrainingDB trainingDB){
-        TrainingR.save(trainingDB);
+    public boolean addTraining (Training training){
+        TrainingR.save(training);
 
         return true;
     }
 
-    public boolean updateTraining (TrainingDB trainingDB){
-        TrainingR.update(trainingDB);
+    public boolean updateTraining (Training training){
+        TrainingR.update(training);
 
         return true;
     }
 
     public String deleteTrainingById (int id){
-        TrainingDB trainingDB = TrainingR.findById(id);
-        if(TrainingR.delete(trainingDB)){
+        Training training = TrainingR.findById(id);
+        if(TrainingR.delete(training)){
             return "delete record";
         }
         return "Training id not found";
     }
 
-    public AllTrainingsByDay createAllTrainingsByDay(List<TrainingDB> listTrainingDB){
+    public AllTrainingsDTO createAllTrainingsDTOByDay(List<Training> listTraining){
         int sumOfBurnKcal = 0;
         LocalTime sumOfTimes = LocalTime.of(0,0);
-        for (TrainingDB trainingDB : listTrainingDB) {
-            if (trainingDB != null) {
-                sumOfBurnKcal += trainingDB.getBurnKcal();
-                long hour = trainingDB.getTime().getHour();
-                long minute = trainingDB.getTime().getMinute();
+        for (Training training : listTraining) {
+            if (training != null) {
+                sumOfBurnKcal += training.getBurnKcal();
+                long hour = training.getTime().getHour();
+                long minute = training.getTime().getMinute();
                 sumOfTimes = sumOfTimes.plus(Duration.ofHours(hour)).plus(Duration.ofMinutes(minute));
             }
         }
-        return new AllTrainingsByDay(listTrainingDB, sumOfBurnKcal, sumOfTimes);
+        return new AllTrainingsDTO(listTraining, sumOfBurnKcal, sumOfTimes);
     }
 }

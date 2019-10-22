@@ -19,61 +19,60 @@ public class UserService {
     }
 
 
-    public UserDB getUserDBById(int id){
-        return UserR.getUserDBById(id);
-    }
-
     public User getUserById(int id){
-        UserDB userDB = getUserDBById(id);
-
-        return convertUserClass(userDB);
+        return UserR.getUserById(id);
     }
 
+    public UserDTO getUserDTOById(int id){
+        User user = getUserById(id);
 
-    public List<UserDB> getAllUsersDB(){
-        return UserR.getAll();
+        return convertUserDTO(user);
     }
 
     public List<User> getAllUsers(){
-        List<UserDB> listUsersDB = getAllUsersDB();
-
-        List<User> listUsers = new ArrayList<>();
-        for (UserDB userDB : listUsersDB){
-            listUsers.add(convertUserClass(userDB));
-        }
-        return listUsers;
+        return UserR.getAll();
     }
 
-    public boolean addUser(UserDB user){
+    public List<UserDTO> getAllUsersDTO(){
+        List<User> listUsersDB = getAllUsers();
+
+        List<UserDTO> listUserDTO = new ArrayList<>();
+        for (User user : listUsersDB){
+            listUserDTO.add(convertUserDTO(user));
+        }
+        return listUserDTO;
+    }
+
+    public boolean addUser(User user){
         UserR.save(user);
 
         return true;
     }
 
-    public boolean updateUser(UserDB userDB){
-        UserR.update(userDB);
+    public boolean updateUser(User user){
+        UserR.update(user);
 
         return true;
     }
 
     public String deleteUserById (int id) {
-        UserDB userDB = UserR.getUserDBById(id);
-        if(UserR.delete(userDB)){
+        User user = UserR.getUserById(id);
+        if(UserR.delete(user)){
             return "delete record";
         }
         return "User id not found";
     }
 
-    public User convertUserClass (UserDB userDB){
-        return new User(userDB.getId(),
-                userDB.getFirstName(),
-                userDB.getNick(),
-                userDB.getEmail(),
-                userDB.getPoneNumber(),
-                userDB.getLoginName(),
-                userDB.getPassword(),
-                userDB.getSex(),
-                userDB.getDailyLimits()
+    public UserDTO convertUserDTO(User user){
+        return new UserDTO(user.getId(),
+                user.getFirstName(),
+                user.getNick(),
+                user.getEmail(),
+                user.getPoneNumber(),
+                user.getLoginName(),
+                user.getPassword(),
+                user.getSex(),
+                user.getDailyLimits()
         );
     }
 

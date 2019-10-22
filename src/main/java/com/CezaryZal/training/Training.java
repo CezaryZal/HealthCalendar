@@ -6,7 +6,7 @@ import java.time.LocalTime;
 
 @Entity
 @Table(name = "training")
-public class TrainingDB {
+public class Training {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,10 +28,10 @@ public class TrainingDB {
     @Column(name = "day_id")
     private int dayId;
 
-    public TrainingDB() {
+    public Training() {
     }
 
-    public TrainingDB(LocalDateTime date, String description, LocalTime time, int burnKcal, int dayId) {
+    public Training(LocalDateTime date, String description, LocalTime time, int burnKcal, int dayId) {
         this.date = date;
         this.description = description;
         this.time = time;

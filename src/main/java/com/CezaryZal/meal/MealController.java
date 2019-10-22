@@ -22,10 +22,9 @@ public class MealController {
         return MealS.getMealById(nrId);
     }
 
-
-    @GetMapping("/getDietByDayId/{dayId}")
-    public DailyDiet getDailyDietByDayId(@PathVariable int dayId){
-        return MealS.getDailyDiet(dayId);
+    @GetMapping("/getDietDTOByDayId/{dayId}")
+    public DailyDietDTO getDailyDietByDayId(@PathVariable int dayId){
+        return MealS.getDailyDietDTO(dayId);
     }
 
     @GetMapping("/getAll")
