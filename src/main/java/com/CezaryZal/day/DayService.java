@@ -43,15 +43,13 @@ public class DayService {
     }
 
     public Day getDayById(int id){
-        Day day = dayR.findById(id);
-
-        return day;
+        return dayR.findById(id);
     }
 
     public DayDTO getDayDTOByDateAndUserId(String inputDate, int userId) {
-        Day day = dayR.findDayByDateAndUserId(LocalDate.parse(inputDate), userId);
+        Day day = getDayByDateAndUserId(inputDate, userId);
         User user = userS.getUserById(userId);
-        DailyDietDTO dailyDietDTO = mealS.getDailyDietDTO(day.getId());
+        DailyDietDTO dailyDietDTO = mealS.getDailyDietDTOByDayId(day.getId());
 
         return new DayDTO(day.getId(),
                 day.getDate(),
@@ -71,21 +69,15 @@ public class DayService {
     }
 
     public int getDayIdByDateAndUserId(String inputDate, int userId){
-        int dayId = dayR.findDayIdByDateAndUserId(LocalDate.parse(inputDate), userId);
-
-        return dayId;
+        return dayR.findDayIdByDateAndUserId(LocalDate.parse(inputDate), userId);
     }
 
-    public Day getDayDBByDateAndUserId(String inputDate, int userId){
-        Day day = dayR.findDayByDateAndUserId(LocalDate.parse(inputDate), userId);
-
-        return day;
+    public Day getDayByDateAndUserId(String inputDate, int userId){
+        return dayR.findDayByDateAndUserId(LocalDate.parse(inputDate), userId);
     }
 
     public List<Day> getAll (){
-        List<Day> listDay = dayR.getAll();
-
-        return listDay;
+        return dayR.getAll();
     }
 
     public boolean addDay (Day day){
@@ -123,7 +115,7 @@ public class DayService {
 
     public ShortDay createShortDayByDay(Day day){
         User user = userS.getUserById(day.getUserId());
-        DailyDietDTO dailyDietDTO = mealS.getDailyDietDTO(day.getId());
+        DailyDietDTO dailyDietDTO = mealS.getDailyDietDTOByDayId(day.getId());
 
         return new ShortDay(
                 day.getUserId(),

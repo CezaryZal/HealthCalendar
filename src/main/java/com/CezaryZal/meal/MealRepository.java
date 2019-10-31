@@ -20,7 +20,7 @@ public class MealRepository {
         return entityManager.find(MealDB.class, id);
     }
 
-    public List<MealDB> findByDayId(int dayId){
+    public List<MealDB> getListByDayId(int dayId){
         Query query = entityManager.createQuery("SELECT m FROM MealDB m WHERE dayId=:dayId");
         query.setParameter("dayId", dayId);
 

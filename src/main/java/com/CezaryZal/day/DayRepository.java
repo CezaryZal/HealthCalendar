@@ -1,5 +1,6 @@
 package com.CezaryZal.day;
 
+import org.hibernate.mapping.Set;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -21,7 +22,7 @@ public class DayRepository {
     }
 
     public int findDayIdByDateAndUserId(LocalDate localDate, int userId){
-        Query query = entityManager.createQuery("SELECT id FROM DayDB WHERE date=:inputDate AND userId=:userId");
+        Query query = entityManager.createQuery("SELECT id FROM Day WHERE date=:inputDate AND userId=:userId");
         query.setParameter("inputDate", localDate);
         query.setParameter("userId", userId);
 
@@ -29,15 +30,19 @@ public class DayRepository {
     }
 
     public Day findDayByDateAndUserId(LocalDate localDate, int userId){
-        Query query = entityManager.createQuery("SELECT d FROM DayDB d WHERE date=:inputDate AND userId=:userId");
+        Query query = entityManager.createQuery("SELECT d FROM Day d WHERE date=:inputDate AND userId=:userId");
         query.setParameter("inputDate", localDate);
         query.setParameter("userId", userId);
 
         return (Day) query.getSingleResult();
     }
 
+//Join fetch w query HQL pozwala zaciągnięcie wszystkich danych przy jednym zapytaniu, ale join musi istnieć(być powiązanie)
+//        Query query = entityManager.createQuery("SELECT DISTINCT d FROM Day d JOIN fetch d.listNotesDB ", Day.class);
+
+
     public List<Day> getAll() {
-        Query query = entityManager.createQuery("SELECT d FROM DayDB d");
+        Query query = entityManager.createQuery("SELECT d FROM Day d");
 
         return query.getResultList();
     }

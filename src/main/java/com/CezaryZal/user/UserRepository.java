@@ -21,7 +21,7 @@ public class UserRepository {
     }
 
     public List<User> getAll (){
-        Query query = entityManager.createQuery("SELECT u FROM UserDB u");
+        Query query = entityManager.createQuery("SELECT u FROM User u");
 
         return query.getResultList();
     }

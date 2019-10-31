@@ -33,7 +33,8 @@ INSERT INTO `note` VALUES
 (1, 1, 'dieta nie utrzymana', 'wyjazd do świdnika'),
 (2, 1, 'pite duzo alkoholu', 'wakacje'),
 (3, 2, 'duzo tlustego jedzenia i alkoholu', 'wyjazd do tesciow'),
-(4, 2, 'nieregularne jedzenie i pyty alkohol', 'wakacje');
+(4, 3, 'duzo tlustego alkoholu', 'wyjazd do szefa'),
+(5, 2, 'nieregularne jedzenie i pyty alkohol', 'wakacje');
 
 INSERT INTO `short_day` VALUES
 (1, '2018-05-24', TRUE, FALSE, TRUE, TRUE, 1),
@@ -49,7 +50,9 @@ INSERT INTO `day` VALUES
 (1, '2018-05-24', 11, 12, 4, 1, 1),
 (2, '2018-05-23', 21, 22, 1, 1, 2),
 (3, '2018-05-24', 31, 32, 4, 2, 3),
-(4, '2018-05-23', 41, 42, 1, 2, 4);
+(4, '2018-05-23', 41, 42, 1, 2, 4),
+(5, '2018-05-24', 31, 32, 4, 3, 5),
+(6, '2018-05-23', 5, 3, 4, 3, 6);
 
 
 

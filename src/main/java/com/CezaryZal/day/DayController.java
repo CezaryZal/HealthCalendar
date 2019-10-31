@@ -33,7 +33,7 @@ public class DayController {
 
     @GetMapping("/getDayDBbyDateAndUserId/{date}/{userId}")
     public Day getDayDBByDateAndUserId(@PathVariable String date, @PathVariable int userId){
-        return dayS.getDayDBByDateAndUserId(date, userId);
+        return dayS.getDayByDateAndUserId(date, userId);
     }
 
     @GetMapping("/getAll")

@@ -9,6 +9,8 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import org.hibernate.annotations.BatchSize;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -42,7 +44,10 @@ public class Day {
     @Column(name = "portions_alcohol")
     private int portionsAlcohol;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+
+    //loading like EAGER
+    @OneToMany(cascade = CascadeType.ALL)
+    @LazyCollection(LazyCollectionOption.FALSE)
     @JoinColumn(name = "day_id")
     @BatchSize(size = 5)
     private List<MealDB> listMealsDB;
@@ -50,12 +55,14 @@ public class Day {
     @Column(name = "portions_snack")
     private int portionsSnack;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)
+    @LazyCollection(LazyCollectionOption.FALSE)
     @JoinColumn(name = "day_id")
     @BatchSize(size = 2)
     private List<Training> listTrainingsDB;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)
+    @LazyCollection(LazyCollectionOption.FALSE)
     @JoinColumn(name = "day_id")
     private List<NoteDB> listNotesDB;
 

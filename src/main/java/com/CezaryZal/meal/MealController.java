@@ -24,7 +24,7 @@ public class MealController {
 
     @GetMapping("/getDietDTOByDayId/{dayId}")
     public DailyDietDTO getDailyDietByDayId(@PathVariable int dayId){
-        return MealS.getDailyDietDTO(dayId);
+        return MealS.getDailyDietDTOByDayId(dayId);
     }
 
     @GetMapping("/getAll")

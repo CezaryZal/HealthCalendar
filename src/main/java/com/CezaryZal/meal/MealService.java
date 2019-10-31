@@ -21,8 +21,8 @@ public class MealService {
         return MealR.findById(id);
     }
 
-    public DailyDietDTO getDailyDietDTO (int dayId){
-        List<MealDB> listMealDBS = MealR.findByDayId(dayId);
+    public DailyDietDTO getDailyDietDTOByDayId (int dayId){
+        List<MealDB> listMealDBS = MealR.getListByDayId(dayId);
 
         return createDailyDietDTO(listMealDBS);
     }
