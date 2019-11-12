@@ -12,6 +12,7 @@ import org.springframework.web.servlet.config.annotation.DefaultServletHandlerCo
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import javax.persistence.EntityManagerFactory;
 import java.util.Locale;
@@ -21,6 +22,7 @@ import java.util.Locale;
 @EnableWebMvc
 @ComponentScan(basePackages = "com.CezaryZal")
 @EnableTransactionManagement
+@EnableSwagger2
 public class AppConfig extends WebMvcConfigurerAdapter {
 
 
