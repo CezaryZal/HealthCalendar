@@ -52,6 +52,12 @@
             </exclusions>
         </dependency>
 
+        <!-- Support for automatic reloading -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <optional>true</optional>
+        </dependency>
 
 
         <!-- Add Spring MVC and REST support -->
