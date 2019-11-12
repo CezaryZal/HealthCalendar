@@ -11,12 +11,12 @@ import com.CezaryZal.user.User;
 import com.CezaryZal.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+//import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
 
-@Transactional
+//@Transactional
 @Service
 public class DayService {
 
