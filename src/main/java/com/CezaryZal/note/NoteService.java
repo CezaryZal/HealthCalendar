@@ -1,24 +1,20 @@
 package com.CezaryZal.note;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-//import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 
-//@Transactional
 @Service
 public class NoteService {
 
     private NoteRepository NoteR;
 
-    @Autowired
     public NoteService(NoteRepository NRepository) {
         this.NoteR = NRepository;
     }
 
-    public NoteDB findById (int id){
+    public NoteDB getNoteDBById (int id){
         return NoteR.findById(id);
     }
 
@@ -31,7 +27,6 @@ public class NoteService {
     public List<NoteDB> getNotesDBByDay (int dayId){
         return NoteR.findByDayId(dayId);
     }
-
 
     public List<NoteDB> getAll (){
         return NoteR.getAll();

@@ -3,13 +3,11 @@ package com.CezaryZal.training;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-//import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Duration;
 import java.time.LocalTime;
 import java.util.List;
 
-//@Transactional
 @Service
 public class TrainingService {
 
@@ -24,7 +22,7 @@ public class TrainingService {
         return TrainingR.findById(id);
     }
 
-    public AllTrainingsDTO getTrainingsDTOByDayId (int dayId){
+    public TrainingsDTO getTrainingsDTOByDayId (int dayId){
         List<Training> listTraining = TrainingR.findByDayId(dayId);
 
         return createAllTrainingsDTOByDay(listTraining);
@@ -54,7 +52,7 @@ public class TrainingService {
         return "Training id not found";
     }
 
-    public AllTrainingsDTO createAllTrainingsDTOByDay(List<Training> listTraining){
+    public TrainingsDTO createAllTrainingsDTOByDay(List<Training> listTraining){
         int sumOfBurnKcal = 0;
         LocalTime sumOfTimes = LocalTime.of(0,0);
         for (Training training : listTraining) {
@@ -65,6 +63,6 @@ public class TrainingService {
                 sumOfTimes = sumOfTimes.plus(Duration.ofHours(hour)).plus(Duration.ofMinutes(minute));
             }
         }
-        return new AllTrainingsDTO(listTraining, sumOfBurnKcal, sumOfTimes);
+        return new TrainingsDTO(listTraining, sumOfBurnKcal, sumOfTimes);
     }
 }

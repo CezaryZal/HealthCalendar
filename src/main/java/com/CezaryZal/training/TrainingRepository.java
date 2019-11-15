@@ -21,14 +21,14 @@ public class TrainingRepository {
     }
 
     public List<Training> findByDayId(int dayId){
-        Query query = entityManager.createQuery("SELECT t FROM Training t WHERE dayId=:dayId");
+        Query query = entityManager.createQuery("FROM Training WHERE dayId=:dayId");
         query.setParameter("dayId", dayId);
 
         return query.getResultList();
     }
 
     public List<Training> getAll (){
-        Query query = entityManager.createQuery("SELECT t FROM Training t");
+        Query query = entityManager.createQuery("FROM Training");
 
         return query.getResultList();
     }

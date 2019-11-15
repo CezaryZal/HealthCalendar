@@ -1,7 +1,5 @@
 package com.CezaryZal.meal;
 
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,7 +10,6 @@ public class MealController {
 
     private MealService MealS;
 
-    @Autowired
     public MealController(MealService MService) {
         this.MealS = MService;
     }

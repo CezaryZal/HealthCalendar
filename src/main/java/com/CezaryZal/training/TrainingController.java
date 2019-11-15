@@ -1,6 +1,5 @@
 package com.CezaryZal.training;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,7 +10,6 @@ public class TrainingController {
 
     private TrainingService TrainingS;
 
-    @Autowired
     public TrainingController(TrainingService TService) {
         this.TrainingS = TService;
     }
@@ -22,7 +20,7 @@ public class TrainingController {
     }
 
     @GetMapping("/getAllTrainingsDTOByDayId/{dayId}")
-    public AllTrainingsDTO getTrainingsDTO(@PathVariable int dayId){
+    public TrainingsDTO getTrainingsDTO(@PathVariable int dayId){
         return TrainingS.getTrainingsDTOByDayId(dayId);
     }
 

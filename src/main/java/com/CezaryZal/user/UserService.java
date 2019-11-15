@@ -1,32 +1,28 @@
 package com.CezaryZal.user;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-//import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 
-//@Transactional
 @Service
 public class UserService {
 
     private UserRepository UserR;
 
-    @Autowired
     public UserService(UserRepository URepository) {
         this.UserR = URepository;
     }
 
 
     public User getUserById(int id){
-        return UserR.getUserById(id);
+        return UserR.findById(id);
     }
 
     public UserDTO getUserDTOById(int id){
         User user = getUserById(id);
 
-        return convertUserDTO(user);
+        return convertToUserDTO(user);
     }
 
     public List<User> getAllUsers(){
@@ -38,7 +34,7 @@ public class UserService {
 
         List<UserDTO> listUserDTO = new ArrayList<>();
         for (User user : listUsersDB){
-            listUserDTO.add(convertUserDTO(user));
+            listUserDTO.add(convertToUserDTO(user));
         }
         return listUserDTO;
     }
@@ -56,14 +52,14 @@ public class UserService {
     }
 
     public String deleteUserById (int id) {
-        User user = UserR.getUserById(id);
+        User user = UserR.findById(id);
         if(UserR.delete(user)){
             return "delete record";
         }
         return "User id not found";
     }
 
-    public UserDTO convertUserDTO(User user){
+    public UserDTO convertToUserDTO(User user){
         return new UserDTO(user.getId(),
                 user.getFirstName(),
                 user.getNick(),

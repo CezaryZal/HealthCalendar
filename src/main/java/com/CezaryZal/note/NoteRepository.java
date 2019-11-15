@@ -20,18 +20,17 @@ public class NoteRepository {
     }
 
     public List<NoteDB> findByDayId(int dayId){
-        Query query = entityManager.createQuery("SELECT n FROM NoteDB n WHERE dayId=:dayId");
+        Query query = entityManager.createQuery("FROM NoteDB WHERE dayId=:dayId");
         query.setParameter("dayId", dayId);
 
         return query.getResultList();
     }
 
     public List<NoteDB> getAll (){
-        Query query = entityManager.createQuery("SELECT n FROM NoteDB n");
+        Query query = entityManager.createQuery("FROM NoteDB");
 
         return query.getResultList();
     }
-
 
     public void save (NoteDB noteDB){
         entityManager.persist(noteDB);

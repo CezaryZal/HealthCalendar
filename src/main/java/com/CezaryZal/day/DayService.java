@@ -9,14 +9,11 @@ import com.CezaryZal.note.NoteService;
 import com.CezaryZal.training.TrainingService;
 import com.CezaryZal.user.User;
 import com.CezaryZal.user.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-//import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
 
-//@Transactional
 @Service
 public class DayService {
 
@@ -30,7 +27,6 @@ public class DayService {
 
 
     //Posiadając obecne endpointy możliwe jest stworzenie strony bieżaco doładowując dane
-    @Autowired
     public DayService(DayRepository dayR, UserService userS, BodySizeService bodySizeS, MealService mealS,
                       TrainingService trainingS, NoteService noteS, ShortDayService shortDayS) {
         this.dayR = dayR;

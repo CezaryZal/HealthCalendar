@@ -12,7 +12,6 @@ public class BodySizeController {
 
     private BodySizeService bodySizeS;
 
-    @Autowired
     public BodySizeController(BodySizeService bodySizeS) {
         this.bodySizeS = bodySizeS;
     }

@@ -1,6 +1,5 @@
 package com.CezaryZal.day;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,7 +10,6 @@ public class DayController {
 
     private DayService dayS;
 
-    @Autowired
     public DayController(DayService DService) {
         this.dayS = DService;
     }
