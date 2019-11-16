@@ -1,23 +1,25 @@
 package com.CezaryZal.bodySize;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
 
+@CrossOrigin(origins = "*", maxAge = 3600)
+@Api(tags = "This is Body Controller")
 @RestController
 @RequestMapping("/body")
 public class BodySizeController {
 
     private BodySizeService bodySizeS;
 
-    @Autowired
     public BodySizeController(BodySizeService bodySizeS) {
         this.bodySizeS = bodySizeS;
     }
 
-
+    @ApiOperation(value = "This will get a Body by id", notes = "In this method you will receive a body measurement by id")
     @GetMapping("/id/{nrId}")
     public BodySize getBodyById (@PathVariable int nrId){
         return bodySizeS.getBodyById(nrId);

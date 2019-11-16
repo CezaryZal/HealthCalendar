@@ -21,14 +21,14 @@ public class MealRepository {
     }
 
     public List<MealDB> getListByDayId(int dayId){
-        Query query = entityManager.createQuery("SELECT m FROM MealDB m WHERE dayId=:dayId");
+        Query query = entityManager.createQuery("FROM MealDB WHERE dayId=:dayId");
         query.setParameter("dayId", dayId);
 
         return query.getResultList();
     }
 
     public List<MealDB> getAll (){
-        Query query = entityManager.createQuery("SELECT m FROM MealDB m");
+        Query query = entityManager.createQuery("FROM MealDB");
 
         return query.getResultList();
     }

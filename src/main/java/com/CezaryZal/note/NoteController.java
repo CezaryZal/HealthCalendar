@@ -1,6 +1,5 @@
 package com.CezaryZal.note;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,14 +10,13 @@ public class NoteController {
 
     private NoteService NoteS;
 
-    @Autowired
     public NoteController(NoteService NService) {
         this.NoteS = NService;
     }
 
     @GetMapping("/id/{nrId}")
-    public NoteDB getNoteById (@PathVariable int nrId){
-        return NoteS.findById(nrId);
+    public NoteDB getNoteDBById (@PathVariable int nrId){
+        return NoteS.getNoteDBById(nrId);
     }
 
     @GetMapping("/getHeadersByDayId/{dayId}")

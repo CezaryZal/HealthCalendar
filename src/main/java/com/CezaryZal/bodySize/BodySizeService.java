@@ -1,20 +1,16 @@
 package com.CezaryZal.bodySize;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
 
 
-@Transactional
 @Service
 public class BodySizeService {
 
     private BodySizeRepository BodySizeR;
 
-    @Autowired
     public BodySizeService(BodySizeRepository BSRepository) {
         this.BodySizeR = BSRepository;
     }

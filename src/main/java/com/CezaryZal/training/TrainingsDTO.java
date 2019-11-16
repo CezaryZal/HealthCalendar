@@ -1,16 +1,15 @@
 package com.CezaryZal.training;
 
-
 import java.time.LocalTime;
 import java.util.List;
 
-public class AllTrainingsDTO {
+public class TrainingsDTO {
 
     private List<Training> listTrainings;
     private int sumOfBurnKcal;
     private LocalTime sumOfTimes;
 
-    public AllTrainingsDTO(List<Training> listTrainings, int sumOfBurnKcal, LocalTime sumOfTimes) {
+    public TrainingsDTO(List<Training> listTrainings, int sumOfBurnKcal, LocalTime sumOfTimes) {
         this.listTrainings = listTrainings;
         this.sumOfBurnKcal = sumOfBurnKcal;
         this.sumOfTimes = sumOfTimes;

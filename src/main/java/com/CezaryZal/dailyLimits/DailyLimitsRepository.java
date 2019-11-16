@@ -20,14 +20,14 @@ public class DailyLimitsRepository {
     }
 
     public DailyLimits findByUserId (int id){
-        Query query = entityManager.createQuery("SELECT d FROM DailyLimits d WHERE userId=:userId");
+        Query query = entityManager.createQuery("FROM DailyLimits WHERE userId=:userId");
         query.setParameter("userId", id);
 
         return (DailyLimits) query.getSingleResult();
     }
 
     public List<DailyLimits> getAll(){
-        Query query = entityManager.createQuery("SELECT d FROM DailyLimits d");
+        Query query = entityManager.createQuery("FROM DailyLimits");
 
         return query.getResultList();
     }

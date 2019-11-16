@@ -16,12 +16,12 @@ public class UserRepository {
     private EntityManager entityManager;
 
 
-    public User getUserById(int id){
+    public User findById(int id){
         return entityManager.find(User.class, id);
     }
 
     public List<User> getAll (){
-        Query query = entityManager.createQuery("SELECT u FROM User u");
+        Query query = entityManager.createQuery("FROM User");
 
         return query.getResultList();
     }

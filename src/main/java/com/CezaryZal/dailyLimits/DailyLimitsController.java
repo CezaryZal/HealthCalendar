@@ -1,6 +1,5 @@
 package com.CezaryZal.dailyLimits;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,7 +10,6 @@ public class DailyLimitsController {
 
     private DailyLimitsService DailyLimitsS;
 
-    @Autowired
     public DailyLimitsController(DailyLimitsService dailyLimitsS) {
         DailyLimitsS = dailyLimitsS;
     }

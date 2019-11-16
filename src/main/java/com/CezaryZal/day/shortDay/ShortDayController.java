@@ -1,6 +1,5 @@
 package com.CezaryZal.day.shortDay;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,7 +10,6 @@ public class ShortDayController {
 
     private ShortDayService shortDayS;
 
-    @Autowired
     public ShortDayController(ShortDayService shortDayS) {
         this.shortDayS = shortDayS;
     }

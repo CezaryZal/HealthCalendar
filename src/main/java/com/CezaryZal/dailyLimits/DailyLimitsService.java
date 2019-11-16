@@ -1,22 +1,17 @@
 package com.CezaryZal.dailyLimits;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@Transactional
 @Service
 public class DailyLimitsService {
 
     private DailyLimitsRepository DailyLimitsR;
 
-    @Autowired
     public DailyLimitsService(DailyLimitsRepository dailyLimitsR) {
         DailyLimitsR = dailyLimitsR;
     }
-
 
     public DailyLimits getLimitsById(int id){
         return DailyLimitsR.findById(id);

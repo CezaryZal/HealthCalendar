@@ -22,7 +22,7 @@ public class ShortDayRepository {
 
     public List<ShortDay> findByDateAndUserId(LocalDate localDateMin, LocalDate localDateMax, int userId){
         Query query = entityManager.createQuery(
-                "SELECT s FROM ShortDay s WHERE date>=:inputDateMin AND date<=:inputDateMax AND userId=:userId");
+                "FROM ShortDay WHERE date>=:inputDateMin AND date<=:inputDateMax AND userId=:userId");
         query.setParameter("inputDateMin", localDateMin);
         query.setParameter("inputDateMax", localDateMax);
         query.setParameter("userId", userId);
@@ -31,7 +31,7 @@ public class ShortDayRepository {
     }
 
     public List<ShortDay> getAll(){
-        Query query = entityManager.createQuery("SELECT s FROM ShortDay s");
+        Query query = entityManager.createQuery("FROM ShortDay");
 
         return query.getResultList();
     }
