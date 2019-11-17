@@ -14,27 +14,27 @@ public class UserController {
         this.UserS = UService;
     }
 
-    @GetMapping("/getUserDTO/id/{userId}")
+    @GetMapping("/DTOId/{userId}")
     public UserDTO getUserDTO (@PathVariable int userId){
         return UserS.getUserDTOById(userId);
     }
 
-    @GetMapping("/getUsersDTO")
+    @GetMapping("/UsersDTO")
     public List<UserDTO> getUsersDTO(){
         return  UserS.getAllUsersDTO();
     }
 
-    @GetMapping("/getUser/id/{userId}")
+    @GetMapping("/id/{userId}")
     public User getUser (@PathVariable int userId){
         return UserS.getUserById(userId);
     }
 
-    @GetMapping("/getUsers")
+    @GetMapping("/getAll")
     public List<User> getUsers(){
         return UserS.getAllUsers();
     }
 
-    @PostMapping("/addUser")
+    @PostMapping("/add")
     public boolean addUser (@RequestBody User user){
         return UserS.addUser(user);
     }

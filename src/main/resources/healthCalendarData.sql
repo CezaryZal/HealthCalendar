@@ -1,7 +1,13 @@
 
+INSERT INTO `daily_limits` VALUES
+(1, 2500, 2000, 1),
+(2, 4000, 3000, 2),
+(3, 3000, 2500, 3);
+
 INSERT INTO `user` VALUES
 (1, 'anna@gmail.com', 'Anna','Ann', 'Ann123', 'test1', 569842365, 0, 1),
-(2, 'fiona@gmail.com', 'Fiona','Shrek', 'shrek123', 'test2', 846152365, 1, 2);
+(2, 'fiona@gmail.com', 'Fiona','Shrek', 'shrek123', 'test2', 846152365, 1, 2),
+(3, 'kris@gmail.com', 'Kris','Bran', 'kris123', 'test3', 849642365, 1, 2);
 
 INSERT INTO `body_size` VALUES
 (1, 65, 38, 31, 98, '2018-05-23', 75, 88, 45, 1, 36),
@@ -9,9 +15,23 @@ INSERT INTO `body_size` VALUES
 (3, 66, 37, 35, 96, '2018-06-23', 74, 87, 47, 2, 37),
 (4, 60, 36, 30, 91, '2018-05-25', 70, 83, 43, 2, 35);
 
-INSERT INTO `daily_limits` VALUES
-(1, 2500, 2000, 1),
-(2, 4000, 3000, 2);
+INSERT INTO `short_day` VALUES
+(1, '2018-05-24', TRUE, FALSE, TRUE, TRUE, 1),
+(2, '2018-05-23', TRUE, FALSE, TRUE, TRUE, 1),
+(3, '2018-05-24', TRUE, FALSE, TRUE, TRUE, 2),
+(4, '2018-05-23', TRUE, FALSE, TRUE, TRUE, 2),
+(5, '2018-06-20', TRUE, FALSE, TRUE, TRUE, 1),
+(6, '2018-04-29', TRUE, FALSE, TRUE, TRUE, 1),
+(7, '2018-08-20', TRUE, FALSE, TRUE, TRUE, 1),
+(8, '2018-03-29', TRUE, FALSE, TRUE, TRUE, 1);
+
+INSERT INTO `day` VALUES
+(1, '2018-05-24', 11, 12, 4, 1, 1),
+(2, '2018-05-23', 21, 22, 1, 1, 2),
+(3, '2018-05-24', 31, 32, 4, 2, 3),
+(4, '2018-05-23', 41, 42, 1, 2, 4),
+(5, '2018-05-24', 31, 32, 4, 3, 5),
+(6, '2018-05-23', 5, 3, 4, 3, 6);
 
 INSERT INTO `meal` VALUES
 (1, '2018-05-23 11:21', 1, 'jajecznica z 2jaj', 260, 'sniadanie'),
@@ -35,25 +55,6 @@ INSERT INTO `note` VALUES
 (3, 2, 'duzo tlustego jedzenia i alkoholu', 'wyjazd do tesciow'),
 (4, 3, 'duzo tlustego alkoholu', 'wyjazd do szefa'),
 (5, 2, 'nieregularne jedzenie i pyty alkohol', 'wakacje');
-
-INSERT INTO `short_day` VALUES
-(1, '2018-05-24', TRUE, FALSE, TRUE, TRUE, 1),
-(2, '2018-05-23', TRUE, FALSE, TRUE, TRUE, 1),
-(3, '2018-05-24', TRUE, FALSE, TRUE, TRUE, 2),
-(4, '2018-05-23', TRUE, FALSE, TRUE, TRUE, 2),
-(5, '2018-06-20', TRUE, FALSE, TRUE, TRUE, 1),
-(6, '2018-04-29', TRUE, FALSE, TRUE, TRUE, 1),
-(7, '2018-08-20', TRUE, FALSE, TRUE, TRUE, 1),
-(8, '2018-03-29', TRUE, FALSE, TRUE, TRUE, 1);
-
-INSERT INTO `day` VALUES
-(1, '2018-05-24', 11, 12, 4, 1, 1),
-(2, '2018-05-23', 21, 22, 1, 1, 2),
-(3, '2018-05-24', 31, 32, 4, 2, 3),
-(4, '2018-05-23', 41, 42, 1, 2, 4),
-(5, '2018-05-24', 31, 32, 4, 3, 5),
-(6, '2018-05-23', 5, 3, 4, 3, 6);
-
 
 
 -- ALTER TABLE `meal` CONVERT TO CHARACTER SET utf8 COLLATE utf8_polish_ci;

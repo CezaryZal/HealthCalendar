@@ -11,5 +11,4 @@ Backend:
 
 ## To do
 - validation input
-- add put method
-- change action(repository) to JPA method
+- add crypt to password 

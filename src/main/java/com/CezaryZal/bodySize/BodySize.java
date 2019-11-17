@@ -44,6 +44,7 @@ public class BodySize {
 
     //    @NotBlank
 //    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    //Spring Boot change automation date type, but use this annotation to show it
     @JsonDeserialize(using = LocalDateDeserializer.class)
     @JsonSerialize(using = LocalDateSerializer.class)
     @Column(name = "date")
@@ -51,23 +52,6 @@ public class BodySize {
 
     @Column(name = "user_id")
     private int userId;
-
-//    {
-//            "bodyWeight": 38,
-//            "neckSize": 45,
-//            "armSize": 65,
-//            "bustSize": 31,
-//            "waist": 36,
-//            "hipsSize": 88,
-//            "femoralSize": 75,
-//            "calf": 98,
-//            "date": [
-//        2018,
-//                5,
-//                23
-//],
-//        "userId": 1
-//    }
 
     public BodySize() {
     }

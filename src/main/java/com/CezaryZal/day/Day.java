@@ -1,13 +1,11 @@
 package com.CezaryZal.day;
 
-import com.CezaryZal.day.shortDay.ShortDay;
+import com.CezaryZal.shortDay.ShortDay;
 import com.CezaryZal.meal.MealDB;
 import com.CezaryZal.note.NoteDB;
 import com.CezaryZal.training.Training;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
-import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
@@ -30,8 +28,8 @@ public class Day {
 
     //    @NotBlank
 //    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    @JsonDeserialize(using = LocalDateDeserializer.class)
-    @JsonSerialize(using = LocalDateSerializer.class)
+//    @JsonDeserialize(using = LocalDateDeserializer.class)
+//    @JsonSerialize(using = LocalDateSerializer.class)
     @Column(name = "date")
     private LocalDate date;
 

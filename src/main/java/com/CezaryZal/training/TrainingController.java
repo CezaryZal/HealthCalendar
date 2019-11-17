@@ -19,7 +19,7 @@ public class TrainingController {
         return TrainingS.getTrainingById(nrId);
     }
 
-    @GetMapping("/getAllTrainingsDTOByDayId/{dayId}")
+    @GetMapping("/allTrainingsDTOByDayId/{dayId}")
     public TrainingsDTO getTrainingsDTO(@PathVariable int dayId){
         return TrainingS.getTrainingsDTOByDayId(dayId);
     }

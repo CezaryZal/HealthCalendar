@@ -8,7 +8,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
-@Api(tags = "This is Body Controller")
+@Api(tags = "Body Size")
 @RestController
 @RequestMapping("/body")
 public class BodySizeController {

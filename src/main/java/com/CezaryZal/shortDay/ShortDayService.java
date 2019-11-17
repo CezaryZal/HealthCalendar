@@ -1,4 +1,4 @@
-package com.CezaryZal.day.shortDay;
+package com.CezaryZal.shortDay;
 
 import org.springframework.stereotype.Service;
 

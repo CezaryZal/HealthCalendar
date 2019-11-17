@@ -1,7 +1,7 @@
 package com.CezaryZal.day;
 
 
-import com.CezaryZal.day.shortDay.ShortDay;
+import com.CezaryZal.shortDay.ShortDay;
 import com.CezaryZal.meal.DailyDietDTO;
 import com.CezaryZal.note.Header;
 import com.CezaryZal.training.TrainingsDTO;

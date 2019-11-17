@@ -1,8 +1,8 @@
 package com.CezaryZal.day;
 
 import com.CezaryZal.bodySize.BodySizeService;
-import com.CezaryZal.day.shortDay.ShortDay;
-import com.CezaryZal.day.shortDay.ShortDayService;
+import com.CezaryZal.shortDay.ShortDay;
+import com.CezaryZal.shortDay.ShortDayService;
 import com.CezaryZal.meal.MealService;
 import com.CezaryZal.meal.DailyDietDTO;
 import com.CezaryZal.note.NoteService;

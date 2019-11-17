@@ -3,12 +3,7 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.2.1.RELEASE</version>
-        <relativePath/> <!-- lookup parent from repository -->
-    </parent>
+
 
     <groupId>CezaryZal</groupId>
     <artifactId>HealthCalendar</artifactId>
@@ -16,10 +11,16 @@
     <name>HealthCalendar</name>
     <packaging>war</packaging>
 
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>1.5.3.RELEASE</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-
         <swagger.version>2.7.0</swagger.version>
 
         <maven.compiler.source>1.8</maven.compiler.source>
@@ -34,6 +35,13 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
+        <!--    Spring Boot tomcat  -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
         <!--    Spring Boot test    -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -46,6 +54,12 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>RELEASE</version>
+            <scope>test</scope>
+        </dependency>
 
         <!-- Support for automatic reloading -->
         <dependency>
@@ -54,7 +68,7 @@
             <optional>true</optional>
         </dependency>
 
-        <!-- Support for spring boot actuator -->
+        <!-- Spring Boot Actuator -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
@@ -81,6 +95,15 @@
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
 
+        <!--    Hibernate and Jackson to datatype   -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-java8</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jsr310</artifactId>
+        </dependency>
 
         <!--    Swagger UI  -->
         <dependency>
@@ -100,7 +123,7 @@
     <!-- Support for Maven WAR Plugin -->
 
     <build>
-        <finalName>spring-rest-demo</finalName>
+        <finalName>HealthCalendar</finalName>
 
         <pluginManagement>
             <plugins>
@@ -108,26 +131,6 @@
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-maven-plugin</artifactId>
                 </plugin>
-
-<!--                <plugin>-->
-<!--                    <groupId>org.apache.maven.plugins</groupId>-->
-<!--                    <artifactId>maven-war-plugin</artifactId>-->
-<!--                    <version>3.2.0</version>-->
-<!--                </plugin>-->
-<!--                <plugin>-->
-<!--                    <groupId>org.apache.tomcat.maven</groupId>-->
-<!--                    <artifactId>tomcat7-maven-plugin</artifactId>-->
-<!--                    <version>2.2</version>-->
-<!--                    <configuration>-->
-<!--                        <url>http://localhost:8080/manager/text/</url>-->
-<!--                        <path>/HealthCalendar</path>-->
-<!--                        &lt;!&ndash; Set update to true to avoid exist war package can not be override error &ndash;&gt;-->
-<!--                        <update>true</update>-->
-<!--                        &lt;!&ndash; Because deploy this maven project using plugin in pom so use the manager-script role user. &ndash;&gt;-->
-<!--                        <username>admin</username>-->
-<!--                        <password>admin</password>-->
-<!--                    </configuration>-->
-<!--                </plugin>-->
             </plugins>
         </pluginManagement>
     </build>
