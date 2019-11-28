@@ -15,11 +15,11 @@ public class DailyLimitsRepository {
     @PersistenceContext
     private EntityManager entityManager;
 
-    public DailyLimits findById (int id){
+    public DailyLimits findById (Long id){
         return entityManager.find(DailyLimits.class, id);
     }
 
-    public DailyLimits findByUserId (int id){
+    public DailyLimits findByUserId (Long id){
         Query query = entityManager.createQuery("FROM DailyLimits WHERE userId=:userId");
         query.setParameter("userId", id);
 

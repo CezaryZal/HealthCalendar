@@ -16,17 +16,17 @@ public class NoteController {
     }
 
     @GetMapping("/id/{nrId}")
-    public NoteDB getNoteDBById (@PathVariable int nrId){
+    public NoteDB getNoteDBById (@PathVariable Long nrId){
         return NoteS.getNoteDBById(nrId);
     }
 
     @GetMapping("/getHeadersByDayId/{dayId}")
-    public List<Header> getListHeaderByDayId(@PathVariable int dayId){
+    public List<Header> getListHeaderByDayId(@PathVariable Long dayId){
         return NoteS.getHeadersByDay(dayId);
     }
 
     @GetMapping("/getNotesByDayId/{dayId}")
-    public List<NoteDB> getListNoteDBByDayId(@PathVariable int dayId){
+    public List<NoteDB> getListNoteDBByDayId(@PathVariable Long dayId){
         return NoteS.getNotesDBByDay(dayId);
     }
 
@@ -46,7 +46,7 @@ public class NoteController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public String delete (@PathVariable int id){
+    public String delete (@PathVariable Long id){
         return NoteS.deleteNoteById(id);
     }
 }

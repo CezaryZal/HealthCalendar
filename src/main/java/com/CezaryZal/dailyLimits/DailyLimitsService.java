@@ -13,11 +13,11 @@ public class DailyLimitsService {
         DailyLimitsR = dailyLimitsR;
     }
 
-    public DailyLimits getLimitsById(int id){
+    public DailyLimits getLimitsById(Long id){
         return DailyLimitsR.findById(id);
     }
 
-    public DailyLimits getLimitsByUserId(int id){
+    public DailyLimits getLimitsByUserId(Long id){
         return DailyLimitsR.findByUserId(id);
     }
 
@@ -37,7 +37,7 @@ public class DailyLimitsService {
         return true;
     }
 
-    public String deleteLimitsById (int id){
+    public String deleteLimitsById (Long id){
         DailyLimits dailyLimits = DailyLimitsR.findById(id);
         if(DailyLimitsR.delete(dailyLimits)){
             return "delete record";

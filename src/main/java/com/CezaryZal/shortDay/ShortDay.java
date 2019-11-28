@@ -15,10 +15,10 @@ public class ShortDay {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private int id;
+    private Long id;
 
     @Column(name = "user_id")
-    private int userId;
+    private Long userId;
 
 //    @JsonDeserialize(using = LocalDateDeserializer.class)
 //    @JsonSerialize(using = LocalDateSerializer.class)
@@ -40,7 +40,7 @@ public class ShortDay {
     public ShortDay() {
     }
 
-    public ShortDay(int userId, LocalDate date, boolean isAchievedKcal, boolean isAchievedDrink,
+    public ShortDay(Long userId, LocalDate date, boolean isAchievedKcal, boolean isAchievedDrink,
                     boolean isAlcohol, boolean isSnacks) {
         this.userId = userId;
         this.date = date;
@@ -50,19 +50,19 @@ public class ShortDay {
         this.isSnacks = isSnacks;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public int getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 

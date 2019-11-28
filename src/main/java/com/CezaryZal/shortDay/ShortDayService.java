@@ -14,11 +14,11 @@ public class ShortDayService {
         this.shortDayR = shortDayR;
     }
 
-    public ShortDay getShortDayById (int id){
+    public ShortDay getShortDayById (Long id){
         return shortDayR.findById(id);
     }
 
-    public List<ShortDay> getShortDaysByDateAndUserId(String inputDate, int userId){
+    public List<ShortDay> getShortDaysByDateAndUserId(String inputDate, Long userId){
         LocalDate localDateMin = LocalDate.parse(inputDate).minusDays(30);
         LocalDate localDateMax = LocalDate.parse(inputDate).plusDays(30);
         List<ShortDay> listShortDay = shortDayR.findByDateAndUserId(localDateMin, localDateMax, userId);
@@ -42,7 +42,7 @@ public class ShortDayService {
         return true;
     }
 
-    public String deleteShortDayById (int id) {
+    public String deleteShortDayById (Long id) {
         ShortDay shortDay = shortDayR.findById(id);
         if (shortDayR.delete(shortDay)){
             return "delete record";

@@ -15,23 +15,23 @@ public class DayController {
         this.dayS = DService;
     }
 
-    @GetMapping("/id/{nrId}")
-    public Day getDayById(@PathVariable int nrId){
-        return dayS.getDayById(nrId);
+    @GetMapping("/id/{id}")
+    public Day getDayById(@PathVariable Long id){
+        return dayS.getDayById(id);
     }
 
     @GetMapping("/getDayDTOByDateAndUserId/{date}/{userId}")
-    public DayDTO getDayDTOByDateAndUserId(@PathVariable String date, @PathVariable int userId){
+    public DayDTO getDayDTOByDateAndUserId(@PathVariable String date, @PathVariable Long userId){
         return dayS.getDayDTOByDateAndUserId(date, userId);
     }
 
     @GetMapping("/getDayId/{date}/{userId}")
-    public int getIntDayIdByDateAndUserId(@PathVariable String date, @PathVariable int userId){
+    public int getIntDayIdByDateAndUserId(@PathVariable String date, @PathVariable Long userId){
         return dayS.getDayIdByDateAndUserId(date, userId);
     }
 
     @GetMapping("/getDayDBbyDateAndUserId/{date}/{userId}")
-    public Day getDayDBByDateAndUserId(@PathVariable String date, @PathVariable int userId){
+    public Day getDayDBByDateAndUserId(@PathVariable String date, @PathVariable Long userId){
         return dayS.getDayByDateAndUserId(date, userId);
     }
 
@@ -51,7 +51,7 @@ public class DayController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public String delete (@PathVariable int id){
+    public String delete (@PathVariable Long id){
         return dayS.deleteDayById(id);
     }
 

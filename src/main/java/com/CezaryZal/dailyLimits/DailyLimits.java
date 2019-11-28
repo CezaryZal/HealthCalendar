@@ -10,7 +10,7 @@ public class DailyLimits {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private int id;
+    private Long id;
 
     @Column(name = "kcal_demand")
     private int kcalDemand;
@@ -19,22 +19,22 @@ public class DailyLimits {
     private int drinkDemand;
 
     @Column(name = "user_id")
-    private int userId;
+    private Long userId;
 
     public DailyLimits() {
     }
 
-    public DailyLimits(int kcalDemand, int drinkDemand, int userId) {
+    public DailyLimits(int kcalDemand, int drinkDemand, Long userId) {
         this.kcalDemand = kcalDemand;
         this.drinkDemand = drinkDemand;
         this.userId = userId;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -54,11 +54,11 @@ public class DailyLimits {
         this.drinkDemand = drinkDemand;
     }
 
-    public int getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 

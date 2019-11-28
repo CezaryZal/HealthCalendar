@@ -3,15 +3,15 @@ package com.CezaryZal.note;
 
 public class Header {
 
-    private int id;
+    private Long id;
     private String header;
 
-    public Header(int id, String header) {
+    public Header(Long id, String header) {
         this.id = id;
         this.header = header;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 

@@ -15,13 +15,13 @@ public class DailyLimitsController {
         DailyLimitsS = dailyLimitsS;
     }
 
-    @GetMapping("/id/{nrId}")
-    public DailyLimits getLimitsById (@PathVariable int nrId){
-        return DailyLimitsS.getLimitsById(nrId);
+    @GetMapping("/id/{id}")
+    public DailyLimits getLimitsById (@PathVariable Long id){
+        return DailyLimitsS.getLimitsById(id);
     }
 
     @GetMapping("/byUserId/{userId}")
-    public DailyLimits getLimitsByUserId (@PathVariable int userId){
+    public DailyLimits getLimitsByUserId (@PathVariable Long userId){
         return DailyLimitsS.getLimitsByUserId(userId);
     }
 
@@ -40,8 +40,8 @@ public class DailyLimitsController {
         return DailyLimitsS.updateLimits(dailyLimits);
     }
 
-    @DeleteMapping("/delete/{nrId}")
-    public String deleteLimitsById (@PathVariable int nrId){
-        return DailyLimitsS.deleteLimitsById(nrId);
+    @DeleteMapping("/delete/{id}")
+    public String deleteLimitsById (@PathVariable Long id){
+        return DailyLimitsS.deleteLimitsById(id);
     }
 }

@@ -15,20 +15,20 @@ public class BodySizeService {
         this.BodySizeR = BSRepository;
     }
 
-    public BodySize getBodyById (int id){
+    public BodySize getBodyById (Long id){
         return BodySizeR.findById(id);
     }
 
-    public LocalDate getDateLastMeasureByUserId (int userId){
+    public LocalDate getDateLastMeasureByUserId (Long userId){
         return BodySizeR.findDateLastMeasureByUserId(userId);
     }
 
-    public List<LocalDate> getListDatesByUserIdAllDate(int userId) {
+    public List<LocalDate> getListDatesByUserIdAllDate(Long userId) {
         return BodySizeR.findByUserIdAllDate(userId);
 
     }
 
-    public BodySize getBodyByDateAndUserId(String inputDate, int userId){
+    public BodySize getBodyByDateAndUserId(String inputDate, Long userId){
         return BodySizeR.findByDateAndUserId(LocalDate.parse(inputDate), userId);
     }
 
@@ -42,7 +42,7 @@ public class BodySizeService {
         return true;
     }
 
-    public String deleteBodyById (int id) {
+    public String deleteBodyById (Long id) {
         BodySize bodySize = BodySizeR.findById(id);
         if (BodySizeR.delete(bodySize)){
             return "delete record";

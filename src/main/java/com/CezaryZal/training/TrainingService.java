@@ -1,7 +1,5 @@
 package com.CezaryZal.training;
 
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
@@ -13,16 +11,15 @@ public class TrainingService {
 
     private TrainingRepository TrainingR;
 
-    @Autowired
     public TrainingService(TrainingRepository TRepository) {
         this.TrainingR = TRepository;
     }
 
-    public Training getTrainingById (int id){
+    public Training getTrainingById (Long id){
         return TrainingR.findById(id);
     }
 
-    public TrainingsDTO getTrainingsDTOByDayId (int dayId){
+    public TrainingsDTO getTrainingsDTOByDayId (Long dayId){
         List<Training> listTraining = TrainingR.findByDayId(dayId);
 
         return createAllTrainingsDTOByDay(listTraining);
@@ -44,7 +41,7 @@ public class TrainingService {
         return true;
     }
 
-    public String deleteTrainingById (int id){
+    public String deleteTrainingById (Long id){
         Training training = TrainingR.findById(id);
         if(TrainingR.delete(training)){
             return "delete record";

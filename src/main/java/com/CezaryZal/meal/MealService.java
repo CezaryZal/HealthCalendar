@@ -13,11 +13,11 @@ public class MealService {
         this.MealR = MRepository;
     }
 
-    public MealDB getMealById (int id){
+    public MealDB getMealById (Long id){
         return MealR.findById(id);
     }
 
-    public DailyDietDTO getDailyDietDTOByDayId (int dayId){
+    public DailyDietDTO getDailyDietDTOByDayId (Long dayId){
         List<MealDB> listMealDBS = MealR.getListByDayId(dayId);
 
         return createDailyDietDTO(listMealDBS);
@@ -39,7 +39,7 @@ public class MealService {
         return true;
     }
 
-    public String deleteMealById (int id){
+    public String deleteMealById (Long id){
         MealDB mealDB = MealR.findById(id);
         if(MealR.delete(mealDB)){
             return "delete record";
@@ -54,5 +54,4 @@ public class MealService {
         }
         return new DailyDietDTO(listMealDBS, sumOfKcal);
     }
-
 }

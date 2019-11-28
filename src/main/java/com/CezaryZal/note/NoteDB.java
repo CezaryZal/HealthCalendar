@@ -10,7 +10,7 @@ public class NoteDB {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private int id;
+    private Long id;
 
     @Column(name = "header")
     private String header;
@@ -19,22 +19,22 @@ public class NoteDB {
     private String detailsNote;
 
     @Column(name = "day_id")
-    private int dayId;
+    private Long dayId;
 
     public NoteDB() {
     }
 
-    public NoteDB(String header, String detailsNote, int dayId) {
+    public NoteDB(String header, String detailsNote, Long dayId) {
         this.header = header;
         this.detailsNote = detailsNote;
         this.dayId = dayId;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -54,11 +54,11 @@ public class NoteDB {
         this.detailsNote = detailsNote;
     }
 
-    public int getDayId() {
+    public Long getDayId() {
         return dayId;
     }
 
-    public void setDayId(int dayId) {
+    public void setDayId(Long dayId) {
         this.dayId = dayId;
     }
 

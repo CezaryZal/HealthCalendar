@@ -11,7 +11,7 @@ public class Training {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private int id;
+    private Long id;
 
     @Column(name = "date_time")
     private LocalDateTime date;
@@ -26,12 +26,12 @@ public class Training {
     private int burnKcal;
 
     @Column(name = "day_id")
-    private int dayId;
+    private Long dayId;
 
     public Training() {
     }
 
-    public Training(LocalDateTime date, String description, LocalTime time, int burnKcal, int dayId) {
+    public Training(LocalDateTime date, String description, LocalTime time, int burnKcal, Long dayId) {
         this.date = date;
         this.description = description;
         this.time = time;
@@ -39,11 +39,11 @@ public class Training {
         this.dayId = dayId;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -79,11 +79,11 @@ public class Training {
         this.burnKcal = burnKcal;
     }
 
-    public int getDayId() {
+    public Long getDayId() {
         return dayId;
     }
 
-    public void setDayId(int dayId) {
+    public void setDayId(Long dayId) {
         this.dayId = dayId;
     }
 

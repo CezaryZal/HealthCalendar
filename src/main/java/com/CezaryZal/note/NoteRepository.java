@@ -15,11 +15,11 @@ public class NoteRepository {
     @PersistenceContext
     private EntityManager entityManager;
 
-    public NoteDB findById(int id){
+    public NoteDB findById(Long id){
         return entityManager.find(NoteDB.class, id);
     }
 
-    public List<NoteDB> findByDayId(int dayId){
+    public List<NoteDB> findByDayId(Long dayId){
         Query query = entityManager.createQuery("FROM NoteDB WHERE dayId=:dayId");
         query.setParameter("dayId", dayId);
 

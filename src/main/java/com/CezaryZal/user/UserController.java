@@ -16,7 +16,7 @@ public class UserController {
     }
 
     @GetMapping("/DTOId/{userId}")
-    public UserDTO getUserDTO (@PathVariable int userId){
+    public UserDTO getUserDTO (@PathVariable Long userId){
         return UserS.getUserDTOById(userId);
     }
 
@@ -26,7 +26,7 @@ public class UserController {
     }
 
     @GetMapping("/id/{userId}")
-    public User getUser (@PathVariable int userId){
+    public User getUser (@PathVariable Long userId){
         return UserS.getUserById(userId);
     }
 
@@ -47,7 +47,7 @@ public class UserController {
     }
 
     @DeleteMapping("/delete/{userId}")
-    public String delete (@PathVariable int userId){
+    public String delete (@PathVariable Long userId){
         return UserS.deleteUserById(userId);
     }
 

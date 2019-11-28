@@ -16,7 +16,7 @@ import java.util.List;
 
 @Service
 public class DayService {
-
+//zastosowanie polimorfizm (interface)
     private DayRepository dayR;
     private UserService userS;
     private BodySizeService bodySizeS;
@@ -38,11 +38,12 @@ public class DayService {
         this.shortDayS = shortDayS;
     }
 
-    public Day getDayById(int id){
+    public Day getDayById(Long id){
         return dayR.findById(id);
     }
 
-    public DayDTO getDayDTOByDateAndUserId(String inputDate, int userId) {
+    //Dodatkowa klasa DayDTOCreator
+    public DayDTO getDayDTOByDateAndUserId(String inputDate, Long userId) {
         Day day = getDayByDateAndUserId(inputDate, userId);
         User user = userS.getUserById(userId);
         DailyDietDTO dailyDietDTO = mealS.getDailyDietDTOByDayId(day.getId());
@@ -64,11 +65,11 @@ public class DayService {
         );
     }
 
-    public int getDayIdByDateAndUserId(String inputDate, int userId){
+    public int getDayIdByDateAndUserId(String inputDate, Long userId){
         return dayR.findDayIdByDateAndUserId(LocalDate.parse(inputDate), userId);
     }
 
-    public Day getDayByDateAndUserId(String inputDate, int userId){
+    public Day getDayByDateAndUserId(String inputDate, Long userId){
         return dayR.findDayByDateAndUserId(LocalDate.parse(inputDate), userId);
     }
 
@@ -78,6 +79,7 @@ public class DayService {
 
     public boolean addDay (Day day){
         dayR.save(day);
+        // dodanie w servisie shortDay
         shortDayS.addShortDay(createShortDayByDay(day));
 
         return true;
@@ -91,7 +93,7 @@ public class DayService {
         return true;
     }
 
-    public String deleteDayById(int id){
+    public String deleteDayById(Long id){
         Day day = dayR.findById(id);
         if(dayR.delete(day)){
             return "delete record";
@@ -109,6 +111,7 @@ public class DayService {
         return sumOfKcal>=kcalDemand-kcalDemand*0.05 && sumOfKcal<=kcalDemand+kcalDemand*0.05;
     }
 
+    //Dodatkowa klasa serwisowa dla ShortDay
     public ShortDay createShortDayByDay(Day day){
         User user = userS.getUserById(day.getUserId());
         DailyDietDTO dailyDietDTO = mealS.getDailyDietDTOByDayId(day.getId());

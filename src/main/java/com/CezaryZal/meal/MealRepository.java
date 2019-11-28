@@ -16,11 +16,11 @@ public class MealRepository {
     @PersistenceContext
     private EntityManager entityManager;
 
-    public MealDB findById(int id){
+    public MealDB findById(Long id){
         return entityManager.find(MealDB.class, id);
     }
 
-    public List<MealDB> getListByDayId(int dayId){
+    public List<MealDB> getListByDayId(Long dayId){
         Query query = entityManager.createQuery("FROM MealDB WHERE dayId=:dayId");
         query.setParameter("dayId", dayId);
 

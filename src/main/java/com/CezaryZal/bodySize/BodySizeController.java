@@ -20,23 +20,23 @@ public class BodySizeController {
     }
 
     @ApiOperation(value = "This will get a Body by id", notes = "In this method you will receive a body measurement by id")
-    @GetMapping("/id/{nrId}")
-    public BodySize getBodyById (@PathVariable int nrId){
-        return bodySizeS.getBodyById(nrId);
+    @GetMapping("/id/{id}")
+    public BodySize getBodyById (@PathVariable Long id){
+        return bodySizeS.getBodyById(id);
     }
 
     @GetMapping("/byLastDate/{userId}")
-    public LocalDate getDateLastMeasureByUserId(@PathVariable int userId){
+    public LocalDate getDateLastMeasureByUserId(@PathVariable Long userId){
         return bodySizeS.getDateLastMeasureByUserId(userId);
     }
 
     @GetMapping("/byUserIdAllDate/{userId}")
-    public List<LocalDate> getListDatesByUserIdAllDate (@PathVariable int userId){
+    public List<LocalDate> getListDatesByUserIdAllDate (@PathVariable Long userId){
         return bodySizeS.getListDatesByUserIdAllDate(userId);
     }
 
     @GetMapping("/byDateAndUserId/{date}/{userId}")
-    public BodySize getBodyByDateAndUserId (@PathVariable String date, @PathVariable int userId){
+    public BodySize getBodyByDateAndUserId (@PathVariable String date, @PathVariable Long userId){
         return bodySizeS.getBodyByDateAndUserId(date, userId);
     }
 
@@ -51,7 +51,7 @@ public class BodySizeController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public String deleteBodyById (@PathVariable int id) {
+    public String deleteBodyById (@PathVariable Long id) {
         return bodySizeS.deleteBodyById(id);
     }
 

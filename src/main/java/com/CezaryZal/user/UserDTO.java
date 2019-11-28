@@ -5,7 +5,7 @@ import com.CezaryZal.dailyLimits.DailyLimits;
 
 public class UserDTO {
 
-    private int id;
+    private Long id;
     private String firstName;
     private String nick;
     private String email;
@@ -18,7 +18,7 @@ public class UserDTO {
     public UserDTO() {
     }
 
-    public UserDTO(int id, String firstName, String nick, String email, int poneNumber, String loginName,
+    public UserDTO(Long id, String firstName, String nick, String email, int poneNumber, String loginName,
                    String password, int sex, DailyLimits dailyLimits) {
         this.id = id;
         this.firstName = firstName;
@@ -31,7 +31,7 @@ public class UserDTO {
         this.dailyLimits = dailyLimits;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 

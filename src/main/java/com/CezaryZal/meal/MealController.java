@@ -16,12 +16,12 @@ public class MealController {
     }
 
     @GetMapping("/id/{nrId}")
-    public MealDB getMealById (@PathVariable int nrId){
+    public MealDB getMealById (@PathVariable Long nrId){
         return MealS.getMealById(nrId);
     }
 
     @GetMapping("/getDietDTOByDayId/{dayId}")
-    public DailyDietDTO getDailyDietByDayId(@PathVariable int dayId){
+    public DailyDietDTO getDailyDietByDayId(@PathVariable Long dayId){
         return MealS.getDailyDietDTOByDayId(dayId);
     }
 
@@ -41,7 +41,7 @@ public class MealController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public String delete (@PathVariable int id){
+    public String delete (@PathVariable Long id){
         return MealS.deleteMealById(id);
     }
 

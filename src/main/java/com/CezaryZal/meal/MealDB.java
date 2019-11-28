@@ -10,7 +10,7 @@ public class MealDB {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private int id;
+    private Long id;
 
     @Column(name = "date_time")
     private LocalDateTime dateTime;
@@ -25,12 +25,12 @@ public class MealDB {
     private String description;
 
     @Column(name = "day_id")
-    private int dayId;
+    private Long dayId;
 
     public MealDB() {
     }
 
-    public MealDB(LocalDateTime dateTime, String type, int kcal, String description, int dayId) {
+    public MealDB(LocalDateTime dateTime, String type, int kcal, String description, Long dayId) {
         this.dateTime = dateTime;
         this.type = type;
         this.kcal = kcal;
@@ -38,11 +38,11 @@ public class MealDB {
         this.dayId = dayId;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -78,11 +78,11 @@ public class MealDB {
         this.description = description;
     }
 
-    public int getDayId() {
+    public Long getDayId() {
         return dayId;
     }
 
-    public void setDayId(int dayId) {
+    public void setDayId(Long dayId) {
         this.dayId = dayId;
     }
 

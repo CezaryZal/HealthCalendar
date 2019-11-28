@@ -16,11 +16,11 @@ public class ShortDayRepository {
     @PersistenceContext
     private EntityManager entityManager;
 
-    public ShortDay findById (int id){
+    public ShortDay findById (Long id){
         return entityManager.find(ShortDay.class, id);
     }
 
-    public List<ShortDay> findByDateAndUserId(LocalDate localDateMin, LocalDate localDateMax, int userId){
+    public List<ShortDay> findByDateAndUserId(LocalDate localDateMin, LocalDate localDateMax, Long userId){
         Query query = entityManager.createQuery(
                 "FROM ShortDay WHERE date>=:inputDateMin AND date<=:inputDateMax AND userId=:userId");
         query.setParameter("inputDateMin", localDateMin);

@@ -12,9 +12,9 @@ import java.util.List;
 
 public class DayDTO {
 
-    private int id;
+    private Long id;
     private LocalDate date;
-    private int userId;
+    private Long userId;
     private String nick;
     private LocalDate lastDateMeasureBody;
     private int portionsDrink;
@@ -27,7 +27,7 @@ public class DayDTO {
     private List<Header> listHeaders;
     private List<ShortDay> listShortDays;
 
-    public DayDTO(int id, LocalDate date, int userId, String nick, LocalDate lastDateMeasureBody, int portionsDrink,
+    public DayDTO(Long id, LocalDate date, Long userId, String nick, LocalDate lastDateMeasureBody, int portionsDrink,
                   boolean isAchievedDrink, int portionsAlcohol, DailyDietDTO dailyDietDTO, boolean isAchievedKcal,
                   int portionsSnack, TrainingsDTO trainings, List<Header> listHeaders, List<ShortDay> listShortDays) {
         this.id = id;
@@ -46,7 +46,7 @@ public class DayDTO {
         this.listShortDays = listShortDays;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
@@ -54,7 +54,7 @@ public class DayDTO {
         return date;
     }
 
-    public int getUserId() {
+    public Long getUserId() {
         return userId;
     }
 

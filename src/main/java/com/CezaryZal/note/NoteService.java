@@ -14,17 +14,17 @@ public class NoteService {
         this.NoteR = NRepository;
     }
 
-    public NoteDB getNoteDBById (int id){
+    public NoteDB getNoteDBById (Long id){
         return NoteR.findById(id);
     }
 
-    public List<Header> getHeadersByDay(int dayId){
+    public List<Header> getHeadersByDay(Long dayId){
         List<NoteDB> listNoteDB = getNotesDBByDay(dayId);
 
         return getHeadersByNotesDB(listNoteDB);
     }
 
-    public List<NoteDB> getNotesDBByDay (int dayId){
+    public List<NoteDB> getNotesDBByDay (Long dayId){
         return NoteR.findByDayId(dayId);
     }
 
@@ -44,7 +44,7 @@ public class NoteService {
         return true;
     }
 
-    public String deleteNoteById (int id){
+    public String deleteNoteById (Long id){
         NoteDB noteDB = NoteR.findById(id);
         if(NoteR.delete(noteDB)){
             return "delete record";

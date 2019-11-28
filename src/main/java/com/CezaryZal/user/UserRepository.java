@@ -16,7 +16,7 @@ public class UserRepository {
     private EntityManager entityManager;
 
 
-    public User findById(int id){
+    public User findById(Long id){
         return entityManager.find(User.class, id);
     }
 

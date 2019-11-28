@@ -16,12 +16,12 @@ public class ShortDayController {
     }
 
     @GetMapping("/id/{nrId}")
-    public ShortDay getShortDayById (@PathVariable int nrId){
+    public ShortDay getShortDayById (@PathVariable Long nrId){
         return shortDayS.getShortDayById(nrId);
     }
 
     @GetMapping("/byDateAndUserId/{date}/{userId}")
-    public List<ShortDay> getBodyByDateAndUserId (@PathVariable String date, @PathVariable int userId){
+    public List<ShortDay> getBodyByDateAndUserId (@PathVariable String date, @PathVariable Long userId){
         return shortDayS.getShortDaysByDateAndUserId(date, userId);
     }
 
@@ -41,7 +41,7 @@ public class ShortDayController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public String delete (@PathVariable int id){
+    public String delete (@PathVariable Long id){
         return shortDayS.deleteShortDayById(id);
     }
 

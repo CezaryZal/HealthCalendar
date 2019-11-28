@@ -24,7 +24,7 @@ public class Day {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private int id;
+    private Long id;
 
     //    @NotBlank
 //    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
@@ -34,7 +34,7 @@ public class Day {
     private LocalDate date;
 
     @Column(name = "user_id")
-    private int userId;
+    private Long userId;
 
     @Column(name = "portions_drink")
     private int portionsDrink;
@@ -72,7 +72,7 @@ public class Day {
     public Day() {
     }
 
-    public Day(LocalDate date, int userId, int portionsDrink, int portionsAlcohol, List<MealDB> listMealsDB,
+    public Day(LocalDate date, Long userId, int portionsDrink, int portionsAlcohol, List<MealDB> listMealsDB,
                int portionsSnack, List<Training> listTrainingsDB, List<NoteDB> listNotesDB, ShortDay shortDay) {
         this.date = date;
         this.userId = userId;
@@ -85,11 +85,11 @@ public class Day {
         this.shortDay = shortDay;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -101,11 +101,11 @@ public class Day {
         this.date = date;
     }
 
-    public int getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 

@@ -1,6 +1,7 @@
 package com.CezaryZal.bodySize;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
@@ -16,7 +17,7 @@ public class BodySize {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private int id;
+    private Long id;
 
     @Column(name = "body_weight")
     private int bodyWeight;
@@ -45,19 +46,19 @@ public class BodySize {
     //    @NotBlank
 //    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     //Spring Boot change automation date type, but use this annotation to show it
-    @JsonDeserialize(using = LocalDateDeserializer.class)
-    @JsonSerialize(using = LocalDateSerializer.class)
+//    @JsonDeserialize(using = LocalDateDeserializer.class)
+//    @JsonSerialize(using = LocalDateSerializer.class)
     @Column(name = "date")
     private LocalDate date;
 
     @Column(name = "user_id")
-    private int userId;
+    private Long userId;
 
     public BodySize() {
     }
 
     public BodySize(int bodyWeight, int neckSize, int armSize, int bustSize, int waist, int hipsSize,
-                    int femoralSize, int calf, LocalDate date, int userId) {
+                    int femoralSize, int calf, LocalDate date, Long userId) {
         this.bodyWeight = bodyWeight;
         this.neckSize = neckSize;
         this.armSize = armSize;
@@ -70,11 +71,11 @@ public class BodySize {
         this.userId = userId;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -150,11 +151,11 @@ public class BodySize {
         this.date = date;
     }
 
-    public int getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 

@@ -17,11 +17,11 @@ public class BodySizeRepository {
     @PersistenceContext
     private EntityManager entityManager;
 
-    public BodySize findById (int id){
+    public BodySize findById (Long id){
         return entityManager.find(BodySize.class, id);
     }
 
-    public LocalDate findDateLastMeasureByUserId (int userId){
+    public LocalDate findDateLastMeasureByUserId (Long userId){
         Query query = entityManager.createQuery(
                 "SELECT date FROM BodySize WHERE userId=:userId ORDER BY date DESC");
         query.setParameter("userId", userId);
@@ -30,14 +30,14 @@ public class BodySizeRepository {
         return (LocalDate) query.getSingleResult();
     }
 
-    public List<LocalDate> findByUserIdAllDate(int userId){
+    public List<LocalDate> findByUserIdAllDate(Long userId){
         Query query = entityManager.createQuery("SELECT date FROM BodySize WHERE userId=:userId");
         query.setParameter("userId", userId);
 
         return query.getResultList();
     }
 
-    public BodySize findByDateAndUserId(LocalDate localDate, int userId){
+    public BodySize findByDateAndUserId(LocalDate localDate, Long userId){
         Query query = entityManager.createQuery("FROM BodySize WHERE date=:inputDate AND userId=:userId");
         query.setParameter("inputDate", localDate);
         query.setParameter("userId", userId);

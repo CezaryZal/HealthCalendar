@@ -16,11 +16,11 @@ public class TrainingRepository {
     @PersistenceContext
     private EntityManager entityManager;
 
-    public Training findById(int id){
+    public Training findById(Long id){
         return entityManager.find(Training.class, id);
     }
 
-    public List<Training> findByDayId(int dayId){
+    public List<Training> findByDayId(Long dayId){
         Query query = entityManager.createQuery("FROM Training WHERE dayId=:dayId");
         query.setParameter("dayId", dayId);
 

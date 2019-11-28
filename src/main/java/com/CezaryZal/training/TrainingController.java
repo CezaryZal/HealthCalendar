@@ -16,12 +16,12 @@ public class TrainingController {
     }
 
     @GetMapping("/id/{nrId}")
-    public Training getMealById (@PathVariable int nrId){
+    public Training getMealById (@PathVariable Long nrId){
         return TrainingS.getTrainingById(nrId);
     }
 
     @GetMapping("/allTrainingsDTOByDayId/{dayId}")
-    public TrainingsDTO getTrainingsDTO(@PathVariable int dayId){
+    public TrainingsDTO getTrainingsDTO(@PathVariable Long dayId){
         return TrainingS.getTrainingsDTOByDayId(dayId);
     }
 
@@ -41,7 +41,7 @@ public class TrainingController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public String delete (@PathVariable int id){
+    public String delete (@PathVariable Long id){
         return TrainingS.deleteTrainingById(id);
     }
 }

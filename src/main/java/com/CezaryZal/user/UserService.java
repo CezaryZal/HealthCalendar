@@ -15,11 +15,11 @@ public class UserService {
     }
 
 
-    public User getUserById(int id){
+    public User getUserById(Long id){
         return UserR.findById(id);
     }
 
-    public UserDTO getUserDTOById(int id){
+    public UserDTO getUserDTOById(Long id){
         User user = getUserById(id);
 
         return convertToUserDTO(user);
@@ -51,7 +51,7 @@ public class UserService {
         return true;
     }
 
-    public String deleteUserById (int id) {
+    public String deleteUserById (Long id) {
         User user = UserR.findById(id);
         if(UserR.delete(user)){
             return "delete record";

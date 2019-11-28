@@ -16,11 +16,11 @@ public class DayRepository {
     @PersistenceContext
     private EntityManager entityManager;
 
-    public Day findById(int id) {
+    public Day findById(Long id) {
         return entityManager.find(Day.class, id);
     }
 
-    public int findDayIdByDateAndUserId(LocalDate localDate, int userId){
+    public int findDayIdByDateAndUserId(LocalDate localDate, Long userId){
         Query query = entityManager.createQuery("SELECT id FROM Day WHERE date=:inputDate AND userId=:userId");
         query.setParameter("inputDate", localDate);
         query.setParameter("userId", userId);
@@ -28,7 +28,7 @@ public class DayRepository {
         return (int) query.getSingleResult();
     }
 
-    public Day findDayByDateAndUserId(LocalDate localDate, int userId){
+    public Day findDayByDateAndUserId(LocalDate localDate, Long userId){
         Query query = entityManager.createQuery("FROM Day WHERE date=:inputDate AND userId=:userId");
         query.setParameter("inputDate", localDate);
         query.setParameter("userId", userId);
