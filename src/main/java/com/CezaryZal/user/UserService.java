@@ -2,6 +2,10 @@ package com.CezaryZal.user;
 
 import org.springframework.stereotype.Service;
 
+import javax.persistence.PostLoad;
+import javax.persistence.Transient;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,6 +72,7 @@ public class UserService {
                 user.getLoginName(),
                 user.getPassword(),
                 user.getSex(),
+                user.getAge(),
                 user.getDailyLimits()
         );
     }

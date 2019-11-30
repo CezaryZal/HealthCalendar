@@ -13,13 +13,11 @@ public class UserDTO {
     private String loginName;
     private String password;
     private int sex;
+    private int age;
     private DailyLimits dailyLimits;
 
-    public UserDTO() {
-    }
-
     public UserDTO(Long id, String firstName, String nick, String email, int poneNumber, String loginName,
-                   String password, int sex, DailyLimits dailyLimits) {
+                   String password, int sex, int age, DailyLimits dailyLimits) {
         this.id = id;
         this.firstName = firstName;
         this.nick = nick;
@@ -28,6 +26,7 @@ public class UserDTO {
         this.loginName = loginName;
         this.password = password;
         this.sex = sex;
+        this.age = age;
         this.dailyLimits = dailyLimits;
     }
 
@@ -63,13 +62,17 @@ public class UserDTO {
         return sex;
     }
 
+    public int getAge() {
+        return age;
+    }
+
     public DailyLimits getDailyLimits() {
         return dailyLimits;
     }
 
     @Override
     public String toString() {
-        return "User{" +
+        return "UserDTO{" +
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", nick='" + nick + '\'' +
@@ -78,6 +81,7 @@ public class UserDTO {
                 ", loginName='" + loginName + '\'' +
                 ", password='" + password + '\'' +
                 ", sex=" + sex +
+                ", age=" + age +
                 ", dailyLimits=" + dailyLimits +
                 '}';
     }

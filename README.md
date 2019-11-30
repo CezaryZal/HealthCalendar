@@ -12,5 +12,4 @@ Backend:
 ## To do
 - validation input
 - add crypt to password 
-- add interface and classes (design patterns) - don't DTO
-- add age in user class (use callback annotation)
+- add interface and classes (design patterns) - https://www.javappa.com/kurs-spring/wstrzykiwanie-zaleznosci-rozszerzenie

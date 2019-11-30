@@ -6,6 +6,7 @@ import com.CezaryZal.day.Day;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 @Entity
@@ -38,8 +39,12 @@ public class User {
     @Column(name = "sex")
     private int sex;
 
-//    @Column(name = "birth_date")
-//    private LocalDate birthDate;
+    //don't save param to table
+    @Transient
+    private int age;
+
+    @Column(name = "birth_date")
+    private LocalDate birthDate;
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "daily_limits_id")
@@ -55,6 +60,11 @@ public class User {
     private List<Day> listDays;
 
     public User() {
+    }
+
+    @PostLoad
+    public void calculateAge(){
+        age = (int) ChronoUnit.YEARS.between(birthDate, LocalDate.now());
     }
 
     public Long getId() {
@@ -121,6 +131,22 @@ public class User {
         this.sex = sex;
     }
 
+    public LocalDate getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(LocalDate birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
     public DailyLimits getDailyLimits() {
         return dailyLimits;
     }
@@ -147,7 +173,7 @@ public class User {
 
     @Override
     public String toString() {
-        return "UserAllInf{" +
+        return "User{" +
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", nick='" + nick + '\'' +
@@ -156,6 +182,8 @@ public class User {
                 ", loginName='" + loginName + '\'' +
                 ", password='" + password + '\'' +
                 ", sex=" + sex +
+                ", age=" + age +
+                ", birthDate=" + birthDate +
                 ", dailyLimits=" + dailyLimits +
                 ", listBodySize=" + listBodySize +
                 ", listDays=" + listDays +
