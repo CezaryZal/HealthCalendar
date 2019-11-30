@@ -31,14 +31,6 @@ public class Training {
     public Training() {
     }
 
-    public Training(LocalDateTime date, String description, LocalTime time, int burnKcal, Long dayId) {
-        this.date = date;
-        this.description = description;
-        this.time = time;
-        this.burnKcal = burnKcal;
-        this.dayId = dayId;
-    }
-
     public Long getId() {
         return id;
     }

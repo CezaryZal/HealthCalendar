@@ -57,20 +57,6 @@ public class BodySize {
     public BodySize() {
     }
 
-    public BodySize(int bodyWeight, int neckSize, int armSize, int bustSize, int waist, int hipsSize,
-                    int femoralSize, int calf, LocalDate date, Long userId) {
-        this.bodyWeight = bodyWeight;
-        this.neckSize = neckSize;
-        this.armSize = armSize;
-        this.bustSize = bustSize;
-        this.waist = waist;
-        this.hipsSize = hipsSize;
-        this.femoralSize = femoralSize;
-        this.calf = calf;
-        this.date = date;
-        this.userId = userId;
-    }
-
     public Long getId() {
         return id;
     }

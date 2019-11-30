@@ -24,12 +24,6 @@ public class NoteDB {
     public NoteDB() {
     }
 
-    public NoteDB(String header, String detailsNote, Long dayId) {
-        this.header = header;
-        this.detailsNote = detailsNote;
-        this.dayId = dayId;
-    }
-
     public Long getId() {
         return id;
     }

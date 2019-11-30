@@ -30,14 +30,6 @@ public class MealDB {
     public MealDB() {
     }
 
-    public MealDB(LocalDateTime dateTime, String type, int kcal, String description, Long dayId) {
-        this.dateTime = dateTime;
-        this.type = type;
-        this.kcal = kcal;
-        this.description = description;
-        this.dayId = dayId;
-    }
-
     public Long getId() {
         return id;
     }

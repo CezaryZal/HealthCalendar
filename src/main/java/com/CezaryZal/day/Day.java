@@ -72,19 +72,6 @@ public class Day {
     public Day() {
     }
 
-    public Day(LocalDate date, Long userId, int portionsDrink, int portionsAlcohol, List<MealDB> listMealsDB,
-               int portionsSnack, List<Training> listTrainingsDB, List<NoteDB> listNotesDB, ShortDay shortDay) {
-        this.date = date;
-        this.userId = userId;
-        this.portionsDrink = portionsDrink;
-        this.portionsAlcohol = portionsAlcohol;
-        this.listMealsDB = listMealsDB;
-        this.portionsSnack = portionsSnack;
-        this.listTrainingsDB = listTrainingsDB;
-        this.listNotesDB = listNotesDB;
-        this.shortDay = shortDay;
-    }
-
     public Long getId() {
         return id;
     }

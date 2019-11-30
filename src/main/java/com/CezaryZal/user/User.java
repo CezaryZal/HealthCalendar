@@ -5,6 +5,7 @@ import com.CezaryZal.dailyLimits.DailyLimits;
 import com.CezaryZal.day.Day;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -37,6 +38,9 @@ public class User {
     @Column(name = "sex")
     private int sex;
 
+//    @Column(name = "birth_date")
+//    private LocalDate birthDate;
+
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "daily_limits_id")
     private DailyLimits dailyLimits;
@@ -50,31 +54,7 @@ public class User {
     @JoinColumn(name = "user_id")
     private List<Day> listDays;
 
-//    {
-//        "firstName": "Fiona1",
-//            "nick": "shrek1231",
-//            "email": "fiona1@gmail.com",
-//            "poneNumber": 846152111,
-//            "loginName": "Shrek1",
-//            "password": "test21",
-//            "sex": 1,
-//    }
-
     public User() {
-    }
-
-    public User(String firstName, String nick, String email, int poneNumber, String loginName, String password,
-                int sex, DailyLimits dailyLimits, List<BodySize> listBodySize, List<Day> listDays) {
-        this.firstName = firstName;
-        this.nick = nick;
-        this.email = email;
-        this.poneNumber = poneNumber;
-        this.loginName = loginName;
-        this.password = password;
-        this.sex = sex;
-        this.dailyLimits = dailyLimits;
-        this.listBodySize = listBodySize;
-        this.listDays = listDays;
     }
 
     public Long getId() {

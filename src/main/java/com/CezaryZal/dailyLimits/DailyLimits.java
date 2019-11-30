@@ -24,12 +24,6 @@ public class DailyLimits {
     public DailyLimits() {
     }
 
-    public DailyLimits(int kcalDemand, int drinkDemand, Long userId) {
-        this.kcalDemand = kcalDemand;
-        this.drinkDemand = drinkDemand;
-        this.userId = userId;
-    }
-
     public Long getId() {
         return id;
     }
