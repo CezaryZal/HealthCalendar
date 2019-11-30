@@ -10,6 +10,7 @@ Backend:
 - Swagger UI (/HealthCalendar/swagger-ui.html)
 
 ## To do
-- validation input
+- validation input (e.g. NotNullException)
 - add crypt to password 
 - add interface and classes (design patterns) - https://www.javappa.com/kurs-spring/wstrzykiwanie-zaleznosci-rozszerzenie
+- add ResponseEntity at all controllers

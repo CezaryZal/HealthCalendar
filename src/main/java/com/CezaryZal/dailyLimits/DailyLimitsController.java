@@ -1,5 +1,7 @@
 package com.CezaryZal.dailyLimits;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,32 +18,35 @@ public class DailyLimitsController {
     }
 
     @GetMapping("/id/{id}")
-    public DailyLimits getLimitsById (@PathVariable Long id){
-        return DailyLimitsS.getLimitsById(id);
+    public ResponseEntity<DailyLimits> getLimitsById (@PathVariable Long id){
+        return new ResponseEntity<>(DailyLimitsS.getLimitsById(id), HttpStatus.OK);
     }
 
     @GetMapping("/byUserId/{userId}")
-    public DailyLimits getLimitsByUserId (@PathVariable Long userId){
-        return DailyLimitsS.getLimitsByUserId(userId);
+    public ResponseEntity<DailyLimits> getLimitsByUserId (@PathVariable Long userId){
+        return new ResponseEntity<>(DailyLimitsS.getLimitsByUserId(userId), HttpStatus.OK);
     }
 
     @GetMapping("/getAll")
-    public List<DailyLimits> getAll(){
-        return DailyLimitsS.getAll();
+    public ResponseEntity<List<DailyLimits>> getAll(){
+        return new ResponseEntity<>(DailyLimitsS.getAll(), HttpStatus.OK);
     }
 
     @PostMapping("/add")
-    public boolean addLimits (@RequestBody DailyLimits dailyLimits){
-        return DailyLimitsS.addLimits(dailyLimits);
+    public ResponseEntity<Void> addLimits (@RequestBody DailyLimits dailyLimits){
+        DailyLimitsS.addLimits(dailyLimits);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PutMapping("/update")
-    public boolean updateLimits (@RequestBody DailyLimits dailyLimits){
-        return DailyLimitsS.updateLimits(dailyLimits);
+    public ResponseEntity<Void> updateLimits (@RequestBody DailyLimits dailyLimits){
+        DailyLimitsS.updateLimits(dailyLimits);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{id}")
-    public String deleteLimitsById (@PathVariable Long id){
-        return DailyLimitsS.deleteLimitsById(id);
+    public ResponseEntity<Void> deleteLimitsById (@PathVariable Long id){
+        DailyLimitsS.deleteLimitsById(id);
+        return ResponseEntity.noContent().build();
     }
 }
