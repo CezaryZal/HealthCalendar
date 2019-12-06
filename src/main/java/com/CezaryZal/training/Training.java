@@ -14,13 +14,13 @@ public class Training {
     private Long id;
 
     @Column(name = "date_time")
-    private LocalDateTime date;
+    private LocalDateTime dateTimeOfExecution;
 
     @Column(name = "description")
     private String description;
 
     @Column(name = "time")
-    private LocalTime time;
+    private LocalTime elapsedTime;
 
     @Column(name = "burn_kcal")
     private int burnKcal;
@@ -39,12 +39,12 @@ public class Training {
         this.id = id;
     }
 
-    public LocalDateTime getDate() {
-        return date;
+    public LocalDateTime getDateTimeOfExecution() {
+        return dateTimeOfExecution;
     }
 
-    public void setDate(LocalDateTime date) {
-        this.date = date;
+    public void setDateTimeOfExecution(LocalDateTime date) {
+        this.dateTimeOfExecution = date;
     }
 
     public String getDescription() {
@@ -55,12 +55,12 @@ public class Training {
         this.description = description;
     }
 
-    public LocalTime getTime() {
-        return time;
+    public LocalTime getElapsedTime() {
+        return elapsedTime;
     }
 
-    public void setTime(LocalTime time) {
-        this.time = time;
+    public void setElapsedTime(LocalTime time) {
+        this.elapsedTime = time;
     }
 
     public int getBurnKcal() {
@@ -83,9 +83,9 @@ public class Training {
     public String toString() {
         return "TrainingDB{" +
                 "id=" + id +
-                ", date=" + date +
+                ", date=" + dateTimeOfExecution +
                 ", description='" + description + '\'' +
-                ", time=" + time +
+                ", time=" + elapsedTime +
                 ", burnKcal=" + burnKcal +
                 ", dayId=" + dayId +
                 '}';

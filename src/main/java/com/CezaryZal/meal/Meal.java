@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "meal")
-public class MealDB {
+public class Meal {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -13,7 +13,7 @@ public class MealDB {
     private Long id;
 
     @Column(name = "date_time")
-    private LocalDateTime dateTime;
+    private LocalDateTime dateTimeOfEat;
 
     @Column(name = "type")
     private String type;
@@ -27,7 +27,7 @@ public class MealDB {
     @Column(name = "day_id")
     private Long dayId;
 
-    public MealDB() {
+    public Meal() {
     }
 
     public Long getId() {
@@ -38,12 +38,12 @@ public class MealDB {
         this.id = id;
     }
 
-    public LocalDateTime getDateTime() {
-        return dateTime;
+    public LocalDateTime getDateTimeOfEat() {
+        return dateTimeOfEat;
     }
 
-    public void setDateTime(LocalDateTime dateTime) {
-        this.dateTime = dateTime;
+    public void setDateTimeOfEat(LocalDateTime dateTime) {
+        this.dateTimeOfEat = dateTime;
     }
 
     public String getType() {
@@ -82,7 +82,7 @@ public class MealDB {
     public String toString() {
         return "Meal{" +
                 "id=" + id +
-                ", dateTime=" + dateTime +
+                ", dateTime=" + dateTimeOfEat +
                 ", type='" + type + '\'' +
                 ", kcal=" + kcal +
                 ", description='" + description + '\'' +

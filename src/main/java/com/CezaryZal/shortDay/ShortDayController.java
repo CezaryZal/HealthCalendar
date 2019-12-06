@@ -1,10 +1,13 @@
 package com.CezaryZal.shortDay;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
+@Api(tags = "ShortDay")
 @RestController
 @RequestMapping("/shortDay")
 public class ShortDayController {
@@ -15,32 +18,35 @@ public class ShortDayController {
         this.shortDayS = shortDayS;
     }
 
-    @GetMapping("/id/{nrId}")
-    public ShortDay getShortDayById (@PathVariable Long nrId){
-        return shortDayS.getShortDayById(nrId);
+    @ApiOperation(value = "This will get a `ShortDay` by id")
+    @GetMapping("/{id}")
+    public ShortDay getShortDayById (@PathVariable Long id){
+        return shortDayS.getShortDayById(id);
     }
 
-    @GetMapping("/byDateAndUserId/{date}/{userId}")
+    @ApiOperation(value = "This will get a list `ShortDay` by date and user id")
+    @GetMapping("/{date}/{userId}")
     public List<ShortDay> getBodyByDateAndUserId (@PathVariable String date, @PathVariable Long userId){
         return shortDayS.getShortDaysByDateAndUserId(date, userId);
     }
 
-    @GetMapping("/getAll")
+    @ApiOperation(value = "This will get a list `ShortDay`, all records")
+    @GetMapping
     public List<ShortDay> getAll(){
         return shortDayS.getAll();
     }
 
-    @PostMapping("/add")
+    @PostMapping
     public boolean addDiet (@RequestBody ShortDay shortDay){
         return shortDayS.addShortDay(shortDay);
     }
 
-    @PutMapping("/update")
+    @PutMapping
     public boolean updateShortDay (@RequestBody ShortDay shortDay){
         return shortDayS.updateShortDay(shortDay);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public String delete (@PathVariable Long id){
         return shortDayS.deleteShortDayById(id);
     }

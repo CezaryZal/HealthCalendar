@@ -14,49 +14,49 @@ public class NoteService {
         this.NoteR = NRepository;
     }
 
-    public NoteDB getNoteDBById (Long id){
+    public Note getNoteById(Long id){
         return NoteR.findById(id);
     }
 
     public List<Header> getHeadersByDay(Long dayId){
-        List<NoteDB> listNoteDB = getNotesDBByDay(dayId);
+        List<Note> listNote = getNotesByDay(dayId);
 
-        return getHeadersByNotesDB(listNoteDB);
+        return getHeadersByNotesDB(listNote);
     }
 
-    public List<NoteDB> getNotesDBByDay (Long dayId){
+    public List<Note> getNotesByDay(Long dayId){
         return NoteR.findByDayId(dayId);
     }
 
-    public List<NoteDB> getAll (){
+    public List<Note> getAll (){
         return NoteR.getAll();
     }
 
-    public boolean addNote (NoteDB noteDB){
-        NoteR.save(noteDB);
+    public boolean addNote (Note note){
+        NoteR.save(note);
 
         return true;
     }
 
-    public boolean updateNote (NoteDB noteDB){
-        NoteR.update(noteDB);
+    public boolean updateNote (Note note){
+        NoteR.update(note);
 
         return true;
     }
 
     public String deleteNoteById (Long id){
-        NoteDB noteDB = NoteR.findById(id);
-        if(NoteR.delete(noteDB)){
+        Note note = NoteR.findById(id);
+        if(NoteR.delete(note)){
             return "delete record";
         }
         return "Note id not found";
     }
 
-    public List<Header> getHeadersByNotesDB(List<NoteDB> listNoteDB){
+    public List<Header> getHeadersByNotesDB(List<Note> listNote){
         List<Header> listHeaders = new ArrayList<>();
-        for(NoteDB noteDB : listNoteDB){
-            if(noteDB!=null){
-                Header header = new Header(noteDB.getId(), noteDB.getHeader());
+        for(Note note : listNote){
+            if(note !=null){
+                Header header = new Header(note.getId(), note.getHeader());
                 listHeaders.add(header);
             }
         }

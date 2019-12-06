@@ -16,7 +16,7 @@ import java.util.List;
 
 @Service
 public class DayService {
-//zastosowanie polimorfizm (interface)
+    //zastosowanie polimorfizm (interface)
     private DayRepository dayR;
     private UserService userS;
     private BodySizeService bodySizeS;
@@ -38,7 +38,7 @@ public class DayService {
         this.shortDayS = shortDayS;
     }
 
-    public Day getDayById(Long id){
+    public Day getDayById(Long id) {
         return dayR.findById(id);
     }
 
@@ -48,7 +48,8 @@ public class DayService {
         User user = userS.getUserById(userId);
         DailyDietDTO dailyDietDTO = mealS.getDailyDietDTOByDayId(day.getId());
 
-        return new DayDTO(day.getId(),
+        return new DayDTO(
+                day.getId(),
                 day.getDate(),
                 userId,
                 user.getNick(),
@@ -65,19 +66,19 @@ public class DayService {
         );
     }
 
-    public int getDayIdByDateAndUserId(String inputDate, Long userId){
+    public int getDayIdByDateAndUserId(String inputDate, Long userId) {
         return dayR.findDayIdByDateAndUserId(LocalDate.parse(inputDate), userId);
     }
 
-    public Day getDayByDateAndUserId(String inputDate, Long userId){
+    public Day getDayByDateAndUserId(String inputDate, Long userId) {
         return dayR.findDayByDateAndUserId(LocalDate.parse(inputDate), userId);
     }
 
-    public List<Day> getAll (){
+    public List<Day> getAll() {
         return dayR.getAll();
     }
 
-    public boolean addDay (Day day){
+    public boolean addDay(Day day) {
         dayR.save(day);
         // dodanie w servisie shortDay
         shortDayS.addShortDay(createShortDayByDay(day));
@@ -85,7 +86,7 @@ public class DayService {
         return true;
     }
 
-    public boolean updateDay (Day day){
+    public boolean updateDay(Day day) {
         dayR.update(day);
         ShortDay shortDay = createShortDayByDay(day);
         shortDay.setId(day.getId());
@@ -93,26 +94,30 @@ public class DayService {
         return true;
     }
 
-    public String deleteDayById(Long id){
+    public String deleteDayById(Long id) {
         Day day = dayR.findById(id);
-        if(dayR.delete(day)){
+        if (dayR.delete(day)) {
             return "delete record";
         }
         return "Day id not found";
     }
 
-    public boolean checkIsAchievedDrink(User user, Day day){
-        return user.getDailyLimits().getDrinkDemand()<= day.getPortionsDrink() * 250;
+    int PORTION_OF_DRINK = 250;
+
+    public boolean checkIsAchievedDrink(User user, Day day) {
+        return user.getDailyLimits().getDrinkDemandPerDay() <= day.getPortionsDrink() * PORTION_OF_DRINK;
     }
 
-    public boolean checkIsAchievedKcal(User user, DailyDietDTO dailyDietDTO){
-        int kcalDemand = user.getDailyLimits().getKcalDemand();
+    double LIMIT_OF_EAT_KCAL = 0.05; // 5%
+
+    public boolean checkIsAchievedKcal(User user, DailyDietDTO dailyDietDTO) {
+        int kcalDemand = user.getDailyLimits().getKcalDemandPerDay();
         int sumOfKcal = dailyDietDTO.getSumOfKcal();
-        return sumOfKcal>=kcalDemand-kcalDemand*0.05 && sumOfKcal<=kcalDemand+kcalDemand*0.05;
+        return sumOfKcal >= kcalDemand - kcalDemand * LIMIT_OF_EAT_KCAL && sumOfKcal <= kcalDemand + kcalDemand * LIMIT_OF_EAT_KCAL;
     }
 
     //Dodatkowa klasa serwisowa dla ShortDay
-    public ShortDay createShortDayByDay(Day day){
+    public ShortDay createShortDayByDay(Day day) {
         User user = userS.getUserById(day.getUserId());
         DailyDietDTO dailyDietDTO = mealS.getDailyDietDTOByDayId(day.getId());
 
@@ -121,8 +126,8 @@ public class DayService {
                 day.getDate(),
                 checkIsAchievedKcal(user, dailyDietDTO),
                 checkIsAchievedDrink(user, day),
-                day.getPortionsAlcohol()!=0,
-                day.getPortionsSnack()!=0
+                day.getPortionsAlcohol() != 0,
+                day.getPortionsSnack() != 0
         );
     }
 

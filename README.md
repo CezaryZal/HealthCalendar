@@ -13,5 +13,5 @@ Backend:
 - validation input (e.g. NotNullException)
 - add crypt to password 
 - add interface and classes (design patterns) - https://www.javappa.com/kurs-spring/wstrzykiwanie-zaleznosci-rozszerzenie
-- change path of endpoints (add request body) 
 - add ResponseEntity at all controllers
+- add date protection in POST method

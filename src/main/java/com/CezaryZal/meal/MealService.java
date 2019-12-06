@@ -13,45 +13,45 @@ public class MealService {
         this.MealR = MRepository;
     }
 
-    public MealDB getMealById (Long id){
+    public Meal getMealById (Long id){
         return MealR.findById(id);
     }
 
     public DailyDietDTO getDailyDietDTOByDayId (Long dayId){
-        List<MealDB> listMealDBS = MealR.getListByDayId(dayId);
+        List<Meal> listMeals = MealR.getListByDayId(dayId);
 
-        return createDailyDietDTO(listMealDBS);
+        return createDailyDietDTO(listMeals);
     }
 
-    public List<MealDB> getAll (){
+    public List<Meal> getAll (){
         return MealR.getAll();
     }
 
-    public boolean addMeal (MealDB mealDB){
-        MealR.save(mealDB);
+    public boolean addMeal (Meal meal){
+        MealR.save(meal);
 
         return true;
     }
 
-    public boolean updateMeal (MealDB mealDB){
-        MealR.update(mealDB);
+    public boolean updateMeal (Meal meal){
+        MealR.update(meal);
 
         return true;
     }
 
     public String deleteMealById (Long id){
-        MealDB mealDB = MealR.findById(id);
-        if(MealR.delete(mealDB)){
+        Meal meal = MealR.findById(id);
+        if(MealR.delete(meal)){
             return "delete record";
         }
         return "Meal id not found";
     }
 
-    public DailyDietDTO createDailyDietDTO (List<MealDB> listMealDBS){
+    public DailyDietDTO createDailyDietDTO (List<Meal> listMeals){
         int sumOfKcal = 0;
-        for (MealDB mealDB : listMealDBS){
-            sumOfKcal += mealDB.getKcal();
+        for (Meal meal : listMeals){
+            sumOfKcal += meal.getKcal();
         }
-        return new DailyDietDTO(listMealDBS, sumOfKcal);
+        return new DailyDietDTO(listMeals, sumOfKcal);
     }
 }

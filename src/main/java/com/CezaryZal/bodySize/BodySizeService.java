@@ -23,7 +23,7 @@ public class BodySizeService {
         return BodySizeR.findDateLastMeasureByUserId(userId);
     }
 
-    public List<LocalDate> getListDatesByUserIdAllDate(Long userId) {
+    public List<LocalDate> getListDatesByUserId(Long userId) {
         return BodySizeR.findByUserIdAllDate(userId);
 
     }

@@ -53,7 +53,7 @@ public class User {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
 //    @JsonIgnore
-    private List<BodySize> listBodySize;
+    private List<BodySize> listMeasureByBodySize;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
@@ -155,12 +155,12 @@ public class User {
         this.dailyLimits = dailyLimits;
     }
 
-    public List<BodySize> getListBodySize() {
-        return listBodySize;
+    public List<BodySize> getListMeasureByBodySize() {
+        return listMeasureByBodySize;
     }
 
-    public void setListBodySize(List<BodySize> listBodySize) {
-        this.listBodySize = listBodySize;
+    public void setListMeasureByBodySize(List<BodySize> listBodySize) {
+        this.listMeasureByBodySize = listBodySize;
     }
 
     public List<Day> getListDays() {
@@ -185,7 +185,7 @@ public class User {
                 ", age=" + age +
                 ", birthDate=" + birthDate +
                 ", dailyLimits=" + dailyLimits +
-                ", listBodySize=" + listBodySize +
+                ", listBodySize=" + listMeasureByBodySize +
                 ", listDays=" + listDays +
                 '}';
     }

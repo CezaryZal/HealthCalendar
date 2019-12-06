@@ -1,11 +1,9 @@
 package com.CezaryZal.day;
 
 import com.CezaryZal.shortDay.ShortDay;
-import com.CezaryZal.meal.MealDB;
-import com.CezaryZal.note.NoteDB;
+import com.CezaryZal.meal.Meal;
+import com.CezaryZal.note.Note;
 import com.CezaryZal.training.Training;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
@@ -48,7 +46,7 @@ public class Day {
     @LazyCollection(LazyCollectionOption.FALSE)
     @JoinColumn(name = "day_id")
     @BatchSize(size = 5)
-    private List<MealDB> listMealsDB;
+    private List<Meal> listMealsDB;
 
     @Column(name = "portions_snack")
     private int portionsSnack;
@@ -62,7 +60,7 @@ public class Day {
     @OneToMany(cascade = CascadeType.ALL)
     @LazyCollection(LazyCollectionOption.FALSE)
     @JoinColumn(name = "day_id")
-    private List<NoteDB> listNotesDB;
+    private List<Note> listNotesDB;
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "short_day_id")
@@ -112,11 +110,11 @@ public class Day {
         this.portionsAlcohol = portionsAlcohol;
     }
 
-    public List<MealDB> getListMealsDB() {
+    public List<Meal> getListMealsDB() {
         return listMealsDB;
     }
 
-    public void setListMealsDB(List<MealDB> listMealsDB) {
+    public void setListMealsDB(List<Meal> listMealsDB) {
         this.listMealsDB = listMealsDB;
     }
 
@@ -136,11 +134,11 @@ public class Day {
         this.listTrainingsDB = listTrainingsDB;
     }
 
-    public List<NoteDB> getListNotesDB() {
+    public List<Note> getListNotesDB() {
         return listNotesDB;
     }
 
-    public void setListNotesDB(List<NoteDB> listNotesDB) {
+    public void setListNotesDB(List<Note> listNotesDB) {
         this.listNotesDB = listNotesDB;
     }
 

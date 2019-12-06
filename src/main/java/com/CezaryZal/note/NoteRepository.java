@@ -5,44 +5,42 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
-@Transactional
 public class NoteRepository {
 
     @PersistenceContext
     private EntityManager entityManager;
 
-    public NoteDB findById(Long id){
-        return entityManager.find(NoteDB.class, id);
+    public Note findById(Long id){
+        return entityManager.find(Note.class, id);
     }
 
-    public List<NoteDB> findByDayId(Long dayId){
-        Query query = entityManager.createQuery("FROM NoteDB WHERE dayId=:dayId");
+    public List<Note> findByDayId(Long dayId){
+        Query query = entityManager.createQuery("FROM Note WHERE dayId=:dayId");
         query.setParameter("dayId", dayId);
 
         return query.getResultList();
     }
 
-    public List<NoteDB> getAll (){
-        Query query = entityManager.createQuery("FROM NoteDB");
+    public List<Note> getAll (){
+        Query query = entityManager.createQuery("FROM Note");
 
         return query.getResultList();
     }
 
-    public void save (NoteDB noteDB){
-        entityManager.persist(noteDB);
+    public void save (Note note){
+        entityManager.persist(note);
     }
 
-    public void update(NoteDB noteDB){
-        entityManager.merge(noteDB);
+    public void update(Note note){
+        entityManager.merge(note);
     }
 
-    public boolean delete (NoteDB noteDB){
-        if(entityManager.contains(noteDB)){
-            entityManager.remove(noteDB);
+    public boolean delete (Note note){
+        if(entityManager.contains(note)){
+            entityManager.remove(note);
             return true;
         }
         return false;

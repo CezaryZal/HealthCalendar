@@ -55,8 +55,8 @@ public class TrainingService {
         for (Training training : listTraining) {
             if (training != null) {
                 sumOfBurnKcal += training.getBurnKcal();
-                long hour = training.getTime().getHour();
-                long minute = training.getTime().getMinute();
+                long hour = training.getElapsedTime().getHour();
+                long minute = training.getElapsedTime().getMinute();
                 sumOfTimes = sumOfTimes.plus(Duration.ofHours(hour)).plus(Duration.ofMinutes(minute));
             }
         }

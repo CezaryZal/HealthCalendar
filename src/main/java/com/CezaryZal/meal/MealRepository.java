@@ -5,45 +5,43 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import javax.transaction.Transactional;
 import java.util.List;
 
 
 @Repository
-@Transactional
 public class MealRepository {
 
     @PersistenceContext
     private EntityManager entityManager;
 
-    public MealDB findById(Long id){
-        return entityManager.find(MealDB.class, id);
+    public Meal findById(Long id){
+        return entityManager.find(Meal.class, id);
     }
 
-    public List<MealDB> getListByDayId(Long dayId){
-        Query query = entityManager.createQuery("FROM MealDB WHERE dayId=:dayId");
+    public List<Meal> getListByDayId(Long dayId){
+        Query query = entityManager.createQuery("FROM Meal WHERE dayId=:dayId");
         query.setParameter("dayId", dayId);
 
         return query.getResultList();
     }
 
-    public List<MealDB> getAll (){
-        Query query = entityManager.createQuery("FROM MealDB");
+    public List<Meal> getAll (){
+        Query query = entityManager.createQuery("FROM Meal");
 
         return query.getResultList();
     }
 
-    public void save (MealDB mealDB){
-        entityManager.persist(mealDB);
+    public void save (Meal meal){
+        entityManager.persist(meal);
     }
 
-    public void update(MealDB mealDB){
-        entityManager.merge(mealDB);
+    public void update(Meal meal){
+        entityManager.merge(meal);
     }
 
-    public boolean delete (MealDB mealDB){
-        if(entityManager.contains(mealDB)){
-            entityManager.remove(mealDB);
+    public boolean delete (Meal meal){
+        if(entityManager.contains(meal)){
+            entityManager.remove(meal);
             return true;
         }
         return false;

@@ -19,38 +19,42 @@ public class BodySizeController {
         this.bodySizeS = bodySizeS;
     }
 
-    @ApiOperation(value = "This will get a Body by id", notes = "In this method you will receive a body measurement by id")
-    @GetMapping("/id/{id}")
+    @ApiOperation(value = "This will get a `BodySize by id", notes = "In this method you will receive a body measurement by id")
+    @GetMapping("/{id}")
     public BodySize getBodyById (@PathVariable Long id){
         return bodySizeS.getBodyById(id);
     }
 
-    @GetMapping("/byLastDate/{userId}")
+    @ApiOperation(value = "This will get a last date measure by user id")
+    @GetMapping("/date/user-id/{userId}")
     public LocalDate getDateLastMeasureByUserId(@PathVariable Long userId){
         return bodySizeS.getDateLastMeasureByUserId(userId);
     }
 
-    @GetMapping("/byUserIdAllDate/{userId}")
-    public List<LocalDate> getListDatesByUserIdAllDate (@PathVariable Long userId){
-        return bodySizeS.getListDatesByUserIdAllDate(userId);
+    @ApiOperation(value = "This will be get a list dates by user id")
+    @GetMapping("/dates/user-id/{userId}")
+    public List<LocalDate> getListDatesByUserId (@PathVariable Long userId){
+        return bodySizeS.getListDatesByUserId(userId);
     }
 
-    @GetMapping("/byDateAndUserId/{date}/{userId}")
+    @ApiOperation(value = "This will be get a `BodySize` by date and user id")
+    @GetMapping("/{date}/{userId}")
     public BodySize getBodyByDateAndUserId (@PathVariable String date, @PathVariable Long userId){
         return bodySizeS.getBodyByDateAndUserId(date, userId);
     }
 
-    @GetMapping("/getAll")
+    @ApiOperation(value = "This will get a list `BodySize`, all records")
+    @GetMapping
     public List<BodySize> getAll(){
         return bodySizeS.getAll();
     }
 
-    @PostMapping("/add")
+    @PostMapping
     public boolean addBody (@RequestBody BodySize bodySize){
         return bodySizeS.addBody(bodySize);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public String deleteBodyById (@PathVariable Long id) {
         return bodySizeS.deleteBodyById(id);
     }

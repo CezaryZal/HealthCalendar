@@ -13,10 +13,10 @@ public class DailyLimits {
     private Long id;
 
     @Column(name = "kcal_demand")
-    private int kcalDemand;
+    private int kcalDemandPerDay;
 
     @Column(name = "drink_demand")
-    private int drinkDemand;
+    private int drinkDemandPerDay;
 
     @Column(name = "user_id")
     private Long userId;
@@ -32,20 +32,20 @@ public class DailyLimits {
         this.id = id;
     }
 
-    public int getKcalDemand() {
-        return kcalDemand;
+    public int getKcalDemandPerDay() {
+        return kcalDemandPerDay;
     }
 
-    public void setKcalDemand(int kcalDemand) {
-        this.kcalDemand = kcalDemand;
+    public void setKcalDemandPerDay(int kcalDemand) {
+        this.kcalDemandPerDay = kcalDemand;
     }
 
-    public int getDrinkDemand() {
-        return drinkDemand;
+    public int getDrinkDemandPerDay() {
+        return drinkDemandPerDay;
     }
 
-    public void setDrinkDemand(int drinkDemand) {
-        this.drinkDemand = drinkDemand;
+    public void setDrinkDemandPerDay(int drinkDemand) {
+        this.drinkDemandPerDay = drinkDemand;
     }
 
     public Long getUserId() {
@@ -60,8 +60,8 @@ public class DailyLimits {
     public String toString() {
         return "DailyLimits{" +
                 "id=" + id +
-                ", kcalDemand=" + kcalDemand +
-                ", drinkDemand=" + drinkDemand +
+                ", kcalDemand=" + kcalDemandPerDay +
+                ", drinkDemand=" + drinkDemandPerDay +
                 ", userId=" + userId +
                 '}';
     }

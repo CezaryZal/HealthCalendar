@@ -1,12 +1,6 @@
 package com.CezaryZal.bodySize;
 
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
-import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
-
 import javax.persistence.*;
 import java.time.LocalDate;
 
@@ -49,7 +43,7 @@ public class BodySize {
 //    @JsonDeserialize(using = LocalDateDeserializer.class)
 //    @JsonSerialize(using = LocalDateSerializer.class)
     @Column(name = "date")
-    private LocalDate date;
+    private LocalDate dateMeasurement;
 
     @Column(name = "user_id")
     private Long userId;
@@ -129,12 +123,12 @@ public class BodySize {
         this.calf = calf;
     }
 
-    public LocalDate getDate() {
-        return date;
+    public LocalDate getDateMeasurement() {
+        return dateMeasurement;
     }
 
-    public void setDate(LocalDate date) {
-        this.date = date;
+    public void setDateMeasurement(LocalDate date) {
+        this.dateMeasurement = date;
     }
 
     public Long getUserId() {
@@ -157,7 +151,7 @@ public class BodySize {
                 ", hipsSize=" + hipsSize +
                 ", femoralSize=" + femoralSize +
                 ", calf=" + calf +
-                ", date=" + date +
+                ", dateMeasurement=" + dateMeasurement +
                 ", userId=" + userId +
                 '}';
     }

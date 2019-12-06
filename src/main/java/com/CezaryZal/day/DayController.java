@@ -1,10 +1,13 @@
 package com.CezaryZal.day;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
+@Api(tags = "Day")
 @RestController
 @RequestMapping("/day")
 public class DayController {
@@ -15,42 +18,47 @@ public class DayController {
         this.dayS = DService;
     }
 
-    @GetMapping("/id/{id}")
+    @ApiOperation(value = "This will get a `Day` by id")
+    @GetMapping("/{id}")
     public Day getDayById(@PathVariable Long id){
         return dayS.getDayById(id);
     }
 
-    @GetMapping("/getDayDTOByDateAndUserId/{date}/{userId}")
+    @ApiOperation(value = "This will get a `DayDTO` by date and user id")
+    @GetMapping("/dto/{date}/{userId}")
     public DayDTO getDayDTOByDateAndUserId(@PathVariable String date, @PathVariable Long userId){
         return dayS.getDayDTOByDateAndUserId(date, userId);
     }
 
-    @GetMapping("/getDayId/{date}/{userId}")
-    public int getIntDayIdByDateAndUserId(@PathVariable String date, @PathVariable Long userId){
+    @ApiOperation(value = "This will get a day id by date and user id")
+    @GetMapping("/day-id/{date}/{userId}")
+    public int getDayIdByDateAndUserId(@PathVariable String date, @PathVariable Long userId){
         return dayS.getDayIdByDateAndUserId(date, userId);
     }
 
-    @GetMapping("/getDayDBbyDateAndUserId/{date}/{userId}")
-    public Day getDayDBByDateAndUserId(@PathVariable String date, @PathVariable Long userId){
+    @ApiOperation(value = "This will get a `Day` by date and user id")
+    @GetMapping("/{date}/{userId}")
+    public Day getDayByDateAndUserId(@PathVariable String date, @PathVariable Long userId){
         return dayS.getDayByDateAndUserId(date, userId);
     }
 
-    @GetMapping("/getAll")
+    @ApiOperation(value = "This will get a list `Day`, all records")
+    @GetMapping
     public List<Day> getAll(){
         return dayS.getAll();
     }
 
-    @PostMapping("/add")
+    @PostMapping
     public boolean addDiet (@RequestBody Day day){
         return dayS.addDay(day);
     }
 
-    @PutMapping("/update")
+    @PutMapping
     public boolean updateDay (@RequestBody Day day){
         return dayS.updateDay(day);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public String delete (@PathVariable Long id){
         return dayS.deleteDayById(id);
     }

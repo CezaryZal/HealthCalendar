@@ -1,10 +1,13 @@
 package com.CezaryZal.training;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
+@Api(tags = "Training")
 @RestController
 @RequestMapping("/training")
 public class TrainingController {
@@ -15,32 +18,35 @@ public class TrainingController {
         this.TrainingS = TService;
     }
 
-    @GetMapping("/id/{nrId}")
-    public Training getMealById (@PathVariable Long nrId){
-        return TrainingS.getTrainingById(nrId);
+    @ApiOperation(value = "This will get a `Training` by id")
+    @GetMapping("/{id}")
+    public Training getMealById (@PathVariable Long id){
+        return TrainingS.getTrainingById(id);
     }
 
-    @GetMapping("/allTrainingsDTOByDayId/{dayId}")
+    @ApiOperation(value = "This will get a `TrainingDTO` by day id")
+    @GetMapping("/dto/day-id/{dayId}")
     public TrainingsDTO getTrainingsDTO(@PathVariable Long dayId){
         return TrainingS.getTrainingsDTOByDayId(dayId);
     }
 
-    @GetMapping("/getAll")
+    @ApiOperation(value = "This will get a list `Training`, all records")
+    @GetMapping
     public List<Training> getAllTrainings(){
         return TrainingS.getAllTrainings();
     }
 
-    @PostMapping("/add")
+    @PostMapping
     public boolean addDiet (@RequestBody Training training){
         return TrainingS.addTraining(training);
     }
 
-    @PutMapping("/update")
+    @PutMapping
     public boolean updateMeal (@RequestBody Training training){
         return TrainingS.updateTraining(training);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public String delete (@PathVariable Long id){
         return TrainingS.deleteTrainingById(id);
     }

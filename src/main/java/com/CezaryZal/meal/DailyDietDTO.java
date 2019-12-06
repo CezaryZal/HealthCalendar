@@ -5,16 +5,16 @@ import java.util.List;
 
 public class DailyDietDTO {
 
-    private List<MealDB> listMealDBS;
+    private List<Meal> listMeals;
     private int sumOfKcal;
 
-    public DailyDietDTO(List<MealDB> listMealDBS, int sumOfKcal) {
-        this.listMealDBS = listMealDBS;
+    public DailyDietDTO(List<Meal> listMeals, int sumOfKcal) {
+        this.listMeals = listMeals;
         this.sumOfKcal = sumOfKcal;
     }
 
-    public List<MealDB> getListMealDBS() {
-        return listMealDBS;
+    public List<Meal> getListMeals() {
+        return listMeals;
     }
 
     public int getSumOfKcal() {
@@ -24,7 +24,7 @@ public class DailyDietDTO {
     @Override
     public String toString() {
         return "DailyDiet{" +
-                "listMeals=" + listMealDBS +
+                "listMeals=" + listMeals +
                 ", sumOfKcal=" + sumOfKcal +
                 '}';
     }

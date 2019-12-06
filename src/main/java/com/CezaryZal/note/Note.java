@@ -5,7 +5,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "note")
-public class NoteDB {
+public class Note {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,7 +21,7 @@ public class NoteDB {
     @Column(name = "day_id")
     private Long dayId;
 
-    public NoteDB() {
+    public Note() {
     }
 
     public Long getId() {

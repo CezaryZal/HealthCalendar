@@ -1,10 +1,13 @@
 package com.CezaryZal.note;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
+@Api(tags = "Note")
 @RestController
 @RequestMapping("/note")
 public class NoteController {
@@ -15,37 +18,41 @@ public class NoteController {
         this.NoteS = NService;
     }
 
-    @GetMapping("/id/{nrId}")
-    public NoteDB getNoteDBById (@PathVariable Long nrId){
-        return NoteS.getNoteDBById(nrId);
+    @ApiOperation(value = "This will get a `Note` by id")
+    @GetMapping("/{id}")
+    public Note getNoteById (@PathVariable Long id){
+        return NoteS.getNoteById(id);
     }
 
-    @GetMapping("/getHeadersByDayId/{dayId}")
+    @ApiOperation(value = "This will get a list `Header` by day id")
+    @GetMapping("/headers/day-id/{dayId}")
     public List<Header> getListHeaderByDayId(@PathVariable Long dayId){
         return NoteS.getHeadersByDay(dayId);
     }
 
-    @GetMapping("/getNotesByDayId/{dayId}")
-    public List<NoteDB> getListNoteDBByDayId(@PathVariable Long dayId){
-        return NoteS.getNotesDBByDay(dayId);
+    @ApiOperation(value = "This will get a list `Note` by day id")
+    @GetMapping("/day-id/{dayId}")
+    public List<Note> getListNoteByDayId(@PathVariable Long dayId){
+        return NoteS.getNotesByDay(dayId);
     }
 
-    @GetMapping("/getAll")
-    public List<NoteDB> getAll(){
+    @ApiOperation(value = "This will get a list `Note`, all records")
+    @GetMapping
+    public List<Note> getAll(){
         return NoteS.getAll();
     }
 
-    @PostMapping("/add")
-    public boolean addDiet (@RequestBody NoteDB noteDB){
-        return NoteS.addNote(noteDB);
+    @PostMapping
+    public boolean addDiet (@RequestBody Note note){
+        return NoteS.addNote(note);
     }
 
-    @PutMapping("/update")
-    public boolean updateMeal (@RequestBody NoteDB noteDB){
-        return NoteS.updateNote(noteDB);
+    @PutMapping
+    public boolean updateMeal (@RequestBody Note note){
+        return NoteS.updateNote(note);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public String delete (@PathVariable Long id){
         return NoteS.deleteNoteById(id);
     }
