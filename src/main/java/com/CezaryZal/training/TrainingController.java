@@ -9,7 +9,7 @@ import java.util.List;
 @CrossOrigin(origins = "*", maxAge = 3600)
 @Api(tags = "Training")
 @RestController
-@RequestMapping("/training")
+@RequestMapping("/api/training")
 public class TrainingController {
 
     private TrainingService TrainingS;

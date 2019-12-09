@@ -1,14 +1,15 @@
 package com.CezaryZal.shortDay;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.List;
 
+@Transactional
 @Repository
 public class ShortDayRepository {
 

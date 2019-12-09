@@ -11,7 +11,7 @@ import java.util.List;
 @CrossOrigin(origins = "*", maxAge = 3600)
 @Api(tags = "Daily Limits")
 @RestController
-@RequestMapping("/limits")
+@RequestMapping("/api/limits")
 public class DailyLimitsController {
 
     private DailyLimitsService DailyLimitsS;

@@ -9,7 +9,7 @@ import java.util.List;
 @CrossOrigin(origins = "*", maxAge = 3600)
 @Api(tags = "User")
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/api/user")
 public class UserController {
 
     private UserService UserS;

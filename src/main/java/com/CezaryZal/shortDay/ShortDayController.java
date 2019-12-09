@@ -9,7 +9,7 @@ import java.util.List;
 @CrossOrigin(origins = "*", maxAge = 3600)
 @Api(tags = "ShortDay")
 @RestController
-@RequestMapping("/shortDay")
+@RequestMapping("/api/shortDay")
 public class ShortDayController {
 
     private ShortDayService shortDayS;

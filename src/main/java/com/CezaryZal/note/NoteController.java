@@ -9,7 +9,7 @@ import java.util.List;
 @CrossOrigin(origins = "*", maxAge = 3600)
 @Api(tags = "Note")
 @RestController
-@RequestMapping("/note")
+@RequestMapping("/api/note")
 public class NoteController {
 
     private NoteService NoteS;

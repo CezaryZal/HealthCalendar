@@ -4,7 +4,7 @@ package com.CezaryZal.testDB;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/test")
+@RequestMapping("/api/test")
 public class TestController {
 
     @ResponseBody

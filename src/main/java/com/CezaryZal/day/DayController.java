@@ -9,7 +9,7 @@ import java.util.List;
 @CrossOrigin(origins = "*", maxAge = 3600)
 @Api(tags = "Day")
 @RestController
-@RequestMapping("/day")
+@RequestMapping("/api/day")
 public class DayController {
 
     private DayService dayS;

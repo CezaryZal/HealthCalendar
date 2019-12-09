@@ -10,7 +10,7 @@ import java.util.List;
 @CrossOrigin(origins = "*", maxAge = 3600)
 @Api(tags = "Body Size")
 @RestController
-@RequestMapping("/body")
+@RequestMapping("/api/body")
 public class BodySizeController {
 
     private BodySizeService bodySizeS;
