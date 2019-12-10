@@ -1,6 +1,6 @@
 package com.CezaryZal.user;
 
-import org.springframework.security.crypto.password.PasswordEncoder;
+//import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -10,11 +10,10 @@ import java.util.List;
 public class UserService {
 
     private UserRepository userR;
-    private PasswordEncoder passwordEncoder;
+//    private PasswordEncoder passwordEncoder;
 
-    public UserService(UserRepository URepository, PasswordEncoder passwordEncoder) {
+    public UserService(UserRepository URepository) {
         this.userR = URepository;
-        this.passwordEncoder = passwordEncoder;
     }
 
 
@@ -47,8 +46,8 @@ public class UserService {
     }
 
     public boolean addUser(User user){
-        String passwordBcrypt = passwordEncoder.encode(user.getPassword());
-        user.setPassword(passwordBcrypt);
+//        String passwordBcrypt = passwordEncoder.encode(user.getPassword());
+//        user.setPassword(passwordBcrypt);
         userR.save(user);
 
         return true;
