@@ -9,22 +9,17 @@ public class UserDTO {
     private String firstName;
     private String nick;
     private String email;
-    private int poneNumber;
-    private String loginName;
-    private String password;
+    private int phoneNumber;
     private int sex;
     private int age;
     private DailyLimits dailyLimits;
 
-    public UserDTO(Long id, String firstName, String nick, String email, int poneNumber, String loginName,
-                   String password, int sex, int age, DailyLimits dailyLimits) {
+    public UserDTO(Long id, String firstName, String nick, String email, int phoneNumber, int sex, int age, DailyLimits dailyLimits) {
         this.id = id;
         this.firstName = firstName;
         this.nick = nick;
         this.email = email;
-        this.poneNumber = poneNumber;
-        this.loginName = loginName;
-        this.password = password;
+        this.phoneNumber = phoneNumber;
         this.sex = sex;
         this.age = age;
         this.dailyLimits = dailyLimits;
@@ -46,16 +41,8 @@ public class UserDTO {
         return email;
     }
 
-    public int getPoneNumber() {
-        return poneNumber;
-    }
-
-    public String getLoginName() {
-        return loginName;
-    }
-
-    public String getPassword() {
-        return password;
+    public int getPhoneNumber() {
+        return phoneNumber;
     }
 
     public int getSex() {
@@ -77,9 +64,7 @@ public class UserDTO {
                 ", firstName='" + firstName + '\'' +
                 ", nick='" + nick + '\'' +
                 ", email='" + email + '\'' +
-                ", poneNumber=" + poneNumber +
-                ", loginName='" + loginName + '\'' +
-                ", password='" + password + '\'' +
+                ", poneNumber=" + phoneNumber +
                 ", sex=" + sex +
                 ", age=" + age +
                 ", dailyLimits=" + dailyLimits +

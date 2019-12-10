@@ -73,9 +73,7 @@ public class UserService {
                 user.getFirstName(),
                 user.getNick(),
                 user.getEmail(),
-                user.getPoneNumber(),
-                user.getLoginName(),
-                user.getPassword(),
+                user.getPhoneNumber(),
                 user.getSex(),
                 user.getAge(),
                 user.getDailyLimits()

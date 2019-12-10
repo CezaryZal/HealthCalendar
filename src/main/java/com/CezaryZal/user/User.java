@@ -30,7 +30,7 @@ public class User {
     private String email;
 
     @Column(name = "phone_number")
-    private int poneNumber;
+    private int phoneNumber;
 
     @Column(name = "login_name", nullable = false)
     private String loginName;
@@ -110,12 +110,12 @@ public class User {
         this.email = email;
     }
 
-    public int getPoneNumber() {
-        return poneNumber;
+    public int getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setPoneNumber(int poneNumber) {
-        this.poneNumber = poneNumber;
+    public void setPhoneNumber(int poneNumber) {
+        this.phoneNumber = poneNumber;
     }
 
     public String getLoginName() {
@@ -227,7 +227,7 @@ public class User {
                 ", firstName='" + firstName + '\'' +
                 ", nick='" + nick + '\'' +
                 ", email='" + email + '\'' +
-                ", poneNumber=" + poneNumber +
+                ", poneNumber=" + phoneNumber +
                 ", loginName='" + loginName + '\'' +
                 ", password='" + password + '\'' +
                 ", active=" + active +
