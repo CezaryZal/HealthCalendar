@@ -15,4 +15,5 @@ Backend:
 - add ResponseEntity at all controllers
 - add date protection in POST method
 - get/add certificate
+- password should be write in char []
 - progress field action in 'User' class (in new created user profile)
