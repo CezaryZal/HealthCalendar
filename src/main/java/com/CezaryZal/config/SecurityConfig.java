@@ -1,8 +1,10 @@
 package com.CezaryZal.config;
 
+import com.CezaryZal.user.security.UserPrincipalDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -16,7 +18,15 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-//    @Bean
+    private UserPrincipalDetailsService userPrincipalDetailsService;
+    private PasswordEncoder passwordEncoder;
+
+    public SecurityConfig(UserPrincipalDetailsService userPrincipalDetailsService, PasswordEncoder passwordEncoder) {
+        this.userPrincipalDetailsService = userPrincipalDetailsService;
+        this.passwordEncoder = passwordEncoder;
+    }
+
+    //    @Bean
 //    public UserDetailsService userDetailsService(){
 //        UserDetails user = User.withDefaultPasswordEncoder()
 //                .username("user")
@@ -41,21 +51,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-                .withUser("admin")
-                .password(passwordEncoder()
-                        .encode("admin123"))
-                .roles("ADMIN");
-        auth.inMemoryAuthentication()
-                .withUser("user")
-                .password(passwordEncoder()
-                        .encode("user123"))
-                .roles("USER");
-        auth.inMemoryAuthentication()
-                .withUser("viewer")
-                .password(passwordEncoder()
-                        .encode("viewer123"))
-                .roles("VIEWER");
+        auth.authenticationProvider(authenticationProvider());
+
+//        auth.inMemoryAuthentication()
+//                .withUser("admin")
+//                .password(passwordEncoder()
+//                        .encode("admin123"))
+//                .authorities("ACCESS_TEST","ROLE_ADMIN");
+//        auth.inMemoryAuthentication()
+//                .withUser("user")
+//                .password(passwordEncoder()
+//                        .encode("user123"))
+//                .authorities("ACCESS_TEST","ROLE_MANAGER");
+//        auth.inMemoryAuthentication()
+//                .withUser("viewer")
+//                .password(passwordEncoder()
+//                        .encode("viewer123"))
+//                .roles("VIEWER");
     }
 
     @Override
@@ -65,7 +77,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/api/**").hasAnyRole("USER", "ADMIN")
                 .antMatchers(HttpMethod.PUT, "/api/**").hasAnyRole("USER", "ADMIN")
                 .antMatchers(HttpMethod.DELETE, "/api/**").hasAnyRole("USER", "ADMIN")
-                .antMatchers( "/**").hasRole("ADMIN")
+                .antMatchers("/actuator/**").hasRole("ADMIN")
+                .antMatchers("/test/**").hasAuthority("ACCESS_TEST")
                 .and()
                 .formLogin().permitAll()
                 .and()
@@ -75,14 +88,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //allow app to use http basic - login through username and password (e.g. Postman)
                 .httpBasic()
                 .and()
-                // protection against attack from outside clients
+                // protection against attack from outside clients - disable
                 .csrf().disable();
-
     }
 
     @Bean
-    PasswordEncoder passwordEncoder(){
-        return new BCryptPasswordEncoder();
+    DaoAuthenticationProvider authenticationProvider(){
+        DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
+        daoAuthenticationProvider.setPasswordEncoder(passwordEncoder);
+        daoAuthenticationProvider.setUserDetailsService(this.userPrincipalDetailsService);
+
+        return daoAuthenticationProvider;
     }
 
 }

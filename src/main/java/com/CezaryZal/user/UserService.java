@@ -1,26 +1,25 @@
 package com.CezaryZal.user;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.PostLoad;
-import javax.persistence.Transient;
-import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class UserService {
 
-    private UserRepository UserR;
+    private UserRepository userR;
+    private PasswordEncoder passwordEncoder;
 
-    public UserService(UserRepository URepository) {
-        this.UserR = URepository;
+    public UserService(UserRepository URepository, PasswordEncoder passwordEncoder) {
+        this.userR = URepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
 
     public User getUserById(Long id){
-        return UserR.findById(id);
+        return userR.findById(id);
     }
 
     public UserDTO getUserDTOById(Long id){
@@ -29,8 +28,12 @@ public class UserService {
         return convertToUserDTO(user);
     }
 
+    public User getUserByLoginName(String loginName){
+        return userR.findByLoginName(loginName);
+    }
+
     public List<User> getAllUsers(){
-        return UserR.getAll();
+        return userR.getAll();
     }
 
     public List<UserDTO> getAllUsersDTO(){
@@ -44,20 +47,22 @@ public class UserService {
     }
 
     public boolean addUser(User user){
-        UserR.save(user);
+        String passwordBcrypt = passwordEncoder.encode(user.getPassword());
+        user.setPassword(passwordBcrypt);
+        userR.save(user);
 
         return true;
     }
 
     public boolean updateUser(User user){
-        UserR.update(user);
+        userR.update(user);
 
         return true;
     }
 
     public String deleteUserById (Long id) {
-        User user = UserR.findById(id);
-        if(UserR.delete(user)){
+        User user = userR.findById(id);
+        if(userR.delete(user)){
             return "delete record";
         }
         return "User id not found";

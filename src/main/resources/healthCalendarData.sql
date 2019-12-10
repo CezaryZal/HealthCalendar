@@ -5,9 +5,15 @@ INSERT INTO `daily_limits` VALUES
 (3, 3000, 2500, 3);
 
 INSERT INTO `user` VALUES
-(1, '1966-05-23', 'anna@gmail.com', 'Anna','Ann', 'Ann123', 'test1', 569842365, 0, 1),
-(2, '1996-05-23', 'fiona@gmail.com', 'Fiona','Shrek', 'shrek123', 'test2', 846152365, 1, 2),
-(3, '1999-05-23', 'kris@gmail.com', 'Kris','Bran', 'kris123', 'test3', 849642365, 1, 2);
+(1, true, '1966-05-23', 'anna@gmail.com', 'Anna','admin', 'Ann123', 
+'$2a$10$hQK6K5HFpdfi1hQabFGADuldbb10CXDDLoZxEM1N7bN5yvCk8jrE2', 
+'ACCESS_TEST', 569842365, 'ADMIN', 0, 1),
+(2, true, '1996-05-23', 'fiona@gmail.com', 'Fiona','user', 'shrek123', 
+'$2a$10$wBp5B7uh3ghiN3lUqdrpl.ukJYY7l/Vsezr9LppdfGpv.FvSUSxoy', 
+'ACCESS_TEST', 846152365, 'USER', 1, 2),
+(3, true, '1999-05-23', 'kris@gmail.com', 'Kris','viewer', 'kris123', 
+'$2a$10$/df7vNejUwgpXsHBoMs1H./PkfrhvjUCyUBW3eMKLQCwLXnoACUdm', 
+'', 849642365, 'VIEWER', 1, 2);
 
 INSERT INTO `body_size` VALUES
 (1, 65, 38, 31, 98, '2018-05-23', 75, 88, 45, 1, 36),

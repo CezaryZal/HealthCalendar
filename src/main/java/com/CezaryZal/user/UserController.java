@@ -30,6 +30,13 @@ public class UserController {
         return UserS.getUserDTOById(id);
     }
 
+
+    @ApiOperation(value = "This will get a `User` by login name")
+    @GetMapping("/login-name/{loginName}")
+    public User getUserByLoginName(@PathVariable String loginName){
+        return  UserS.getUserByLoginName(loginName);
+    }
+
     @ApiOperation(value = "This will get a list `UserDTO`")
     @GetMapping("/dto")
     public List<UserDTO> getUsersDTO(){

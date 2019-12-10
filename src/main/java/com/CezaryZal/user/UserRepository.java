@@ -20,6 +20,13 @@ public class UserRepository {
         return entityManager.find(User.class, id);
     }
 
+    public User findByLoginName(String username){
+        Query query = entityManager.createQuery("FROM User WHERE loginName=:inputUsername");
+        query.setParameter("inputUsername", username);
+
+        return (User) query.getSingleResult();
+    }
+
     public List<User> getAll (){
         Query query = entityManager.createQuery("FROM User");
 
