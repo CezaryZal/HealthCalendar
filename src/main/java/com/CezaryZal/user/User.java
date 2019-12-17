@@ -7,8 +7,6 @@ import com.CezaryZal.day.Day;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Entity
@@ -35,18 +33,6 @@ public class User {
     //unique
     @Column(name = "login_name")
     private String loginName;
-
-    @Column(name = "password")
-    private String password;
-
-    @Column(name = "active")
-    private boolean active;
-
-    @Column(name = "roles")
-    private String roles;
-
-    @Column(name = "permissions")
-    private String permissions;
 
     @Column(name = "sex")
     private int sex;
@@ -127,38 +113,6 @@ public class User {
         this.loginName = loginName;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public boolean isActive() {
-        return active;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
-    }
-
-    public String getRoles() {
-        return roles;
-    }
-
-    public void setRoles(String roles) {
-        this.roles = roles;
-    }
-
-    public String getPermission() {
-        return permissions;
-    }
-
-    public void setPermission(String permission) {
-        this.permissions = permission;
-    }
-
     public int getSex() {
         return sex;
     }
@@ -207,20 +161,6 @@ public class User {
         this.listDays = listDays;
     }
 
-    public List<String> getRoleList(){
-        if(this.roles.length() > 0){
-            return Arrays.asList(this.roles.split(","));
-        }
-        return new ArrayList<>();
-    }
-
-    public List<String> getPermissionList(){
-        if(this.permissions.length() > 0){
-            return Arrays.asList(this.permissions.split(","));
-        }
-        return new ArrayList<>();
-    }
-
     @Override
     public String toString() {
         return "User{" +
@@ -230,10 +170,6 @@ public class User {
                 ", email='" + email + '\'' +
                 ", poneNumber=" + phoneNumber +
                 ", loginName='" + loginName + '\'' +
-                ", password='" + password + '\'' +
-                ", active=" + active +
-                ", roles='" + roles + '\'' +
-                ", permissions='" + permissions + '\'' +
                 ", sex=" + sex +
                 ", age=" + age +
                 ", birthDate=" + birthDate +
