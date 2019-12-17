@@ -32,10 +32,11 @@ public class User {
     @Column(name = "phone_number")
     private int phoneNumber;
 
-    @Column(name = "login_name", nullable = false)
+    //unique
+    @Column(name = "login_name")
     private String loginName;
 
-    @Column(name = "password", nullable = false)
+    @Column(name = "password")
     private String password;
 
     @Column(name = "active")

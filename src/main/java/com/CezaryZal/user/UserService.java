@@ -10,7 +10,6 @@ import java.util.List;
 public class UserService {
 
     private UserRepository userR;
-//    private PasswordEncoder passwordEncoder;
 
     public UserService(UserRepository URepository) {
         this.userR = URepository;
@@ -46,8 +45,6 @@ public class UserService {
     }
 
     public boolean addUser(User user){
-//        String passwordBcrypt = passwordEncoder.encode(user.getPassword());
-//        user.setPassword(passwordBcrypt);
         userR.save(user);
 
         return true;
