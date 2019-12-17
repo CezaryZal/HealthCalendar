@@ -1,13 +1,17 @@
 package com.CezaryZal.security;
 
+import com.CezaryZal.user.login.LoginService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -18,6 +22,8 @@ import java.util.Collections;
 import java.util.Set;
 
 public class JwtFilter extends BasicAuthenticationFilter {
+
+    private LoginService loginService;
 
     public JwtFilter(AuthenticationManager authenticationManager) {
         super(authenticationManager);
@@ -42,6 +48,10 @@ public class JwtFilter extends BasicAuthenticationFilter {
 
         String userName = claimsJws.getBody().get("name").toString();
         String role = claimsJws.getBody().get("role").toString();
+        Long userId = Long.valueOf(claimsJws.getBody().get("userId").toString());
+
+//        loginService.setLoginName(userName);
+//        loginService.setUserId(userId);
 
         Set<SimpleGrantedAuthority> simpleGrantedAuthorities = Collections.singleton(new SimpleGrantedAuthority(role));
 

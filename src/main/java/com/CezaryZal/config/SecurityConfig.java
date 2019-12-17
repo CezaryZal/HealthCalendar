@@ -20,17 +20,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/actuator/**").hasRole("ADMIN")
 //                .antMatchers("/test/**").hasAuthority("ACCESS_TEST")
                 .antMatchers("/test/**").hasAnyRole("USER", "ADMIN")
-                .antMatchers("/login").permitAll()
+                .antMatchers("/login").authenticated()
                 .and()
                 .addFilter(new JwtFilter(authenticationManager()));
-//                .and()
-//                .formLogin().permitAll()
-//                .and()
-//                //{default URL}/logout - spring logout from actual role
-//                .logout().permitAll()
-//                .and()
-//                //allow app to use http basic - login through username and password (e.g. Postman)
-//                .httpBasic()
 //                .and()
 //                // protection against attack from outside clients - disable
 //                .csrf().disable();
