@@ -48,7 +48,7 @@ public class JwtFilter extends BasicAuthenticationFilter {
 
         String userName = claimsJws.getBody().get("name").toString();
         String role = claimsJws.getBody().get("role").toString();
-        Long userId = Long.valueOf(claimsJws.getBody().get("userId").toString());
+//        Long userId = Long.valueOf(claimsJws.getBody().get("userId").toString());
 
 //        loginService.setLoginName(userName);
 //        loginService.setUserId(userId);

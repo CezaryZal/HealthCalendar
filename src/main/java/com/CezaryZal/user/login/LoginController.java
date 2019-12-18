@@ -2,10 +2,7 @@ package com.CezaryZal.user.login;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @Api(tags = "Controller for login")
@@ -19,8 +16,8 @@ public class LoginController {
     }
 
     @ApiOperation(value = "This will get a basic info about `User` by token")
-    @GetMapping("/login")
-    public UserBasic getBasicUserInfo(){
-        return loginService.getTmpUserBasic();
+    @GetMapping("/login/{loginName}")
+    public UserBasic getBasicUserInfo(@PathVariable String loginName){
+        return loginService.getUserBasicFromUser(loginName);
     }
 }
