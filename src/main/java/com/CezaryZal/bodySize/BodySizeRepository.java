@@ -22,7 +22,7 @@ public class BodySizeRepository {
 
     public LocalDate findDateLastMeasureByUserId (Long userId){
         Query query = entityManager.createQuery(
-                "SELECT date FROM BodySize WHERE userId=:userId ORDER BY date DESC");
+                "SELECT dateMeasurement FROM BodySize WHERE userId=:userId ORDER BY date DESC");
         query.setParameter("userId", userId);
         query.setMaxResults(1);
 
@@ -30,14 +30,14 @@ public class BodySizeRepository {
     }
 
     public List<LocalDate> findByUserIdAllDate(Long userId){
-        Query query = entityManager.createQuery("SELECT date FROM BodySize WHERE userId=:userId");
+        Query query = entityManager.createQuery("SELECT dateMeasurement FROM BodySize WHERE userId=:userId");
         query.setParameter("userId", userId);
 
         return query.getResultList();
     }
 
     public BodySize findByDateAndUserId(LocalDate localDate, Long userId){
-        Query query = entityManager.createQuery("FROM BodySize WHERE date=:inputDate AND userId=:userId");
+        Query query = entityManager.createQuery("FROM BodySize WHERE dateMeasurement=:inputDate AND userId=:userId");
         query.setParameter("inputDate", localDate);
         query.setParameter("userId", userId);
 
