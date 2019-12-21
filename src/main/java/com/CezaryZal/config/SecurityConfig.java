@@ -13,14 +13,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
+
                 .antMatchers(HttpMethod.GET, "/api/**").authenticated()
                 .antMatchers(HttpMethod.POST, "/api/**").hasAnyRole("USER", "ADMIN")
                 .antMatchers(HttpMethod.PUT, "/api/**").hasAnyRole("USER", "ADMIN")
                 .antMatchers(HttpMethod.DELETE, "/api/**").hasAnyRole("USER", "ADMIN")
                 .antMatchers("/actuator/**").hasRole("ADMIN")
 //                .antMatchers("/test/**").hasAuthority("ACCESS_TEST")
-                .antMatchers("/test/**").hasAnyRole("USER", "ADMIN")
                 .antMatchers("/login").authenticated()
+                .antMatchers("/test/**").authenticated()
                 .and()
                 .addFilter(new JwtFilter(authenticationManager()));
 //                .and()

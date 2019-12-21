@@ -1,6 +1,8 @@
 package com.CezaryZal.testDB;
 
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -19,6 +21,12 @@ public class TestController {
         TestEntity entity = new TestEntity("Dziad", 1234);
 
         return entity;
+    }
+
+    @GetMapping("/authe")
+    public String showAuthentication(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return authentication.toString();
     }
 
 }
