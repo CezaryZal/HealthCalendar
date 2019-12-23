@@ -1,7 +1,7 @@
 package com.CezaryZal.login;
 
-import com.CezaryZal.user.User;
-import com.CezaryZal.user.UserService;
+import com.CezaryZal.api.user.User;
+import com.CezaryZal.api.user.UserService;
 import org.springframework.stereotype.Service;
 
 @Service
