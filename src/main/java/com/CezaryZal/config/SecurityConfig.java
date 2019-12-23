@@ -21,7 +21,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/actuator/**").hasRole("ADMIN")
 //                .antMatchers("/test/**").hasAuthority("ACCESS_TEST")
                 .antMatchers("/login").authenticated()
-                .antMatchers("/test/**").authenticated()
+                .antMatchers("/test/**").permitAll()
+                .antMatchers("/swagger-ui.html/**").permitAll()
                 .and()
                 .addFilter(new JwtFilter(authenticationManager()));
 //                .and()
