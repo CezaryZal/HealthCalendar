@@ -1,4 +1,4 @@
-package com.CezaryZal.security.login;
+package com.CezaryZal.login;
 
 import com.CezaryZal.user.User;
 import com.CezaryZal.user.UserService;

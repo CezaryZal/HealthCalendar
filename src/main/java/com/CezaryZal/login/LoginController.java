@@ -1,4 +1,4 @@
-package com.CezaryZal.security.login;
+package com.CezaryZal.login;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

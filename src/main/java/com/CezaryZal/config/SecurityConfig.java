@@ -1,6 +1,6 @@
 package com.CezaryZal.config;
 
-import com.CezaryZal.security.JwtFilter;
+import com.CezaryZal.authentication.JwtFilter;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;

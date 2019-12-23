@@ -1,4 +1,4 @@
-package com.CezaryZal.security.login;
+package com.CezaryZal.login;
 
 public class UserBasic {
 
