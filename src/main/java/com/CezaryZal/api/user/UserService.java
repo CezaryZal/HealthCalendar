@@ -1,6 +1,6 @@
 package com.CezaryZal.api.user;
 
-//import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -10,11 +10,13 @@ import java.util.List;
 public class UserService {
 
     private UserRepository userR;
+    private UserObjectConverter converter;
 
-    public UserService(UserRepository URepository) {
-        this.userR = URepository;
+    @Autowired
+    public UserService(UserRepository userR, UserObjectConverter converter) {
+        this.userR = userR;
+        this.converter = converter;
     }
-
 
     public User getUserById(Long id){
         return userR.findById(id);
@@ -23,7 +25,7 @@ public class UserService {
     public UserDTO getUserDTOById(Long id){
         User user = getUserById(id);
 
-        return convertToUserDTO(user);
+        return converter.convertToUserDTO(user);
     }
 
     public User getUserByLoginName(String loginName){
@@ -39,7 +41,7 @@ public class UserService {
 
         List<UserDTO> listUserDTO = new ArrayList<>();
         for (User user : listUsersDB){
-            listUserDTO.add(convertToUserDTO(user));
+            listUserDTO.add(converter.convertToUserDTO(user));
         }
         return listUserDTO;
     }
@@ -62,18 +64,6 @@ public class UserService {
             return "delete record";
         }
         return "User id not found";
-    }
-
-    public UserDTO convertToUserDTO(User user){
-        return new UserDTO(user.getId(),
-                user.getFirstName(),
-                user.getNick(),
-                user.getEmail(),
-                user.getPhoneNumber(),
-                user.getSex(),
-                user.getAge(),
-                user.getDailyLimits()
-        );
     }
 
 }
