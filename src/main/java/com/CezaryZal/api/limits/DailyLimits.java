@@ -21,7 +21,12 @@ public class DailyLimits {
     @Column(name = "user_id")
     private Long userId;
 
-    public DailyLimits() {
+    public DailyLimits(){
+    }
+
+    public DailyLimits(int kcalDemandPerDay, int drinkDemandPerDay) {
+        this.kcalDemandPerDay = kcalDemandPerDay;
+        this.drinkDemandPerDay = drinkDemandPerDay;
     }
 
     public Long getId() {

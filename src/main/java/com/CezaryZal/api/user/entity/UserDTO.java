@@ -1,4 +1,4 @@
-package com.CezaryZal.api.user;
+package com.CezaryZal.api.user.entity;
 
 
 import com.CezaryZal.api.limits.DailyLimits;

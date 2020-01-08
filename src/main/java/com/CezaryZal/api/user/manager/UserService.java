@@ -1,5 +1,8 @@
-package com.CezaryZal.api.user;
+package com.CezaryZal.api.user.manager;
 
+import com.CezaryZal.api.user.UserRepository;
+import com.CezaryZal.api.user.entity.User;
+import com.CezaryZal.api.user.entity.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,11 +28,15 @@ public class UserService {
     public UserDTO getUserDTOById(Long id){
         User user = getUserById(id);
 
-        return converter.convertToUserDTO(user);
+        return converter.convertUserToUserDTO(user);
     }
 
     public User getUserByLoginName(String loginName){
         return userR.findByLoginName(loginName);
+    }
+
+    public Long getUserIdByLoginName(String loginName){
+        return userR.findUserIdByLoginName(loginName);
     }
 
     public List<User> getAllUsers(){
@@ -41,7 +48,7 @@ public class UserService {
 
         List<UserDTO> listUserDTO = new ArrayList<>();
         for (User user : listUsersDB){
-            listUserDTO.add(converter.convertToUserDTO(user));
+            listUserDTO.add(converter.convertUserToUserDTO(user));
         }
         return listUserDTO;
     }

@@ -7,8 +7,8 @@ import com.CezaryZal.api.meal.MealService;
 import com.CezaryZal.api.meal.DailyDietDTO;
 import com.CezaryZal.api.note.NoteService;
 import com.CezaryZal.api.training.TrainingService;
-import com.CezaryZal.api.user.User;
-import com.CezaryZal.api.user.UserService;
+import com.CezaryZal.api.user.entity.User;
+import com.CezaryZal.api.user.manager.UserService;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;

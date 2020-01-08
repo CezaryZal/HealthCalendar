@@ -1,4 +1,4 @@
-package com.CezaryZal.api.user;
+package com.CezaryZal.api.user.entity;
 
 import com.CezaryZal.api.body.BodySize;
 import com.CezaryZal.api.limits.DailyLimits;
@@ -41,6 +41,8 @@ public class User {
     @Transient
     private int age;
 
+    //add active to block access sometimes
+
     @Column(name = "birth_date")
     private LocalDate birthDate;
 
@@ -58,6 +60,11 @@ public class User {
     private List<Day> listDays;
 
     public User() {
+    }
+
+    public User(String loginName, String email){
+        this.loginName = loginName;
+        this.email = email;
     }
 
     @PostLoad

@@ -1,5 +1,6 @@
 package com.CezaryZal.api.user;
 
+import com.CezaryZal.api.user.entity.User;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,6 +26,13 @@ public class UserRepository {
         query.setParameter("inputUsername", username);
 
         return (User) query.getSingleResult();
+    }
+
+    public Long findUserIdByLoginName(String username){
+        Query query = entityManager.createQuery("SELECT id FROM User WHERE loginName=:inputUsername");
+        query.setParameter("inputUsername", username);
+
+        return (Long) query.getSingleResult();
     }
 
     public List<User> getAll (){

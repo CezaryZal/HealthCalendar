@@ -1,7 +1,13 @@
 package com.CezaryZal.api.user;
 
+import com.CezaryZal.api.user.entity.User;
+import com.CezaryZal.api.user.entity.UserCreator;
+import com.CezaryZal.api.user.entity.UserDTO;
+import com.CezaryZal.api.user.manager.NewAccountAdder;
+import com.CezaryZal.api.user.manager.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,56 +18,64 @@ import java.util.List;
 @RequestMapping("/api/user")
 public class UserController {
 
-    private UserService UserS;
+    private UserService userS;
+    private NewAccountAdder newAccountAdder;
 
-    public UserController(UserService UService) {
-        this.UserS = UService;
+    @Autowired
+    public UserController(UserService userS, NewAccountAdder newAccountAdder) {
+        this.userS = userS;
+        this.newAccountAdder = newAccountAdder;
     }
 
     @ApiOperation(value = "This will get a `User` by id")
     @GetMapping("/{id}")
     public User getUser (@PathVariable Long id){
-        return UserS.getUserById(id);
+        return userS.getUserById(id);
     }
 
     @ApiOperation(value = "This will get a `UserDTO` by id")
     @GetMapping("/dto/user-id/{id}")
     public UserDTO getUserDTO (@PathVariable Long id){
-        return UserS.getUserDTOById(id);
+        return userS.getUserDTOById(id);
     }
-
 
     @ApiOperation(value = "This will get a `User` by login name")
     @GetMapping("/login-name/{loginName}")
     public User getUserByLoginName(@PathVariable String loginName){
-        return  UserS.getUserByLoginName(loginName);
+        return  userS.getUserByLoginName(loginName);
+    }
+
+    @GetMapping("/user-id/login-name/{loginName}")
+    public Long getUserIdByLoginName(@PathVariable String loginName){
+        return userS.getUserIdByLoginName(loginName);
     }
 
     @ApiOperation(value = "This will get a list `UserDTO`")
     @GetMapping("/dto")
     public List<UserDTO> getUsersDTO(){
-        return  UserS.getAllUsersDTO();
+        return  userS.getAllUsersDTO();
     }
 
     @ApiOperation(value = "This will get a list `User`, all records")
     @GetMapping
     public List<User> getUsers(){
-        return UserS.getAllUsers();
+        return userS.getAllUsers();
     }
 
     @PostMapping
     public boolean addUser (@RequestBody User user){
-        return UserS.addUser(user);
+        return userS.addUser(user);
     }
+
 
     @PutMapping
     public boolean updateUser (@RequestBody User user){
-        return UserS.updateUser(user);
+        return userS.updateUser(user);
     }
 
     @DeleteMapping("/{id}")
     public String delete (@PathVariable Long id){
-        return UserS.deleteUserById(id);
+        return userS.deleteUserById(id);
     }
 
 }
