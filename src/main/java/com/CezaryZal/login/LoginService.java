@@ -1,7 +1,8 @@
 package com.CezaryZal.login;
 
-import com.CezaryZal.api.user.User;
-import com.CezaryZal.api.user.UserService;
+import com.CezaryZal.api.user.entity.User;
+import com.CezaryZal.api.user.manager.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -9,6 +10,7 @@ public class LoginService {
 
     private UserService userService;
 
+    @Autowired
     public LoginService(UserService userService) {
         this.userService = userService;
     }

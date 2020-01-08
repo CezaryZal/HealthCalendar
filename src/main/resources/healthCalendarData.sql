@@ -5,11 +5,11 @@ INSERT INTO `daily_limits` VALUES
 (3, 3000, 2500, 3);
 
 INSERT INTO `user` VALUES
-(1, '1966-05-23', 'anna@gmail.com', 'Anna','admin', 'Ann123',
+(1, '1966-05-23', 'anna@gmail.com', 'Anna','jan', 'Ann123',
  569842365, 0, 1),
-(2, '1996-05-23', 'fiona@gmail.com', 'Fiona','user', 'shrek123',
+(2, '1996-05-23', 'fiona@gmail.com', 'Fiona','tomek', 'shrek123',
  846152365, 1, 2),
-(3, '1999-05-23', 'kris@gmail.com', 'Kris','viewer', 'kris123',
+(3, '1999-05-23', 'kris@gmail.com', 'Kris','czar', 'kris123',
  849642365, 1, 2);
 
 INSERT INTO `body_size` VALUES
