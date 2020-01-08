@@ -45,6 +45,7 @@ public class UserController {
         return  userS.getUserByLoginName(loginName);
     }
 
+    @ApiOperation(value = "This will get number userId by login name")
     @GetMapping("/user-id/login-name/{loginName}")
     public Long getUserIdByLoginName(@PathVariable String loginName){
         return userS.getUserIdByLoginName(loginName);
@@ -67,6 +68,10 @@ public class UserController {
         return userS.addUser(user);
     }
 
+    @PostMapping("/user-id/new-account")
+    public Long createNewAccount(@RequestBody UserCreator userCreator){
+        return newAccountAdder.createNewAccount(userCreator);
+    }
 
     @PutMapping
     public boolean updateUser (@RequestBody User user){

@@ -43,6 +43,7 @@ public class User {
 
     //add active to block access sometimes
 
+    //birthDate not be null, never
     @Column(name = "birth_date")
     private LocalDate birthDate;
 
@@ -69,7 +70,9 @@ public class User {
 
     @PostLoad
     public void calculateAge(){
-        age = (int) ChronoUnit.YEARS.between(birthDate, LocalDate.now());
+        if (birthDate != null){
+            age = (int) ChronoUnit.YEARS.between(birthDate, LocalDate.now());
+        }
     }
 
     public Long getId() {
