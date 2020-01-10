@@ -11,20 +11,18 @@ import org.springframework.web.bind.annotation.*;
 public class TestController {
 
     @ResponseBody
-    @GetMapping("/hello")
+    @GetMapping("/non/hello")
     public String showHello() {
         return "Hello!? success?";
     }
 
-
-    @GetMapping("/user")
+    @GetMapping("/token/user")
     public UserCreator getUserCreator(){
-        UserCreator userCreator = new UserCreator("Dziad", "przypadkowy@gg.com");
-
+        UserCreator userCreator = new UserCreator("Dziad", "zHealthCalendar@gg.com");
         return userCreator;
     }
 
-    @PostMapping("/get/login")
+    @PostMapping("/non/login")
     public String getLoginByUserCreator(@RequestBody UserCreator userCreator){
         return userCreator.getLoginName();
     }

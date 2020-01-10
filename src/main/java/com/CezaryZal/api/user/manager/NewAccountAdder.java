@@ -21,18 +21,21 @@ public class NewAccountAdder {
         this.dailyLimitsS = dailyLimitsS;
     }
 
-    public Long createNewAccount(UserCreator userCreator){
-        User user = converter.convertUserCreatorToUser(userCreator);
-        userS.addUser(user);
+    public Long createNewAccountAndGetHimUserId(UserCreator userCreator){
+        creteAccount(userCreator);
         User userFromDb = userS.getUserByLoginName(userCreator.getLoginName());
-        return updateDailyLimitsByUser(userFromDb);
+        updateDailyLimitsByUser(userFromDb);
+        return userFromDb.getId();
     }
 
-    private Long updateDailyLimitsByUser(User user){
-        Long userId = user.getId();
-        DailyLimits tmpDailyLimits = user.getDailyLimits();
+    private void creteAccount(UserCreator userCreator){
+        userS.addUser(converter.convertUserCreatorToUser(userCreator));
+    }
+
+    private void updateDailyLimitsByUser(User userFromDb){
+        Long userId = userFromDb.getId();
+        DailyLimits tmpDailyLimits = userFromDb.getDailyLimits();
         tmpDailyLimits.setUserId(userId);
         dailyLimitsS.updateLimits(tmpDailyLimits);
-        return userId;
     }
 }

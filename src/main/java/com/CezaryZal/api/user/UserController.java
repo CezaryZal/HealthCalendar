@@ -69,8 +69,8 @@ public class UserController {
     }
 
     @PostMapping("/user-id/new-account")
-    public Long createNewAccount(@RequestBody UserCreator userCreator){
-        return newAccountAdder.createNewAccount(userCreator);
+    public Long createNewAccountAndGetHimUserId(@RequestBody UserCreator userCreator){
+        return newAccountAdder.createNewAccountAndGetHimUserId(userCreator);
     }
 
     @PutMapping
