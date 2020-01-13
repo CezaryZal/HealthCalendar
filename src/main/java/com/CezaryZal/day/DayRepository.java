@@ -1,51 +1,66 @@
 package com.CezaryZal.day;
 
-
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.query.Query;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.List;
 
 @Repository
+@Transactional
 public class DayRepository {
 
-    private SessionFactory sessionFactory;
+    @PersistenceContext
+    private EntityManager entityManager;
 
-    @Autowired
-    public DayRepository(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
+    public Day findById(int id) {
+        return entityManager.find(Day.class, id);
     }
 
-    public List<Day> getDays(){
-        Session currentSession = sessionFactory.getCurrentSession();
-        Query<Day> query = currentSession.createQuery("from Day order by date", Day.class);
-        List<Day> days = query.getResultList();
+    public int findDayIdByDateAndUserId(LocalDate localDate, int userId){
+        Query query = entityManager.createQuery("SELECT id FROM Day WHERE date=:inputDate AND userId=:userId");
+        query.setParameter("inputDate", localDate);
+        query.setParameter("userId", userId);
 
-        return days;
+        return (int) query.getSingleResult();
     }
 
-    public Day getDay(int id){
-        Session currentSession = sessionFactory.getCurrentSession();
-        Day day = currentSession.get(Day.class, id);
+    public Day findDayByDateAndUserId(LocalDate localDate, int userId){
+        Query query = entityManager.createQuery("FROM Day WHERE date=:inputDate AND userId=:userId");
+        query.setParameter("inputDate", localDate);
+        query.setParameter("userId", userId);
 
-        return day;
+        return (Day) query.getSingleResult();
     }
 
-    public Day getDayByDateAndUser (int userId, LocalDate tmpDate){
+//Join fetch w query HQL pozwala zaciągnięcie wszystkich danych przy jednym zapytaniu, ale join musi istnieć(być powiązanie)
+//        Query query = entityManager.createQuery("SELECT DISTINCT d FROM Day d JOIN fetch d.listNotesDB ", Day.class);
 
-        System.out.println("userId: " + userId + " localDate: " + tmpDate);
 
-        Session currentSession = sessionFactory.getCurrentSession();
-        Query<Day> query = currentSession.createQuery("FROM Day WHERE dateRecord=:inputDate AND user_id=:nrId");
-        query.setParameter("nrId", userId);
-        query.setParameter("inputDate", tmpDate);
+    public List<Day> getAll() {
+        Query query = entityManager.createQuery("FROM Day");
 
-        Day tmpDay = query.getSingleResult();
-
-        return tmpDay;
+        return query.getResultList();
     }
+
+    public void save(Day day) {
+        entityManager.persist(day);
+    }
+
+    public void update(Day day) {
+        entityManager.merge(day);
+    }
+
+    public boolean delete(Day day) {
+        if (entityManager.contains(day)) {
+            entityManager.remove(day);
+            return true;
+        }
+        return false;
+    }
+
+
 }

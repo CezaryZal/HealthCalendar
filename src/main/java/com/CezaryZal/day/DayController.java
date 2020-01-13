@@ -1,41 +1,57 @@
 package com.CezaryZal.day;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @RestController
 @RequestMapping("/day")
 public class DayController {
 
-    private DayService dayService;
+    private DayService dayS;
 
-    @Autowired
-    public DayController(DayService dayService) {
-        this.dayService = dayService;
+    public DayController(DayService DService) {
+        this.dayS = DService;
     }
 
-    @GetMapping("/listDays")
-    public List<Day> getDays(){
-        return dayService.getDays();
+    @GetMapping("/id/{nrId}")
+    public Day getDayById(@PathVariable int nrId){
+        return dayS.getDayById(nrId);
     }
 
-    @GetMapping("/id/{dayId}")
-    public Day getDay (@PathVariable int dayId){
-        Day day = dayService.getDay(dayId);
-
-        return day;
+    @GetMapping("/getDayDTOByDateAndUserId/{date}/{userId}")
+    public DayDTO getDayDTOByDateAndUserId(@PathVariable String date, @PathVariable int userId){
+        return dayS.getDayDTOByDateAndUserId(date, userId);
     }
 
-    @GetMapping("/dateAndUser/{userId}/{date}")
-    public Day getDayByDateAndUser (@PathVariable int userId, @PathVariable String date){
-        Day tmpDay = dayService.getDayByDateAndUser(userId, date);
-
-        return tmpDay;
+    @GetMapping("/getDayId/{date}/{userId}")
+    public int getIntDayIdByDateAndUserId(@PathVariable String date, @PathVariable int userId){
+        return dayS.getDayIdByDateAndUserId(date, userId);
     }
+
+    @GetMapping("/getDayDBbyDateAndUserId/{date}/{userId}")
+    public Day getDayDBByDateAndUserId(@PathVariable String date, @PathVariable int userId){
+        return dayS.getDayByDateAndUserId(date, userId);
+    }
+
+    @GetMapping("/getAll")
+    public List<Day> getAll(){
+        return dayS.getAll();
+    }
+
+    @PostMapping("/add")
+    public boolean addDiet (@RequestBody Day day){
+        return dayS.addDay(day);
+    }
+
+    @PutMapping("/update")
+    public boolean updateDay (@RequestBody Day day){
+        return dayS.updateDay(day);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public String delete (@PathVariable int id){
+        return dayS.deleteDayById(id);
+    }
+
 }

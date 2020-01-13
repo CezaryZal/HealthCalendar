@@ -1,24 +1,67 @@
 package com.CezaryZal.bodySize;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.transaction.Transactional;
+import java.time.LocalDate;
+import java.util.List;
+
+
 @Repository
+@Transactional
 public class BodySizeRepository {
 
-    private SessionFactory sessionFactory;
+    @PersistenceContext
+    private EntityManager entityManager;
 
-    @Autowired
-    public BodySizeRepository(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
+    public BodySize findById (int id){
+        return entityManager.find(BodySize.class, id);
     }
 
-    public BodySize getBodySize (int id){
-        Session currentSession = sessionFactory.getCurrentSession();
-        BodySize bodySize = currentSession.get(BodySize.class, id);
+    public LocalDate findDateLastMeasureByUserId (int userId){
+        Query query = entityManager.createQuery(
+                "SELECT date FROM BodySize WHERE userId=:userId ORDER BY date DESC");
+        query.setParameter("userId", userId);
+        query.setMaxResults(1);
 
-        return bodySize;
+        return (LocalDate) query.getSingleResult();
     }
+
+    public List<LocalDate> findByUserIdAllDate(int userId){
+        Query query = entityManager.createQuery("SELECT date FROM BodySize WHERE userId=:userId");
+        query.setParameter("userId", userId);
+
+        return query.getResultList();
+    }
+
+    public BodySize findByDateAndUserId(LocalDate localDate, int userId){
+        Query query = entityManager.createQuery("FROM BodySize WHERE date=:inputDate AND userId=:userId");
+        query.setParameter("inputDate", localDate);
+        query.setParameter("userId", userId);
+
+        return (BodySize) query.getSingleResult();
+    }
+
+    public List<BodySize> getAll(){
+        Query query = entityManager.createQuery("FROM BodySize");
+
+        return query.getResultList();
+    }
+
+    public void save (BodySize bodySize){
+        entityManager.persist(bodySize);
+    }
+
+    public boolean delete (BodySize bodySize){
+        if (entityManager.contains(bodySize)){
+            entityManager.remove(bodySize);
+            return true;
+        }
+        return false;
+    }
+
+
 }

@@ -1,26 +1,51 @@
 package com.CezaryZal.note;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/note")
 public class NoteController {
 
-    private NoteService noteService;
+    private NoteService NoteS;
 
-    @Autowired
-    public NoteController(NoteService noteService) {
-        this.noteService = noteService;
+    public NoteController(NoteService NService) {
+        this.NoteS = NService;
     }
 
-    @GetMapping("/id/{noteId}")
-    public Note getNote (@PathVariable int noteId){
-        Note note = noteService.getNote(noteId);
+    @GetMapping("/id/{nrId}")
+    public NoteDB getNoteDBById (@PathVariable int nrId){
+        return NoteS.getNoteDBById(nrId);
+    }
 
-        return note;
+    @GetMapping("/getHeadersByDayId/{dayId}")
+    public List<Header> getListHeaderByDayId(@PathVariable int dayId){
+        return NoteS.getHeadersByDay(dayId);
+    }
+
+    @GetMapping("/getNotesByDayId/{dayId}")
+    public List<NoteDB> getListNoteDBByDayId(@PathVariable int dayId){
+        return NoteS.getNotesDBByDay(dayId);
+    }
+
+    @GetMapping("/getAll")
+    public List<NoteDB> getAll(){
+        return NoteS.getAll();
+    }
+
+    @PostMapping("/add")
+    public boolean addDiet (@RequestBody NoteDB noteDB){
+        return NoteS.addNote(noteDB);
+    }
+
+    @PutMapping("/update")
+    public boolean updateMeal (@RequestBody NoteDB noteDB){
+        return NoteS.updateNote(noteDB);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public String delete (@PathVariable int id){
+        return NoteS.deleteNoteById(id);
     }
 }

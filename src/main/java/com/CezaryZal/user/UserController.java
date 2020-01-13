@@ -1,10 +1,6 @@
 package com.CezaryZal.user;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -12,22 +8,46 @@ import java.util.List;
 @RequestMapping("/user")
 public class UserController {
 
-    private UserService userService;
+    private UserService UserS;
 
-    @Autowired
-    public UserController(UserService userService) {
-        this.userService = userService;
+    public UserController(UserService UService) {
+        this.UserS = UService;
     }
 
-    @GetMapping("/listUsers")
-    public List<User> getUsers(){
-        return userService.getUsers();
+    @GetMapping("/getUserDTO/id/{userId}")
+    public UserDTO getUserDTO (@PathVariable int userId){
+        return UserS.getUserDTOById(userId);
     }
 
-    @GetMapping("/id/{userId}")
+    @GetMapping("/getUsersDTO")
+    public List<UserDTO> getUsersDTO(){
+        return  UserS.getAllUsersDTO();
+    }
+
+    @GetMapping("/getUser/id/{userId}")
     public User getUser (@PathVariable int userId){
-        User user = userService.getUser(userId);
-
-        return user;
+        return UserS.getUserById(userId);
     }
+
+    @GetMapping("/getUsers")
+    public List<User> getUsers(){
+        return UserS.getAllUsers();
+    }
+
+    @PostMapping("/addUser")
+    public boolean addUser (@RequestBody User user){
+        return UserS.addUser(user);
+    }
+
+    //send "id:3", not 'userAllInfId'
+    @PutMapping("/update")
+    public boolean updateUser (@RequestBody User user){
+        return UserS.updateUser(user);
+    }
+
+    @DeleteMapping("/delete/{userId}")
+    public String delete (@PathVariable int userId){
+        return UserS.deleteUserById(userId);
+    }
+
 }

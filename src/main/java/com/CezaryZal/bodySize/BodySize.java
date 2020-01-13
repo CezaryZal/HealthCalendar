@@ -1,6 +1,10 @@
 package com.CezaryZal.bodySize;
 
-import com.CezaryZal.user.User;
+
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -29,8 +33,8 @@ public class BodySize {
     @Column(name = "waist")
     private int waist;
 
-    @Column(name = "hip_size")
-    private int hipSize;
+    @Column(name = "hips_size")
+    private int hipsSize;
 
     @Column(name = "femoral_size")
     private int femoralSize;
@@ -38,24 +42,44 @@ public class BodySize {
     @Column(name = "calf")
     private int calf;
 
+    //    @NotBlank
+//    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    @JsonDeserialize(using = LocalDateDeserializer.class)
+    @JsonSerialize(using = LocalDateSerializer.class)
     @Column(name = "date")
     private LocalDate date;
 
     @Column(name = "user_id")
     private int userId;
 
+//    {
+//            "bodyWeight": 38,
+//            "neckSize": 45,
+//            "armSize": 65,
+//            "bustSize": 31,
+//            "waist": 36,
+//            "hipsSize": 88,
+//            "femoralSize": 75,
+//            "calf": 98,
+//            "date": [
+//        2018,
+//                5,
+//                23
+//],
+//        "userId": 1
+//    }
 
     public BodySize() {
     }
 
-    public BodySize(int bodyWeight, int neckSize, int armSize, int bustSize, int waist, int hipSize,
+    public BodySize(int bodyWeight, int neckSize, int armSize, int bustSize, int waist, int hipsSize,
                     int femoralSize, int calf, LocalDate date, int userId) {
         this.bodyWeight = bodyWeight;
         this.neckSize = neckSize;
         this.armSize = armSize;
         this.bustSize = bustSize;
         this.waist = waist;
-        this.hipSize = hipSize;
+        this.hipsSize = hipsSize;
         this.femoralSize = femoralSize;
         this.calf = calf;
         this.date = date;
@@ -110,12 +134,12 @@ public class BodySize {
         this.waist = waist;
     }
 
-    public int getHipSize() {
-        return hipSize;
+    public int getHipsSize() {
+        return hipsSize;
     }
 
-    public void setHipSize(int hipSize) {
-        this.hipSize = hipSize;
+    public void setHipsSize(int hipsSize) {
+        this.hipsSize = hipsSize;
     }
 
     public int getFemoralSize() {
@@ -159,7 +183,7 @@ public class BodySize {
                 ", armSize=" + armSize +
                 ", bustSize=" + bustSize +
                 ", waist=" + waist +
-                ", hipSize=" + hipSize +
+                ", hipsSize=" + hipsSize +
                 ", femoralSize=" + femoralSize +
                 ", calf=" + calf +
                 ", date=" + date +

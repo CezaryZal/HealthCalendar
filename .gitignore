@@ -142,5 +142,3 @@ target/
 resource/
 *.iml
 .mvn/
-mvnw
-mvnw.cmd

@@ -1,36 +1,46 @@
 package com.CezaryZal.user;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.query.Query;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
+@Transactional
 public class UserRepository {
 
-    private SessionFactory sessionFactory;
+    @PersistenceContext
+    private EntityManager entityManager;
 
-    @Autowired
-    public UserRepository(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
+
+    public User findById(int id){
+        return entityManager.find(User.class, id);
     }
 
-    public List<User> getUsers (){
-        Session currentSession = sessionFactory.getCurrentSession();
-        Query<User> query = currentSession.createQuery("from User order by nick", User.class);
-        List<User> users = query.getResultList();
+    public List<User> getAll (){
+        Query query = entityManager.createQuery("FROM User");
 
-        return users;
+        return query.getResultList();
     }
 
-    public User getUser(int id){
-        Session currentSession = sessionFactory.getCurrentSession();
-        User user = currentSession.get(User.class, id);
-
-        return user;
+    public void save (User user){
+        entityManager.persist(user);
     }
+
+    public void update(User user){
+        entityManager.merge(user);
+    }
+
+    public boolean delete (User user){
+        if(entityManager.contains(user)){
+            entityManager.remove(user);
+            return true;
+        }
+        return false;
+    }
+
 
 }

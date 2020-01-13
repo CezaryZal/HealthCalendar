@@ -1,12 +1,11 @@
 package com.CezaryZal.note;
 
-import com.CezaryZal.note.details.DetailsNote;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "note")
-public class Note {
+public class NoteDB {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,16 +15,19 @@ public class Note {
     @Column(name = "header")
     private String header;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "details_note_id")
-    private DetailsNote detailsNote;
+    @Column(name = "details_note")
+    private String detailsNote;
 
-    public Note() {
+    @Column(name = "day_id")
+    private int dayId;
+
+    public NoteDB() {
     }
 
-    public Note(String header, DetailsNote detailsNote) {
+    public NoteDB(String header, String detailsNote, int dayId) {
         this.header = header;
         this.detailsNote = detailsNote;
+        this.dayId = dayId;
     }
 
     public int getId() {
@@ -40,24 +42,33 @@ public class Note {
         return header;
     }
 
-    public void setHeader(String header1) {
+    public void setHeader(String header) {
         this.header = header;
     }
 
-    public DetailsNote getDetailsNote() {
+    public String getDetailsNote() {
         return detailsNote;
     }
 
-    public void setDetailsNote(DetailsNote detailsNote) {
+    public void setDetailsNote(String detailsNote) {
         this.detailsNote = detailsNote;
+    }
+
+    public int getDayId() {
+        return dayId;
+    }
+
+    public void setDayId(int dayId) {
+        this.dayId = dayId;
     }
 
     @Override
     public String toString() {
-        return "Note{" +
+        return "NoteDB{" +
                 "id=" + id +
                 ", header='" + header + '\'' +
-                ", detailsNote=" + detailsNote +
+                ", detailsNote='" + detailsNote + '\'' +
+                ", dayId=" + dayId +
                 '}';
     }
 }

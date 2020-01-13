@@ -1,76 +1,90 @@
 package com.CezaryZal.day;
 
-import com.CezaryZal.bodySize.BodySize;
-import com.CezaryZal.diet.Diet;
-import com.CezaryZal.note.Note;
-import com.CezaryZal.user.User;
+import com.CezaryZal.day.shortDay.ShortDay;
+import com.CezaryZal.meal.MealDB;
+import com.CezaryZal.note.NoteDB;
+import com.CezaryZal.training.Training;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
+import org.hibernate.annotations.BatchSize;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
+
+//@BatchSize-jakbym potrzebował ściągnąć pełne dane z kilku dni (dla poprawy wydajności, N+1)
+//Do optymalizacji można spróbować EAGER(przy obecnej koncepcji. Przy biżącym pobieraniu danych LAZY)
 
 @Entity
 @Table(name = "day")
 public class Day {
-
-    //usunięcie user usuwa wszystko
-    //usunięcie bodySize; drink; diet niczego innego nie usuwa
-    //usuniecie dnia usuwa wszystko po za user
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
 
-    @Column(name = "dateRecord")
+    //    @NotBlank
+//    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    @JsonDeserialize(using = LocalDateDeserializer.class)
+    @JsonSerialize(using = LocalDateSerializer.class)
+    @Column(name = "date")
     private LocalDate date;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id")
-    private User user;
+    @Column(name = "user_id")
+    private int userId;
+
+    @Column(name = "portions_drink")
+    private int portionsDrink;
+
+    @Column(name = "portions_alcohol")
+    private int portionsAlcohol;
 
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "body_size_id")
-    private BodySize bodySize;
+    //loading like EAGER
+    @OneToMany(cascade = CascadeType.ALL)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @JoinColumn(name = "day_id")
+    @BatchSize(size = 5)
+    private List<MealDB> listMealsDB;
 
-    @Column(name = "last_date_measure_body")
-    private LocalDate lastDateMeasureBody;
+    @Column(name = "portions_snack")
+    private int portionsSnack;
 
-    @Column(name = "amount_portions_drink")
-    private int amountPortionsDrink;
+    @OneToMany(cascade = CascadeType.ALL)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @JoinColumn(name = "day_id")
+    @BatchSize(size = 2)
+    private List<Training> listTrainingsDB;
 
-    @Column(name = "min_amount_portions_drink")
-    private int minAmountPortionsDrink;
+    @OneToMany(cascade = CascadeType.ALL)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @JoinColumn(name = "day_id")
+    private List<NoteDB> listNotesDB;
 
-    @Column(name = "amount_portions_alcohol")
-    private int amountPortionsAlcohol;
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "short_day_id")
+    private ShortDay shortDay;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "diet_id")
-    private Diet diet;
-
-    @Column(name = "amount_portions_snack")
-    private int amountPortionsSnack;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "note_id")
-    private Note note;
 
     public Day() {
     }
 
-    public Day(LocalDate date, User user, BodySize bodySize, LocalDate lastDateMeasureBody, int amountPortionsDrink,
-               int minAmountPortionsDrink, int amountPortionsAlcohol, Diet diet, int amountPortionsSnack, Note note) {
+    public Day(LocalDate date, int userId, int portionsDrink, int portionsAlcohol, List<MealDB> listMealsDB,
+               int portionsSnack, List<Training> listTrainingsDB, List<NoteDB> listNotesDB, ShortDay shortDay) {
         this.date = date;
-        this.user = user;
-        this.bodySize = bodySize;
-        this.lastDateMeasureBody = lastDateMeasureBody;
-        this.amountPortionsDrink = amountPortionsDrink;
-        this.minAmountPortionsDrink = minAmountPortionsDrink;
-        this.amountPortionsAlcohol = amountPortionsAlcohol;
-        this.diet = diet;
-        this.amountPortionsSnack = amountPortionsSnack;
-        this.note = note;
+        this.userId = userId;
+        this.portionsDrink = portionsDrink;
+        this.portionsAlcohol = portionsAlcohol;
+        this.listMealsDB = listMealsDB;
+        this.portionsSnack = portionsSnack;
+        this.listTrainingsDB = listTrainingsDB;
+        this.listNotesDB = listNotesDB;
+        this.shortDay = shortDay;
     }
 
     public int getId() {
@@ -89,92 +103,83 @@ public class Day {
         this.date = date;
     }
 
-    public User getUser() {
-        return user;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
-    public BodySize getBodySize() {
-        return bodySize;
+    public int getPortionsDrink() {
+        return portionsDrink;
     }
 
-    public void setBodySize(BodySize bodySize) {
-        this.bodySize = bodySize;
+    public void setPortionsDrink(int portionsDrink) {
+        this.portionsDrink = portionsDrink;
     }
 
-    public LocalDate getLastDateMeasureBody() {
-        return lastDateMeasureBody;
+    public int getPortionsAlcohol() {
+        return portionsAlcohol;
     }
 
-    public void setLastDateMeasureBody(LocalDate lastDateMeasureBody) {
-        this.lastDateMeasureBody = lastDateMeasureBody;
+    public void setPortionsAlcohol(int portionsAlcohol) {
+        this.portionsAlcohol = portionsAlcohol;
     }
 
-    public int getAmountPortionsDrink() {
-        return amountPortionsDrink;
+    public List<MealDB> getListMealsDB() {
+        return listMealsDB;
     }
 
-    public void setAmountPortionsDrink(int amountPortionsDrink) {
-        this.amountPortionsDrink = amountPortionsDrink;
+    public void setListMealsDB(List<MealDB> listMealsDB) {
+        this.listMealsDB = listMealsDB;
     }
 
-    public int getMinAmountPortionsDrink() {
-        return minAmountPortionsDrink;
+    public int getPortionsSnack() {
+        return portionsSnack;
     }
 
-    public void setMinAmountPortionsDrink(int minAmountPortionsDrink) {
-        this.minAmountPortionsDrink = minAmountPortionsDrink;
+    public void setPortionsSnack(int portionsSnack) {
+        this.portionsSnack = portionsSnack;
     }
 
-    public int getAmountPortionsAlcohol() {
-        return amountPortionsAlcohol;
+    public List<Training> getListTrainingsDB() {
+        return listTrainingsDB;
     }
 
-    public void setAmountPortionsAlcohol(int amountPortionsAlcohol) {
-        this.amountPortionsAlcohol = amountPortionsAlcohol;
+    public void setListTrainingsDB(List<Training> listTrainingsDB) {
+        this.listTrainingsDB = listTrainingsDB;
     }
 
-    public Diet getDiet() {
-        return diet;
+    public List<NoteDB> getListNotesDB() {
+        return listNotesDB;
     }
 
-    public void setDiet(Diet diet) {
-        this.diet = diet;
+    public void setListNotesDB(List<NoteDB> listNotesDB) {
+        this.listNotesDB = listNotesDB;
     }
 
-    public int getAmountPortionsSnack() {
-        return amountPortionsSnack;
+    public ShortDay getShortDay() {
+        return shortDay;
     }
 
-    public void setAmountPortionsSnack(int amountPortionsSnack) {
-        this.amountPortionsSnack = amountPortionsSnack;
-    }
-
-    public Note getNote() {
-        return note;
-    }
-
-    public void setNote(Note note) {
-        this.note = note;
+    public void setShortDay(ShortDay shortDay) {
+        this.shortDay = shortDay;
     }
 
     @Override
     public String toString() {
-        return "Day{" +
+        return "DayDB{" +
                 "id=" + id +
                 ", date=" + date +
-                ", user=" + user +
-                ", bodySize=" + bodySize +
-                ", lastDateMeasureBody=" + lastDateMeasureBody +
-                ", amountPortionsDrink=" + amountPortionsDrink +
-                ", minAmountPortionsDrink=" + minAmountPortionsDrink +
-                ", amountPortionsAlcohol=" + amountPortionsAlcohol +
-                ", diet=" + diet +
-                ", amountPortionsSnack=" + amountPortionsSnack +
-                ", note=" + note +
+                ", userId=" + userId +
+                ", portionsDrink=" + portionsDrink +
+                ", portionsAlcohol=" + portionsAlcohol +
+                ", listMealsDB=" + listMealsDB +
+                ", portionsSnack=" + portionsSnack +
+                ", listTrainingsDB=" + listTrainingsDB +
+                ", listNotesDB=" + listNotesDB +
+                ", shortDay=" + shortDay +
                 '}';
     }
 }

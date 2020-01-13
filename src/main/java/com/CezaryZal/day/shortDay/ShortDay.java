@@ -1,8 +1,15 @@
 package com.CezaryZal.day.shortDay;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 
+//Mógłbym otrzymać obiekt na podstawie encji Day, ale w celu wyższej wydajności (m.in.N+1)
+//stworzyłem oddzielną encje ShortDay
 @Entity
 @Table(name = "short_day")
 public class ShortDay {
@@ -15,14 +22,16 @@ public class ShortDay {
     @Column(name = "user_id")
     private int userId;
 
+    @JsonDeserialize(using = LocalDateDeserializer.class)
+    @JsonSerialize(using = LocalDateSerializer.class)
     @Column(name = "date")
     private LocalDate date;
 
-    @Column(name = "is_limit_kcal")
-    private boolean isLimitKcal;
+    @Column(name = "is_achieved_kcal")
+    private boolean isAchievedKcal;
 
-    @Column(name = "is_limit_drink")
-    private boolean isLimitDrink;
+    @Column(name = "is_achieved_drink")
+    private boolean isAchievedDrink;
 
     @Column(name = "is_alcohol")
     private boolean isAlcohol;
@@ -33,11 +42,12 @@ public class ShortDay {
     public ShortDay() {
     }
 
-    public ShortDay(int userId, LocalDate date, boolean isLimitKcal, boolean isLimitDrink, boolean isAlcohol, boolean isSnacks) {
+    public ShortDay(int userId, LocalDate date, boolean isAchievedKcal, boolean isAchievedDrink,
+                    boolean isAlcohol, boolean isSnacks) {
         this.userId = userId;
         this.date = date;
-        this.isLimitKcal = isLimitKcal;
-        this.isLimitDrink = isLimitDrink;
+        this.isAchievedKcal = isAchievedKcal;
+        this.isAchievedDrink = isAchievedDrink;
         this.isAlcohol = isAlcohol;
         this.isSnacks = isSnacks;
     }
@@ -66,20 +76,20 @@ public class ShortDay {
         this.date = date;
     }
 
-    public boolean isLimitKcal() {
-        return isLimitKcal;
+    public boolean isAchievedKcal() {
+        return isAchievedKcal;
     }
 
-    public void setLimitKcal(boolean limitKcal) {
-        isLimitKcal = limitKcal;
+    public void setAchievedKcal(boolean achievedKcal) {
+        isAchievedKcal = achievedKcal;
     }
 
-    public boolean isLimitDrink() {
-        return isLimitDrink;
+    public boolean isAchievedDrink() {
+        return isAchievedDrink;
     }
 
-    public void setLimitDrink(boolean limitDrink) {
-        isLimitDrink = limitDrink;
+    public void setAchievedDrink(boolean achievedDrink) {
+        isAchievedDrink = achievedDrink;
     }
 
     public boolean isAlcohol() {
@@ -104,8 +114,8 @@ public class ShortDay {
                 "id=" + id +
                 ", userId=" + userId +
                 ", date=" + date +
-                ", isLimitKcal=" + isLimitKcal +
-                ", isLimitDrink=" + isLimitDrink +
+                ", isAchievedKcal=" + isAchievedKcal +
+                ", isAchievedDrink=" + isAchievedDrink +
                 ", isAlcohol=" + isAlcohol +
                 ", isSnacks=" + isSnacks +
                 '}';

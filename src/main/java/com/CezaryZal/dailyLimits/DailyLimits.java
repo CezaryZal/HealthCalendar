@@ -1,5 +1,6 @@
 package com.CezaryZal.dailyLimits;
 
+
 import javax.persistence.*;
 
 @Entity
@@ -11,18 +12,22 @@ public class DailyLimits {
     @Column(name = "id")
     private int id;
 
-    @Column(name = "limit_kcal")
-    private int limitKcal;
+    @Column(name = "kcal_demand")
+    private int kcalDemand;
 
-    @Column(name = "limit_drink")
-    private int limitDrink;
+    @Column(name = "drink_demand")
+    private int drinkDemand;
+
+    @Column(name = "user_id")
+    private int userId;
 
     public DailyLimits() {
     }
 
-    public DailyLimits(int limitKcal, int limitDrink) {
-        this.limitKcal = limitKcal;
-        this.limitDrink = limitDrink;
+    public DailyLimits(int kcalDemand, int drinkDemand, int userId) {
+        this.kcalDemand = kcalDemand;
+        this.drinkDemand = drinkDemand;
+        this.userId = userId;
     }
 
     public int getId() {
@@ -33,28 +38,37 @@ public class DailyLimits {
         this.id = id;
     }
 
-    public int getLimitKcal() {
-        return limitKcal;
+    public int getKcalDemand() {
+        return kcalDemand;
     }
 
-    public void setLimitKcal(int limitKcal) {
-        this.limitKcal = limitKcal;
+    public void setKcalDemand(int kcalDemand) {
+        this.kcalDemand = kcalDemand;
     }
 
-    public int getLimitDrink() {
-        return limitDrink;
+    public int getDrinkDemand() {
+        return drinkDemand;
     }
 
-    public void setLimitDrink(int limitDrink) {
-        this.limitDrink = limitDrink;
+    public void setDrinkDemand(int drinkDemand) {
+        this.drinkDemand = drinkDemand;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     @Override
     public String toString() {
         return "DailyLimits{" +
                 "id=" + id +
-                ", limitKcal=" + limitKcal +
-                ", limitDrink=" + limitDrink +
+                ", kcalDemand=" + kcalDemand +
+                ", drinkDemand=" + drinkDemand +
+                ", userId=" + userId +
                 '}';
     }
 }

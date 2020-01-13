@@ -1,29 +1,75 @@
 package com.CezaryZal.user;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
-@Transactional
 @Service
 public class UserService {
 
-    private UserRepository userRepository;
+    private UserRepository UserR;
 
-    @Autowired
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public UserService(UserRepository URepository) {
+        this.UserR = URepository;
     }
 
-    public List<User> getUsers(){
-        return userRepository.getUsers();
+
+    public User getUserById(int id){
+        return UserR.findById(id);
     }
 
-    public User getUser(int id){
-        return userRepository.getUser(id);
+    public UserDTO getUserDTOById(int id){
+        User user = getUserById(id);
+
+        return convertToUserDTO(user);
     }
 
+    public List<User> getAllUsers(){
+        return UserR.getAll();
+    }
+
+    public List<UserDTO> getAllUsersDTO(){
+        List<User> listUsersDB = getAllUsers();
+
+        List<UserDTO> listUserDTO = new ArrayList<>();
+        for (User user : listUsersDB){
+            listUserDTO.add(convertToUserDTO(user));
+        }
+        return listUserDTO;
+    }
+
+    public boolean addUser(User user){
+        UserR.save(user);
+
+        return true;
+    }
+
+    public boolean updateUser(User user){
+        UserR.update(user);
+
+        return true;
+    }
+
+    public String deleteUserById (int id) {
+        User user = UserR.findById(id);
+        if(UserR.delete(user)){
+            return "delete record";
+        }
+        return "User id not found";
+    }
+
+    public UserDTO convertToUserDTO(User user){
+        return new UserDTO(user.getId(),
+                user.getFirstName(),
+                user.getNick(),
+                user.getEmail(),
+                user.getPoneNumber(),
+                user.getLoginName(),
+                user.getPassword(),
+                user.getSex(),
+                user.getDailyLimits()
+        );
+    }
 
 }
