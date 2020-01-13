@@ -4,12 +4,12 @@
 Backend:
 - Maven
 - Spring Boot
+- Spring Security
 - JPA API
 - REST API
-- server application Tomcat
+- application container Tomcat
 - Swagger UI (/HealthCalendar/swagger-ui.html)
 
 ## To do
-- validation input
-- add put method
-- change action(repository) to JPA method
+- get/add certificate
+- password should be write in char []

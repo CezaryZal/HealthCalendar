@@ -1,6 +1,9 @@
 package com.CezaryZal.testDB;
 
 
+//import org.springframework.security.core.Authentication;
+//import org.springframework.security.core.context.SecurityContextHolder;
+import com.CezaryZal.api.user.entity.UserCreator;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -8,17 +11,26 @@ import org.springframework.web.bind.annotation.*;
 public class TestController {
 
     @ResponseBody
-    @GetMapping("/hello")
+    @GetMapping("/non/hello")
     public String showHello() {
         return "Hello!? success?";
     }
 
-
-    @GetMapping("/user")
-    public TestEntity tmpEntity(){
-        TestEntity entity = new TestEntity("Dziad", 1234);
-
-        return entity;
+    @GetMapping("/token/user")
+    public UserCreator getUserCreator(){
+        UserCreator userCreator = new UserCreator("Dziad", "zHealthCalendar@gg.com");
+        return userCreator;
     }
+
+    @PostMapping("/non/login")
+    public String getLoginByUserCreator(@RequestBody UserCreator userCreator){
+        return userCreator.getLoginName();
+    }
+
+//    @GetMapping("/authe")
+//    public String showAuthentication(){
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        return authentication.toString();
+//    }
 
 }
