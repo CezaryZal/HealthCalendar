@@ -1,4 +1,4 @@
-package com.CezaryZal.api.user;
+package com.CezaryZal.api.user.respository;
 
 import com.CezaryZal.api.user.entity.User;
 import org.springframework.stereotype.Repository;

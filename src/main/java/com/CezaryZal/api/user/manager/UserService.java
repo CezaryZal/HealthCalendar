@@ -1,6 +1,6 @@
 package com.CezaryZal.api.user.manager;
 
-import com.CezaryZal.api.user.UserRepository;
+import com.CezaryZal.api.user.respository.UserRepository;
 import com.CezaryZal.api.user.entity.User;
 import com.CezaryZal.api.user.entity.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;

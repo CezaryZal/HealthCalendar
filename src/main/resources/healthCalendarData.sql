@@ -4,13 +4,18 @@ INSERT INTO `daily_limits` VALUES
 (2, 4000, 3000, 2),
 (3, 3000, 2500, 3);
 
+INSERT INTO `users_auth` VALUES
+(1, true, 'janek', 'jan525', 'ADD', 'VIEWER', 1),
+(2, true, 'tomek', 'tom151', 'ADD', 'USER', 2),
+(3, true, 'czar', 'czar5555', 'ADD', 'ADMIN', 3);
+-- (1, 'tomek', '$2a$14$YMpWNeW5XrzvJnI/TuosWenErLQght/C56DhIE5BNkUs296PvPFLC', true, 'USER', 'ADD', 2),
+-- (2, 'janek', '$2a$14$qvPKR4sT9jI1svoxv/IbaOC0hQJ9sHDUkW5W9lsBCXKF84oWglyDa', true, 'VIEWER', 'ADD', 1),
+-- (3, 'czar', '$2a$10$aAIl0ih538I2tHl93BTUzuiQMZZbnzNIUyeM3/dkXc6MzQorLALe.', true, 'ADMIN', 'ADD', 3);
+
 INSERT INTO `user` VALUES
-(1, '1966-05-23', 'anna@gmail.com', 'Anna','jan', 'Ann123',
- 569842365, 0, 1),
-(2, '1996-05-23', 'fiona@gmail.com', 'Fiona','tomek', 'shrek123',
- 846152365, 1, 2),
-(3, '1999-05-23', 'kris@gmail.com', 'Kris','czar', 'kris123',
- 849642365, 1, 2);
+(1, '1966-05-23', 'anna@gmail.com', 'Anna','jan', 569842365, 0, 1, 1),
+(2, '1996-05-23', 'fiona@gmail.com', 'Fiona','tomek', 846152365, 1, 2, 2),
+(3, '1999-05-23', 'kris@gmail.com', 'Kris','czar', 849642365, 1, 2, 3);
 
 INSERT INTO `body_size` VALUES
 (1, 65, 38, 31, 98, '2018-05-23', 75, 88, 45, 1, 36),
