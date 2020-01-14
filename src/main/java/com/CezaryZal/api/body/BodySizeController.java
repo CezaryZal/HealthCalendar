@@ -5,6 +5,7 @@ import com.CezaryZal.api.body.entity.BodySizeDto;
 import com.CezaryZal.api.body.manager.BodySizeService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -18,6 +19,7 @@ public class BodySizeController {
 
     private BodySizeService bodySizeService;
 
+    @Autowired
     public BodySizeController(BodySizeService bodySizeService) {
         this.bodySizeService = bodySizeService;
     }

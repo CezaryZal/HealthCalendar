@@ -2,7 +2,8 @@ package com.CezaryZal.api.body.manager.repo;
 
 import com.CezaryZal.api.body.BodySizeRepository;
 import com.CezaryZal.api.body.entity.BodySize;
-import com.CezaryZal.exceptions.BodySizeNotFoundException;
+import com.CezaryZal.exceptions.not.found.BodySizeNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
@@ -15,6 +16,7 @@ public class BodySizeRepoService {
 
     private BodySizeRepository bodySizeR;
 
+    @Autowired
     public BodySizeRepoService(BodySizeRepository BSRepository) {
         this.bodySizeR = BSRepository;
     }

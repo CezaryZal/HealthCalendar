@@ -7,6 +7,7 @@ import com.CezaryZal.api.body.entity.BodySizeDto;
 import com.CezaryZal.api.body.manager.mapper.ConverterBodySizeToDto;
 import com.CezaryZal.api.body.manager.mapper.ConverterDaoToBodySize;
 import com.CezaryZal.api.body.manager.repo.BodySizeRepoService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ public class BodySizeService extends BodySizeRepoService {
     private ConverterBodySizeToDto converterBodySizeToDto;
     private ConverterDaoToBodySize converterDaoToBodySize;
 
+    @Autowired
     public BodySizeService(BodySizeRepository BSRepository,
                            ConverterBodySizeToDto converterBodySizeToDto,
                            ConverterDaoToBodySize converterDaoToBodySize) {
