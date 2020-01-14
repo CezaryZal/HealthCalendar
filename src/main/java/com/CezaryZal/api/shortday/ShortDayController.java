@@ -1,4 +1,4 @@
-package com.CezaryZal.api.shortcut;
+package com.CezaryZal.api.shortday;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -37,18 +37,18 @@ public class ShortDayController {
     }
 
     @PostMapping
-    public boolean addDiet (@RequestBody ShortDay shortDay){
-        return shortDayS.addShortDay(shortDay);
+    public void addDiet (@RequestBody ShortDay shortDay){
+        shortDayS.addShortDay(shortDay);
     }
 
     @PutMapping
-    public boolean updateShortDay (@RequestBody ShortDay shortDay){
-        return shortDayS.updateShortDay(shortDay);
+    public void updateShortDay (@RequestBody ShortDay shortDay){
+        shortDayS.updateShortDay(shortDay);
     }
 
     @DeleteMapping("/{id}")
-    public String delete (@PathVariable Long id){
-        return shortDayS.deleteShortDayById(id);
+    public void delete (@PathVariable Long id){
+        shortDayS.deleteShortDayById(id);
     }
 
 

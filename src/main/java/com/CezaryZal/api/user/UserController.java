@@ -10,6 +10,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.security.auth.login.AccountNotFoundException;
 import java.util.List;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -29,27 +30,27 @@ public class UserController {
 
     @ApiOperation(value = "This will get a `User` by id")
     @GetMapping("/{id}")
-    public User getUser (@PathVariable Long id){
+    public User getUser (@PathVariable Long id) throws AccountNotFoundException {
         return userS.getUserById(id);
     }
 
     @ApiOperation(value = "This will get a `UserDTO` by id")
     @GetMapping("/dto/user-id/{id}")
-    public UserDTO getUserDTO (@PathVariable Long id){
+    public UserDTO getUserDTO (@PathVariable Long id) throws AccountNotFoundException {
         return userS.getUserDTOById(id);
     }
 
-    @ApiOperation(value = "This will get a `User` by login name")
-    @GetMapping("/login-name/{loginName}")
-    public User getUserByLoginName(@PathVariable String loginName){
-        return  userS.getUserByLoginName(loginName);
-    }
+//    @ApiOperation(value = "This will get a `User` by login name")
+//    @GetMapping("/login-name/{loginName}")
+//    public User getUserByLoginName(@PathVariable String loginName){
+//        return  userS.getUserByLoginName(loginName);
+//    }
 
-    @ApiOperation(value = "This will get number userId by login name")
-    @GetMapping("/user-id/login-name/{loginName}")
-    public Long getUserIdByLoginName(@PathVariable String loginName){
-        return userS.getUserIdByLoginName(loginName);
-    }
+//    @ApiOperation(value = "This will get number userId by login name")
+//    @GetMapping("/user-id/login-name/{loginName}")
+//    public Long getUserIdByLoginName(@PathVariable String loginName){
+//        return userS.getUserIdByLoginName(loginName);
+//    }
 
     @ApiOperation(value = "This will get a list `UserDTO`")
     @GetMapping("/dto")
@@ -68,10 +69,10 @@ public class UserController {
         return userS.addUser(user);
     }
 
-    @PostMapping("/user-id/new-account")
-    public Long createNewAccountAndGetHimUserId(@RequestBody UserCreator userCreator){
-        return newAccountAdder.createNewAccountAndGetHimUserId(userCreator);
-    }
+//    @PostMapping("/user-id/new-account")
+//    public Long createNewAccountAndGetHimUserId(@RequestBody UserCreator userCreator){
+//        return newAccountAdder.createNewAccountAndGetHimUserId(userCreator);
+//    }
 
     @PutMapping
     public boolean updateUser (@RequestBody User user){
@@ -79,8 +80,8 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
-    public String delete (@PathVariable Long id){
-        return userS.deleteUserById(id);
+    public void delete (@PathVariable Long id){
+        userS.deleteUserById(id);
     }
 
 }

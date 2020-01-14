@@ -37,17 +37,17 @@ public class TrainingController {
     }
 
     @PostMapping
-    public boolean addDiet (@RequestBody Training training){
-        return TrainingS.addTraining(training);
+    public void addDiet (@RequestBody Training training){
+        TrainingS.addTraining(training);
     }
 
     @PutMapping
-    public boolean updateMeal (@RequestBody Training training){
-        return TrainingS.updateTraining(training);
+    public void updateMeal (@RequestBody Training training){
+        TrainingS.updateTraining(training);
     }
 
     @DeleteMapping("/{id}")
-    public String delete (@PathVariable Long id){
-        return TrainingS.deleteTrainingById(id);
+    public void delete (@PathVariable Long id){
+        TrainingS.deleteTrainingById(id);
     }
 }

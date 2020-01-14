@@ -1,5 +1,6 @@
 package com.CezaryZal.api.meal;
 
+import com.CezaryZal.exceptions.MealNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,43 +14,36 @@ public class MealService {
         this.MealR = MRepository;
     }
 
-    public Meal getMealById (Long id){
-        return MealR.findById(id);
+    public Meal getMealById(Long id) {
+        return MealR.findById(id)
+                .orElseThrow(() -> new MealNotFoundException("Meal not found by id"));
     }
 
-    public DailyDietDTO getDailyDietDTOByDayId (Long dayId){
-        List<Meal> listMeals = MealR.getListByDayId(dayId);
+    public DailyDietDTO getDailyDietDTOByDayId(Long dayId) {
+        List<Meal> listMeals = MealR.findAllByDayId(dayId);
 
         return createDailyDietDTO(listMeals);
     }
 
-    public List<Meal> getAll (){
-        return MealR.getAll();
+    public List<Meal> getAll() {
+        return (List<Meal>) MealR.findAll();
     }
 
-    public boolean addMeal (Meal meal){
+    public void addMeal(Meal meal) {
         MealR.save(meal);
-
-        return true;
     }
 
-    public boolean updateMeal (Meal meal){
-        MealR.update(meal);
-
-        return true;
+    public void updateMeal(Meal meal) {
+        MealR.save(meal);
     }
 
-    public String deleteMealById (Long id){
-        Meal meal = MealR.findById(id);
-        if(MealR.delete(meal)){
-            return "delete record";
-        }
-        return "Meal id not found";
+    public void deleteMealById(Long id) {
+        MealR.deleteById(id);
     }
 
-    public DailyDietDTO createDailyDietDTO (List<Meal> listMeals){
+    public DailyDietDTO createDailyDietDTO(List<Meal> listMeals) {
         int sumOfKcal = 0;
-        for (Meal meal : listMeals){
+        for (Meal meal : listMeals) {
             sumOfKcal += meal.getKcal();
         }
         return new DailyDietDTO(listMeals, sumOfKcal);

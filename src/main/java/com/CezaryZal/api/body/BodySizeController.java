@@ -50,13 +50,13 @@ public class BodySizeController {
     }
 
     @PostMapping
-    public boolean addBody (@RequestBody BodySize bodySize){
-        return bodySizeS.addBody(bodySize);
+    public void addBody (@RequestBody BodySize bodySize){
+        bodySizeS.addBody(bodySize);
     }
 
     @DeleteMapping("/{id}")
-    public String deleteBodyById (@PathVariable Long id) {
-        return bodySizeS.deleteBodyById(id);
+    public void deleteBodyById (@PathVariable Long id) {
+        bodySizeS.deleteBodyById(id);
     }
 
 

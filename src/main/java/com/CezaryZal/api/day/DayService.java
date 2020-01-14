@@ -1,16 +1,18 @@
 package com.CezaryZal.api.day;
 
 import com.CezaryZal.api.body.BodySizeService;
-import com.CezaryZal.api.shortcut.ShortDay;
-import com.CezaryZal.api.shortcut.ShortDayService;
+import com.CezaryZal.api.shortday.ShortDay;
+import com.CezaryZal.api.shortday.ShortDayService;
 import com.CezaryZal.api.meal.MealService;
 import com.CezaryZal.api.meal.DailyDietDTO;
 import com.CezaryZal.api.note.NoteService;
 import com.CezaryZal.api.training.TrainingService;
 import com.CezaryZal.api.user.entity.User;
 import com.CezaryZal.api.user.manager.UserService;
+import com.CezaryZal.exceptions.DayNotFoundException;
 import org.springframework.stereotype.Service;
 
+import javax.security.auth.login.AccountNotFoundException;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -26,7 +28,6 @@ public class DayService {
     private ShortDayService shortDayS;
 
 
-    //Posiadając obecne endpointy możliwe jest stworzenie strony bieżaco doładowując dane
     public DayService(DayRepository dayR, UserService userS, BodySizeService bodySizeS, MealService mealS,
                       TrainingService trainingS, NoteService noteS, ShortDayService shortDayS) {
         this.dayR = dayR;
@@ -39,11 +40,12 @@ public class DayService {
     }
 
     public Day getDayById(Long id) {
-        return dayR.findById(id);
+        return dayR.findById(id)
+                .orElseThrow(() -> new DayNotFoundException("Day not found by id"));
     }
 
     //Dodatkowa klasa DayDTOCreator
-    public DayDTO getDayDTOByDateAndUserId(String inputDate, Long userId) {
+    public DayDTO getDayDTOByDateAndUserId(String inputDate, Long userId) throws AccountNotFoundException {
         Day day = getDayByDateAndUserId(inputDate, userId);
         User user = userS.getUserById(userId);
         DailyDietDTO dailyDietDTO = mealS.getDailyDietDTOByDayId(day.getId());
@@ -66,40 +68,41 @@ public class DayService {
         );
     }
 
-    public int getDayIdByDateAndUserId(String inputDate, Long userId) {
-        return dayR.findDayIdByDateAndUserId(LocalDate.parse(inputDate), userId);
+    public Long getDayIdByDateAndUserId(String inputDate, Long userId) {
+        return dayR.getDayIdByDateAndUserId(LocalDate.parse(inputDate), userId)
+                .orElseThrow(() -> new DayNotFoundException("Id day not found by date and user id"));
     }
 
     public Day getDayByDateAndUserId(String inputDate, Long userId) {
-        return dayR.findDayByDateAndUserId(LocalDate.parse(inputDate), userId);
+        return dayR.findDayByDateAndUserId(LocalDate.parse(inputDate), userId)
+                .orElseThrow(() -> new DayNotFoundException("Day not found by date and user id"));
     }
 
     public List<Day> getAll() {
-        return dayR.getAll();
+        return (List<Day>) dayR.findAll();
     }
 
-    public boolean addDay(Day day) {
+    public String addDay(Day day) throws AccountNotFoundException {
         dayR.save(day);
-        // dodanie w servisie shortDay
         shortDayS.addShortDay(createShortDayByDay(day));
 
-        return true;
+        return "Dzień z aktualną datą został dodany do bazy danych";
     }
 
-    public boolean updateDay(Day day) {
-        dayR.update(day);
+    public String updateDay(Day day) throws AccountNotFoundException {
+        dayR.save(day);
         ShortDay shortDay = createShortDayByDay(day);
         shortDay.setId(day.getId());
         shortDayS.updateShortDay(shortDay);
-        return true;
+        return "Wskazany dzień został aktualizowany wraz ze skrótem";
     }
 
     public String deleteDayById(Long id) {
-        Day day = dayR.findById(id);
-        if (dayR.delete(day)) {
-            return "delete record";
-        }
-        return "Day id not found";
+        Day day = getDayById(id);
+        shortDayS.deleteShortDayById(day.getShortDay().getId());
+        dayR.deleteById(id);
+
+        return "Dzień o podanym id został usunięty wraz ze skrótem dnia";
     }
 
     int PORTION_OF_DRINK = 250;
@@ -117,7 +120,7 @@ public class DayService {
     }
 
     //Dodatkowa klasa serwisowa dla ShortDay
-    public ShortDay createShortDayByDay(Day day) {
+    public ShortDay createShortDayByDay(Day day) throws AccountNotFoundException {
         User user = userS.getUserById(day.getUserId());
         DailyDietDTO dailyDietDTO = mealS.getDailyDietDTOByDayId(day.getId());
 

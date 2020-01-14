@@ -1,6 +1,6 @@
 package com.CezaryZal.api.day;
 
-import com.CezaryZal.api.shortcut.ShortDay;
+import com.CezaryZal.api.shortday.ShortDay;
 import com.CezaryZal.api.meal.Meal;
 import com.CezaryZal.api.note.Note;
 import com.CezaryZal.api.training.Training;
