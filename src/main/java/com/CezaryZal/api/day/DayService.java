@@ -1,6 +1,6 @@
 package com.CezaryZal.api.day;
 
-import com.CezaryZal.api.body.BodySizeService;
+import com.CezaryZal.api.body.manager.BodySizeService;
 import com.CezaryZal.api.shortday.ShortDay;
 import com.CezaryZal.api.shortday.ShortDayService;
 import com.CezaryZal.api.meal.MealService;

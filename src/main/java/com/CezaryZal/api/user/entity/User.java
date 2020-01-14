@@ -1,6 +1,6 @@
 package com.CezaryZal.api.user.entity;
 
-import com.CezaryZal.api.body.BodySize;
+import com.CezaryZal.api.body.entity.BodySize;
 import com.CezaryZal.api.limits.DailyLimits;
 import com.CezaryZal.api.day.Day;
 

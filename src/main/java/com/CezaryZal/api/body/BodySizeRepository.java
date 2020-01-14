@@ -1,5 +1,6 @@
 package com.CezaryZal.api.body;
 
+import com.CezaryZal.api.body.entity.BodySize;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;

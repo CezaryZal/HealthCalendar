@@ -1,5 +1,7 @@
-package com.CezaryZal.api.body;
+package com.CezaryZal.api.body.manager.repo;
 
+import com.CezaryZal.api.body.BodySizeRepository;
+import com.CezaryZal.api.body.entity.BodySize;
 import com.CezaryZal.exceptions.BodySizeNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -9,47 +11,51 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class BodySizeService {
+public class BodySizeRepoService {
 
-    private BodySizeRepository BodySizeR;
+    private BodySizeRepository bodySizeR;
 
-    public BodySizeService(BodySizeRepository BSRepository) {
-        this.BodySizeR = BSRepository;
+    public BodySizeRepoService(BodySizeRepository BSRepository) {
+        this.bodySizeR = BSRepository;
     }
 
     public BodySize getBodyById(Long id) {
-        return BodySizeR.findById(id)
+        return bodySizeR.findById(id)
                 .orElseThrow(() -> new BodySizeNotFoundException("Body size not found by id"));
     }
 
     public LocalDate getDateLastMeasureByUserId(Long userId) {
-        Date tmpDate = BodySizeR.findDateLastMeasureByUserId(userId)
+        Date tmpDate = bodySizeR.findDateLastMeasureByUserId(userId)
                 .orElseThrow(() -> new BodySizeNotFoundException("Body size not found by user id"));
         return tmpDate.toLocalDate();
     }
 
     public List<LocalDate> getListDatesByUserId(Long userId) {
-        List<Date> listDateByUserId = BodySizeR.findByUserIdAllDate(userId);
+        List<Date> listDateByUserId = bodySizeR.findByUserIdAllDate(userId);
         List<LocalDate> listLocalDateByUserId = new ArrayList<>();
-        listDateByUserId.forEach( tmpDate -> listLocalDateByUserId.add(tmpDate.toLocalDate()));
+        listDateByUserId.forEach(tmpDate -> listLocalDateByUserId.add(tmpDate.toLocalDate()));
 
         return listLocalDateByUserId;
     }
 
     public BodySize getBodyByDateAndUserId(String inputDate, Long userId) {
-        return BodySizeR.findByDateMeasurementAndUserId(LocalDate.parse(inputDate), userId)
+        return bodySizeR.findByDateMeasurementAndUserId(LocalDate.parse(inputDate), userId)
                 .orElseThrow(() -> new BodySizeNotFoundException("Body size not found by user id and date"));
     }
 
     public List<BodySize> getAll() {
-        return (List<BodySize>) BodySizeR.findAll();
+        return (List<BodySize>) bodySizeR.findAll();
     }
 
     public void addBody(BodySize bodySize) {
-        BodySizeR.save(bodySize);
+        bodySizeR.save(bodySize);
+    }
+
+    public void updateBody(BodySize bodySize) {
+        bodySizeR.save(bodySize);
     }
 
     public void deleteBodyById(Long id) {
-        BodySizeR.deleteById(id);
+        bodySizeR.deleteById(id);
     }
 }
