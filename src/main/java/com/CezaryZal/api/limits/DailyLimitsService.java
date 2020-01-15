@@ -1,5 +1,6 @@
 package com.CezaryZal.api.limits;
 
+import com.CezaryZal.exceptions.not.found.DailyLimitsNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,34 +15,28 @@ public class DailyLimitsService {
     }
 
     public DailyLimits getLimitsById(Long id){
-        return DailyLimitsR.findById(id);
+        return DailyLimitsR.findById(id)
+                .orElseThrow(() -> new DailyLimitsNotFoundException("Daily limits not found by id"));
     }
 
     public DailyLimits getLimitsByUserId(Long id){
-        return DailyLimitsR.findByUserId(id);
+        return DailyLimitsR.findByUserId(id)
+                .orElseThrow(() -> new DailyLimitsNotFoundException("Daily limits not found by user id"));
     }
 
     public List<DailyLimits> getAll(){
-        return DailyLimitsR.getAll();
+        return (List<DailyLimits>) DailyLimitsR.findAll();
     }
 
-    public boolean addLimits (DailyLimits dailyLimits){
+    public void addLimits (DailyLimits dailyLimits){
         DailyLimitsR.save(dailyLimits);
-
-        return true;
     }
 
-    public boolean updateLimits (DailyLimits dailyLimits){
-        DailyLimitsR.update(dailyLimits);
-
-        return true;
+    public void updateLimits (DailyLimits dailyLimits){
+        DailyLimitsR.save(dailyLimits);
     }
 
-    public String deleteLimitsById (Long id){
-        DailyLimits dailyLimits = DailyLimitsR.findById(id);
-        if(DailyLimitsR.delete(dailyLimits)){
-            return "delete record";
-        }
-        return "Daily limits id not found";
+    public void deleteLimitsById (Long id){
+        DailyLimitsR.deleteById(id);
     }
 }

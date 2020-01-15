@@ -1,6 +1,6 @@
 package com.CezaryZal.api.user.entity;
 
-import com.CezaryZal.api.body.BodySize;
+import com.CezaryZal.api.body.entity.BodySize;
 import com.CezaryZal.api.limits.DailyLimits;
 import com.CezaryZal.api.day.Day;
 
@@ -30,10 +30,6 @@ public class User {
     @Column(name = "phone_number")
     private int phoneNumber;
 
-    //unique
-    @Column(name = "login_name")
-    private String loginName;
-
     @Column(name = "sex")
     private int sex;
 
@@ -51,6 +47,10 @@ public class User {
     @JoinColumn(name = "daily_limits_id")
     private DailyLimits dailyLimits;
 
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "users_auth_id")
+    private UserAuthentication userAuthentication;
+
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
 //    @JsonIgnore
@@ -61,11 +61,6 @@ public class User {
     private List<Day> listDays;
 
     public User() {
-    }
-
-    public User(String loginName, String email){
-        this.loginName = loginName;
-        this.email = email;
     }
 
     @PostLoad
@@ -115,14 +110,6 @@ public class User {
         this.phoneNumber = poneNumber;
     }
 
-    public String getLoginName() {
-        return loginName;
-    }
-
-    public void setLoginName(String loginName) {
-        this.loginName = loginName;
-    }
-
     public int getSex() {
         return sex;
     }
@@ -155,6 +142,14 @@ public class User {
         this.dailyLimits = dailyLimits;
     }
 
+    public UserAuthentication getUserAuthentication() {
+        return userAuthentication;
+    }
+
+    public void setUserAuthentication(UserAuthentication userAuthentication) {
+        this.userAuthentication = userAuthentication;
+    }
+
     public List<BodySize> getListMeasureByBodySize() {
         return listMeasureByBodySize;
     }
@@ -179,7 +174,6 @@ public class User {
                 ", nick='" + nick + '\'' +
                 ", email='" + email + '\'' +
                 ", poneNumber=" + phoneNumber +
-                ", loginName='" + loginName + '\'' +
                 ", sex=" + sex +
                 ", age=" + age +
                 ", birthDate=" + birthDate +

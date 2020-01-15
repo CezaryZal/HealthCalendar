@@ -37,18 +37,18 @@ public class MealController {
     }
 
     @PostMapping
-    public boolean addDiet (@RequestBody Meal meal){
-        return MealS.addMeal(meal);
+    public void addDiet (@RequestBody Meal meal){
+        MealS.addMeal(meal);
     }
 
     @PutMapping
-    public boolean updateMeal (@RequestBody Meal meal){
-        return MealS.updateMeal(meal);
+    public void updateMeal (@RequestBody Meal meal){
+        MealS.updateMeal(meal);
     }
 
     @DeleteMapping("/{id}")
-    public String delete (@PathVariable Long id){
-        return MealS.deleteMealById(id);
+    public void delete (@PathVariable Long id){
+        MealS.deleteMealById(id);
     }
 
 }

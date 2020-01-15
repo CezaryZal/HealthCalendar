@@ -1,11 +1,12 @@
 package com.CezaryZal.api.user.manager;
 
-import com.CezaryZal.api.user.UserRepository;
+import com.CezaryZal.api.user.respository.UserRepository;
 import com.CezaryZal.api.user.entity.User;
 import com.CezaryZal.api.user.entity.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.security.auth.login.AccountNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,26 +22,23 @@ public class UserService {
         this.converter = converter;
     }
 
-    public User getUserById(Long id){
-        return userR.findById(id);
+    public User getUserById(Long id) throws AccountNotFoundException {
+        return userR.findById(id)
+                .orElseThrow(() -> new AccountNotFoundException("User not found by id"));
     }
 
-    public UserDTO getUserDTOById(Long id){
+    public UserDTO getUserDTOById(Long id) throws AccountNotFoundException {
         User user = getUserById(id);
 
         return converter.convertUserToUserDTO(user);
     }
 
-    public User getUserByLoginName(String loginName){
-        return userR.findByLoginName(loginName);
-    }
-
-    public Long getUserIdByLoginName(String loginName){
-        return userR.findUserIdByLoginName(loginName);
-    }
+//    public User getUserByLoginName(String loginName){
+//        return userR.findByLoginName(loginName);
+//    }
 
     public List<User> getAllUsers(){
-        return userR.getAll();
+        return (List<User>) userR.findAll();
     }
 
     public List<UserDTO> getAllUsersDTO(){
@@ -60,17 +58,12 @@ public class UserService {
     }
 
     public boolean updateUser(User user){
-        userR.update(user);
+        userR.save(user);
 
         return true;
     }
 
-    public String deleteUserById (Long id) {
-        User user = userR.findById(id);
-        if(userR.delete(user)){
-            return "delete record";
-        }
-        return "User id not found";
+    public void deleteUserById (Long id) {
+        userR.deleteById(id);
     }
-
 }

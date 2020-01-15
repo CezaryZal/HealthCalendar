@@ -4,6 +4,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
+import javax.security.auth.login.AccountNotFoundException;
 import java.util.List;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -26,13 +27,13 @@ public class DayController {
 
     @ApiOperation(value = "This will get a `DayDTO` by date and user id")
     @GetMapping("/dto/{date}/{userId}")
-    public DayDTO getDayDTOByDateAndUserId(@PathVariable String date, @PathVariable Long userId){
+    public DayDTO getDayDTOByDateAndUserId(@PathVariable String date, @PathVariable Long userId) throws AccountNotFoundException {
         return dayS.getDayDTOByDateAndUserId(date, userId);
     }
 
     @ApiOperation(value = "This will get a day id by date and user id")
     @GetMapping("/day-id/{date}/{userId}")
-    public int getDayIdByDateAndUserId(@PathVariable String date, @PathVariable Long userId){
+    public Long getDayIdByDateAndUserId(@PathVariable String date, @PathVariable Long userId){
         return dayS.getDayIdByDateAndUserId(date, userId);
     }
 
@@ -49,12 +50,12 @@ public class DayController {
     }
 
     @PostMapping
-    public boolean addDiet (@RequestBody Day day){
+    public String addDiet (@RequestBody Day day) throws AccountNotFoundException {
         return dayS.addDay(day);
     }
 
     @PutMapping
-    public boolean updateDay (@RequestBody Day day){
+    public String updateDay (@RequestBody Day day) throws AccountNotFoundException {
         return dayS.updateDay(day);
     }
 

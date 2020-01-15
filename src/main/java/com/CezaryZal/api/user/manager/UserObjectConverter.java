@@ -22,7 +22,7 @@ public class UserObjectConverter {
     }
 
     protected User convertUserCreatorToUser(UserCreator userCreator) {
-        User user = new User(userCreator.getLoginName(), userCreator.getEmail());
+        User user = new User();
         user.setDailyLimits(new DailyLimits(10, 10));
         return user;
     }
