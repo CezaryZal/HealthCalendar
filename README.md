@@ -9,7 +9,7 @@ Backend:
 - REST API
 - application container Tomcat
 - Swagger UI (/HealthCalendar/swagger-ui.html)
+- Lombok
 
 ## To do
 - get/add certificate
-- password should be write in char []

@@ -1,6 +1,5 @@
 package com.CezaryZal.production;
 
-import com.CezaryZal.api.body.entity.BodySizeDao;
 import com.CezaryZal.api.body.entity.BodySizeDto;
 import com.CezaryZal.api.body.manager.BodySizeService;
 import io.swagger.annotations.Api;
@@ -30,8 +29,8 @@ public class AdminController {
     }
 
     @PutMapping("/body/update")
-    public ResponseEntity<String> updateBodySizeByDao(@RequestBody BodySizeDao bodySizeDao) {
-        String answer = bodySizeService.updateBodySizeByDao(bodySizeDao);
+    public ResponseEntity<String> updateBodySizeByDao(@RequestBody BodySizeDto bodySizeDto) {
+        String answer = bodySizeService.updateBodySizeByDao(bodySizeDto);
         return new ResponseEntity<>(answer, HttpStatus.OK);
     }
 
