@@ -1,6 +1,6 @@
 package com.CezaryZal.api.limits;
 
-import com.CezaryZal.exceptions.DailyLimitsNotFoundException;
+import com.CezaryZal.exceptions.not.found.DailyLimitsNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

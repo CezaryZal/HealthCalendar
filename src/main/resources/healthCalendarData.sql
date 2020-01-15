@@ -5,12 +5,9 @@ INSERT INTO `daily_limits` VALUES
 (3, 3000, 2500, 3);
 
 INSERT INTO `users_auth` VALUES
-(1, true, 'janek', 'jan525', 'ADD', 'VIEWER', 1),
-(2, true, 'tomek', 'tom151', 'ADD', 'USER', 2),
-(3, true, 'czar', 'czar5555', 'ADD', 'ADMIN', 3);
--- (1, 'tomek', '$2a$14$YMpWNeW5XrzvJnI/TuosWenErLQght/C56DhIE5BNkUs296PvPFLC', true, 'USER', 'ADD', 2),
--- (2, 'janek', '$2a$14$qvPKR4sT9jI1svoxv/IbaOC0hQJ9sHDUkW5W9lsBCXKF84oWglyDa', true, 'VIEWER', 'ADD', 1),
--- (3, 'czar', '$2a$10$aAIl0ih538I2tHl93BTUzuiQMZZbnzNIUyeM3/dkXc6MzQorLALe.', true, 'ADMIN', 'ADD', 3);
+(1, true, 'janek', '$2a$14$qvPKR4sT9jI1svoxv/IbaOC0hQJ9sHDUkW5W9lsBCXKF84oWglyDa', 'ADD', 'VIEWER'),
+(2, true, 'tomek', '$2a$14$YMpWNeW5XrzvJnI/TuosWenErLQght/C56DhIE5BNkUs296PvPFLC', 'ADD', 'USER'),
+(3, true, 'czar', '$2a$10$aAIl0ih538I2tHl93BTUzuiQMZZbnzNIUyeM3/dkXc6MzQorLALe.', 'ADD', 'ADMIN');
 
 INSERT INTO `user` VALUES
 (1, '1966-05-23', 'anna@gmail.com', 'Anna','jan', 569842365, 0, 1, 1),

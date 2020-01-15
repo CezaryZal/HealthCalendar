@@ -1,13 +1,13 @@
 package com.CezaryZal.api.user.entity;
 
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "users_auth")
-@Data
+@Getter
 @NoArgsConstructor
 public class UserAuthentication {
 
@@ -31,8 +31,5 @@ public class UserAuthentication {
 
     @Column(name = "permissions")
     private String permissions;
-
-    @Column(name = "user_id")
-    private Long userId;
 
 }

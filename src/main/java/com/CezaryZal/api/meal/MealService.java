@@ -1,6 +1,6 @@
 package com.CezaryZal.api.meal;
 
-import com.CezaryZal.exceptions.MealNotFoundException;
+import com.CezaryZal.exceptions.not.found.MealNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

@@ -8,9 +8,4 @@ public class AuthenticationRequest extends FormUser {
         super(loginName, password);
     }
 
-    @Override
-    public String getLoginName() {
-        return super.getLoginName();
-    }
-
 }

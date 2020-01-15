@@ -1,6 +1,6 @@
 package com.CezaryZal.api.shortday;
 
-import com.CezaryZal.exceptions.ShortDayNotFoundException;
+import com.CezaryZal.exceptions.not.found.ShortDayNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;

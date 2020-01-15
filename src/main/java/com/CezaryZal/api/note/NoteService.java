@@ -1,6 +1,6 @@
 package com.CezaryZal.api.note;
 
-import com.CezaryZal.exceptions.NoteNotFoundException;
+import com.CezaryZal.exceptions.not.found.NoteNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

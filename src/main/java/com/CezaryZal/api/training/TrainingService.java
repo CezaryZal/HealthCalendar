@@ -1,6 +1,6 @@
 package com.CezaryZal.api.training;
 
-import com.CezaryZal.exceptions.TrainingNotFoundException;
+import com.CezaryZal.exceptions.not.found.TrainingNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;

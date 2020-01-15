@@ -12,19 +12,22 @@ import javax.security.auth.login.AccountNotFoundException;
 @Service
 public class LoginService {
 
-    private UserAuthService userAuthS;
+    private UserAuthService userAuthService;
     private TokenBuilder tokenBuilder;
+    private PasswordComparator passwordComparator;
 
     @Autowired
-    public LoginService(UserAuthService userAuthS, TokenBuilder tokenBuilder) {
-        this.userAuthS = userAuthS;
+    public LoginService(UserAuthService userAuthService, TokenBuilder tokenBuilder, PasswordComparator passwordComparator) {
+        this.userAuthService = userAuthService;
         this.tokenBuilder = tokenBuilder;
+        this.passwordComparator = passwordComparator;
     }
 
-    public String getTokenByUserLogin(AuthenticationRequest inputAuthenticationRequest) throws AccountNotFoundException {
-        UserAuthentication foundUserAuthentication = userAuthS.findByLoginName(inputAuthenticationRequest.getLoginName());
+    public String getTokenByUserLogin(AuthenticationRequest inputAuthRequest) throws AccountNotFoundException {
+        UserAuthentication foundUserAuth = userAuthService.findByLoginName(inputAuthRequest.getLoginName());
+        passwordComparator.throwIfIsNotEqualsPassword(inputAuthRequest.getPassword(), foundUserAuth.getPassword());
 
-        return tokenBuilder.buildTokenByUser(foundUserAuthentication);
+        return tokenBuilder.buildTokenByUser(foundUserAuth);
     }
 
 }

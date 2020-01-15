@@ -9,7 +9,7 @@ import com.CezaryZal.api.note.NoteService;
 import com.CezaryZal.api.training.TrainingService;
 import com.CezaryZal.api.user.entity.User;
 import com.CezaryZal.api.user.manager.UserService;
-import com.CezaryZal.exceptions.DayNotFoundException;
+import com.CezaryZal.exceptions.not.found.DayNotFoundException;
 import org.springframework.stereotype.Service;
 
 import javax.security.auth.login.AccountNotFoundException;
