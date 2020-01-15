@@ -5,7 +5,7 @@ import com.CezaryZal.api.body.entity.BodySizeDto;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ConverterBodySizeToDto {
+public class BodySizeToDtoConverter {
 
     public BodySizeDto mappingEntity(BodySize bodySize){
         return new BodySizeDto(

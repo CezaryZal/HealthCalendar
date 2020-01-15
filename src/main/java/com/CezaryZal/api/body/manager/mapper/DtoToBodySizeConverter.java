@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 
 @Service
-public class ConverterDtoToBodySize {
+public class DtoToBodySizeConverter {
 
     public BodySize mappingEntity(BodySizeDto bodySizeDto){
         return new BodySize(
