@@ -57,7 +57,7 @@ public class BodySizeController {
     //TO DO - usunięcie tylko w dniu zapisu
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteBodyById(@PathVariable Long id) {
-        return new ResponseEntity<>(bodySizeService.deleteBodySizeById(id), HttpStatus.OK);
+        return new ResponseEntity<>(bodySizeService.deleteBodySizeById(id), HttpStatus.NO_CONTENT);
     }
 
 

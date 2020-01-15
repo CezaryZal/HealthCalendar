@@ -1,7 +1,7 @@
 package com.CezaryZal.api.user.manager;
 
-import com.CezaryZal.api.limits.DailyLimits;
-import com.CezaryZal.api.limits.DailyLimitsService;
+import com.CezaryZal.api.limits.entity.DailyLimits;
+import com.CezaryZal.api.limits.manager.DailyLimitsService;
 import com.CezaryZal.api.user.entity.User;
 import com.CezaryZal.api.user.entity.UserCreator;
 import org.springframework.beans.factory.annotation.Autowired;

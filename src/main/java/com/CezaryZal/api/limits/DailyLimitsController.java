@@ -1,12 +1,14 @@
 package com.CezaryZal.api.limits;
 
+import com.CezaryZal.api.limits.entity.DailyLimits;
+import com.CezaryZal.api.limits.entity.DailyLimitsDto;
+import com.CezaryZal.api.limits.manager.DailyLimitsService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @Api(tags = "Daily Limits")
@@ -14,45 +16,29 @@ import java.util.List;
 @RequestMapping("/api/limits")
 public class DailyLimitsController {
 
-    private DailyLimitsService DailyLimitsS;
+    private DailyLimitsService dailyLimitsS;
 
+    @Autowired
     public DailyLimitsController(DailyLimitsService dailyLimitsS) {
-        DailyLimitsS = dailyLimitsS;
+        this.dailyLimitsS = dailyLimitsS;
     }
 
     @ApiOperation(value = "This will get a `DailyLimits` by id")
     @GetMapping("/{id}")
-    public ResponseEntity<DailyLimits> getLimitsById (@PathVariable Long id){
-        return new ResponseEntity<>(DailyLimitsS.getLimitsById(id), HttpStatus.OK);
+    public ResponseEntity<DailyLimitsDto> getLimitsDtoById (@PathVariable Long id){
+        return new ResponseEntity<>(dailyLimitsS.getLimitsDtoById(id), HttpStatus.OK);
     }
 
     @ApiOperation(value = "This will get a `DailyLimits` by user id")
     @GetMapping("/user-id/{userId}")
-    public ResponseEntity<DailyLimits> getLimitsByUserId (@PathVariable Long userId){
-        return new ResponseEntity<>(DailyLimitsS.getLimitsByUserId(userId), HttpStatus.OK);
+    public ResponseEntity<DailyLimitsDto> getLimitsDtoByUserId (@PathVariable Long userId){
+        return new ResponseEntity<>(dailyLimitsS.getLimitsDtoByUserId(userId), HttpStatus.OK);
     }
 
-    @ApiOperation(value = "This will get a list `DailyLimits`, all records")
-    @GetMapping
-    public ResponseEntity<List<DailyLimits>> getAll(){
-        return new ResponseEntity<>(DailyLimitsS.getAll(), HttpStatus.OK);
-    }
-
-    @PostMapping
-    public ResponseEntity<Void> addLimits (@RequestBody DailyLimits dailyLimits){
-        DailyLimitsS.addLimits(dailyLimits);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-
+    @ApiOperation(value = "This endpoint input `DailyLimits` object update ")
     @PutMapping
-    public ResponseEntity<Void> updateLimits (@RequestBody DailyLimits dailyLimits){
-        DailyLimitsS.updateLimits(dailyLimits);
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<String> updateLimits (@RequestBody DailyLimits dailyLimits){
+        return new ResponseEntity<>(dailyLimitsS.updateDailyLimits(dailyLimits), HttpStatus.OK);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteLimitsById (@PathVariable Long id){
-        DailyLimitsS.deleteLimitsById(id);
-        return ResponseEntity.noContent().build();
-    }
 }

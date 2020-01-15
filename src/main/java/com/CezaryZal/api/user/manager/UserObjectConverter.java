@@ -1,6 +1,6 @@
 package com.CezaryZal.api.user.manager;
 
-import com.CezaryZal.api.limits.DailyLimits;
+import com.CezaryZal.api.limits.entity.DailyLimits;
 import com.CezaryZal.api.user.entity.User;
 import com.CezaryZal.api.user.entity.UserCreator;
 import com.CezaryZal.api.user.entity.UserDTO;
