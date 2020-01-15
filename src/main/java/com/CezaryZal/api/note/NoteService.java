@@ -1,5 +1,6 @@
 package com.CezaryZal.api.note;
 
+import com.CezaryZal.exceptions.not.found.NoteNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -15,7 +16,8 @@ public class NoteService {
     }
 
     public Note getNoteById(Long id){
-        return NoteR.findById(id);
+        return NoteR.findById(id)
+                .orElseThrow(() -> new NoteNotFoundException("Note not found by id"));
     }
 
     public List<Header> getHeadersByDay(Long dayId){
@@ -25,31 +27,23 @@ public class NoteService {
     }
 
     public List<Note> getNotesByDay(Long dayId){
-        return NoteR.findByDayId(dayId);
+        return NoteR.findAllByDayId(dayId);
     }
 
     public List<Note> getAll (){
-        return NoteR.getAll();
+        return (List<Note>) NoteR.findAll();
     }
 
-    public boolean addNote (Note note){
+    public void addNote (Note note){
         NoteR.save(note);
-
-        return true;
     }
 
-    public boolean updateNote (Note note){
-        NoteR.update(note);
-
-        return true;
+    public void updateNote (Note note){
+        NoteR.save(note);
     }
 
-    public String deleteNoteById (Long id){
-        Note note = NoteR.findById(id);
-        if(NoteR.delete(note)){
-            return "delete record";
-        }
-        return "Note id not found";
+    public void deleteNoteById (Long id){
+        NoteR.deleteById(id);
     }
 
     public List<Header> getHeadersByNotesDB(List<Note> listNote){

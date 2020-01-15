@@ -1,5 +1,6 @@
 package com.CezaryZal.api.training;
 
+import com.CezaryZal.exceptions.not.found.TrainingNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
@@ -9,44 +10,37 @@ import java.util.List;
 @Service
 public class TrainingService {
 
-    private TrainingRepository TrainingR;
+    private TrainingRepository trainingR;
 
     public TrainingService(TrainingRepository TRepository) {
-        this.TrainingR = TRepository;
+        this.trainingR = TRepository;
     }
 
     public Training getTrainingById (Long id){
-        return TrainingR.findById(id);
+        return trainingR.findById(id)
+                .orElseThrow(() -> new TrainingNotFoundException("Training not found by id"));
     }
 
     public TrainingsDTO getTrainingsDTOByDayId (Long dayId){
-        List<Training> listTraining = TrainingR.findByDayId(dayId);
+        List<Training> listTraining = trainingR.findAllByDayId(dayId);
 
         return createAllTrainingsDTOByDay(listTraining);
     }
 
     public List<Training> getAllTrainings (){
-        return TrainingR.getAll();
+        return (List<Training>) trainingR.findAll();
     }
 
-    public boolean addTraining (Training training){
-        TrainingR.save(training);
-
-        return true;
+    public void addTraining (Training training){
+        trainingR.save(training);
     }
 
-    public boolean updateTraining (Training training){
-        TrainingR.update(training);
-
-        return true;
+    public void updateTraining (Training training){
+        trainingR.save(training);
     }
 
-    public String deleteTrainingById (Long id){
-        Training training = TrainingR.findById(id);
-        if(TrainingR.delete(training)){
-            return "delete record";
-        }
-        return "Training id not found";
+    public void deleteTrainingById (Long id){
+        trainingR.deleteById(id);
     }
 
     public TrainingsDTO createAllTrainingsDTOByDay(List<Training> listTraining){

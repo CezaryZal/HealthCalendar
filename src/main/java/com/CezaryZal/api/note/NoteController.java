@@ -43,17 +43,17 @@ public class NoteController {
     }
 
     @PostMapping
-    public boolean addDiet (@RequestBody Note note){
-        return NoteS.addNote(note);
+    public void addDiet (@RequestBody Note note){
+        NoteS.addNote(note);
     }
 
     @PutMapping
-    public boolean updateMeal (@RequestBody Note note){
-        return NoteS.updateNote(note);
+    public void updateMeal (@RequestBody Note note){
+        NoteS.updateNote(note);
     }
 
     @DeleteMapping("/{id}")
-    public String delete (@PathVariable Long id){
-        return NoteS.deleteNoteById(id);
+    public void delete (@PathVariable Long id){
+        NoteS.deleteNoteById(id);
     }
 }

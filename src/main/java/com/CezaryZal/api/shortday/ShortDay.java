@@ -1,4 +1,4 @@
-package com.CezaryZal.api.shortcut;
+package com.CezaryZal.api.shortday;
 
 import javax.persistence.*;
 import java.time.LocalDate;
