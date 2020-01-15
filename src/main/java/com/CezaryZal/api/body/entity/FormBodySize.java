@@ -2,9 +2,11 @@ package com.CezaryZal.api.body.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.ToString;
 
 import java.time.LocalDate;
 
+@ToString
 @Getter
 @AllArgsConstructor
 public abstract class FormBodySize {

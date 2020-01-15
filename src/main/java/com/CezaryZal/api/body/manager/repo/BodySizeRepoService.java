@@ -8,13 +8,13 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Date;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class BodySizeRepoService {
 
-    private BodySizeRepository bodySizeR;
+    private final BodySizeRepository bodySizeR;
 
     @Autowired
     public BodySizeRepoService(BodySizeRepository BSRepository) {
@@ -34,10 +34,9 @@ public class BodySizeRepoService {
 
     public List<LocalDate> getListDatesByUserId(Long userId) {
         List<Date> listDateByUserId = bodySizeR.findByUserIdAllDate(userId);
-        List<LocalDate> listLocalDateByUserId = new ArrayList<>();
-        listDateByUserId.forEach(tmpDate -> listLocalDateByUserId.add(tmpDate.toLocalDate()));
-
-        return listLocalDateByUserId;
+        return listDateByUserId.stream()
+                .map(Date::toLocalDate)
+                .collect(Collectors.toList());
     }
 
     public BodySize getBodyByDateAndUserId(String inputDate, Long userId) {
@@ -46,7 +45,7 @@ public class BodySizeRepoService {
     }
 
     public List<BodySize> getAll() {
-        return (List<BodySize>) bodySizeR.findAll();
+        return bodySizeR.findAll();
     }
 
     public void addBody(BodySize bodySize) {

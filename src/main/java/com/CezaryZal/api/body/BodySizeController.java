@@ -1,11 +1,12 @@
 package com.CezaryZal.api.body;
 
-import com.CezaryZal.api.body.entity.BodySizeDao;
 import com.CezaryZal.api.body.entity.BodySizeDto;
 import com.CezaryZal.api.body.manager.BodySizeService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -17,7 +18,7 @@ import java.util.List;
 @RequestMapping("/api/body")
 public class BodySizeController {
 
-    private BodySizeService bodySizeService;
+    private final BodySizeService bodySizeService;
 
     @Autowired
     public BodySizeController(BodySizeService bodySizeService) {
@@ -26,37 +27,37 @@ public class BodySizeController {
 
     @ApiOperation(value = "This will get a `BodySize` by id", notes = "In this method you will receive a body measurement by id")
     @GetMapping("/{id}")
-    public BodySizeDto getBodySizeDtoById(@PathVariable Long id) {
-        return bodySizeService.getBodySizeDtoById(id);
+    public ResponseEntity<BodySizeDto> getBodySizeDtoById(@PathVariable Long id) {
+        return new ResponseEntity<>(bodySizeService.getBodySizeDtoById(id), HttpStatus.OK);
     }
 
     @ApiOperation(value = "This will get a last date measure by user id")
     @GetMapping("/date/user-id/{userId}")
-    public LocalDate getDateLastMeasureByUserId(@PathVariable Long userId) {
-        return bodySizeService.getDateLastMeasureByUserId(userId);
+    public ResponseEntity<LocalDate> getDateLastMeasureByUserId(@PathVariable Long userId) {
+        return new ResponseEntity<>(bodySizeService.getDateLastMeasureByUserId(userId), HttpStatus.OK);
     }
 
     @ApiOperation(value = "This will be get a list dates by user id")
     @GetMapping("/dates/user-id/{userId}")
-    public List<LocalDate> getListDatesByUserId(@PathVariable Long userId) {
-        return bodySizeService.getListDatesByUserId(userId);
+    public ResponseEntity<List<LocalDate>> getListDatesByUserId(@PathVariable Long userId) {
+        return new ResponseEntity<>(bodySizeService.getListDatesByUserId(userId), HttpStatus.OK);
     }
 
     @ApiOperation(value = "This will be get a `BodySize` by date and user id")
     @GetMapping("/{date}/{userId}")
-    public BodySizeDto getBodyByDateAndUserId(@PathVariable String date, @PathVariable Long userId) {
-        return bodySizeService.getBodyDtoByDateAndUserId(date, userId);
+    public ResponseEntity<BodySizeDto> getBodyByDateAndUserId(@PathVariable String date, @PathVariable Long userId) {
+        return new ResponseEntity<>(bodySizeService.getBodyDtoByDateAndUserId(date, userId), HttpStatus.OK);
     }
 
     @PostMapping
-    public String addBody(@RequestBody BodySizeDao bodySize) {
-        return bodySizeService.addBodySizeByDao(bodySize);
+    public ResponseEntity<String> addBody(@RequestBody BodySizeDto bodySize) {
+        return new ResponseEntity<>(bodySizeService.addBodySizeByDao(bodySize), HttpStatus.CREATED);
     }
 
     //TO DO - usunięcie tylko w dniu zapisu
     @DeleteMapping("/{id}")
-    public String deleteBodyById(@PathVariable Long id) {
-        return bodySizeService.deleteBodySizeById(id);
+    public ResponseEntity<String> deleteBodyById(@PathVariable Long id) {
+        return new ResponseEntity<>(bodySizeService.deleteBodySizeById(id), HttpStatus.OK);
     }
 
 

@@ -2,30 +2,29 @@ package com.CezaryZal.api.body.manager;
 
 import com.CezaryZal.api.body.BodySizeRepository;
 import com.CezaryZal.api.body.entity.BodySize;
-import com.CezaryZal.api.body.entity.BodySizeDao;
 import com.CezaryZal.api.body.entity.BodySizeDto;
 import com.CezaryZal.api.body.manager.mapper.ConverterBodySizeToDto;
-import com.CezaryZal.api.body.manager.mapper.ConverterDaoToBodySize;
+import com.CezaryZal.api.body.manager.mapper.ConverterDtoToBodySize;
 import com.CezaryZal.api.body.manager.repo.BodySizeRepoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class BodySizeService extends BodySizeRepoService {
 
-    private ConverterBodySizeToDto converterBodySizeToDto;
-    private ConverterDaoToBodySize converterDaoToBodySize;
+    private final ConverterBodySizeToDto converterBodySizeToDto;
+    private final ConverterDtoToBodySize converterDtoToBodySize;
 
     @Autowired
     public BodySizeService(BodySizeRepository BSRepository,
                            ConverterBodySizeToDto converterBodySizeToDto,
-                           ConverterDaoToBodySize converterDaoToBodySize) {
+                           ConverterDtoToBodySize converterDtoToBodySize) {
         super(BSRepository);
         this.converterBodySizeToDto = converterBodySizeToDto;
-        this.converterDaoToBodySize = converterDaoToBodySize;
+        this.converterDtoToBodySize = converterDtoToBodySize;
     }
 
     public BodySizeDto getBodySizeDtoById(Long id) {
@@ -38,18 +37,18 @@ public class BodySizeService extends BodySizeRepoService {
 
     public List<BodySizeDto> getListBodySizeDto() {
         List<BodySize> allBodySize = getAll();
-        List<BodySizeDto> listBodySizeDto = new ArrayList<>();
-        allBodySize.forEach(tmpBS -> listBodySizeDto.add(converterBodySizeToDto.mappingEntity(tmpBS)));
-        return listBodySizeDto;
+        return allBodySize.stream()
+                .map(converterBodySizeToDto::mappingEntity)
+                .collect(Collectors.toList());
     }
 
-    public String addBodySizeByDao(BodySizeDao bodySizeDao) {
-        addBody(converterDaoToBodySize.mappingEntity(bodySizeDao));
+    public String addBodySizeByDao(BodySizeDto bodySizeDto) {
+        addBody(converterDtoToBodySize.mappingEntity(bodySizeDto));
         return "Przesłany pomiar ciała został zapisany w bazie danych";
     }
 
-    public String updateBodySizeByDao(BodySizeDao bodySizeDao){
-        updateBody(converterDaoToBodySize.mappingEntity(bodySizeDao));
+    public String updateBodySizeByDao(BodySizeDto bodySizeDto){
+        updateBody(converterDtoToBodySize.mappingEntity(bodySizeDto));
         return "Przesłany pomiar został uaktualniony";
     }
 
