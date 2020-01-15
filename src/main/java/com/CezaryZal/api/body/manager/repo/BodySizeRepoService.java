@@ -4,14 +4,12 @@ import com.CezaryZal.api.body.BodySizeRepository;
 import com.CezaryZal.api.body.entity.BodySize;
 import com.CezaryZal.exceptions.not.found.BodySizeNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Service
 public class BodySizeRepoService {
 
     private final BodySizeRepository bodySizeR;
