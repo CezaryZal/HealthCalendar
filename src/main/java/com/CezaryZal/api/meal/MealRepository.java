@@ -1,12 +1,13 @@
 package com.CezaryZal.api.meal;
 
-import org.springframework.data.repository.CrudRepository;
+import com.CezaryZal.api.meal.entity.Meal;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public interface MealRepository extends CrudRepository<Meal, Long> {
+public interface MealRepository extends JpaRepository<Meal, Long> {
 
     List<Meal> findAllByDayId(Long dayId);
 

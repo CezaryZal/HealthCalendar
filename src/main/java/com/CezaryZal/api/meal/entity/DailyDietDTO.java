@@ -1,5 +1,4 @@
-package com.CezaryZal.api.meal;
-
+package com.CezaryZal.api.meal.entity;
 
 import java.util.List;
 

@@ -1,6 +1,5 @@
 package com.CezaryZal.api.limits;
 
-import com.CezaryZal.api.limits.entity.DailyLimits;
 import com.CezaryZal.api.limits.entity.DailyLimitsDto;
 import com.CezaryZal.api.limits.manager.DailyLimitsService;
 import io.swagger.annotations.Api;
