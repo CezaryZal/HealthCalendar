@@ -30,28 +30,27 @@ public class AdminController {
     }
 
     @ApiOperation(value = "This will get a list `BodySize`, all records")
-    @GetMapping("/body/list")
-    public List<BodySizeDto> getListBodySizeDto() {
-        return bodySizeService.getListBodySizeDto();
+    @GetMapping("/body/all")
+    public ResponseEntity<List<BodySizeDto>> getListBodySizeDto() {
+        return new ResponseEntity<>(bodySizeService.getListBodySizeDto(), HttpStatus.OK);
     }
 
     @ApiOperation(value = "This endpoint input `BodySize` object update ")
     @PutMapping("/body/update")
     public ResponseEntity<String> updateBodySizeByDao(@RequestBody BodySizeDto bodySizeDto) {
-        String answer = bodySizeService.updateBodySizeByDao(bodySizeDto);
-        return new ResponseEntity<>(answer, HttpStatus.OK);
+        return new ResponseEntity<>(bodySizeService.updateBodySizeByDao(bodySizeDto), HttpStatus.OK);
     }
 
     @ApiOperation(value = "This will get a list `DailyLimits`, all records")
-    @GetMapping("/limits/list")
+    @GetMapping("/limits/all")
     public ResponseEntity<List<DailyLimitsDto>> getListLimitsDto(){
         return new ResponseEntity<>(dailyLimitsService.getListLimitsDto(), HttpStatus.OK);
     }
 
     @ApiOperation(value = "This endpoint addition `DailyLimits`")
-    @PostMapping
-    public ResponseEntity<String> addLimits (@RequestBody DailyLimits dailyLimits){
-        return new ResponseEntity<>(dailyLimitsService.addDailyLimits(dailyLimits), HttpStatus.OK);
+    @PostMapping("/limits/add")
+    public ResponseEntity<String> addLimits (@RequestBody DailyLimitsDto dailyLimitsDto){
+        return new ResponseEntity<>(dailyLimitsService.addDailyLimits(dailyLimitsDto), HttpStatus.CREATED);
     }
 
     @ApiOperation(value = "This endpoint remove `DailyLimits` by id")

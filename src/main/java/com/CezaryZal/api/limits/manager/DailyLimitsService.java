@@ -4,8 +4,10 @@ import com.CezaryZal.api.limits.DailyLimitsRepository;
 import com.CezaryZal.api.limits.entity.DailyLimits;
 import com.CezaryZal.api.limits.entity.DailyLimitsDto;
 import com.CezaryZal.api.limits.manager.mapper.DailyLimitsToDtoConverter;
+import com.CezaryZal.api.limits.manager.mapper.DtoToDailyLimitsConverter;
 import com.CezaryZal.api.limits.manager.repo.DailyLimitsRepoService;
 import com.CezaryZal.exceptions.not.found.DailyLimitsNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,10 +17,15 @@ import java.util.stream.Collectors;
 public class DailyLimitsService extends DailyLimitsRepoService {
 
     private final DailyLimitsToDtoConverter dailyLimitsToDtoConverter;
+    private final DtoToDailyLimitsConverter dtoToDailyLimitsConverter;
 
-    public DailyLimitsService(DailyLimitsRepository limitsRepository, DailyLimitsToDtoConverter dailyLimitsToDtoConverter) {
+    @Autowired
+    public DailyLimitsService(DailyLimitsRepository limitsRepository,
+                              DailyLimitsToDtoConverter dailyLimitsToDtoConverter,
+                              DtoToDailyLimitsConverter dtoToDailyLimitsConverter) {
         super(limitsRepository);
         this.dailyLimitsToDtoConverter = dailyLimitsToDtoConverter;
+        this.dtoToDailyLimitsConverter = dtoToDailyLimitsConverter;
     }
 
     public DailyLimitsDto getLimitsDtoById(Long id){
@@ -36,13 +43,13 @@ public class DailyLimitsService extends DailyLimitsRepoService {
                 .collect(Collectors.toList());
     }
 
-    public String addDailyLimits (DailyLimits dailyLimits){
-        addLimits(dailyLimits);
+    public String addDailyLimits (DailyLimitsDto dailyLimitsDto){
+        addLimits(dtoToDailyLimitsConverter.mappingEntity(dailyLimitsDto));
         return "Przesłany dzienny limit został zapisany w bazie danych";
     }
 
-    public String updateDailyLimits (DailyLimits dailyLimits){
-        updateLimits(dailyLimits);
+    public String updateDailyLimits (DailyLimitsDto dailyLimitsDto){
+        updateLimits(dtoToDailyLimitsConverter.mappingEntity(dailyLimitsDto));
         return "Przesłane limity zostały uaktualnione";
     }
 

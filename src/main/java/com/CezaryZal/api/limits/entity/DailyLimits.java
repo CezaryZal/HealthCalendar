@@ -9,6 +9,7 @@ import javax.persistence.*;
 @Table(name = "daily_limits")
 @Data
 @RequiredArgsConstructor
+@AllArgsConstructor
 @NoArgsConstructor
 public class DailyLimits {
 
