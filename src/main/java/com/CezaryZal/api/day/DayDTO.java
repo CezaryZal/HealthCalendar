@@ -4,7 +4,7 @@ package com.CezaryZal.api.day;
 import com.CezaryZal.api.shortday.ShortDay;
 import com.CezaryZal.api.meal.entity.DailyDiet;
 import com.CezaryZal.api.note.entity.Header;
-import com.CezaryZal.api.training.TrainingsDTO;
+import com.CezaryZal.api.training.entity.TrainingsSummary;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -23,13 +23,13 @@ public class DayDTO {
     private DailyDiet dailyDiet;
     private boolean isAchievedKcal;
     private int portionsSnack;
-    private TrainingsDTO trainings;
+    private TrainingsSummary trainings;
     private List<Header> listHeaders;
     private List<ShortDay> listShortDays;
 
     public DayDTO(Long id, LocalDate date, Long userId, String nick, LocalDate lastDateMeasureBody, int portionsDrink,
                   boolean isAchievedDrink, int portionsAlcohol, DailyDiet dailyDiet, boolean isAchievedKcal,
-                  int portionsSnack, TrainingsDTO trainings, List<Header> listHeaders, List<ShortDay> listShortDays) {
+                  int portionsSnack, TrainingsSummary trainings, List<Header> listHeaders, List<ShortDay> listShortDays) {
         this.id = id;
         this.date = date;
         this.userId = userId;
@@ -90,7 +90,7 @@ public class DayDTO {
         return portionsSnack;
     }
 
-    public TrainingsDTO getTrainings() {
+    public TrainingsSummary getTrainings() {
         return trainings;
     }
 

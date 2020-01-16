@@ -8,6 +8,8 @@ import com.CezaryZal.api.meal.entity.MealDto;
 import com.CezaryZal.api.meal.manager.MealService;
 import com.CezaryZal.api.note.entity.NoteDto;
 import com.CezaryZal.api.note.manager.NoteService;
+import com.CezaryZal.api.training.entity.TrainingDto;
+import com.CezaryZal.api.training.manager.TrainingService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,16 +29,19 @@ public class AdminApiController {
     private final DailyLimitsService dailyLimitsService;
     private final MealService mealService;
     private final NoteService noteService;
+    private final TrainingService trainingService;
 
     @Autowired
     public AdminApiController(BodySizeService bodySizeService,
                               DailyLimitsService dailyLimitsService,
                               MealService mealService,
-                              NoteService noteService) {
+                              NoteService noteService,
+                              TrainingService trainingService) {
         this.bodySizeService = bodySizeService;
         this.dailyLimitsService = dailyLimitsService;
         this.mealService = mealService;
         this.noteService = noteService;
+        this.trainingService = trainingService;
     }
 
     @ApiOperation(value = "This will get a `BodySize` by id", notes = "In this method you will receive a body measurement by id")
@@ -88,9 +93,21 @@ public class AdminApiController {
     }
 
     @ApiOperation(value = "This will get a list `Note`, all records")
-    @GetMapping
+    @GetMapping("/notes")
     public ResponseEntity<List<NoteDto>> getAll(){
         return new ResponseEntity<>(noteService.getAllNote(), HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "This will get a `Training` by id")
+    @GetMapping("/training/{id}")
+    public ResponseEntity<TrainingDto> getTrainingDtoById (@PathVariable Long id){
+        return new ResponseEntity<>(trainingService.getTrainingDtoById(id), HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "This will get a list `Training`, all records")
+    @GetMapping("/trainings")
+    public ResponseEntity<List<TrainingDto>> getAllTrainings(){
+        return new ResponseEntity<>(trainingService.getAllTrainingsDto(), HttpStatus.OK);
     }
 
 }
