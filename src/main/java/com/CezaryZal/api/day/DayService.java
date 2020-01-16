@@ -4,7 +4,7 @@ import com.CezaryZal.api.body.manager.BodySizeService;
 import com.CezaryZal.api.shortday.ShortDay;
 import com.CezaryZal.api.shortday.ShortDayService;
 import com.CezaryZal.api.meal.manager.MealService;
-import com.CezaryZal.api.meal.entity.DailyDietDTO;
+import com.CezaryZal.api.meal.entity.DailyDiet;
 import com.CezaryZal.api.note.NoteService;
 import com.CezaryZal.api.training.TrainingService;
 import com.CezaryZal.api.user.entity.User;
@@ -48,7 +48,7 @@ public class DayService {
     public DayDTO getDayDTOByDateAndUserId(String inputDate, Long userId) throws AccountNotFoundException {
         Day day = getDayByDateAndUserId(inputDate, userId);
         User user = userS.getUserById(userId);
-        DailyDietDTO dailyDietDTO = mealS.getDailyDietDTOByDayId(day.getId());
+        DailyDiet dailyDiet = mealS.getDailyDietDTOByDayId(day.getId());
 
         return new DayDTO(
                 day.getId(),
@@ -59,8 +59,8 @@ public class DayService {
                 day.getPortionsDrink(),
                 checkIsAchievedDrink(user, day),
                 day.getPortionsAlcohol(),
-                dailyDietDTO,
-                checkIsAchievedKcal(user, dailyDietDTO),
+                dailyDiet,
+                checkIsAchievedKcal(user, dailyDiet),
                 day.getPortionsSnack(),
                 trainingS.createAllTrainingsDTOByDay(day.getListTrainingsDB()),
                 noteS.getHeadersByNotesDB(day.getListNotesDB()),
@@ -113,21 +113,21 @@ public class DayService {
 
     double LIMIT_OF_EAT_KCAL = 0.05; // 5%
 
-    public boolean checkIsAchievedKcal(User user, DailyDietDTO dailyDietDTO) {
+    public boolean checkIsAchievedKcal(User user, DailyDiet dailyDiet) {
         int kcalDemand = user.getDailyLimits().getKcalDemandPerDay();
-        int sumOfKcal = dailyDietDTO.getSumOfKcal();
+        int sumOfKcal = dailyDiet.getSumOfKcal();
         return sumOfKcal >= kcalDemand - kcalDemand * LIMIT_OF_EAT_KCAL && sumOfKcal <= kcalDemand + kcalDemand * LIMIT_OF_EAT_KCAL;
     }
 
     //Dodatkowa klasa serwisowa dla ShortDay
     public ShortDay createShortDayByDay(Day day) throws AccountNotFoundException {
         User user = userS.getUserById(day.getUserId());
-        DailyDietDTO dailyDietDTO = mealS.getDailyDietDTOByDayId(day.getId());
+        DailyDiet dailyDiet = mealS.getDailyDietDTOByDayId(day.getId());
 
         return new ShortDay(
                 day.getUserId(),
                 day.getDate(),
-                checkIsAchievedKcal(user, dailyDietDTO),
+                checkIsAchievedKcal(user, dailyDiet),
                 checkIsAchievedDrink(user, day),
                 day.getPortionsAlcohol() != 0,
                 day.getPortionsSnack() != 0

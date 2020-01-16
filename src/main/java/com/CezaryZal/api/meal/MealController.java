@@ -1,7 +1,6 @@
 package com.CezaryZal.api.meal;
 
-import com.CezaryZal.api.meal.entity.DailyDietDTO;
-import com.CezaryZal.api.meal.entity.Meal;
+import com.CezaryZal.api.meal.entity.DailyDiet;
 import com.CezaryZal.api.meal.entity.MealDto;
 import com.CezaryZal.api.meal.manager.MealService;
 import io.swagger.annotations.Api;
@@ -26,32 +25,20 @@ public class MealController {
         this.mealService = mealService;
     }
 
-    @ApiOperation(value = "This will get a `Meal` by id")
-    @GetMapping("/{id}")
-    public ResponseEntity<MealDto> getMealDtoById (@PathVariable Long id){
-        return new ResponseEntity<>(mealService.getMealDtoById(id), HttpStatus.OK);
-    }
-
     @ApiOperation(value = "This will get a `DailyDietDTO` by day id")
     @GetMapping("/dto/day-id/{dayId}")
-    public ResponseEntity<DailyDietDTO> getDailyDietByDayId(@PathVariable Long dayId){
+    public ResponseEntity<DailyDiet> getDailyDietByDayId(@PathVariable Long dayId){
         return new ResponseEntity<>(mealService.getDailyDietDTOByDayId(dayId), HttpStatus.OK);
     }
 
-    @ApiOperation(value = "This will get a list `Meal`, all records")
-    @GetMapping
-    public ResponseEntity<List<MealDto>> getListMealDto(){
-        return new ResponseEntity<>(mealService.getListMealDto(), HttpStatus.OK);
-    }
-
     @PostMapping
-    public ResponseEntity<String> addMeal (@RequestBody Meal meal){
-        return new ResponseEntity<>(mealService.addMealByDto(meal), HttpStatus.CREATED);
+    public ResponseEntity<String> addMeal (@RequestBody MealDto mealDto){
+        return new ResponseEntity<>(mealService.addMealByDto(mealDto), HttpStatus.CREATED);
     }
 
     @PutMapping
-    public ResponseEntity<String> updateMeal (@RequestBody Meal meal){
-        return new ResponseEntity<>(mealService.updateMealByDto(meal), HttpStatus.OK);
+    public ResponseEntity<String> updateMeal (@RequestBody MealDto mealDto){
+        return new ResponseEntity<>(mealService.updateMealByDto(mealDto), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")

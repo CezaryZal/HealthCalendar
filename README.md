@@ -13,3 +13,4 @@ Backend:
 
 ## To do
 - get/add certificate
+- add check input value/object

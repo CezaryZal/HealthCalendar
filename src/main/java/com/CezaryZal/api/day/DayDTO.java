@@ -2,7 +2,7 @@ package com.CezaryZal.api.day;
 
 
 import com.CezaryZal.api.shortday.ShortDay;
-import com.CezaryZal.api.meal.entity.DailyDietDTO;
+import com.CezaryZal.api.meal.entity.DailyDiet;
 import com.CezaryZal.api.note.Header;
 import com.CezaryZal.api.training.TrainingsDTO;
 
@@ -20,7 +20,7 @@ public class DayDTO {
     private int portionsDrink;
     private boolean isAchievedDrink;
     private int portionsAlcohol;
-    private DailyDietDTO dailyDietDTO;
+    private DailyDiet dailyDiet;
     private boolean isAchievedKcal;
     private int portionsSnack;
     private TrainingsDTO trainings;
@@ -28,7 +28,7 @@ public class DayDTO {
     private List<ShortDay> listShortDays;
 
     public DayDTO(Long id, LocalDate date, Long userId, String nick, LocalDate lastDateMeasureBody, int portionsDrink,
-                  boolean isAchievedDrink, int portionsAlcohol, DailyDietDTO dailyDietDTO, boolean isAchievedKcal,
+                  boolean isAchievedDrink, int portionsAlcohol, DailyDiet dailyDiet, boolean isAchievedKcal,
                   int portionsSnack, TrainingsDTO trainings, List<Header> listHeaders, List<ShortDay> listShortDays) {
         this.id = id;
         this.date = date;
@@ -38,7 +38,7 @@ public class DayDTO {
         this.portionsDrink = portionsDrink;
         this.isAchievedDrink = isAchievedDrink;
         this.portionsAlcohol = portionsAlcohol;
-        this.dailyDietDTO = dailyDietDTO;
+        this.dailyDiet = dailyDiet;
         this.isAchievedKcal = isAchievedKcal;
         this.portionsSnack = portionsSnack;
         this.trainings = trainings;
@@ -78,8 +78,8 @@ public class DayDTO {
         return portionsAlcohol;
     }
 
-    public DailyDietDTO getDailyDietDTO() {
-        return dailyDietDTO;
+    public DailyDiet getDailyDiet() {
+        return dailyDiet;
     }
 
     public boolean isAchievedKcal() {
@@ -113,7 +113,7 @@ public class DayDTO {
                 ", portionsDrink=" + portionsDrink +
                 ", isAchievedDrink=" + isAchievedDrink +
                 ", portionsAlcohol=" + portionsAlcohol +
-                ", dailyDiet=" + dailyDietDTO +
+                ", dailyDiet=" + dailyDiet +
                 ", isAchievedKcal=" + isAchievedKcal +
                 ", portionsSnack=" + portionsSnack +
                 ", trainings=" + trainings +
