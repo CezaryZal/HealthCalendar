@@ -16,29 +16,29 @@ public class MealRepoService {
         this.mealRepository = mealRepository;
     }
 
-    public Meal findMealById(Long id) {
+    protected Meal findMealById(Long id) {
         return mealRepository.findById(id)
                 .orElseThrow(() -> new MealNotFoundException("Meal not found by id"));
     }
 
-    public List<Meal> getListMealByDayId(Long dayId){
+    protected List<Meal> getListMealByDayId(Long dayId){
         return mealRepository.findAllByDayId(dayId)
                 .orElseThrow(() -> new MealNotFoundException("Meals not found by day id"));
     }
 
-    public List<Meal> getAll() {
+    protected List<Meal> getAll() {
         return mealRepository.findAll();
     }
 
-    public void addMeal(Meal meal) {
+    protected void addMeal(Meal meal) {
         mealRepository.save(meal);
     }
 
-    public void updateMeal(Meal meal) {
+    protected void updateMeal(Meal meal) {
         mealRepository.save(meal);
     }
 
-    public void deleteMealById(Long id) {
+    protected void deleteMealById(Long id) {
         mealRepository.deleteById(id);
     }
 }

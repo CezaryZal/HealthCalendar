@@ -2,7 +2,6 @@ package com.CezaryZal.production;
 
 import com.CezaryZal.api.body.entity.BodySizeDto;
 import com.CezaryZal.api.body.manager.BodySizeService;
-import com.CezaryZal.api.limits.entity.DailyLimits;
 import com.CezaryZal.api.limits.entity.DailyLimitsDto;
 import com.CezaryZal.api.limits.manager.DailyLimitsService;
 import com.CezaryZal.api.meal.entity.MealDto;

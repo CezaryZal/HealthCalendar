@@ -19,7 +19,7 @@ public class BodySizeRepoService {
         this.bodySizeR = BSRepository;
     }
 
-    public BodySize getBodyById(Long id) {
+    protected BodySize getBodyById(Long id) {
         return bodySizeR.findById(id)
                 .orElseThrow(() -> new BodySizeNotFoundException("Body size not found by id"));
     }
@@ -37,24 +37,24 @@ public class BodySizeRepoService {
                 .collect(Collectors.toList());
     }
 
-    public BodySize getBodyByDateAndUserId(String inputDate, Long userId) {
+    protected BodySize getBodyByDateAndUserId(String inputDate, Long userId) {
         return bodySizeR.findByDateMeasurementAndUserId(LocalDate.parse(inputDate), userId)
                 .orElseThrow(() -> new BodySizeNotFoundException("Body size not found by user id and date"));
     }
 
-    public List<BodySize> getAll() {
+    protected List<BodySize> getAll() {
         return bodySizeR.findAll();
     }
 
-    public void addBody(BodySize bodySize) {
+    protected void addBody(BodySize bodySize) {
         bodySizeR.save(bodySize);
     }
 
-    public void updateBody(BodySize bodySize) {
+    protected void updateBody(BodySize bodySize) {
         bodySizeR.save(bodySize);
     }
 
-    public void deleteBodyById(Long id) {
+    protected void deleteBodyById(Long id) {
         bodySizeR.deleteById(id);
     }
 }

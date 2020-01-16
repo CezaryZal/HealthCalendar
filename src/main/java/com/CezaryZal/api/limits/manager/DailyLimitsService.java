@@ -6,7 +6,6 @@ import com.CezaryZal.api.limits.entity.DailyLimitsDto;
 import com.CezaryZal.api.limits.manager.mapper.DailyLimitsToDtoConverter;
 import com.CezaryZal.api.limits.manager.mapper.DtoToDailyLimitsConverter;
 import com.CezaryZal.api.limits.manager.repo.DailyLimitsRepoService;
-import com.CezaryZal.exceptions.not.found.DailyLimitsNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
