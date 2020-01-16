@@ -6,6 +6,8 @@ import com.CezaryZal.api.limits.entity.DailyLimitsDto;
 import com.CezaryZal.api.limits.manager.DailyLimitsService;
 import com.CezaryZal.api.meal.entity.MealDto;
 import com.CezaryZal.api.meal.manager.MealService;
+import com.CezaryZal.api.note.entity.NoteDto;
+import com.CezaryZal.api.note.manager.NoteService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,22 +21,31 @@ import java.util.List;
 @Api(tags = "Admin controller")
 @RestController
 @RequestMapping("/admin/api")
-public class AdminController {
+public class AdminApiController {
 
     private final BodySizeService bodySizeService;
     private final DailyLimitsService dailyLimitsService;
     private final MealService mealService;
+    private final NoteService noteService;
 
     @Autowired
-    public AdminController(BodySizeService bodySizeService,
-                           DailyLimitsService dailyLimitsService,
-                           MealService mealService) {
+    public AdminApiController(BodySizeService bodySizeService,
+                              DailyLimitsService dailyLimitsService,
+                              MealService mealService,
+                              NoteService noteService) {
         this.bodySizeService = bodySizeService;
         this.dailyLimitsService = dailyLimitsService;
         this.mealService = mealService;
+        this.noteService = noteService;
     }
 
-    @ApiOperation(value = "This will get a list `BodySize`, all records")
+    @ApiOperation(value = "This will get a `BodySize` by id", notes = "In this method you will receive a body measurement by id")
+    @GetMapping("/body/{id}")
+    public ResponseEntity<BodySizeDto> getBodySizeDtoById(@PathVariable Long id) {
+        return new ResponseEntity<>(bodySizeService.getBodySizeDtoById(id), HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "This will get a list `BodySizeDto`, all records")
     @GetMapping("/bodies")
     public ResponseEntity<List<BodySizeDto>> getListBodySizeDto() {
         return new ResponseEntity<>(bodySizeService.getListBodySizeDto(), HttpStatus.OK);
@@ -74,6 +85,12 @@ public class AdminController {
     @GetMapping("/meals")
     public ResponseEntity<List<MealDto>> getListMealDto(){
         return new ResponseEntity<>(mealService.getListMealDto(), HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "This will get a list `Note`, all records")
+    @GetMapping
+    public ResponseEntity<List<NoteDto>> getAll(){
+        return new ResponseEntity<>(noteService.getAllNote(), HttpStatus.OK);
     }
 
 }

@@ -3,7 +3,7 @@ package com.CezaryZal.api.day;
 
 import com.CezaryZal.api.shortday.ShortDay;
 import com.CezaryZal.api.meal.entity.DailyDiet;
-import com.CezaryZal.api.note.Header;
+import com.CezaryZal.api.note.entity.Header;
 import com.CezaryZal.api.training.TrainingsDTO;
 
 import java.time.LocalDate;

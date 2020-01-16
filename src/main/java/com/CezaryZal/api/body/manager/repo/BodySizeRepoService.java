@@ -3,6 +3,7 @@ package com.CezaryZal.api.body.manager.repo;
 import com.CezaryZal.api.body.BodySizeRepository;
 import com.CezaryZal.api.body.entity.BodySize;
 import com.CezaryZal.exceptions.not.found.BodySizeNotFoundException;
+import com.CezaryZal.exceptions.not.found.DateNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.sql.Date;
@@ -26,7 +27,7 @@ public class BodySizeRepoService {
 
     public LocalDate getDateLastMeasureByUserId(Long userId) {
         Date tmpDate = bodySizeR.findDateLastMeasureByUserId(userId)
-                .orElseThrow(() -> new BodySizeNotFoundException("Body size not found by user id"));
+                .orElseThrow(() -> new DateNotFoundException("Date not found by user id"));
         return tmpDate.toLocalDate();
     }
 

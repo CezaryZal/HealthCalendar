@@ -1,12 +1,13 @@
 package com.CezaryZal.api.note;
 
-import org.springframework.data.repository.CrudRepository;
+import com.CezaryZal.api.note.entity.Note;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public interface NoteRepository extends CrudRepository<Note, Long> {
+public interface NoteRepository extends JpaRepository<Note, Long> {
 
     List<Note> findAllByDayId(Long dayId);
 

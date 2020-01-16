@@ -32,10 +32,10 @@ public class NewAccountAdder {
         userS.addUser(converter.convertUserCreatorToUser(userCreator));
     }
 
-    private void updateDailyLimitsByUser(User userFromDb){
-        Long userId = userFromDb.getId();
-        DailyLimits tmpDailyLimits = userFromDb.getDailyLimits();
-        tmpDailyLimits.setUserId(userId);
-        dailyLimitsS.updateLimits(tmpDailyLimits);
-    }
+//    private void updateDailyLimitsByUser(User userFromDb){
+//        Long userId = userFromDb.getId();
+//        DailyLimits tmpDailyLimits = userFromDb.getDailyLimits();
+//        tmpDailyLimits.setUserId(userId);
+//        dailyLimitsS.updateLimits(tmpDailyLimits);
+//    }
 }

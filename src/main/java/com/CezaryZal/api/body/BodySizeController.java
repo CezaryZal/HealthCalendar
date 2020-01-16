@@ -25,12 +25,6 @@ public class BodySizeController {
         this.bodySizeService = bodySizeService;
     }
 
-    @ApiOperation(value = "This will get a `BodySize` by id", notes = "In this method you will receive a body measurement by id")
-    @GetMapping("/{id}")
-    public ResponseEntity<BodySizeDto> getBodySizeDtoById(@PathVariable Long id) {
-        return new ResponseEntity<>(bodySizeService.getBodySizeDtoById(id), HttpStatus.OK);
-    }
-
     @ApiOperation(value = "This will get a last date measure by user id")
     @GetMapping("/date/user-id/{userId}")
     public ResponseEntity<LocalDate> getDateLastMeasureByUserId(@PathVariable Long userId) {

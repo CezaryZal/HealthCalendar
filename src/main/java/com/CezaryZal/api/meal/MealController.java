@@ -30,16 +30,19 @@ public class MealController {
         return new ResponseEntity<>(mealService.getDailyDietDTOByDayId(dayId), HttpStatus.OK);
     }
 
+    @ApiOperation(value = "This endpoint addition `Meal`")
     @PostMapping
     public ResponseEntity<String> addMeal (@RequestBody MealDto mealDto){
         return new ResponseEntity<>(mealService.addMealByDto(mealDto), HttpStatus.CREATED);
     }
 
+    @ApiOperation(value = "This endpoint input `Meal` object update ")
     @PutMapping
     public ResponseEntity<String> updateMeal (@RequestBody MealDto mealDto){
         return new ResponseEntity<>(mealService.updateMealByDto(mealDto), HttpStatus.OK);
     }
 
+    @ApiOperation(value = "This endpoint remove `Meal` by id")
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteMeal (@PathVariable Long id){
         return new ResponseEntity<>(mealService.deleteById(id), HttpStatus.NO_CONTENT);
