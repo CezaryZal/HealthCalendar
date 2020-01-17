@@ -1,7 +1,12 @@
 package com.CezaryZal.api.shortday;
 
+import com.CezaryZal.api.shortday.entity.ShortDayDto;
+import com.CezaryZal.api.shortday.manager.ShortDayService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -9,47 +14,22 @@ import java.util.List;
 @CrossOrigin(origins = "*", maxAge = 3600)
 @Api(tags = "ShortDay")
 @RestController
-@RequestMapping("/api/shortDay")
+@RequestMapping("/api/short-day")
 public class ShortDayController {
 
-    private ShortDayService shortDayS;
+    private final ShortDayService shortDayService;
 
-    public ShortDayController(ShortDayService shortDayS) {
-        this.shortDayS = shortDayS;
-    }
-
-    @ApiOperation(value = "This will get a `ShortDay` by id")
-    @GetMapping("/{id}")
-    public ShortDay getShortDayById (@PathVariable Long id){
-        return shortDayS.getShortDayById(id);
+    @Autowired
+    public ShortDayController(ShortDayService shortDayService) {
+        this.shortDayService = shortDayService;
     }
 
     @ApiOperation(value = "This will get a list `ShortDay` by date and user id")
     @GetMapping("/{date}/{userId}")
-    public List<ShortDay> getBodyByDateAndUserId (@PathVariable String date, @PathVariable Long userId){
-        return shortDayS.getShortDaysByDateAndUserId(date, userId);
+    public ResponseEntity<List<ShortDayDto>> getBodyByDateAndUserId (
+            @PathVariable String date,
+            @PathVariable Long userId){
+        return new ResponseEntity<>(shortDayService.getShortDaysByDateAndUserId(date, userId), HttpStatus.OK);
     }
-
-    @ApiOperation(value = "This will get a list `ShortDay`, all records")
-    @GetMapping
-    public List<ShortDay> getAll(){
-        return shortDayS.getAll();
-    }
-
-    @PostMapping
-    public void addDiet (@RequestBody ShortDay shortDay){
-        shortDayS.addShortDay(shortDay);
-    }
-
-    @PutMapping
-    public void updateShortDay (@RequestBody ShortDay shortDay){
-        shortDayS.updateShortDay(shortDay);
-    }
-
-    @DeleteMapping("/{id}")
-    public void delete (@PathVariable Long id){
-        shortDayS.deleteShortDayById(id);
-    }
-
 
 }

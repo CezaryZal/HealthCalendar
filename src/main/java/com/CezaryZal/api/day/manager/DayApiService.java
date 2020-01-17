@@ -10,7 +10,7 @@ import com.CezaryZal.api.limits.manager.checker.LimitsChecker;
 import com.CezaryZal.api.meal.entity.DailyDiet;
 import com.CezaryZal.api.meal.manager.MealService;
 import com.CezaryZal.api.note.manager.NoteService;
-import com.CezaryZal.api.shortday.ShortDayService;
+import com.CezaryZal.api.shortday.manager.ShortDayService;
 import com.CezaryZal.api.training.manager.TrainingService;
 import com.CezaryZal.api.user.entity.User;
 import com.CezaryZal.api.user.manager.UserService;

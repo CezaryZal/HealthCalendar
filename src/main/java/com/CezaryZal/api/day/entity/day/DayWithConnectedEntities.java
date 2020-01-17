@@ -3,7 +3,7 @@ package com.CezaryZal.api.day.entity.day;
 import com.CezaryZal.api.day.entity.FormDay;
 import com.CezaryZal.api.meal.entity.Meal;
 import com.CezaryZal.api.note.entity.Note;
-import com.CezaryZal.api.shortday.ShortDay;
+import com.CezaryZal.api.shortday.entity.ShortDay;
 import com.CezaryZal.api.training.entity.Training;
 import lombok.Getter;
 import lombok.ToString;

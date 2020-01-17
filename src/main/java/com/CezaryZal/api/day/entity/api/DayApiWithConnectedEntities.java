@@ -1,10 +1,9 @@
 package com.CezaryZal.api.day.entity.api;
 
-
 import com.CezaryZal.api.day.entity.FormDay;
-import com.CezaryZal.api.shortday.ShortDay;
 import com.CezaryZal.api.meal.entity.DailyDiet;
 import com.CezaryZal.api.note.entity.Header;
+import com.CezaryZal.api.shortday.entity.ShortDayDto;
 import com.CezaryZal.api.training.entity.TrainingsSummary;
 import lombok.Getter;
 import lombok.ToString;
@@ -23,7 +22,7 @@ public class DayApiWithConnectedEntities extends FormDay {
     private boolean isAchievedKcal;
     private TrainingsSummary trainings;
     private List<Header> listHeaders;
-    private List<ShortDay> listShortDays;
+    private List<ShortDayDto> listShortsDayDto;
 
     public DayApiWithConnectedEntities(
             Long id,
@@ -39,7 +38,7 @@ public class DayApiWithConnectedEntities extends FormDay {
             boolean isAchievedKcal,
             TrainingsSummary trainings,
             List<Header> listHeaders,
-            List<ShortDay> listShortDays) {
+            List<ShortDayDto> listShortsDayDto) {
         super(id, date, userId, portionsDrink, portionsAlcohol, portionsSnack);
         this.nick = nick;
         this.lastDateMeasureBody = lastDateMeasureBody;
@@ -48,7 +47,7 @@ public class DayApiWithConnectedEntities extends FormDay {
         this.isAchievedKcal = isAchievedKcal;
         this.trainings = trainings;
         this.listHeaders = listHeaders;
-        this.listShortDays = listShortDays;
+        this.listShortsDayDto = listShortsDayDto;
     }
 
 }
