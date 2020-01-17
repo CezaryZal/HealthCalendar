@@ -1,9 +1,8 @@
 package com.CezaryZal.api.user.manager;
 
-import com.CezaryZal.api.limits.entity.DailyLimits;
 import com.CezaryZal.api.limits.manager.DailyLimitsService;
-import com.CezaryZal.api.user.entity.User;
 import com.CezaryZal.api.user.entity.UserCreator;
+import com.CezaryZal.api.user.manager.mapper.UserObjectConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,9 +27,9 @@ public class NewAccountAdder {
 //        return userFromDb.getId();
 //    }
 
-    private void creteAccount(UserCreator userCreator){
-        userS.addUser(converter.convertUserCreatorToUser(userCreator));
-    }
+//    private void creteAccount(UserCreator userCreator){
+//        userS.addUser(converter.convertUserCreatorToUser(userCreator));
+//    }
 
 //    private void updateDailyLimitsByUser(User userFromDb){
 //        Long userId = userFromDb.getId();

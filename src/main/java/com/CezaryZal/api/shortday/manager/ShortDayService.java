@@ -44,16 +44,16 @@ public class ShortDayService extends ShortDayRepoService {
 
     public String addShort(ShortDay shortDay) {
         addShortDay(shortDay);
-        return "Przesłana notatka została uaktualniona";
+        return "Przesłany skrót dnia została uaktualniona";
     }
 
     public String updateShort(ShortDay shortDay) {
         updateShortDay(shortDay);
-        return "Przesłana notatka została zapisana w bazie danych";
+        return "Przesłany skrót dnia został zapisany w bazie danych";
     }
 
     public String deleteShortById(Long id) {
         deleteShortDayById(id);
-        return "Notatka o przesłanym id została usunieta";
+        return "Skrót dnia o przesłanym id został usuniety";
     }
 }

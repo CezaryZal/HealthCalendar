@@ -10,9 +10,9 @@ INSERT INTO `users_auth` VALUES
 (3, true, 'czar', '$2a$10$aAIl0ih538I2tHl93BTUzuiQMZZbnzNIUyeM3/dkXc6MzQorLALe.', 'ADD', 'ADMIN');
 
 INSERT INTO `user` VALUES
-(1, '1966-05-23', 'anna@gmail.com', 'Anna','jan', 569842365, 0, 1, 1),
-(2, '1996-05-23', 'fiona@gmail.com', 'Fiona','tomek', 846152365, 1, 2, 2),
-(3, '1999-05-23', 'kris@gmail.com', 'Kris','czar', 849642365, 1, 2, 3);
+(1, '1966-05-23', 'anna@gmail.com', 'janek','jan', 569842365, 0, 1, 1),
+(2, '1996-05-23', 'fiona@gmail.com', 'tomek','tomy', 846152365, 1, 2, 2),
+(3, '1999-05-23', 'kris@gmail.com', 'czar','czarek', 849642365, 1, 2, 3);
 
 INSERT INTO `body_size` VALUES
 (1, 65, 38, 31, 98, '2018-05-23', 75, 88, 45, 1, 36),

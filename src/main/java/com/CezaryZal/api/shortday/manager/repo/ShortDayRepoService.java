@@ -18,28 +18,28 @@ public class ShortDayRepoService {
         this.shortDayRepository = shortDayRepository;
     }
 
-    public ShortDay getShortDayById(Long id) {
+    protected ShortDay getShortDayById(Long id) {
         return shortDayRepository.findById(id)
                 .orElseThrow(() -> new ShortDayNotFoundException("Short day not found by id"));
     }
 
-    public List<ShortDay> getShortsDayByMaxMinDateAndUserId(LocalDate localDateMin, LocalDate localDateMax, Long userId) {
+    protected List<ShortDay> getShortsDayByMaxMinDateAndUserId(LocalDate localDateMin, LocalDate localDateMax, Long userId) {
         return shortDayRepository.findAllByUserIdAndDateBetween(userId, localDateMin, localDateMax);
     }
 
-    public List<ShortDay> getAll() {
+    protected List<ShortDay> getAll() {
         return shortDayRepository.findAll();
     }
 
-    public void addShortDay(ShortDay shortDay) {
+    protected void addShortDay(ShortDay shortDay) {
         shortDayRepository.save(shortDay);
     }
 
-    public void updateShortDay(ShortDay shortDay) {
+    protected void updateShortDay(ShortDay shortDay) {
         shortDayRepository.save(shortDay);
     }
 
-    public void deleteShortDayById(Long id) {
+    protected void deleteShortDayById(Long id) {
         shortDayRepository.deleteById(id);
     }
 }

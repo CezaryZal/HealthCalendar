@@ -1,18 +1,17 @@
 package com.CezaryZal.api.user.entity;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Data
-@NoArgsConstructor
+@ToString
+@Getter
+@AllArgsConstructor
 public abstract class FormUser {
 
-    public FormUser(String loginName, String password) {
-        this.loginName = loginName;
-        this.password = password;
-    }
-
-    private String loginName;
-    private String password;
+    private Long id;
+    private String firstName;
+    private String nick;
     private String email;
+    private int phoneNumber;
+    private int sex;
+    private int age;
 }

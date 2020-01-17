@@ -1,70 +1,54 @@
 package com.CezaryZal.api.user.manager;
 
-import com.CezaryZal.api.user.respository.UserRepository;
+import com.CezaryZal.api.user.manager.mapper.UserToDtoConverter;
+import com.CezaryZal.api.user.manager.repo.UserRepoService;
+import com.CezaryZal.api.user.UserRepository;
 import com.CezaryZal.api.user.entity.User;
-import com.CezaryZal.api.user.entity.UserDTO;
-import com.CezaryZal.exceptions.not.found.UserNotFoundException;
+import com.CezaryZal.api.user.entity.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.security.auth.login.AccountNotFoundException;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
-public class UserService {
+public class UserService extends UserRepoService{
 
-    private UserRepository userR;
-    private UserObjectConverter converter;
+    private final UserToDtoConverter userToDtoConverter;
 
     @Autowired
-    public UserService(UserRepository userR, UserObjectConverter converter) {
-        this.userR = userR;
-        this.converter = converter;
+    public UserService(UserRepository userRepository,
+                       UserToDtoConverter userToDtoConverter) {
+        super(userRepository);
+        this.userToDtoConverter = userToDtoConverter;
     }
 
-    public User getUserById(Long id) {
-        return userR.findById(id)
-                .orElseThrow(() -> new UserNotFoundException("User not found by id"));
+    public UserDto getUserDtoById(Long id) {
+        return userToDtoConverter.mappingEntity(getUserById(id));
     }
 
-    public UserDTO getUserDTOById(Long id) {
-        User user = getUserById(id);
-
-        return converter.convertUserToUserDTO(user);
+    public UserDto getUserDtoByLoginName(String loginName){
+        return userToDtoConverter.mappingEntity(getUserByLoginName(loginName));
     }
 
-//    public User getUserByLoginName(String loginName){
-//        return userR.findByLoginName(loginName);
-//    }
-
-    public List<User> getAllUsers(){
-        return (List<User>) userR.findAll();
+    public List<UserDto> getUsersDto(){
+        return getUsers().stream()
+                .map(userToDtoConverter::mappingEntity)
+                .collect(Collectors.toList());
     }
 
-    public List<UserDTO> getAllUsersDTO(){
-        List<User> listUsersDB = getAllUsers();
-
-        List<UserDTO> listUserDTO = new ArrayList<>();
-        for (User user : listUsersDB){
-            listUserDTO.add(converter.convertUserToUserDTO(user));
-        }
-        return listUserDTO;
+    public String addNewUser(User user){
+        addUser(user);
+        return "Przesłany użytkownik został zapisany w bazie danych";
     }
 
-    public boolean addUser(User user){
-        userR.save(user);
-
-        return true;
+    public String updateUserBy(User user){
+        updateUser(user);
+        return "Przesłany skrót dnia został zapisany w bazie danych";
     }
 
-    public boolean updateUser(User user){
-        userR.save(user);
-
-        return true;
-    }
-
-    public void deleteUserById (Long id) {
-        userR.deleteById(id);
+    public String deleteUser (Long id) {
+        deleteUserById(id);
+        return "Skrót dnia o przesłanym id został usuniety";
     }
 }

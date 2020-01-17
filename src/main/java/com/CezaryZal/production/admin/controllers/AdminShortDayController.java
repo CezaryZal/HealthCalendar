@@ -1,4 +1,4 @@
-package com.CezaryZal.production.admin.controller;
+package com.CezaryZal.production.admin.controllers;
 
 import com.CezaryZal.api.shortday.entity.ShortDay;
 import com.CezaryZal.api.shortday.entity.ShortDayDto;

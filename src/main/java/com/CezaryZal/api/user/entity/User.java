@@ -3,6 +3,10 @@ package com.CezaryZal.api.user.entity;
 import com.CezaryZal.api.body.entity.BodySize;
 import com.CezaryZal.api.limits.entity.DailyLimits;
 import com.CezaryZal.api.day.entity.day.Day;
+import com.CezaryZal.authentication.entity.UserAuthentication;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -11,6 +15,9 @@ import java.util.List;
 
 @Entity
 @Table(name = "user")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class User {
 
     @Id
@@ -18,8 +25,8 @@ public class User {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "first_name")
-    private String firstName;
+    @Column(name = "login_name")
+    private String loginName;
 
     @Column(name = "nick")
     private String nick;
@@ -60,8 +67,6 @@ public class User {
     @JoinColumn(name = "user_id")
     private List<Day> listDays;
 
-    public User() {
-    }
 
     @PostLoad
     public void calculateAge(){
@@ -70,116 +75,4 @@ public class User {
         }
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getNick() {
-        return nick;
-    }
-
-    public void setNick(String nick) {
-        this.nick = nick;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public int getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(int poneNumber) {
-        this.phoneNumber = poneNumber;
-    }
-
-    public int getSex() {
-        return sex;
-    }
-
-    public void setSex(int sex) {
-        this.sex = sex;
-    }
-
-    public LocalDate getBirthDate() {
-        return birthDate;
-    }
-
-    public void setBirthDate(LocalDate birthDate) {
-        this.birthDate = birthDate;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public DailyLimits getDailyLimits() {
-        return dailyLimits;
-    }
-
-    public void setDailyLimits(DailyLimits dailyLimits) {
-        this.dailyLimits = dailyLimits;
-    }
-
-    public UserAuthentication getUserAuthentication() {
-        return userAuthentication;
-    }
-
-    public void setUserAuthentication(UserAuthentication userAuthentication) {
-        this.userAuthentication = userAuthentication;
-    }
-
-    public List<BodySize> getListMeasureByBodySize() {
-        return listMeasureByBodySize;
-    }
-
-    public void setListMeasureByBodySize(List<BodySize> listBodySize) {
-        this.listMeasureByBodySize = listBodySize;
-    }
-
-    public List<Day> getListDays() {
-        return listDays;
-    }
-
-    public void setListDays(List<Day> listDays) {
-        this.listDays = listDays;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", nick='" + nick + '\'' +
-                ", email='" + email + '\'' +
-                ", poneNumber=" + phoneNumber +
-                ", sex=" + sex +
-                ", age=" + age +
-                ", birthDate=" + birthDate +
-                ", dailyLimits=" + dailyLimits +
-                ", listMeasureByBodySize=" + listMeasureByBodySize +
-                ", listDays=" + listDays +
-                '}';
-    }
 }

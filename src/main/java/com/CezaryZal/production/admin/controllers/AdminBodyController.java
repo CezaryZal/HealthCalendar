@@ -1,4 +1,4 @@
-package com.CezaryZal.production.admin.controller;
+package com.CezaryZal.production.admin.controllers;
 
 import com.CezaryZal.api.body.entity.BodySizeDto;
 import com.CezaryZal.api.body.manager.BodySizeService;
