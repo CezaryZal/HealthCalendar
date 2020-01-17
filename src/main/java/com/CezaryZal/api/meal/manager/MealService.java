@@ -43,6 +43,11 @@ public class MealService extends MealRepoService {
         return getDailyDietByListMeal(getListMealByDayId(dayId));
     }
 
+    public DailyDiet getDailyDietByListMeal(List<Meal> meals){
+        List<MealDto> listMealDto = listMealToListDtoConverter.mappingList(meals);
+        return dailyDietCreator.createDailyDiet(listMealDto);
+    }
+
     public List<MealDto> getListMealDto() {
         return listMealToListDtoConverter.mappingList(getAll());
     }
@@ -60,11 +65,6 @@ public class MealService extends MealRepoService {
     public String deleteById(Long id) {
         deleteMealById(id);
         return "Posiłek o przesłanym id został usuniety";
-    }
-
-    public DailyDiet getDailyDietByListMeal(List<Meal> meals){
-        List<MealDto> listMealDto = listMealToListDtoConverter.mappingList(meals);
-        return dailyDietCreator.createDailyDiet(listMealDto);
     }
 
 }

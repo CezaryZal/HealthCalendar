@@ -7,6 +7,7 @@ import com.CezaryZal.api.day.entity.day.Day;
 import com.CezaryZal.api.day.entity.api.DayApiWithConnectedEntities;
 import com.CezaryZal.api.day.manager.repo.DayRepoService;
 import com.CezaryZal.api.limits.manager.checker.LimitsChecker;
+import com.CezaryZal.api.meal.entity.DailyDiet;
 import com.CezaryZal.api.meal.manager.MealService;
 import com.CezaryZal.api.note.manager.NoteService;
 import com.CezaryZal.api.shortday.ShortDayService;
@@ -65,8 +66,9 @@ public class DayApiService extends DayRepoService {
     public DayApiWithConnectedEntities getDayApiWithEntitiesByDateAndUserId(String inputDate, Long userId){
         Day day = getDayByDateAndUserId(LocalDate.parse(inputDate), userId);
         User user = userService.getUserById(userId);
-        int sumOfKcal = mealService.getDailyDietByDayId(day.getId())
-                .getSumOfKcal();
+        DailyDiet dailyDietByListMeal = mealService.getDailyDietByListMeal(day.getListMealsDB());
+
+        int sumOfKcal = dailyDietByListMeal.getSumOfKcal();
 
         return new DayApiWithConnectedEntities(
                 day.getId(),
@@ -78,10 +80,10 @@ public class DayApiService extends DayRepoService {
                 user.getNick(),
                 bodySizeService.getDateLastMeasureByUserId(userId),
                 limitsChecker.checkIsAchievedDrink(user.getDailyLimits().getDrinkDemandPerDay(), day.getPortionsDrink()), //sprawdzic wydajnosciowo
-                mealService.getDailyDietByDayId(day.getId()),
+                dailyDietByListMeal,
                 limitsChecker.checkIsAchievedKcal(user.getDailyLimits().getKcalDemandPerDay(), sumOfKcal), //sprawdzic wydajnosciowo
-                trainingService.getTrainingsSummaryByDayId(day.getId()),
-                noteService.getHeadersByDay(day.getId()),
+                trainingService.getTrainingsSummaryByTrainings(day.getListTrainingsDB()),
+                noteService.getHeadersByNotes(day.getListNotesDB()),
                 shortDayService.getShortDaysByDateAndUserId(inputDate, userId)
         );
     }

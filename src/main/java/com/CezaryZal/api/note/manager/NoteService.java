@@ -40,8 +40,11 @@ public class NoteService extends NoteRepoService {
     }
 
     public List<Header> getHeadersByDay(Long dayId){
-        List<Note> listNote = getNotesByDayId(dayId);
-        return headersCreator.getHeadersByNotes(listNote);
+        return getHeadersByNotes(getNotesByDayId(dayId));
+    }
+
+    public List<Header> getHeadersByNotes(List<Note> notes){
+        return headersCreator.getHeadersByNotes(notes);
     }
 
     public List<NoteDto> getNotesDtoByDay(Long dayId){
