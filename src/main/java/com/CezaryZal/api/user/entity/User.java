@@ -2,7 +2,7 @@ package com.CezaryZal.api.user.entity;
 
 import com.CezaryZal.api.body.entity.BodySize;
 import com.CezaryZal.api.limits.entity.DailyLimits;
-import com.CezaryZal.api.day.Day;
+import com.CezaryZal.api.day.entity.day.Day;
 
 import javax.persistence.*;
 import java.time.LocalDate;

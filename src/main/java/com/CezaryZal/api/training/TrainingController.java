@@ -10,15 +10,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @CrossOrigin(origins = "*", maxAge = 3600)
 @Api(tags = "Training")
 @RestController
 @RequestMapping("/api/training")
 public class TrainingController {
 
-    private TrainingService trainingService;
+    private final TrainingService trainingService;
 
     @Autowired
     public TrainingController(TrainingService trainingService) {

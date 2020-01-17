@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/limits")
 public class DailyLimitsController {
 
-    private DailyLimitsService dailyLimitsS;
+    private final DailyLimitsService dailyLimitsS;
 
     @Autowired
     public DailyLimitsController(DailyLimitsService dailyLimitsS) {

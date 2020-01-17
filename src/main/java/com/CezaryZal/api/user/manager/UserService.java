@@ -3,6 +3,7 @@ package com.CezaryZal.api.user.manager;
 import com.CezaryZal.api.user.respository.UserRepository;
 import com.CezaryZal.api.user.entity.User;
 import com.CezaryZal.api.user.entity.UserDTO;
+import com.CezaryZal.exceptions.not.found.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,12 +23,12 @@ public class UserService {
         this.converter = converter;
     }
 
-    public User getUserById(Long id) throws AccountNotFoundException {
+    public User getUserById(Long id) {
         return userR.findById(id)
-                .orElseThrow(() -> new AccountNotFoundException("User not found by id"));
+                .orElseThrow(() -> new UserNotFoundException("User not found by id"));
     }
 
-    public UserDTO getUserDTOById(Long id) throws AccountNotFoundException {
+    public UserDTO getUserDTOById(Long id) {
         User user = getUserById(id);
 
         return converter.convertUserToUserDTO(user);

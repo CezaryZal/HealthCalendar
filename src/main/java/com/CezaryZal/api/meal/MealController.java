@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/meal")
 public class MealController {
 
-    private MealService mealService;
+    private final MealService mealService;
 
     @Autowired
     public MealController(MealService mealService) {
@@ -27,7 +27,7 @@ public class MealController {
     @ApiOperation(value = "This will get a `DailyDietDTO` by day id")
     @GetMapping("/dto/day-id/{dayId}")
     public ResponseEntity<DailyDiet> getDailyDietByDayId(@PathVariable Long dayId){
-        return new ResponseEntity<>(mealService.getDailyDietDTOByDayId(dayId), HttpStatus.OK);
+        return new ResponseEntity<>(mealService.getDailyDietByDayId(dayId), HttpStatus.OK);
     }
 
     @ApiOperation(value = "This endpoint addition `Meal`")

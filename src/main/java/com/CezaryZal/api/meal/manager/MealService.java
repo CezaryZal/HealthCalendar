@@ -2,6 +2,7 @@ package com.CezaryZal.api.meal.manager;
 
 import com.CezaryZal.api.meal.MealRepository;
 import com.CezaryZal.api.meal.entity.DailyDiet;
+import com.CezaryZal.api.meal.entity.Meal;
 import com.CezaryZal.api.meal.entity.MealDto;
 import com.CezaryZal.api.meal.manager.creator.DailyDietCreator;
 import com.CezaryZal.api.meal.manager.mapper.DtoToMealConverter;
@@ -38,9 +39,8 @@ public class MealService extends MealRepoService {
         return mealToDtoConverter.mappingEntity(findMealById(id));
     }
 
-    public DailyDiet getDailyDietDTOByDayId(Long dayId) {
-        List<MealDto> listMealDto = listMealToListDtoConverter.mappingList(getListMealByDayId(dayId));
-        return dailyDietCreator.createDailyDiet(listMealDto);
+    public DailyDiet getDailyDietByDayId(Long dayId) {
+        return getDailyDietByListMeal(getListMealByDayId(dayId));
     }
 
     public List<MealDto> getListMealDto() {
@@ -60,6 +60,11 @@ public class MealService extends MealRepoService {
     public String deleteById(Long id) {
         deleteMealById(id);
         return "Posiłek o przesłanym id został usuniety";
+    }
+
+    public DailyDiet getDailyDietByListMeal(List<Meal> meals){
+        List<MealDto> listMealDto = listMealToListDtoConverter.mappingList(meals);
+        return dailyDietCreator.createDailyDiet(listMealDto);
     }
 
 }
