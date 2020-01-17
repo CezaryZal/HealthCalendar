@@ -1,7 +1,8 @@
-package com.CezaryZal.api.user.manager;
+package com.CezaryZal.authentication.manager;
 
-import com.CezaryZal.api.user.entity.UserAuthentication;
-import com.CezaryZal.api.user.respository.UserAuthRepository;
+import com.CezaryZal.authentication.entity.UserAuthentication;
+import com.CezaryZal.authentication.repository.UserAuthRepository;
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +18,8 @@ public class UserAuthService {
         this.userAuthR = userAuthR;
     }
 
-    public UserAuthentication findByLoginName(String loginName) throws AccountNotFoundException {
+    @SneakyThrows
+    public UserAuthentication findByLoginName(String loginName) {
         return userAuthR.findByLoginName(loginName)
                 .orElseThrow(() -> new AccountNotFoundException("User not found"));
     }

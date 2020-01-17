@@ -43,7 +43,11 @@ public class DayController {
     public ResponseEntity<DayApi> getDayApiByDateAndUserId(
             @PathVariable String date,
             @PathVariable Long userId){
-        return new ResponseEntity<>(dayApiService.getDayApiByDateAndUserId(date, userId), HttpStatus.OK);
+        long currentTime = System.currentTimeMillis();
+        ResponseEntity<DayApi> dayApiResponseEntity = new ResponseEntity<>(dayApiService.getDayApiByDateAndUserId(date, userId), HttpStatus.OK);
+        Long processTime = System.currentTimeMillis() - currentTime;
+        System.out.println(processTime);
+        return dayApiResponseEntity;
     }
 
     @ApiOperation(value = "This will get a `DayApi` with connected entities by date and user id")
@@ -51,7 +55,12 @@ public class DayController {
     public ResponseEntity<DayApiWithConnectedEntities> getDayApiWithEntitiesByDateAndUserId(
             @PathVariable String date,
             @PathVariable Long userId){
-        return new ResponseEntity<>(dayApiService.getDayApiWithEntitiesByDateAndUserId(date, userId), HttpStatus.OK);
+        long currentTime = System.currentTimeMillis();
+        ResponseEntity<DayApiWithConnectedEntities> dayApiWithConnectedEntitiesResponseEntity =
+                new ResponseEntity<>(dayApiService.getDayApiWithEntitiesByDateAndUserId(date, userId), HttpStatus.OK);
+        Long processTime = System.currentTimeMillis() - currentTime;
+        System.out.println(processTime);
+        return dayApiWithConnectedEntitiesResponseEntity;
     }
 
     @PostMapping

@@ -1,4 +1,4 @@
-package com.CezaryZal.login;
+package com.CezaryZal.authentication.entity;
 
 import com.CezaryZal.api.user.entity.FormUser;
 

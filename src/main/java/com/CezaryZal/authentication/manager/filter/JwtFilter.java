@@ -1,5 +1,6 @@
-package com.CezaryZal.authentication;
+package com.CezaryZal.authentication.manager.filter;
 
+import com.CezaryZal.authentication.constants.AuthenticationConstants;
 import io.jsonwebtoken.*;
 import io.micrometer.core.instrument.util.StringUtils;
 import lombok.extern.slf4j.Slf4j;

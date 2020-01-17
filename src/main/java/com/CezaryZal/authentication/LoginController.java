@@ -1,6 +1,7 @@
-package com.CezaryZal.login;
+package com.CezaryZal.authentication;
 
-import com.CezaryZal.login.service.LoginService;
+import com.CezaryZal.authentication.entity.AuthenticationRequest;
+import com.CezaryZal.authentication.manager.LoginService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.http.HttpStatus;
@@ -22,7 +23,7 @@ public class LoginController {
 
     @ApiOperation(value = "This will get a token by input login name and password")
     @PostMapping("/login")
-    public ResponseEntity<String> getTokenByUserLogin(@RequestBody AuthenticationRequest inputAuthenticationRequest) throws AccountNotFoundException {
+    public ResponseEntity<String> getTokenByUserLogin(@RequestBody AuthenticationRequest inputAuthenticationRequest) {
         return new ResponseEntity<>(loginService.getTokenByUserLogin(inputAuthenticationRequest), HttpStatus.OK);
     }
 }

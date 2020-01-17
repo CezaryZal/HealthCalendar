@@ -1,4 +1,4 @@
-package com.CezaryZal.login.service;
+package com.CezaryZal.authentication.manager.filter;
 
 import com.CezaryZal.exceptions.InvalidPasswordException;
 import org.springframework.security.crypto.bcrypt.BCrypt;

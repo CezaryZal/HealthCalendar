@@ -16,12 +16,6 @@ public class TestController {
         return "Hello!? success?";
     }
 
-    @GetMapping("/token/user")
-    public UserCreator getUserCreator(){
-        UserCreator userCreator = new UserCreator("Dziad", "zHealthCalendar@gg.com");
-        return userCreator;
-    }
-
     @PostMapping("/non/login")
     public String getLoginByUserCreator(@RequestBody UserCreator userCreator){
         return userCreator.getLoginName();

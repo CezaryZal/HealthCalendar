@@ -1,4 +1,4 @@
-package com.CezaryZal.api.user.entity;
+package com.CezaryZal.authentication.entity;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

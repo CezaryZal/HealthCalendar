@@ -1,9 +1,9 @@
-package com.CezaryZal.login.service;
+package com.CezaryZal.authentication.manager;
 
-import com.CezaryZal.api.user.entity.UserAuthentication;
-import com.CezaryZal.api.user.manager.UserAuthService;
-import com.CezaryZal.authentication.builder.TokenBuilder;
-import com.CezaryZal.login.AuthenticationRequest;
+import com.CezaryZal.authentication.entity.UserAuthentication;
+import com.CezaryZal.authentication.manager.builder.TokenBuilder;
+import com.CezaryZal.authentication.entity.AuthenticationRequest;
+import com.CezaryZal.authentication.manager.filter.PasswordComparator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +23,7 @@ public class LoginService {
         this.passwordComparator = passwordComparator;
     }
 
-    public String getTokenByUserLogin(AuthenticationRequest inputAuthRequest) throws AccountNotFoundException {
+    public String getTokenByUserLogin(AuthenticationRequest inputAuthRequest){
         UserAuthentication foundUserAuth = userAuthService.findByLoginName(inputAuthRequest.getLoginName());
         passwordComparator.throwIfIsNotEqualsPassword(inputAuthRequest.getPassword(), foundUserAuth.getPassword());
 
