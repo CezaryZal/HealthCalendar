@@ -24,7 +24,7 @@ public class TrainingController {
     }
 
     @ApiOperation(value = "This will get a `TrainingsSummary` by day id")
-    @GetMapping("/dto/day-id/{dayId}")
+    @GetMapping("/trainings-summary/{dayId}")
     public ResponseEntity<TrainingsSummary> getTrainingsSummary(@PathVariable Long dayId){
         return new ResponseEntity<>(trainingService.getTrainingsSummaryByDayId(dayId), HttpStatus.OK);
     }

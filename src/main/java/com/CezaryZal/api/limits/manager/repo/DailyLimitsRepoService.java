@@ -16,7 +16,7 @@ public class DailyLimitsRepoService {
         this.limitsRepository = limitsRepository;
     }
 
-    protected DailyLimits getLimitById(Long id){
+    public DailyLimits getLimitById(Long id){
         return limitsRepository.findById(id)
                 .orElseThrow(() -> new DailyLimitsNotFoundException("Daily limits not found by id"));
     }
@@ -30,11 +30,11 @@ public class DailyLimitsRepoService {
         return limitsRepository.findAll();
     }
 
-    protected void addLimits (DailyLimits dailyLimits){
-        limitsRepository.save(dailyLimits);
+    public DailyLimits addLimits (DailyLimits dailyLimits){
+        return limitsRepository.save(dailyLimits);
     }
 
-    protected void updateLimits (DailyLimits dailyLimits){
+    public void updateLimits (DailyLimits dailyLimits){
         limitsRepository.save(dailyLimits);
     }
 

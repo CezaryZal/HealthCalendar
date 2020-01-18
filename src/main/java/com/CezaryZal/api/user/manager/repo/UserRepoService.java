@@ -35,8 +35,8 @@ public class UserRepoService {
         return userRepository.findAll();
     }
 
-    protected void addUser(User user){
-        userRepository.save(user);
+    public User addUser(User user){
+        return userRepository.save(user);
     }
 
     protected void updateUser(User user){

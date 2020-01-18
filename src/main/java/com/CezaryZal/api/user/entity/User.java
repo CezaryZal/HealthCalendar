@@ -67,6 +67,40 @@ public class User {
     @JoinColumn(name = "user_id")
     private List<Day> listDays;
 
+    public User(
+            String loginName,
+            String nick,
+            String email,
+            int phoneNumber,
+            int sex,
+            LocalDate birthDate
+            ) {
+        this.loginName = loginName;
+        this.nick = nick;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.sex = sex;
+        this.birthDate = birthDate;
+    }
+
+    public User(
+            String loginName,
+            String nick,
+            String email,
+            int phoneNumber,
+            int sex,
+            LocalDate birthDate,
+            DailyLimits dailyLimits,
+            UserAuthentication userAuthentication) {
+        this.loginName = loginName;
+        this.nick = nick;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.sex = sex;
+        this.birthDate = birthDate;
+        this.dailyLimits = dailyLimits;
+        this.userAuthentication = userAuthentication;
+    }
 
     @PostLoad
     public void calculateAge(){
@@ -74,5 +108,7 @@ public class User {
             age = (int) ChronoUnit.YEARS.between(birthDate, LocalDate.now());
         }
     }
+
+
 
 }

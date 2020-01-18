@@ -8,10 +8,9 @@ import lombok.*;
 public abstract class FormUser {
 
     private Long id;
-    private String firstName;
+    private String loginName;
     private String nick;
     private String email;
     private int phoneNumber;
     private int sex;
-    private int age;
 }

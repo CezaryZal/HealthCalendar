@@ -1,5 +1,6 @@
 package com.CezaryZal.authentication.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -8,6 +9,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "users_auth")
 @Getter
+@AllArgsConstructor
 @NoArgsConstructor
 public class UserAuthentication {
 

@@ -31,8 +31,8 @@ public class ShortDayRepoService {
         return shortDayRepository.findAll();
     }
 
-    protected void addShortDay(ShortDay shortDay) {
-        shortDayRepository.save(shortDay);
+    protected ShortDay addShortDay(ShortDay shortDay) {
+        return shortDayRepository.save(shortDay);
     }
 
     protected void updateShortDay(ShortDay shortDay) {

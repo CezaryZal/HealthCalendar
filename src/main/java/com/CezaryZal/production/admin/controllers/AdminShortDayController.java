@@ -1,5 +1,6 @@
 package com.CezaryZal.production.admin.controllers;
 
+import com.CezaryZal.api.day.entity.day.DayBasic;
 import com.CezaryZal.api.shortday.entity.ShortDay;
 import com.CezaryZal.api.shortday.entity.ShortDayDto;
 import com.CezaryZal.api.shortday.manager.ShortDayService;
@@ -35,11 +36,6 @@ public class AdminShortDayController {
     @GetMapping
     public ResponseEntity<List<ShortDayDto>> getListShortDay(){
         return new ResponseEntity<>(shortDayService.getShorts(), HttpStatus.OK);
-    }
-
-    @PostMapping
-    public ResponseEntity<String> addShortDay (@RequestBody ShortDay shortDay){
-        return new ResponseEntity<>(shortDayService.addShort(shortDay), HttpStatus.CREATED);
     }
 
     @PutMapping

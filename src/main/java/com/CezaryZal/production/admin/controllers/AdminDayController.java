@@ -25,7 +25,7 @@ public class AdminDayController {
         this.dayService = dayService;
     }
 
-    @ApiOperation(value = "This will get a basic information of `Day` by id")
+    @ApiOperation(value = "This will get a basic information of `DayBasic` by id")
     @GetMapping("/basic/{id}")
     public ResponseEntity<DayBasic> getDayBasicById(@PathVariable Long id) {
         return new ResponseEntity<>(dayService.getDayBasicById(id), HttpStatus.OK);
@@ -37,7 +37,7 @@ public class AdminDayController {
         return new ResponseEntity<>(dayService.getDayWithEntitiesById(id), HttpStatus.OK);
     }
 
-    @ApiOperation(value = "This will get a basic information of `Day` by date and user id")
+    @ApiOperation(value = "This will get a basic information of `DayBasic` by date and user id")
     @GetMapping("/basic/{date}/{userId}")
     public ResponseEntity<DayBasic> getDayBasicByDateAndUserId(
             @PathVariable String date,
@@ -53,7 +53,7 @@ public class AdminDayController {
         return new ResponseEntity<>(dayService.getDayWithEntitiesByDateAndUserId(date, userId), HttpStatus.OK);
     }
 
-    @ApiOperation(value = "This will get a list a basic information of `Day`, all records")
+    @ApiOperation(value = "This will get a list a basic information of `DayBasic`, all records")
     @GetMapping("/basic")
     public ResponseEntity<List<DayBasic>> getListDayBasic() {
         return new ResponseEntity<>(dayService.getDaysBasic(), HttpStatus.OK);

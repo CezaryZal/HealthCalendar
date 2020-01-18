@@ -18,4 +18,7 @@ public abstract class FormDay {
     private int portionsAlcohol;
     private int portionsSnack;
 
+    public void setId(Long id) {
+        this.id = id;
+    }
 }

@@ -30,12 +30,6 @@ public class AdminLimitsController {
         return new ResponseEntity<>(dailyLimitsService.getListLimitsDto(), HttpStatus.OK);
     }
 
-    @ApiOperation(value = "This endpoint addition `DailyLimits`")
-    @PostMapping
-    public ResponseEntity<String> addLimits (@RequestBody DailyLimitsDto dailyLimitsDto){
-        return new ResponseEntity<>(dailyLimitsService.addDailyLimits(dailyLimitsDto), HttpStatus.CREATED);
-    }
-
     @ApiOperation(value = "This endpoint remove `DailyLimits` by id")
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteLimitsById (@PathVariable Long id){

@@ -1,8 +1,12 @@
 package com.CezaryZal.api.shortday.manager;
 
+import com.CezaryZal.api.day.entity.api.DayApi;
+import com.CezaryZal.api.day.entity.day.DayBasic;
 import com.CezaryZal.api.shortday.ShortDayRepository;
 import com.CezaryZal.api.shortday.entity.ShortDay;
 import com.CezaryZal.api.shortday.entity.ShortDayDto;
+import com.CezaryZal.api.shortday.manager.mapper.DayApiToShortDayCreator;
+import com.CezaryZal.api.shortday.manager.mapper.DayBasicToShortDayCreator;
 import com.CezaryZal.api.shortday.manager.mapper.ListShortDayToListDtoConverter;
 import com.CezaryZal.api.shortday.manager.mapper.ShortDayToDtoConverter;
 import com.CezaryZal.api.shortday.manager.repo.ShortDayRepoService;
@@ -17,13 +21,20 @@ public class ShortDayService extends ShortDayRepoService {
 
     private final ShortDayToDtoConverter shortDayToDtoConverter;
     private final ListShortDayToListDtoConverter listShortDayToListDtoConverter;
+    private final DayApiToShortDayCreator dayApiToShortDayCreator;
+    private final DayBasicToShortDayCreator dayBasicToShortDayCreator;
 
     @Autowired
-    public ShortDayService(ShortDayRepository shortDayRepository, ShortDayToDtoConverter shortDayToDtoConverter,
-                           ListShortDayToListDtoConverter listShortDayToListDtoConverter) {
+    public ShortDayService(ShortDayRepository shortDayRepository,
+                           ShortDayToDtoConverter shortDayToDtoConverter,
+                           ListShortDayToListDtoConverter listShortDayToListDtoConverter,
+                           DayApiToShortDayCreator dayApiToShortDayCreator,
+                           DayBasicToShortDayCreator dayBasicToShortDayCreator) {
         super(shortDayRepository);
         this.shortDayToDtoConverter = shortDayToDtoConverter;
         this.listShortDayToListDtoConverter = listShortDayToListDtoConverter;
+        this.dayApiToShortDayCreator = dayApiToShortDayCreator;
+        this.dayBasicToShortDayCreator = dayBasicToShortDayCreator;
     }
 
     public ShortDayDto getShortDayDtoById(Long id) {
@@ -42,14 +53,18 @@ public class ShortDayService extends ShortDayRepoService {
         return listShortDayToListDtoConverter.mappingList(getAll());
     }
 
-    public String addShort(ShortDay shortDay) {
-        addShortDay(shortDay);
-        return "Przesłany skrót dnia została uaktualniona";
+    public String addShortByDayApi(DayApi day) {
+        addShortDay(dayApiToShortDayCreator.create(day));
+        return "Przesłany skrót dnia został zapisany w bazie danych";
+    }
+
+    public ShortDay addShortByDayBasic(DayBasic day) {
+        return addShortDay(dayBasicToShortDayCreator.create(day));
     }
 
     public String updateShort(ShortDay shortDay) {
         updateShortDay(shortDay);
-        return "Przesłany skrót dnia został zapisany w bazie danych";
+        return "Przesłany skrót dnia została uaktualniona";
     }
 
     public String deleteShortById(Long id) {

@@ -1,26 +1,32 @@
 package com.CezaryZal.authentication.manager;
 
+import com.CezaryZal.authentication.UserAuthRepository;
+import com.CezaryZal.authentication.entity.EntityForNewUserAuth;
 import com.CezaryZal.authentication.entity.UserAuthentication;
-import com.CezaryZal.authentication.repository.UserAuthRepository;
-import com.CezaryZal.exceptions.not.found.UserNotFoundException;
-import lombok.SneakyThrows;
+import com.CezaryZal.authentication.manager.mapper.AuthEntityToUserAuth;
+import com.CezaryZal.authentication.manager.repo.UserAuthRepoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.security.auth.login.AccountNotFoundException;
-
 @Service
-public class UserAuthService {
+public class UserAuthService extends UserAuthRepoService {
 
-    private UserAuthRepository userAuthR;
+    private final AuthEntityToUserAuth authEntityToUserAuth;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserAuthService(UserAuthRepository userAuthR) {
-        this.userAuthR = userAuthR;
+    public UserAuthService(UserAuthRepository userAuthRepository,
+                           AuthEntityToUserAuth authEntityToUserAuth,
+                           PasswordEncoder passwordEncoder) {
+        super(userAuthRepository);
+        this.authEntityToUserAuth = authEntityToUserAuth;
+        this.passwordEncoder = passwordEncoder;
     }
 
-    public UserAuthentication findByLoginName(String loginName) {
-        return userAuthR.findByLoginName(loginName)
-                .orElseThrow(() -> new UserNotFoundException("User not found"));
+    public UserAuthentication addUserAuthentication (EntityForNewUserAuth authEntity){
+        String passwordBcrypt = passwordEncoder.encode(authEntity.getPassword());
+        authEntity.setPassword(passwordBcrypt);
+        return addUserAuth(authEntityToUserAuth.mappingEntity(authEntity));
     }
 }

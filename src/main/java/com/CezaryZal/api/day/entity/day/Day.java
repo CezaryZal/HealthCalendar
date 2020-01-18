@@ -71,4 +71,17 @@ public class Day {
     @JoinColumn(name = "short_day_id")
     private ShortDay shortDay;
 
+    public Day(LocalDate date,
+               Long userId,
+               int portionsDrink,
+               int portionsAlcohol,
+               int portionsSnack) {
+        this.date = date;
+        this.userId = userId;
+        this.portionsDrink = portionsDrink;
+        this.portionsAlcohol = portionsAlcohol;
+        this.portionsSnack = portionsSnack;
+    }
+
+
 }

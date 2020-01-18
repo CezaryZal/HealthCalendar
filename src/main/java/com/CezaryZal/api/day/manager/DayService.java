@@ -4,9 +4,12 @@ import com.CezaryZal.api.day.DayRepository;
 import com.CezaryZal.api.day.entity.day.Day;
 import com.CezaryZal.api.day.entity.day.DayBasic;
 import com.CezaryZal.api.day.entity.day.DayWithConnectedEntities;
+import com.CezaryZal.api.day.manager.mapper.DayBasicToDayConverter;
 import com.CezaryZal.api.day.manager.mapper.DayToDayBasicConverter;
 import com.CezaryZal.api.day.manager.mapper.DayToDayWithEntitiesConverter;
 import com.CezaryZal.api.day.manager.repo.DayRepoService;
+import com.CezaryZal.api.shortday.entity.ShortDay;
+import com.CezaryZal.api.shortday.manager.ShortDayService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,13 +22,20 @@ public class DayService extends DayRepoService {
 
     private final DayToDayBasicConverter dayToDayBasicConverter;
     private final DayToDayWithEntitiesConverter dayToDayWithEntitiesConverter;
+    private final ShortDayService shortDayService;
+    private final DayBasicToDayConverter dayBasicToDayConverter;
 
     @Autowired
-    public DayService(DayRepository dayRepository, DayToDayBasicConverter dayToDayBasicConverter,
-                      DayToDayWithEntitiesConverter dayToDayWithEntitiesConverter) {
+    public DayService(DayRepository dayRepository,
+                      DayToDayBasicConverter dayToDayBasicConverter,
+                      DayToDayWithEntitiesConverter dayToDayWithEntitiesConverter,
+                      ShortDayService shortDayService,
+                      DayBasicToDayConverter dayBasicToDayConverter) {
         super(dayRepository);
         this.dayToDayBasicConverter = dayToDayBasicConverter;
         this.dayToDayWithEntitiesConverter = dayToDayWithEntitiesConverter;
+        this.shortDayService = shortDayService;
+        this.dayBasicToDayConverter = dayBasicToDayConverter;
     }
 
     public DayBasic getDayBasicById(Long id) {
@@ -56,10 +66,12 @@ public class DayService extends DayRepoService {
                 .collect(Collectors.toList());
     }
 
-    public String addNewDay(Day day){
-        //Później dopisać dodawanie OneToOne
-        addDay(day);
-//        shortDayS.addShortDay(createShortDayByDay(day));
+    public String addNewDay(DayBasic day){
+        ShortDay newShortDay = shortDayService.addShortByDayBasic(day);
+        Day newDay = dayBasicToDayConverter.mappingEntity(day);
+        newDay.setShortDay(newShortDay);
+        addDay(newDay);
+
         return "Dzień z aktualną datą został dodany do bazy danych";
     }
 
@@ -79,22 +91,5 @@ public class DayService extends DayRepoService {
         return "Dzień o podanym id został usunięty wraz ze skrótem dnia";
     }
 
-
-
-
-//    //Dodatkowa klasa serwisowa dla ShortDay
-//    public ShortDay createShortDayByDay(Day day) throws AccountNotFoundException {
-//        User user = userS.getUserById(day.getUserId());
-//        DailyDiet dailyDiet = mealS.getDailyDietDTOByDayId(day.getId());
-//
-//        return new ShortDay(
-//                day.getUserId(),
-//                day.getDate(),
-//                checkIsAchievedKcal(user, dailyDiet),
-//                checkIsAchievedDrink(user, day),
-//                day.getPortionsAlcohol() != 0,
-//                day.getPortionsSnack() != 0
-//        );
-//    }
 
 }

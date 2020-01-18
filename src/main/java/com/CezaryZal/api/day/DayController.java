@@ -64,7 +64,7 @@ public class DayController {
     }
 
     @PostMapping
-    public ResponseEntity<String> addDay(@RequestBody Day day) {
+    public ResponseEntity<String> addDay(@RequestBody DayBasic day) {
         return new ResponseEntity<>(dayService.addNewDay(day), HttpStatus.CREATED);
     }
 

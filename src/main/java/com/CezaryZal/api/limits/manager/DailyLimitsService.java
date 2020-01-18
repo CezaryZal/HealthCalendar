@@ -42,9 +42,8 @@ public class DailyLimitsService extends DailyLimitsRepoService {
                 .collect(Collectors.toList());
     }
 
-    public String addDailyLimits (DailyLimitsDto dailyLimitsDto){
-        addLimits(dtoToDailyLimitsConverter.mappingEntity(dailyLimitsDto));
-        return "Przesłany dzienny limit został zapisany w bazie danych";
+    public DailyLimits addDailyLimits (DailyLimitsDto dailyLimitsDto){
+        return addLimits(dtoToDailyLimitsConverter.mappingEntity(dailyLimitsDto));
     }
 
     public String updateDailyLimits (DailyLimitsDto dailyLimitsDto){

@@ -1,13 +1,8 @@
 package com.CezaryZal.authentication.entity;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+public class AuthenticationRequest extends FormAuthenticationEntity{
 
-@Getter
-@NoArgsConstructor
-public class AuthenticationRequest {
-
-    private String loginName;
-    private String password;
-
+    public AuthenticationRequest(String loginName, String password) {
+        super(loginName, password);
+    }
 }
