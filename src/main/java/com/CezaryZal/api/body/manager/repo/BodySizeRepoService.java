@@ -31,6 +31,11 @@ public class BodySizeRepoService {
         return tmpDate.toLocalDate();
     }
 
+    public Long getDayIdByDateAndUserId(String inputDate, Long userId) {
+        return bodySizeR.getDayIdByDateAndUserId(LocalDate.parse(inputDate), userId)
+                .orElseThrow(() -> new DateNotFoundException("Date not found by date and user id"));
+    }
+
     public List<LocalDate> getListDatesByUserId(Long userId) {
         List<Date> listDateByUserId = bodySizeR.findByUserIdAllDate(userId);
         return listDateByUserId.stream()

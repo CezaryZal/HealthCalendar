@@ -37,15 +37,32 @@ public class BodySizeController {
         return new ResponseEntity<>(bodySizeService.getListDatesByUserId(userId), HttpStatus.OK);
     }
 
+    @ApiOperation(value = "This will be get a day id by date and user id")
+    @GetMapping("/user-id/{date}/{userId}")
+    public ResponseEntity<Long> getDayIdByDateAndUserId(
+            @PathVariable String date,
+            @PathVariable Long userId) {
+        return new ResponseEntity<>(bodySizeService.getDayIdByDateAndUserId(date, userId), HttpStatus.OK);
+    }
+
     @ApiOperation(value = "This will be get a `BodySize` by date and user id")
     @GetMapping("/{date}/{userId}")
-    public ResponseEntity<BodySizeDto> getBodyByDateAndUserId(@PathVariable String date, @PathVariable Long userId) {
+    public ResponseEntity<BodySizeDto> getBodyByDateAndUserId(
+            @PathVariable String date,
+            @PathVariable Long userId) {
         return new ResponseEntity<>(bodySizeService.getBodyDtoByDateAndUserId(date, userId), HttpStatus.OK);
     }
 
     @PostMapping
     public ResponseEntity<String> addBody(@RequestBody BodySizeDto bodySize) {
         return new ResponseEntity<>(bodySizeService.addBodySizeByDao(bodySize), HttpStatus.CREATED);
+    }
+
+    //TO DO - zmiana tylko w dniu zapisu
+    @ApiOperation(value = "This endpoint input `BodySize` object update ")
+    @PutMapping
+    public ResponseEntity<String> updateBodySizeByDao(@RequestBody BodySizeDto bodySizeDto) {
+        return new ResponseEntity<>(bodySizeService.updateBodySizeByDao(bodySizeDto), HttpStatus.OK);
     }
 
     //TO DO - usunięcie tylko w dniu zapisu

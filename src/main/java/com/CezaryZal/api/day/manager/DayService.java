@@ -7,13 +7,9 @@ import com.CezaryZal.api.day.entity.day.DayWithConnectedEntities;
 import com.CezaryZal.api.day.manager.mapper.DayToDayBasicConverter;
 import com.CezaryZal.api.day.manager.mapper.DayToDayWithEntitiesConverter;
 import com.CezaryZal.api.day.manager.repo.DayRepoService;
-import com.CezaryZal.api.shortday.ShortDay;
-import com.CezaryZal.api.meal.entity.DailyDiet;
-import com.CezaryZal.api.user.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.security.auth.login.AccountNotFoundException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -61,23 +57,44 @@ public class DayService extends DayRepoService {
     }
 
     public String addNewDay(Day day){
+        //Później dopisać dodawanie OneToOne
         addDay(day);
-
+//        shortDayS.addShortDay(createShortDayByDay(day));
         return "Dzień z aktualną datą został dodany do bazy danych";
     }
 
     public String update(Day day) {
         updateDay(day);
-
+//        ShortDay shortDay = createShortDayByDay(day);
+//        shortDay.setId(day.getId());
+//        shortDayS.updateShortDay(shortDay);
         return "Wskazany dzień został aktualizowany wraz ze skrótem";
     }
 
     public String deleteDay(Long id) {
-
+//        Day day = getDayById(id);
+//        shortDayS.deleteShortDayById(day.getShortDay().getId());
         deleteDayById(id);
 
         return "Dzień o podanym id został usunięty wraz ze skrótem dnia";
     }
 
+
+
+
+//    //Dodatkowa klasa serwisowa dla ShortDay
+//    public ShortDay createShortDayByDay(Day day) throws AccountNotFoundException {
+//        User user = userS.getUserById(day.getUserId());
+//        DailyDiet dailyDiet = mealS.getDailyDietDTOByDayId(day.getId());
+//
+//        return new ShortDay(
+//                day.getUserId(),
+//                day.getDate(),
+//                checkIsAchievedKcal(user, dailyDiet),
+//                checkIsAchievedDrink(user, day),
+//                day.getPortionsAlcohol() != 0,
+//                day.getPortionsSnack() != 0
+//        );
+//    }
 
 }

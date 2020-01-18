@@ -36,9 +36,4 @@ public class AdminBodyController {
         return new ResponseEntity<>(bodySizeService.getListBodySizeDto(), HttpStatus.OK);
     }
 
-    @ApiOperation(value = "This endpoint input `BodySize` object update ")
-    @PutMapping
-    public ResponseEntity<String> updateBodySizeByDao(@RequestBody BodySizeDto bodySizeDto) {
-        return new ResponseEntity<>(bodySizeService.updateBodySizeByDao(bodySizeDto), HttpStatus.OK);
-    }
 }
