@@ -46,9 +46,4 @@ public class DailyLimitsService extends DailyLimitsRepoService {
         updateLimits(dtoToDailyLimitsConverter.mappingEntity(dailyLimitsDto));
         return "Przesłane limity zostały uaktualnione";
     }
-
-    public String deleteDailyLimitsById (Long id){
-        deleteLimitsById(id);
-        return "Dzienny limit o przesłanym id został usuniety";
-    }
 }

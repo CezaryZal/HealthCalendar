@@ -1,7 +1,5 @@
 package com.CezaryZal.production.admin.controllers;
 
-import com.CezaryZal.api.day.entity.day.DayBasic;
-import com.CezaryZal.api.shortday.entity.ShortDay;
 import com.CezaryZal.api.shortday.entity.ShortDayDto;
 import com.CezaryZal.api.shortday.manager.ShortDayService;
 import io.swagger.annotations.Api;
@@ -11,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -32,19 +31,15 @@ public class AdminShortDayController {
         return new ResponseEntity<>(shortDayService.getShortDayDtoById(id), HttpStatus.OK);
     }
 
+    @ApiOperation(value = "This will get a `ShortDay` by date and user id")
+    @GetMapping("/{localDate}/{userId}")
+    public ResponseEntity<ShortDayDto> getShortDayById (@PathVariable LocalDate localDate, @PathVariable Long userId){
+        return new ResponseEntity<>(shortDayService.getShortDayDtoByDateAndUserId(localDate, userId), HttpStatus.OK);
+    }
+
     @ApiOperation(value = "This will get a list `ShortDay`, all records")
     @GetMapping
     public ResponseEntity<List<ShortDayDto>> getListShortDay(){
         return new ResponseEntity<>(shortDayService.getShorts(), HttpStatus.OK);
-    }
-
-    @PutMapping
-    public ResponseEntity<String> updateShortDay (@RequestBody ShortDay shortDay){
-        return new ResponseEntity<>(shortDayService.updateShort(shortDay), HttpStatus.OK);
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteShortDayById (@PathVariable Long id){
-        return new ResponseEntity<>(shortDayService.deleteShortById(id), HttpStatus.NO_CONTENT);
     }
 }

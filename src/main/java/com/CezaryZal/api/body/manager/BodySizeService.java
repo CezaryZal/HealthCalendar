@@ -6,10 +6,13 @@ import com.CezaryZal.api.body.entity.BodySizeDto;
 import com.CezaryZal.api.body.manager.mapper.BodySizeToDtoConverter;
 import com.CezaryZal.api.body.manager.mapper.DtoToBodySizeConverter;
 import com.CezaryZal.api.body.manager.repo.BodySizeRepoService;
+import com.CezaryZal.exceptions.not.found.DateNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -29,6 +32,12 @@ public class BodySizeService extends BodySizeRepoService {
 
     public BodySizeDto getBodySizeDtoById(Long id) {
         return bodySizeToDtoConverter.mappingEntity(getBodyById(id));
+    }
+
+    public LocalDate getDateLastMeasureByUserIdForBSController(Long userId) {
+        Optional<LocalDate> optionalDateLastMeasure = Optional.ofNullable(getDateLastMeasureByUserId(userId));
+        return optionalDateLastMeasure
+                .orElseThrow(() -> new DateNotFoundException("Date not found by user id"));
     }
 
     public BodySizeDto getBodyDtoByDateAndUserId(String inputDate, Long userId) {

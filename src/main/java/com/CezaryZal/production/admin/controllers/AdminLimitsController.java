@@ -29,10 +29,4 @@ public class AdminLimitsController {
     public ResponseEntity<List<DailyLimitsDto>> getListLimitsDto(){
         return new ResponseEntity<>(dailyLimitsService.getListLimitsDto(), HttpStatus.OK);
     }
-
-    @ApiOperation(value = "This endpoint remove `DailyLimits` by id")
-    @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteLimitsById (@PathVariable Long id){
-        return new ResponseEntity<>(dailyLimitsService.deleteDailyLimitsById(id), HttpStatus.NO_CONTENT);
-    }
 }

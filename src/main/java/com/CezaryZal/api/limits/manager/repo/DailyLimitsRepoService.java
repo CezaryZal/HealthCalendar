@@ -30,16 +30,8 @@ public class DailyLimitsRepoService {
         return limitsRepository.findAll();
     }
 
-//    public DailyLimits addLimits (DailyLimits dailyLimits){
-//        return limitsRepository.save(dailyLimits);
-//    }
-
     public void updateLimits (DailyLimits dailyLimits){
         limitsRepository.save(dailyLimits);
-    }
-
-    protected void deleteLimitsById (Long id){
-        limitsRepository.deleteById(id);
     }
 
 }

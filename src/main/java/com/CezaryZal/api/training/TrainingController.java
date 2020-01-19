@@ -30,12 +30,12 @@ public class TrainingController {
     }
 
     @PostMapping
-    public ResponseEntity<String> addDiet (@RequestBody TrainingDto trainingDto){
+    public ResponseEntity<String> add (@RequestBody TrainingDto trainingDto){
         return new ResponseEntity<>(trainingService.addTrainingByDto(trainingDto), HttpStatus.CREATED);
     }
 
     @PutMapping
-    public ResponseEntity<String> updateMeal (@RequestBody TrainingDto trainingDto){
+    public ResponseEntity<String> update (@RequestBody TrainingDto trainingDto){
         return new ResponseEntity<>(trainingService.updateTrainingByDto(trainingDto), HttpStatus.OK);
     }
 

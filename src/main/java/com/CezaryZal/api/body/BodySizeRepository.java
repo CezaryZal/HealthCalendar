@@ -18,7 +18,7 @@ public interface BodySizeRepository extends JpaRepository<BodySize, Long> {
     Optional<Long> getDayIdByDateAndUserId(@Param("inputDate") LocalDate localDate, @Param("userId") Long userId);
 
     @Query(value = "select date from body_size where user_id =:userId order by date desc LIMIT 1", nativeQuery = true)
-    Optional<Date> findDateLastMeasureByUserId(@Param("userId") Long userId);
+    Date findDateLastMeasureByUserId(@Param("userId") Long userId);
 
     @Query(value = "select date from body_size where user_id =:userId", nativeQuery = true)
     List<Date> findByUserIdAllDate(@Param("userId") Long userId);

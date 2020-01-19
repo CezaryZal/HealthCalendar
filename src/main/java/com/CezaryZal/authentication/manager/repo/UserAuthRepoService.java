@@ -21,6 +21,11 @@ public class UserAuthRepoService {
                 .orElseThrow(() -> new UserNotFoundException("User not found"));
     }
 
+    protected Long getIdByLoginName(String loginName) {
+        return userAuthRepository.getUserIdByLoginName(loginName)
+                .orElseThrow(() -> new UserNotFoundException("User not found"));
+    }
+
     public List<UserAuthentication> getListUserAuth(){
         return userAuthRepository.findAll();
     }

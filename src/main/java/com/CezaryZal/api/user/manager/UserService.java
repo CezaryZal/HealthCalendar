@@ -37,16 +37,6 @@ public class UserService extends UserRepoService{
                 .collect(Collectors.toList());
     }
 
-    public String addNewUser(User user){
-        addUser(user);
-        return "Przesłany użytkownik został zapisany w bazie danych";
-    }
-
-    public String updateUserBy(User user){
-        updateUser(user);
-        return "Przesłany skrót dnia został zapisany w bazie danych";
-    }
-
     public String deleteUser (Long id) {
         deleteUserById(id);
         return "Skrót dnia o przesłanym id został usuniety";

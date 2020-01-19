@@ -69,8 +69,8 @@ public class DayController {
     }
 
     @PutMapping
-    public ResponseEntity<String> updateDay(@RequestBody Day day) {
-        return new ResponseEntity<>(dayService.update(day), HttpStatus.OK);
+    public ResponseEntity<String> updateDay(@RequestBody DayApi dayApi) {
+        return new ResponseEntity<>(dayService.update(dayApi), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")

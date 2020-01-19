@@ -84,6 +84,7 @@ public class User {
     }
 
     public User(
+            Long id,
             String loginName,
             String nick,
             String email,
@@ -92,6 +93,7 @@ public class User {
             LocalDate birthDate,
             DailyLimits dailyLimits,
             UserAuthentication userAuthentication) {
+        this.id = id;
         this.loginName = loginName;
         this.nick = nick;
         this.email = email;

@@ -27,8 +27,8 @@ public class DayRepoService {
                 .orElseThrow(() -> new DayNotFoundException("Id day not found by date and user id"));
     }
 
-    protected Day getDayByDateAndUserId(LocalDate localDate, Long userId) {
-        return dayRepository.findDayByDateAndUserId(localDate, userId)
+    protected Day getDayByDateAndUserId(String inputDate, Long userId) {
+        return dayRepository.findDayByDateAndUserId(LocalDate.parse(inputDate), userId)
                 .orElseThrow(() -> new DayNotFoundException("Day not found by date and user id"));
     }
 

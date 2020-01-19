@@ -29,7 +29,7 @@ public class ShortDayController {
     public ResponseEntity<List<ShortDayDto>> getBodyByDateAndUserId (
             @PathVariable String date,
             @PathVariable Long userId){
-        return new ResponseEntity<>(shortDayService.getShortDaysByDateAndUserId(date, userId), HttpStatus.OK);
+        return new ResponseEntity<>(shortDayService.getShortDaysByInputDateAndUserId(date, userId), HttpStatus.OK);
     }
 
 }

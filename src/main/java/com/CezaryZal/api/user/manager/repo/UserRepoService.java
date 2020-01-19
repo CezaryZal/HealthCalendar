@@ -21,7 +21,7 @@ public class UserRepoService {
                 .orElseThrow(() -> new UserNotFoundException("User not found by id"));
     }
 
-    protected User getUserByLoginName(String loginName){
+    public User getUserByLoginName(String loginName){
         return userRepository.findByLoginName(loginName)
                 .orElseThrow(() -> new UserNotFoundException("User not found by login name"));
     }
@@ -39,7 +39,7 @@ public class UserRepoService {
         return userRepository.save(user);
     }
 
-    protected void updateUser(User user){
+    public void updateUser(User user){
         userRepository.save(user);
     }
 

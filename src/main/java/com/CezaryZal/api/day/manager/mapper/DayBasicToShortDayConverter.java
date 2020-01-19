@@ -1,4 +1,4 @@
-package com.CezaryZal.api.shortday.manager.mapper;
+package com.CezaryZal.api.day.manager.mapper;
 
 import com.CezaryZal.api.day.entity.day.DayBasic;
 import com.CezaryZal.api.shortday.entity.ShortDay;

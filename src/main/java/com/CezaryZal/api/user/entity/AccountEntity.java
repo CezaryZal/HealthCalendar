@@ -1,6 +1,5 @@
 package com.CezaryZal.api.user.entity;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -35,5 +34,9 @@ public class AccountEntity extends FormUser {
         this.birthDate = birthDate;
         this.kcalDemandPerDay = kcalDemandPerDay;
         this.drinkDemandPerDay = drinkDemandPerDay;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

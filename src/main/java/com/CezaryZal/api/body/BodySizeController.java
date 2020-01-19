@@ -28,7 +28,7 @@ public class BodySizeController {
     @ApiOperation(value = "This will get a last date measure by user id")
     @GetMapping("/date/user-id/{userId}")
     public ResponseEntity<LocalDate> getDateLastMeasureByUserId(@PathVariable Long userId) {
-        return new ResponseEntity<>(bodySizeService.getDateLastMeasureByUserId(userId), HttpStatus.OK);
+        return new ResponseEntity<>(bodySizeService.getDateLastMeasureByUserIdForBSController(userId), HttpStatus.OK);
     }
 
     @ApiOperation(value = "This will be get a list dates by user id")

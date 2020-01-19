@@ -3,8 +3,9 @@ package com.CezaryZal.api.user;
 import com.CezaryZal.api.user.entity.AccountEntity;
 import com.CezaryZal.api.user.entity.User;
 import com.CezaryZal.api.user.entity.UserDto;
+import com.CezaryZal.api.user.manager.UpdateUser;
 import com.CezaryZal.api.user.manager.UserService;
-import com.CezaryZal.api.user.manager.creator.AccountCreator;
+import com.CezaryZal.api.user.manager.creator.NewAccountCreator;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,13 +19,15 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/user")
 public class UserController {
 
-    private UserService userService;
-    private AccountCreator accountCreator;
+    private final UserService userService;
+    private final NewAccountCreator newAccountCreator;
+    private final UpdateUser updateUser;
 
     @Autowired
-    public UserController(UserService userService, AccountCreator accountCreator) {
+    public UserController(UserService userService, NewAccountCreator newAccountCreator, UpdateUser updateUser) {
         this.userService = userService;
-        this.accountCreator = accountCreator;
+        this.newAccountCreator = newAccountCreator;
+        this.updateUser = updateUser;
     }
 
     @ApiOperation(value = "This will get a `User` by login name")
@@ -42,12 +45,12 @@ public class UserController {
     @ApiOperation(value = "This will create new account")
     @PostMapping("/user-id/new-account")
     public ResponseEntity<String> createNewAccount(@RequestBody AccountEntity accountEntity){
-        return new ResponseEntity<>(accountCreator.createNewAccountByAccountEntity(accountEntity),HttpStatus.OK);
+        return new ResponseEntity<>(newAccountCreator.createAccountByAccountEntity(accountEntity), HttpStatus.CREATED);
     }
 
     @PutMapping
-    public ResponseEntity<String> updateUser(@RequestBody User user) {
-        return new ResponseEntity<>(userService.updateUserBy(user), HttpStatus.OK);
+    public ResponseEntity<String> updateUser(@RequestBody AccountEntity accountEntity) {
+        return new ResponseEntity<>(updateUser.updateByAccountEntity(accountEntity), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")

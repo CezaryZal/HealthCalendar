@@ -26,9 +26,8 @@ public class BodySizeRepoService {
     }
 
     public LocalDate getDateLastMeasureByUserId(Long userId) {
-        Date tmpDate = bodySizeR.findDateLastMeasureByUserId(userId)
-                .orElseThrow(() -> new DateNotFoundException("Date not found by user id"));
-        return tmpDate.toLocalDate();
+        Date tmpDate = bodySizeR.findDateLastMeasureByUserId(userId);
+        return tmpDate == null ? null : tmpDate.toLocalDate();
     }
 
     public Long getDayIdByDateAndUserId(String inputDate, Long userId) {

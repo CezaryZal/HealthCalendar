@@ -1,20 +1,18 @@
 package com.CezaryZal.api.day.manager;
 
 import com.CezaryZal.api.day.DayRepository;
+import com.CezaryZal.api.day.entity.api.DayApi;
 import com.CezaryZal.api.day.entity.day.Day;
 import com.CezaryZal.api.day.entity.day.DayBasic;
 import com.CezaryZal.api.day.entity.day.DayWithConnectedEntities;
-import com.CezaryZal.api.day.manager.mapper.DayBasicToDayConverter;
-import com.CezaryZal.api.day.manager.mapper.DayToDayBasicConverter;
-import com.CezaryZal.api.day.manager.mapper.DayToDayWithEntitiesConverter;
+import com.CezaryZal.api.day.manager.creator.DayCreator;
+import com.CezaryZal.api.day.manager.mapper.*;
 import com.CezaryZal.api.day.manager.repo.DayRepoService;
+import com.CezaryZal.api.shortday.manager.creator.ShortDayCreator;
 import com.CezaryZal.api.shortday.entity.ShortDay;
-import com.CezaryZal.api.shortday.manager.ShortDayService;
-import com.CezaryZal.api.shortday.manager.mapper.DayBasicToShortDayConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,20 +21,26 @@ public class DayService extends DayRepoService {
 
     private final DayToDayBasicConverter dayToDayBasicConverter;
     private final DayToDayWithEntitiesConverter dayToDayWithEntitiesConverter;
-    private final ShortDayService shortDayService;
     private final DayBasicToDayConverter dayBasicToDayConverter;
-    // może przenieść do mappera w day
     private final DayBasicToShortDayConverter dayBasicToShortDayConverter;
+    private final ShortDayCreator shortDayCreator;
+    private final DayCreator dayCreator;
 
     @Autowired
-    public DayService(DayRepository dayRepository, DayToDayBasicConverter dayToDayBasicConverter, DayToDayWithEntitiesConverter dayToDayWithEntitiesConverter,
-                      ShortDayService shortDayService, DayBasicToDayConverter dayBasicToDayConverter, DayBasicToShortDayConverter dayBasicToShortDayConverter) {
+    public DayService(DayRepository dayRepository,
+                      DayToDayBasicConverter dayToDayBasicConverter,
+                      DayToDayWithEntitiesConverter dayToDayWithEntitiesConverter,
+                      DayBasicToDayConverter dayBasicToDayConverter,
+                      DayBasicToShortDayConverter dayBasicToShortDayConverter,
+                      ShortDayCreator shortDayCreator,
+                      DayCreator dayCreator) {
         super(dayRepository);
         this.dayToDayBasicConverter = dayToDayBasicConverter;
         this.dayToDayWithEntitiesConverter = dayToDayWithEntitiesConverter;
-        this.shortDayService = shortDayService;
         this.dayBasicToDayConverter = dayBasicToDayConverter;
         this.dayBasicToShortDayConverter = dayBasicToShortDayConverter;
+        this.shortDayCreator = shortDayCreator;
+        this.dayCreator = dayCreator;
     }
 
     public DayBasic getDayBasicById(Long id) {
@@ -48,11 +52,11 @@ public class DayService extends DayRepoService {
     }
 
     public DayBasic getDayBasicByDateAndUserId(String inputDate, Long userId) {
-        return dayToDayBasicConverter.mappingEntity(getDayByDateAndUserId(LocalDate.parse(inputDate), userId));
+        return dayToDayBasicConverter.mappingEntity(getDayByDateAndUserId(inputDate, userId));
     }
 
     public DayWithConnectedEntities getDayWithEntitiesByDateAndUserId(String inputDate, Long userId) {
-        return dayToDayWithEntitiesConverter.mappingEntity(getDayByDateAndUserId(LocalDate.parse(inputDate), userId));
+        return dayToDayWithEntitiesConverter.mappingEntity(getDayByDateAndUserId(inputDate, userId));
     }
 
     public List<DayBasic> getDaysBasic() {
@@ -76,11 +80,10 @@ public class DayService extends DayRepoService {
         return "Dzień z aktualną datą został dodany do bazy danych";
     }
 
-    public String update(Day day) {
-        updateDay(day);
-//        ShortDay shortDay = createShortDayByDay(day);
-//        shortDay.setId(day.getId());
-//        shortDayS.updateShortDay(shortDay);
+    public String update(DayApi dayApi) {
+        ShortDay updatedShortDay = shortDayCreator.createByDay(dayApi);
+        updateDay(dayCreator.createByDayApiAndShortDay(dayApi, updatedShortDay));
+
         return "Wskazany dzień został aktualizowany wraz ze skrótem";
     }
 

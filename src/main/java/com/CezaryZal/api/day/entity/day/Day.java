@@ -83,5 +83,23 @@ public class Day {
         this.portionsSnack = portionsSnack;
     }
 
+    public Day(Long id,
+               LocalDate date,
+               Long userId,
+               int portionsDrink,
+               int portionsAlcohol,
+               int portionsSnack,
+               ShortDay shortDay) {
+        this.id = id;
+        this.date = date;
+        this.userId = userId;
+        this.portionsDrink = portionsDrink;
+        this.portionsAlcohol = portionsAlcohol;
+        this.portionsSnack = portionsSnack;
+        this.shortDay = shortDay;
+    }
+
+
+
 
 }

@@ -12,7 +12,7 @@ INSERT INTO `users_auth` VALUES
 INSERT INTO `user` VALUES
 (1, '1966-05-23', 'anna@gmail.com', 'janek','jan', 569842365, 0, 1, 1),
 (2, '1996-05-23', 'fiona@gmail.com', 'tomek','tomy', 846152365, 1, 2, 2),
-(3, '1999-05-23', 'kris@gmail.com', 'czar','czarek', 849642365, 1, 2, 3);
+(3, '1999-05-23', 'kris@gmail.com', 'czar','czarek', 849642365, 1, 3, 3);
 
 INSERT INTO `body_size` VALUES
 (1, 65, 38, 31, 98, '2018-05-23', 75, 88, 45, 1, 36),

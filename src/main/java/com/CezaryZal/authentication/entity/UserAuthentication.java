@@ -34,4 +34,7 @@ public class UserAuthentication {
     @Column(name = "permissions")
     private String permissions;
 
+    public void setId(Long id) {
+        this.id = id;
+    }
 }

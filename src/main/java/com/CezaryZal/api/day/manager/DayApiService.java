@@ -1,90 +1,46 @@
 package com.CezaryZal.api.day.manager;
 
-import com.CezaryZal.api.body.manager.BodySizeService;
 import com.CezaryZal.api.day.DayRepository;
 import com.CezaryZal.api.day.entity.api.DayApi;
 import com.CezaryZal.api.day.entity.day.Day;
 import com.CezaryZal.api.day.entity.api.DayApiWithConnectedEntities;
+import com.CezaryZal.api.day.manager.creator.DayApiCreator;
+import com.CezaryZal.api.day.manager.creator.DayApiWithEntitiesCreator;
 import com.CezaryZal.api.day.manager.repo.DayRepoService;
-import com.CezaryZal.api.limits.manager.checker.LimitsChecker;
-import com.CezaryZal.api.meal.entity.DailyDiet;
-import com.CezaryZal.api.meal.manager.MealService;
-import com.CezaryZal.api.note.manager.NoteService;
-import com.CezaryZal.api.shortday.manager.ShortDayService;
-import com.CezaryZal.api.training.manager.TrainingService;
 import com.CezaryZal.api.user.entity.User;
 import com.CezaryZal.api.user.manager.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDate;
 
 @Service
 public class DayApiService extends DayRepoService {
 
     private final UserService userService;
-    private final MealService mealService;
-    private final BodySizeService bodySizeService;
-    private final TrainingService trainingService;
-    private final NoteService noteService;
-    private final ShortDayService shortDayService;
-    private final LimitsChecker limitsChecker;
+    private final DayApiCreator dayApiCreator;
+    private final DayApiWithEntitiesCreator dayApiWithEntitiesCreator;
 
-
-    public DayApiService(DayRepository dayRepository, UserService userService, MealService mealService,
-                         BodySizeService bodySizeService, TrainingService trainingService, NoteService noteService,
-                         ShortDayService shortDayService, LimitsChecker limitsChecker) {
+    @Autowired
+    public DayApiService(DayRepository dayRepository,
+                         UserService userService,
+                         DayApiCreator dayApiCreator,
+                         DayApiWithEntitiesCreator dayApiWithEntitiesCreator) {
         super(dayRepository);
         this.userService = userService;
-        this.mealService = mealService;
-        this.bodySizeService = bodySizeService;
-        this.trainingService = trainingService;
-        this.noteService = noteService;
-        this.shortDayService = shortDayService;
-        this.limitsChecker = limitsChecker;
+        this.dayApiCreator = dayApiCreator;
+        this.dayApiWithEntitiesCreator = dayApiWithEntitiesCreator;
     }
 
-    public DayApi getDayApiByDateAndUserId(String inputDate, Long userId){
-        Day day = getDayByDateAndUserId(LocalDate.parse(inputDate), userId);
+    public DayApi getDayApiByDateAndUserId(String inputDate, Long userId) {
+        Day day = getDayByDateAndUserId(inputDate, userId);
         User user = userService.getUserById(userId);
-        int sumOfKcal = mealService.getDailyDietByListMeal(day.getListMealsDB())
-                .getSumOfKcal();
 
-        return new DayApi(
-                day.getId(),
-                day.getDate(),
-                userId,
-                day.getPortionsDrink(),
-                day.getPortionsAlcohol(),
-                day.getPortionsSnack(),
-                user.getNick(),
-                bodySizeService.getDateLastMeasureByUserId(userId),
-                limitsChecker.checkIsAchievedDrink(user.getDailyLimits().getDrinkDemandPerDay(), day.getPortionsDrink()),
-                limitsChecker.checkIsAchievedKcal(user.getDailyLimits().getKcalDemandPerDay(), sumOfKcal)
-        );
+        return dayApiCreator.createByDayAndUser(day, user);
     }
 
-    public DayApiWithConnectedEntities getDayApiWithEntitiesByDateAndUserId(String inputDate, Long userId){
-        Day day = getDayByDateAndUserId(LocalDate.parse(inputDate), userId);
+    public DayApiWithConnectedEntities getDayApiWithEntitiesByDateAndUserId(String inputDate, Long userId) {
+        Day day = getDayByDateAndUserId(inputDate, userId);
         User user = userService.getUserById(userId);
-        DailyDiet dailyDietByListMeal = mealService.getDailyDietByListMeal(day.getListMealsDB());
 
-        int sumOfKcal = dailyDietByListMeal.getSumOfKcal();
-
-        return new DayApiWithConnectedEntities(
-                day.getId(),
-                day.getDate(),
-                userId,
-                day.getPortionsDrink(),
-                day.getPortionsAlcohol(),
-                day.getPortionsSnack(),
-                user.getNick(),
-                bodySizeService.getDateLastMeasureByUserId(userId),
-                limitsChecker.checkIsAchievedDrink(user.getDailyLimits().getDrinkDemandPerDay(), day.getPortionsDrink()), //sprawdzic wydajnosciowo
-                dailyDietByListMeal,
-                limitsChecker.checkIsAchievedKcal(user.getDailyLimits().getKcalDemandPerDay(), sumOfKcal), //sprawdzic wydajnosciowo
-                trainingService.getTrainingsSummaryByTrainings(day.getListTrainingsDB()),
-                noteService.getHeadersByNotes(day.getListNotesDB()),
-                shortDayService.getShortDaysByDateAndUserId(inputDate, userId)
-        );
+        return dayApiWithEntitiesCreator.createByDayAndUser(day, user);
     }
 }
