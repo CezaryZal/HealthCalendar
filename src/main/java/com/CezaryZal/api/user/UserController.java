@@ -39,11 +39,6 @@ public class UserController {
         return new ResponseEntity<>(userService.getIdByLoginName(loginName), HttpStatus.OK);
     }
 
-    @PostMapping
-    public ResponseEntity<String> addUser(@RequestBody User user) {
-        return new ResponseEntity<>(userService.addNewUser(user), HttpStatus.CREATED);
-    }
-
     @ApiOperation(value = "This will create new account")
     @PostMapping("/user-id/new-account")
     public ResponseEntity<String> createNewAccount(@RequestBody AccountEntity accountEntity){

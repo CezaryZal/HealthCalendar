@@ -10,6 +10,7 @@ import com.CezaryZal.api.day.manager.mapper.DayToDayWithEntitiesConverter;
 import com.CezaryZal.api.day.manager.repo.DayRepoService;
 import com.CezaryZal.api.shortday.entity.ShortDay;
 import com.CezaryZal.api.shortday.manager.ShortDayService;
+import com.CezaryZal.api.shortday.manager.mapper.DayBasicToShortDayConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,18 +25,18 @@ public class DayService extends DayRepoService {
     private final DayToDayWithEntitiesConverter dayToDayWithEntitiesConverter;
     private final ShortDayService shortDayService;
     private final DayBasicToDayConverter dayBasicToDayConverter;
+    // może przenieść do mappera w day
+    private final DayBasicToShortDayConverter dayBasicToShortDayConverter;
 
     @Autowired
-    public DayService(DayRepository dayRepository,
-                      DayToDayBasicConverter dayToDayBasicConverter,
-                      DayToDayWithEntitiesConverter dayToDayWithEntitiesConverter,
-                      ShortDayService shortDayService,
-                      DayBasicToDayConverter dayBasicToDayConverter) {
+    public DayService(DayRepository dayRepository, DayToDayBasicConverter dayToDayBasicConverter, DayToDayWithEntitiesConverter dayToDayWithEntitiesConverter,
+                      ShortDayService shortDayService, DayBasicToDayConverter dayBasicToDayConverter, DayBasicToShortDayConverter dayBasicToShortDayConverter) {
         super(dayRepository);
         this.dayToDayBasicConverter = dayToDayBasicConverter;
         this.dayToDayWithEntitiesConverter = dayToDayWithEntitiesConverter;
         this.shortDayService = shortDayService;
         this.dayBasicToDayConverter = dayBasicToDayConverter;
+        this.dayBasicToShortDayConverter = dayBasicToShortDayConverter;
     }
 
     public DayBasic getDayBasicById(Long id) {
@@ -67,7 +68,7 @@ public class DayService extends DayRepoService {
     }
 
     public String addNewDay(DayBasic day){
-        ShortDay newShortDay = shortDayService.addShortByDayBasic(day);
+        ShortDay newShortDay = dayBasicToShortDayConverter.mappingEntity(day);
         Day newDay = dayBasicToDayConverter.mappingEntity(day);
         newDay.setShortDay(newShortDay);
         addDay(newDay);

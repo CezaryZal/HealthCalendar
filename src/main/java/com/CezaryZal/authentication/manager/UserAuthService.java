@@ -24,9 +24,9 @@ public class UserAuthService extends UserAuthRepoService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public UserAuthentication addUserAuthentication (EntityForNewUserAuth authEntity){
+    public UserAuthentication preparingEntityForSave(EntityForNewUserAuth authEntity){
         String passwordBcrypt = passwordEncoder.encode(authEntity.getPassword());
         authEntity.setPassword(passwordBcrypt);
-        return addUserAuth(authEntityToUserAuth.mappingEntity(authEntity));
+        return authEntityToUserAuth.mappingEntity(authEntity);
     }
 }

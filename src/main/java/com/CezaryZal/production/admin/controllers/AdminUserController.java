@@ -48,4 +48,9 @@ public class AdminUserController {
     public ResponseEntity<List<User>> getUsers() {
         return new ResponseEntity<>(userService.getUsers(), HttpStatus.OK);
     }
+
+    @PostMapping
+    public ResponseEntity<String> addUser(@RequestBody User user) {
+        return new ResponseEntity<>(userService.addNewUser(user), HttpStatus.CREATED);
+    }
 }

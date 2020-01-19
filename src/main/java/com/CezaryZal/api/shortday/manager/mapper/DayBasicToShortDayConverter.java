@@ -1,23 +1,22 @@
 package com.CezaryZal.api.shortday.manager.mapper;
 
-import com.CezaryZal.api.day.entity.api.DayApi;
+import com.CezaryZal.api.day.entity.day.DayBasic;
 import com.CezaryZal.api.shortday.entity.ShortDay;
 import org.springframework.stereotype.Service;
 
 @Service
-public class DayApiToShortDayCreator {
+public class DayBasicToShortDayConverter {
 
-    public ShortDay create(DayApi day)  {
+    public ShortDay mappingEntity(DayBasic day)  {
 
         return new ShortDay(
                 day.getId(),
                 day.getUserId(),
                 day.getDate(),
-                day.isAchievedKcal(),
-                day.isAchievedDrink(),
+                false,
+                false,
                 day.getPortionsAlcohol() != 0,
                 day.getPortionsSnack() != 0
         );
     }
-
 }

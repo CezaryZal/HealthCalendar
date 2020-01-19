@@ -25,10 +25,6 @@ public class UserAuthRepoService {
         return userAuthRepository.findAll();
     }
 
-    protected UserAuthentication addUserAuth(UserAuthentication userAuth){
-        return userAuthRepository.save(userAuth);
-    }
-
     public void updateUserAuth(UserAuthentication userAuth){
         userAuthRepository.save(userAuth);
     }

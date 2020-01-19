@@ -39,7 +39,7 @@ public class AccountCreator {
     }
 
     public String createNewAccountByAccountEntity(AccountEntity accountEntity){
-        DailyLimits newDailyLimits = createDailyByAccountEntity(accountEntity);
+        DailyLimits newDailyLimits = accountEntityToDailyLimitsConverter.mappingEntity(accountEntity);
         UserAuthentication newUserAuth = createUserAuthByAccountEntity(accountEntity);
         User newUser = createUserByAccountEntityAndIds(
                 accountEntity, newDailyLimits, newUserAuth);
@@ -48,14 +48,8 @@ public class AccountCreator {
         return "Przesłane dane nowego konta zostały podzielone i zapisane w bazie danych";
     }
 
-    private DailyLimits createDailyByAccountEntity(AccountEntity accountEntity){
-        return dailyLimitsService.addLimits(
-                accountEntityToDailyLimitsConverter.mappingEntity(accountEntity)
-        );
-    }
-
     private UserAuthentication createUserAuthByAccountEntity(AccountEntity accountEntity){
-        return userAuthService.addUserAuthentication(
+        return userAuthService.preparingEntityForSave(
                 accountEntityToEntityForNewUserAuthConverter.mappingEntity(accountEntity)
         );
     }
