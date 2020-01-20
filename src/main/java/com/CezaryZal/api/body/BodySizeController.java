@@ -2,6 +2,7 @@ package com.CezaryZal.api.body;
 
 import com.CezaryZal.api.body.entity.BodySizeDto;
 import com.CezaryZal.api.body.manager.BodySizeService;
+import com.CezaryZal.api.body.manager.repo.BodySizeRepoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +19,12 @@ import java.util.List;
 @RequestMapping("/api/body")
 public class BodySizeController {
 
+    private final BodySizeRepoService bodySizeRepoService;
     private final BodySizeService bodySizeService;
 
     @Autowired
-    public BodySizeController(BodySizeService bodySizeService) {
+    public BodySizeController(BodySizeRepoService bodySizeRepoService, BodySizeService bodySizeService) {
+        this.bodySizeRepoService = bodySizeRepoService;
         this.bodySizeService = bodySizeService;
     }
 
@@ -34,7 +37,7 @@ public class BodySizeController {
     @ApiOperation(value = "This will be get a list dates by user id")
     @GetMapping("/dates/user-id/{userId}")
     public ResponseEntity<List<LocalDate>> getListDatesByUserId(@PathVariable Long userId) {
-        return new ResponseEntity<>(bodySizeService.getListDatesByUserId(userId), HttpStatus.OK);
+        return new ResponseEntity<>(bodySizeRepoService.getListDatesByUserId(userId), HttpStatus.OK);
     }
 
     @ApiOperation(value = "This will be get a day id by date and user id")
@@ -42,7 +45,7 @@ public class BodySizeController {
     public ResponseEntity<Long> getDayIdByDateAndUserId(
             @PathVariable String date,
             @PathVariable Long userId) {
-        return new ResponseEntity<>(bodySizeService.getDayIdByDateAndUserId(date, userId), HttpStatus.OK);
+        return new ResponseEntity<>(bodySizeRepoService.getDayIdByDateAndUserId(date, userId), HttpStatus.OK);
     }
 
     @ApiOperation(value = "This will be get a `BodySize` by date and user id")
@@ -55,14 +58,14 @@ public class BodySizeController {
 
     @PostMapping
     public ResponseEntity<String> addBody(@RequestBody BodySizeDto bodySize) {
-        return new ResponseEntity<>(bodySizeService.addBodySizeByDao(bodySize), HttpStatus.CREATED);
+        return new ResponseEntity<>(bodySizeService.addBodySizeByDto(bodySize), HttpStatus.CREATED);
     }
 
     //TO DO - zmiana tylko w dniu zapisu
     @ApiOperation(value = "This endpoint input `BodySize` object update ")
     @PutMapping
     public ResponseEntity<String> updateBodySizeByDao(@RequestBody BodySizeDto bodySizeDto) {
-        return new ResponseEntity<>(bodySizeService.updateBodySizeByDao(bodySizeDto), HttpStatus.OK);
+        return new ResponseEntity<>(bodySizeService.updateBodySizeByDto(bodySizeDto), HttpStatus.OK);
     }
 
     //TO DO - usunięcie tylko w dniu zapisu

@@ -4,9 +4,11 @@ import com.CezaryZal.api.training.TrainingRepository;
 import com.CezaryZal.api.training.entity.Training;
 import com.CezaryZal.exceptions.not.found.TrainingNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class TrainingRepoService {
 
     private final TrainingRepository trainingRepository;
@@ -16,28 +18,28 @@ public class TrainingRepoService {
         this.trainingRepository = trainingRepository;
     }
 
-    protected Training getTrainingById (Long id){
+    public Training getTrainingById (Long id){
         return trainingRepository.findById(id)
                 .orElseThrow(() -> new TrainingNotFoundException("Training not found by id"));
     }
 
-    protected List<Training> getTrainingsByDayId (Long dayId){
+    public List<Training> getTrainingsByDayId (Long dayId){
         return trainingRepository.findAllByDayId(dayId);
     }
 
-    protected List<Training> getAllTrainings (){
+    public List<Training> getAllTrainings (){
         return trainingRepository.findAll();
     }
 
-    protected void addTraining (Training training){
+    public void addTraining (Training training){
         trainingRepository.save(training);
     }
 
-    protected void updateTraining (Training training){
+    public void updateTraining (Training training){
         trainingRepository.save(training);
     }
 
-    protected void deleteTrainingById (Long id){
+    public void deleteTrainingById (Long id){
         trainingRepository.deleteById(id);
     }
 }

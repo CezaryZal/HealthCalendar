@@ -1,6 +1,5 @@
 package com.CezaryZal.api.limits.manager;
 
-import com.CezaryZal.api.limits.DailyLimitsRepository;
 import com.CezaryZal.api.limits.entity.DailyLimits;
 import com.CezaryZal.api.limits.entity.DailyLimitsDto;
 import com.CezaryZal.api.limits.manager.mapper.DailyLimitsToDtoConverter;
@@ -13,37 +12,38 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class DailyLimitsService extends DailyLimitsRepoService {
+public class DailyLimitsService{
 
+    private final DailyLimitsRepoService dailyLimitsRepoService;
     private final DailyLimitsToDtoConverter dailyLimitsToDtoConverter;
     private final DtoToDailyLimitsConverter dtoToDailyLimitsConverter;
 
     @Autowired
-    public DailyLimitsService(DailyLimitsRepository limitsRepository,
+    public DailyLimitsService(DailyLimitsRepoService dailyLimitsRepoService,
                               DailyLimitsToDtoConverter dailyLimitsToDtoConverter,
                               DtoToDailyLimitsConverter dtoToDailyLimitsConverter) {
-        super(limitsRepository);
+        this.dailyLimitsRepoService = dailyLimitsRepoService;
         this.dailyLimitsToDtoConverter = dailyLimitsToDtoConverter;
         this.dtoToDailyLimitsConverter = dtoToDailyLimitsConverter;
     }
 
     public DailyLimitsDto getLimitsDtoById(Long id){
-        return dailyLimitsToDtoConverter.mappingEntity(getLimitById(id));
+        return dailyLimitsToDtoConverter.mappingEntity(dailyLimitsRepoService.getLimitById(id));
     }
 
     public DailyLimitsDto getLimitsDtoByUserId(Long id){
-        return dailyLimitsToDtoConverter.mappingEntity(getLimitsByUserId(id));
+        return dailyLimitsToDtoConverter.mappingEntity(dailyLimitsRepoService.getLimitsByUserId(id));
     }
 
     public List<DailyLimitsDto> getListLimitsDto(){
-        List<DailyLimits> allDailyLimits = getListLimits();
+        List<DailyLimits> allDailyLimits = dailyLimitsRepoService.getListLimits();
         return allDailyLimits.stream()
                 .map(dailyLimitsToDtoConverter::mappingEntity)
                 .collect(Collectors.toList());
     }
 
     public String updateDailyLimits (DailyLimitsDto dailyLimitsDto){
-        updateLimits(dtoToDailyLimitsConverter.mappingEntity(dailyLimitsDto));
+        dailyLimitsRepoService.updateLimits(dtoToDailyLimitsConverter.mappingEntity(dailyLimitsDto));
         return "Przesłane limity zostały uaktualnione";
     }
 }

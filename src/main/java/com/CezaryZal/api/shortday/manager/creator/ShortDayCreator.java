@@ -2,22 +2,22 @@ package com.CezaryZal.api.shortday.manager.creator;
 
 import com.CezaryZal.api.day.entity.api.DayApi;
 import com.CezaryZal.api.shortday.entity.ShortDay;
-import com.CezaryZal.api.shortday.manager.ShortDayService;
+import com.CezaryZal.api.shortday.manager.repo.ShortDayRepoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ShortDayCreator {
 
-    private final ShortDayService shortDayService;
+    private final ShortDayRepoService shortDayRepoService;
 
     @Autowired
-    public ShortDayCreator(ShortDayService shortDayService) {
-        this.shortDayService = shortDayService;
+    public ShortDayCreator(ShortDayRepoService shortDayRepoService) {
+        this.shortDayRepoService = shortDayRepoService;
     }
 
     public ShortDay createByDay(DayApi day)  {
-        ShortDay shortDay = shortDayService.getShortDayByDateAndUserId(day.getDate(), day.getUserId());
+        ShortDay shortDay = shortDayRepoService.getShortDayByDateAndUserId(day.getDate(), day.getUserId());
 
         return new ShortDay(
                 shortDay.getId(),

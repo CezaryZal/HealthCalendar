@@ -1,6 +1,5 @@
 package com.CezaryZal.api.training.manager;
 
-import com.CezaryZal.api.training.TrainingRepository;
 import com.CezaryZal.api.training.entity.Training;
 import com.CezaryZal.api.training.entity.TrainingDto;
 import com.CezaryZal.api.training.entity.TrainingsSummary;
@@ -15,20 +14,21 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class TrainingService extends TrainingRepoService {
+public class TrainingService {
 
+    private final TrainingRepoService trainingRepoService;
     private final TrainingToDtoConverter trainingToDtoConverter;
     private final DtoToTrainingConverter dtoToTrainingConverter;
     private final TrainingsSummaryCreator trainingsSummaryCreator;
     private final ListTrainingToListDtoConverter listTrainingToListDtoConverter;
 
     @Autowired
-    public TrainingService(TrainingRepository trainingRepository,
+    public TrainingService(TrainingRepoService trainingRepoService,
                            TrainingToDtoConverter trainingToDtoConverter,
                            DtoToTrainingConverter dtoToTrainingConverter,
                            TrainingsSummaryCreator trainingsSummaryCreator,
                            ListTrainingToListDtoConverter listTrainingToListDtoConverter) {
-        super(trainingRepository);
+        this.trainingRepoService = trainingRepoService;
         this.trainingToDtoConverter = trainingToDtoConverter;
         this.dtoToTrainingConverter = dtoToTrainingConverter;
         this.trainingsSummaryCreator = trainingsSummaryCreator;
@@ -36,11 +36,11 @@ public class TrainingService extends TrainingRepoService {
     }
 
     public TrainingDto getTrainingDtoById (Long id){
-        return trainingToDtoConverter.mappingEntity(getTrainingById(id));
+        return trainingToDtoConverter.mappingEntity(trainingRepoService.getTrainingById(id));
     }
 
     public TrainingsSummary getTrainingsSummaryByDayId (Long dayId){
-        return getTrainingsSummaryByTrainings(getTrainingsByDayId(dayId));
+        return getTrainingsSummaryByTrainings(trainingRepoService.getTrainingsByDayId(dayId));
     }
 
     public TrainingsSummary getTrainingsSummaryByTrainings(List<Training> trainingsByDayId){
@@ -49,21 +49,21 @@ public class TrainingService extends TrainingRepoService {
     }
 
     public List<TrainingDto> getAllTrainingsDto (){
-        return listTrainingToListDtoConverter.mappingList(getAllTrainings());
+        return listTrainingToListDtoConverter.mappingList(trainingRepoService.getAllTrainings());
     }
 
     public String addTrainingByDto (TrainingDto trainingDto){
-        addTraining(dtoToTrainingConverter.mappingEntity(trainingDto));
+        trainingRepoService.addTraining(dtoToTrainingConverter.mappingEntity(trainingDto));
         return "Przesłany trening został zapisany w bazie danych";
     }
 
     public String updateTrainingByDto (TrainingDto trainingDto){
-        updateTraining(dtoToTrainingConverter.mappingEntity(trainingDto));
+        trainingRepoService.updateTraining(dtoToTrainingConverter.mappingEntity(trainingDto));
         return "Przesłany trening został uaktualniony";
     }
 
     public String deleteTraining (Long id){
-        deleteTrainingById(id);
+        trainingRepoService.deleteTrainingById(id);
         return "Trening o przesłanym id została usuniety";
     }
 }

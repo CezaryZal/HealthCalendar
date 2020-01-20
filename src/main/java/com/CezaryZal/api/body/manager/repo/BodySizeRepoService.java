@@ -5,12 +5,14 @@ import com.CezaryZal.api.body.entity.BodySize;
 import com.CezaryZal.exceptions.not.found.BodySizeNotFoundException;
 import com.CezaryZal.exceptions.not.found.DateNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Service
 public class BodySizeRepoService {
 
     private final BodySizeRepository bodySizeR;
@@ -20,7 +22,7 @@ public class BodySizeRepoService {
         this.bodySizeR = BSRepository;
     }
 
-    protected BodySize getBodyById(Long id) {
+    public BodySize getBodyById(Long id) {
         return bodySizeR.findById(id)
                 .orElseThrow(() -> new BodySizeNotFoundException("Body size not found by id"));
     }
@@ -42,24 +44,24 @@ public class BodySizeRepoService {
                 .collect(Collectors.toList());
     }
 
-    protected BodySize getBodyByDateAndUserId(String inputDate, Long userId) {
+    public BodySize getBodyByDateAndUserId(String inputDate, Long userId) {
         return bodySizeR.findByDateMeasurementAndUserId(LocalDate.parse(inputDate), userId)
                 .orElseThrow(() -> new BodySizeNotFoundException("Body size not found by user id and date"));
     }
 
-    protected List<BodySize> getAll() {
+    public List<BodySize> getAll() {
         return bodySizeR.findAll();
     }
 
-    protected void addBody(BodySize bodySize) {
+    public void addBody(BodySize bodySize) {
         bodySizeR.save(bodySize);
     }
 
-    protected void updateBody(BodySize bodySize) {
+    public void updateBody(BodySize bodySize) {
         bodySizeR.save(bodySize);
     }
 
-    protected void deleteBodyById(Long id) {
+    public void deleteBodyById(Long id) {
         bodySizeR.deleteById(id);
     }
 }

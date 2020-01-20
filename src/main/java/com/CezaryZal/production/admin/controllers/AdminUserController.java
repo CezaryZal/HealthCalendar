@@ -3,6 +3,7 @@ package com.CezaryZal.production.admin.controllers;
 import com.CezaryZal.api.user.entity.User;
 import com.CezaryZal.api.user.entity.UserDto;
 import com.CezaryZal.api.user.manager.UserService;
+import com.CezaryZal.api.user.manager.repo.UserRepoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,17 +19,19 @@ import java.util.List;
 @RequestMapping("/admin/api/user")
 public class AdminUserController {
 
+    private final UserRepoService userRepoService;
     private final UserService userService;
 
     @Autowired
-    public AdminUserController(UserService userService) {
+    public AdminUserController(UserRepoService userRepoService, UserService userService) {
+        this.userRepoService = userRepoService;
         this.userService = userService;
     }
 
     @ApiOperation(value = "This will get a `User` by id")
     @GetMapping("/{id}")
     public ResponseEntity<User> getUser(@PathVariable Long id) {
-        return new ResponseEntity<>(userService.getUserById(id), HttpStatus.OK);
+        return new ResponseEntity<>(userRepoService.getUserById(id), HttpStatus.OK);
     }
 
     @ApiOperation(value = "This will get a `UserDTO` by id")
@@ -46,7 +49,7 @@ public class AdminUserController {
     @ApiOperation(value = "This will get a list `User`, all records")
     @GetMapping
     public ResponseEntity<List<User>> getUsers() {
-        return new ResponseEntity<>(userService.getUsers(), HttpStatus.OK);
+        return new ResponseEntity<>(userRepoService.getUsers(), HttpStatus.OK);
     }
 
 }

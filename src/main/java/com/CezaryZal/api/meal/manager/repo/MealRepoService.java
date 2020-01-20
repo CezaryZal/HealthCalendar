@@ -4,9 +4,11 @@ import com.CezaryZal.api.meal.MealRepository;
 import com.CezaryZal.api.meal.entity.Meal;
 import com.CezaryZal.exceptions.not.found.MealNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class MealRepoService {
 
     private final MealRepository mealRepository;
@@ -16,29 +18,29 @@ public class MealRepoService {
         this.mealRepository = mealRepository;
     }
 
-    protected Meal findMealById(Long id) {
+    public Meal findMealById(Long id) {
         return mealRepository.findById(id)
                 .orElseThrow(() -> new MealNotFoundException("Meal not found by id"));
     }
 
-    protected List<Meal> getListMealByDayId(Long dayId){
+    public List<Meal> getListMealByDayId(Long dayId){
         return mealRepository.findAllByDayId(dayId)
                 .orElseThrow(() -> new MealNotFoundException("Meals not found by day id"));
     }
 
-    protected List<Meal> getAll() {
+    public List<Meal> getAll() {
         return mealRepository.findAll();
     }
 
-    protected void addMeal(Meal meal) {
+    public void addMeal(Meal meal) {
         mealRepository.save(meal);
     }
 
-    protected void updateMeal(Meal meal) {
+    public void updateMeal(Meal meal) {
         mealRepository.save(meal);
     }
 
-    protected void deleteMealById(Long id) {
+    public void deleteMealById(Long id) {
         mealRepository.deleteById(id);
     }
 }

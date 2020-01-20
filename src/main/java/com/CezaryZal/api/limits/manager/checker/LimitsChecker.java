@@ -13,6 +13,14 @@ public class LimitsChecker {
     }
 
     public boolean checkIsAchievedKcal(int kcalDemand, int sumOfKcal) {
-        return sumOfKcal >= kcalDemand - kcalDemand * LIMIT_OF_EAT_KCAL && sumOfKcal <= kcalDemand + kcalDemand * LIMIT_OF_EAT_KCAL;
+        return checkIfEatenTooMuch(kcalDemand, sumOfKcal) && checkIfEatenTooLittle(kcalDemand, sumOfKcal);
+    }
+
+    private boolean checkIfEatenTooMuch(int kcalDemand, int sumOfKcal){
+        return sumOfKcal >= kcalDemand + kcalDemand * LIMIT_OF_EAT_KCAL;
+    }
+
+    private boolean checkIfEatenTooLittle(int kcalDemand, int sumOfKcal){
+        return sumOfKcal <= kcalDemand - kcalDemand * LIMIT_OF_EAT_KCAL;
     }
 }

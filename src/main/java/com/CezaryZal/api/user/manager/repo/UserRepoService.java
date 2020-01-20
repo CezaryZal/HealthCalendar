@@ -4,9 +4,11 @@ import com.CezaryZal.api.user.entity.User;
 import com.CezaryZal.api.user.UserRepository;
 import com.CezaryZal.exceptions.not.found.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class UserRepoService {
 
     private final UserRepository userRepository;
@@ -43,7 +45,7 @@ public class UserRepoService {
         userRepository.save(user);
     }
 
-    protected void deleteUserById (Long id) {
+    public void deleteUserById (Long id) {
         userRepository.deleteById(id);
     }
 

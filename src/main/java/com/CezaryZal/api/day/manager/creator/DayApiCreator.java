@@ -1,6 +1,6 @@
 package com.CezaryZal.api.day.manager.creator;
 
-import com.CezaryZal.api.body.manager.BodySizeService;
+import com.CezaryZal.api.body.manager.repo.BodySizeRepoService;
 import com.CezaryZal.api.day.entity.api.DayApi;
 import com.CezaryZal.api.day.entity.day.Day;
 import com.CezaryZal.api.limits.manager.checker.LimitsChecker;
@@ -16,18 +16,20 @@ public class DayApiCreator {
 
     private final LimitsChecker limitsChecker;
     private final MealService mealService;
-    private final BodySizeService bodySizeService;
+    private final BodySizeRepoService bodySizeRepoService;
 
     @Autowired
-    public DayApiCreator(LimitsChecker limitsChecker, MealService mealService, BodySizeService bodySizeService) {
+    public DayApiCreator(LimitsChecker limitsChecker,
+                         MealService mealService,
+                         BodySizeRepoService bodySizeRepoService) {
         this.limitsChecker = limitsChecker;
         this.mealService = mealService;
-        this.bodySizeService = bodySizeService;
+        this.bodySizeRepoService = bodySizeRepoService;
     }
 
     public DayApi createByDayAndUser (Day day, User user){
         int sumOfKcal = mealService.getDailyDietByListMeal(day.getListMealsDB()).getSumOfKcal();
-        LocalDate dateLastMeasureBody = bodySizeService.getDateLastMeasureByUserId(user.getId());
+        LocalDate dateLastMeasureBody = bodySizeRepoService.getDateLastMeasureByUserId(user.getId());
 
         return new DayApi(
                 day.getId(),

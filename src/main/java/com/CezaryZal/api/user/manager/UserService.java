@@ -12,33 +12,33 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class UserService extends UserRepoService{
+public class UserService {
 
+    private final UserRepoService userRepoService;
     private final UserToDtoConverter userToDtoConverter;
 
     @Autowired
-    public UserService(UserRepository userRepository,
-                       UserToDtoConverter userToDtoConverter) {
-        super(userRepository);
+    public UserService(UserRepoService userRepoService, UserToDtoConverter userToDtoConverter) {
+        this.userRepoService = userRepoService;
         this.userToDtoConverter = userToDtoConverter;
     }
 
     public UserDto getUserDtoById(Long id) {
-        return userToDtoConverter.mappingEntity(getUserById(id));
+        return userToDtoConverter.mappingEntity(userRepoService.getUserById(id));
     }
 
     public UserDto getUserDtoByLoginName(String loginName){
-        return userToDtoConverter.mappingEntity(getUserByLoginName(loginName));
+        return userToDtoConverter.mappingEntity(userRepoService.getUserByLoginName(loginName));
     }
 
     public List<UserDto> getUsersDto(){
-        return getUsers().stream()
+        return userRepoService.getUsers().stream()
                 .map(userToDtoConverter::mappingEntity)
                 .collect(Collectors.toList());
     }
 
     public String deleteUser (Long id) {
-        deleteUserById(id);
+        userRepoService.deleteUserById(id);
         return "Skrót dnia o przesłanym id został usuniety";
     }
 }

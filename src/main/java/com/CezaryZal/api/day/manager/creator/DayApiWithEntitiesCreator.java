@@ -1,6 +1,6 @@
 package com.CezaryZal.api.day.manager.creator;
 
-import com.CezaryZal.api.body.manager.BodySizeService;
+import com.CezaryZal.api.body.manager.repo.BodySizeRepoService;
 import com.CezaryZal.api.day.entity.api.DayApiWithConnectedEntities;
 import com.CezaryZal.api.day.entity.day.Day;
 import com.CezaryZal.api.limits.manager.checker.LimitsChecker;
@@ -20,7 +20,7 @@ public class DayApiWithEntitiesCreator {
 
     private final LimitsChecker limitsChecker;
     private final MealService mealService;
-    private final BodySizeService bodySizeService;
+    private final BodySizeRepoService bodySizeRepoService;
     private final TrainingService trainingService;
     private final HeadersCreator headersCreator;
     private final ShortDayService shortDayService;
@@ -28,13 +28,13 @@ public class DayApiWithEntitiesCreator {
     @Autowired
     public DayApiWithEntitiesCreator(LimitsChecker limitsChecker,
                                      MealService mealService,
-                                     BodySizeService bodySizeService,
+                                     BodySizeRepoService bodySizeRepoService,
                                      TrainingService trainingService,
                                      HeadersCreator headersCreator,
                                      ShortDayService shortDayService) {
         this.limitsChecker = limitsChecker;
         this.mealService = mealService;
-        this.bodySizeService = bodySizeService;
+        this.bodySizeRepoService = bodySizeRepoService;
         this.trainingService = trainingService;
         this.headersCreator = headersCreator;
         this.shortDayService = shortDayService;
@@ -42,7 +42,7 @@ public class DayApiWithEntitiesCreator {
 
     public DayApiWithConnectedEntities createByDayAndUser (Day day, User user){
         int sumOfKcal = mealService.getDailyDietByListMeal(day.getListMealsDB()).getSumOfKcal();
-        LocalDate dateLastMeasureBody = bodySizeService.getDateLastMeasureByUserId(user.getId());
+        LocalDate dateLastMeasureBody = bodySizeRepoService.getDateLastMeasureByUserId(user.getId());
         DailyDiet dailyDietByListMeal = mealService.getDailyDietByListMeal(day.getListMealsDB());
 
         return new DayApiWithConnectedEntities(

@@ -4,9 +4,11 @@ import com.CezaryZal.api.limits.DailyLimitsRepository;
 import com.CezaryZal.api.limits.entity.DailyLimits;
 import com.CezaryZal.exceptions.not.found.DailyLimitsNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class DailyLimitsRepoService {
 
     private final DailyLimitsRepository limitsRepository;
@@ -21,12 +23,12 @@ public class DailyLimitsRepoService {
                 .orElseThrow(() -> new DailyLimitsNotFoundException("Daily limits not found by id"));
     }
 
-    protected DailyLimits getLimitsByUserId(Long id){
+    public DailyLimits getLimitsByUserId(Long id){
         return limitsRepository.findByUserId(id)
                 .orElseThrow(() -> new DailyLimitsNotFoundException("Daily limits not found by user id"));
     }
 
-    protected List<DailyLimits> getListLimits(){
+    public List<DailyLimits> getListLimits(){
         return limitsRepository.findAll();
     }
 
