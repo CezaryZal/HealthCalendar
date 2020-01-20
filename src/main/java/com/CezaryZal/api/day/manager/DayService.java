@@ -8,8 +8,8 @@ import com.CezaryZal.api.day.entity.day.DayWithConnectedEntities;
 import com.CezaryZal.api.day.manager.creator.DayCreator;
 import com.CezaryZal.api.day.manager.mapper.*;
 import com.CezaryZal.api.day.manager.repo.DayRepoService;
-import com.CezaryZal.api.shortday.manager.creator.ShortDayCreator;
-import com.CezaryZal.api.shortday.entity.ShortDay;
+import com.CezaryZal.api.shortReport.manager.creator.ShortReportCreator;
+import com.CezaryZal.api.shortReport.entity.ShortReport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +23,7 @@ public class DayService extends DayRepoService {
     private final DayToDayWithEntitiesConverter dayToDayWithEntitiesConverter;
     private final DayBasicToDayConverter dayBasicToDayConverter;
     private final DayBasicToShortDayConverter dayBasicToShortDayConverter;
-    private final ShortDayCreator shortDayCreator;
+    private final ShortReportCreator shortReportCreator;
     private final DayCreator dayCreator;
 
     @Autowired
@@ -32,14 +32,14 @@ public class DayService extends DayRepoService {
                       DayToDayWithEntitiesConverter dayToDayWithEntitiesConverter,
                       DayBasicToDayConverter dayBasicToDayConverter,
                       DayBasicToShortDayConverter dayBasicToShortDayConverter,
-                      ShortDayCreator shortDayCreator,
+                      ShortReportCreator shortReportCreator,
                       DayCreator dayCreator) {
         super(dayRepository);
         this.dayToDayBasicConverter = dayToDayBasicConverter;
         this.dayToDayWithEntitiesConverter = dayToDayWithEntitiesConverter;
         this.dayBasicToDayConverter = dayBasicToDayConverter;
         this.dayBasicToShortDayConverter = dayBasicToShortDayConverter;
-        this.shortDayCreator = shortDayCreator;
+        this.shortReportCreator = shortReportCreator;
         this.dayCreator = dayCreator;
     }
 
@@ -72,17 +72,17 @@ public class DayService extends DayRepoService {
     }
 
     public String addNewDay(DayBasic day){
-        ShortDay newShortDay = dayBasicToShortDayConverter.mappingEntity(day);
+        ShortReport newShortReport = dayBasicToShortDayConverter.mappingEntity(day);
         Day newDay = dayBasicToDayConverter.mappingEntity(day);
-        newDay.setShortDay(newShortDay);
+        newDay.setShortReport(newShortReport);
         addDay(newDay);
 
         return "Dzień z aktualną datą został dodany do bazy danych";
     }
 
     public String update(DayApi dayApi) {
-        ShortDay updatedShortDay = shortDayCreator.createByDay(dayApi);
-        updateDay(dayCreator.createByDayApiAndShortDay(dayApi, updatedShortDay));
+        ShortReport updatedShortReport = shortReportCreator.createByDay(dayApi);
+        updateDay(dayCreator.createByDayApiAndShortDay(dayApi, updatedShortReport));
 
         return "Wskazany dzień został aktualizowany wraz ze skrótem";
     }

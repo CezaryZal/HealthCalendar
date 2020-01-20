@@ -1,10 +1,10 @@
-package com.CezaryZal.api.shortday.entity;
+package com.CezaryZal.api.shortReport.entity;
 
 import java.time.LocalDate;
 
-public class ShortDayDto extends FormShortDay{
+public class ShortReportDto extends FormShortReport {
 
-    public ShortDayDto(
+    public ShortReportDto(
             Long id,
             Long userId,
             LocalDate date,

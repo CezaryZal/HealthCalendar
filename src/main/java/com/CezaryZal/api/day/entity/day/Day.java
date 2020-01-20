@@ -1,6 +1,6 @@
 package com.CezaryZal.api.day.entity.day;
 
-import com.CezaryZal.api.shortday.entity.ShortDay;
+import com.CezaryZal.api.shortReport.entity.ShortReport;
 import com.CezaryZal.api.meal.entity.Meal;
 import com.CezaryZal.api.note.entity.Note;
 import com.CezaryZal.api.training.entity.Training;
@@ -69,7 +69,7 @@ public class Day {
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "short_day_id")
-    private ShortDay shortDay;
+    private ShortReport shortReport;
 
     public Day(LocalDate date,
                Long userId,
@@ -89,14 +89,14 @@ public class Day {
                int portionsDrink,
                int portionsAlcohol,
                int portionsSnack,
-               ShortDay shortDay) {
+               ShortReport shortReport) {
         this.id = id;
         this.date = date;
         this.userId = userId;
         this.portionsDrink = portionsDrink;
         this.portionsAlcohol = portionsAlcohol;
         this.portionsSnack = portionsSnack;
-        this.shortDay = shortDay;
+        this.shortReport = shortReport;
     }
 
 

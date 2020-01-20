@@ -7,7 +7,7 @@ import com.CezaryZal.api.limits.manager.checker.LimitsChecker;
 import com.CezaryZal.api.meal.entity.DailyDiet;
 import com.CezaryZal.api.meal.manager.MealService;
 import com.CezaryZal.api.note.manager.creator.HeadersCreator;
-import com.CezaryZal.api.shortday.manager.ShortDayService;
+import com.CezaryZal.api.shortReport.manager.ShortReportService;
 import com.CezaryZal.api.training.manager.TrainingService;
 import com.CezaryZal.api.user.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,7 @@ public class DayApiWithEntitiesCreator {
     private final BodySizeRepoService bodySizeRepoService;
     private final TrainingService trainingService;
     private final HeadersCreator headersCreator;
-    private final ShortDayService shortDayService;
+    private final ShortReportService shortReportService;
 
     @Autowired
     public DayApiWithEntitiesCreator(LimitsChecker limitsChecker,
@@ -31,13 +31,13 @@ public class DayApiWithEntitiesCreator {
                                      BodySizeRepoService bodySizeRepoService,
                                      TrainingService trainingService,
                                      HeadersCreator headersCreator,
-                                     ShortDayService shortDayService) {
+                                     ShortReportService shortReportService) {
         this.limitsChecker = limitsChecker;
         this.mealService = mealService;
         this.bodySizeRepoService = bodySizeRepoService;
         this.trainingService = trainingService;
         this.headersCreator = headersCreator;
-        this.shortDayService = shortDayService;
+        this.shortReportService = shortReportService;
     }
 
     public DayApiWithConnectedEntities createByDayAndUser (Day day, User user){
@@ -63,7 +63,7 @@ public class DayApiWithEntitiesCreator {
                         sumOfKcal),
                 trainingService.getTrainingsSummaryByTrainings(day.getListTrainingsDB()),
                 headersCreator.getHeadersByNotes(day.getListNotesDB()),
-                shortDayService.getShortDaysByDateAndUserId(day.getDate(), user.getId())
+                shortReportService.getShortReportsByDateAndUserId(day.getDate(), user.getId())
         );
     }
 }

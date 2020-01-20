@@ -1,4 +1,4 @@
-package com.CezaryZal.api.shortday.entity;
+package com.CezaryZal.api.shortReport.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,7 +9,7 @@ import java.time.LocalDate;
 @ToString
 @Getter
 @AllArgsConstructor
-public abstract class FormShortDay {
+public abstract class FormShortReport {
 
     private Long id;
     private Long userId;

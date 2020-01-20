@@ -2,13 +2,13 @@ package com.CezaryZal.api.day.manager.creator;
 
 import com.CezaryZal.api.day.entity.api.DayApi;
 import com.CezaryZal.api.day.entity.day.Day;
-import com.CezaryZal.api.shortday.entity.ShortDay;
+import com.CezaryZal.api.shortReport.entity.ShortReport;
 import org.springframework.stereotype.Service;
 
 @Service
 public class DayCreator {
 
-    public Day createByDayApiAndShortDay(DayApi dayApi, ShortDay shortDay){
+    public Day createByDayApiAndShortDay(DayApi dayApi, ShortReport shortReport){
         return new Day(
                 dayApi.getId(),
                 dayApi.getDate(),
@@ -16,7 +16,7 @@ public class DayCreator {
                 dayApi.getPortionsDrink(),
                 dayApi.getPortionsAlcohol(),
                 dayApi.getPortionsSnack(),
-                shortDay
+                shortReport
         );
     }
 }

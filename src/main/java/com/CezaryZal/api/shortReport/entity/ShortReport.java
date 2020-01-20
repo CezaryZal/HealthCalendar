@@ -1,4 +1,4 @@
-package com.CezaryZal.api.shortday.entity;
+package com.CezaryZal.api.shortReport.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,11 +10,11 @@ import java.time.LocalDate;
 //Mógłbym otrzymać obiekt na podstawie encji Day, ale w celu wyższej wydajności (m.in.N+1)
 //stworzyłem oddzielną encje ShortDay
 @Entity
-@Table(name = "short_day")
+@Table(name = "short_report")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ShortDay {
+public class ShortReport {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -18,7 +18,7 @@ public class DayToDayWithEntitiesConverter {
                 day.getListMealsDB(),
                 day.getListTrainingsDB(),
                 day.getListNotesDB(),
-                day.getShortDay()
+                day.getShortReport()
         );
     }
 }
