@@ -1,6 +1,5 @@
 package com.CezaryZal.api.report.model;
 
-import com.CezaryZal.api.day.model.FormDay;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -8,28 +7,25 @@ import java.time.LocalDate;
 
 @ToString
 @Getter
-public class Report extends FormDay {
+public class Report extends FormReport {
 
-    private String nick;
-    private LocalDate lastDateMeasureBody;
-    private boolean isAchievedDrink;
-    private boolean isAchievedKcal;
-
-    public Report(
-            Long id,
-            LocalDate date,
-            Long userId,
-            int portionsDrink,
-            int portionsAlcohol,
-            int portionsSnack,
-            String nick,
-            LocalDate lastDateMeasureBody,
-            boolean isAchievedDrink,
-            boolean isAchievedKcal) {
-        super(id, date, userId, portionsDrink, portionsAlcohol, portionsSnack);
-        this.nick = nick;
-        this.lastDateMeasureBody = lastDateMeasureBody;
-        this.isAchievedDrink = isAchievedDrink;
-        this.isAchievedKcal = isAchievedKcal;
+    public Report(Long id, LocalDate date,
+                  Long userId,
+                  int portionsDrink,
+                  int portionsAlcohol,
+                  int portionsSnack, String nick,
+                  LocalDate lastDateMeasureBody,
+                  boolean isAchievedDrink,
+                  boolean isAchievedKcal) {
+        super(id,
+                date,
+                userId,
+                portionsDrink,
+                portionsAlcohol,
+                portionsSnack,
+                nick,
+                lastDateMeasureBody,
+                isAchievedDrink,
+                isAchievedKcal);
     }
 }

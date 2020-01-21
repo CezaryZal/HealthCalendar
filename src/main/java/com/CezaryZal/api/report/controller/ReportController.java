@@ -1,9 +1,7 @@
 package com.CezaryZal.api.report.controller;
 
 import com.CezaryZal.api.report.manager.ReportService;
-import com.CezaryZal.api.report.model.Report;
-import com.CezaryZal.api.report.model.LongReport;
-import com.CezaryZal.api.day.manager.DayService;
+import com.CezaryZal.api.report.model.FormReport;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,18 +24,18 @@ public class ReportController {
 
     @ApiOperation(value = "This will get a `Report` by date and user id")
     @GetMapping("/{date}/{userId}")
-    public ResponseEntity<Report> getDayApiByDateAndUserId(
+    public ResponseEntity<FormReport> getReportByDateAndUserId(
             @PathVariable String date,
             @PathVariable Long userId){
-        return new ResponseEntity<>(reportService.getDayApiByDateAndUserId(date, userId), HttpStatus.OK);
+        return new ResponseEntity<>(reportService.getFormReportByDateAndUserId(date, userId, false), HttpStatus.OK);
     }
 
     @ApiOperation(value = "This will get a `LongReport` by date and user id")
     @GetMapping("/long/{date}/{userId}")
-    public ResponseEntity<LongReport> getDayApiWithEntitiesByDateAndUserId(
+    public ResponseEntity<FormReport> getLongReportByDateAndUserId(
             @PathVariable String date,
             @PathVariable Long userId){
-        return new ResponseEntity<>(reportService.getDayApiWithEntitiesByDateAndUserId(date, userId), HttpStatus.OK);
+        return new ResponseEntity<>(reportService.getFormReportByDateAndUserId(date, userId, true), HttpStatus.OK);
     }
 
 }

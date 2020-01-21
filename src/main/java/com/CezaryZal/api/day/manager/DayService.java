@@ -40,15 +40,15 @@ public class DayService {
         this.dayCreator = dayCreator;
     }
 
-    public DayDto getDayWithEntitiesById(Long id) {
+    public DayDto getDayDtoById(Long id) {
         return dayToDtoConverter.mappingEntity(dayRepoService.getDayById(id));
     }
 
-    public DayDto getDayWithEntitiesByDateAndUserId(String inputDate, Long userId) {
+    public DayDto getDayDtoByDateAndUserId(String inputDate, Long userId) {
         return dayToDtoConverter.mappingEntity(dayRepoService.getDayByDateAndUserId(inputDate, userId));
     }
 
-    public List<DayDto> getDaysWithEntities(){
+    public List<DayDto> getDaysDto(){
         return dayRepoService.getAll().stream()
                 .map(dayToDtoConverter::mappingEntity)
                 .collect(Collectors.toList());

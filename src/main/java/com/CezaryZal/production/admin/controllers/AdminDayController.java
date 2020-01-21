@@ -27,7 +27,7 @@ public class AdminDayController {
     @ApiOperation(value = "This will get a `DayDto` by id")
     @GetMapping("/{id}")
     public ResponseEntity<DayDto> getDayWithEntitiesById(@PathVariable Long id) {
-        return new ResponseEntity<>(dayService.getDayWithEntitiesById(id), HttpStatus.OK);
+        return new ResponseEntity<>(dayService.getDayDtoById(id), HttpStatus.OK);
     }
 
     @ApiOperation(value = "This will get a `DayDto` by date and user id")
@@ -35,13 +35,13 @@ public class AdminDayController {
     public ResponseEntity<DayDto> getDayWithEntitiesByDateAndUserId(
             @PathVariable String date,
             @PathVariable Long userId) {
-        return new ResponseEntity<>(dayService.getDayWithEntitiesByDateAndUserId(date, userId), HttpStatus.OK);
+        return new ResponseEntity<>(dayService.getDayDtoByDateAndUserId(date, userId), HttpStatus.OK);
     }
 
     @ApiOperation(value = "This will get a list `DayDto`, all records")
     @GetMapping
     public ResponseEntity<List<DayDto>> getListDayWithEntities() {
-        return new ResponseEntity<>(dayService.getDaysWithEntities(), HttpStatus.OK);
+        return new ResponseEntity<>(dayService.getDaysDto(), HttpStatus.OK);
     }
 
 }
