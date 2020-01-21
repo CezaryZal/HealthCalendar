@@ -5,13 +5,22 @@ import com.CezaryZal.api.limits.entity.DailyLimitsDto;
 import org.springframework.stereotype.Service;
 
 @Service
-public class DtoToDailyLimitsConverter {
+public class DailyLimitsConverter {
 
-    public DailyLimits mappingEntity(DailyLimitsDto dailyLimitsDto){
+    public DailyLimitsDto mappingDailyLimitsToDto(DailyLimits dailyLimits){
+        return new DailyLimitsDto(
+                dailyLimits.getId(),
+                dailyLimits.getKcalDemandPerDay(),
+                dailyLimits.getDrinkDemandPerDay(),
+                dailyLimits.getUserId());
+    }
+
+    public DailyLimits mappingDtoToDailyLimits(DailyLimitsDto dailyLimitsDto){
         return new DailyLimits(
                 dailyLimitsDto.getId(),
                 dailyLimitsDto.getKcalDemandPerDay(),
                 dailyLimitsDto.getDrinkDemandPerDay(),
                 dailyLimitsDto.getUserId());
     }
+
 }
