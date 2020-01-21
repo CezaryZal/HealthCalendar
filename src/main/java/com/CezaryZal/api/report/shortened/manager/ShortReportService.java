@@ -1,7 +1,6 @@
 package com.CezaryZal.api.report.shortened.manager;
 
-import com.CezaryZal.api.report.shortened.manager.mapper.ListShortReportToListDtoConverter;
-import com.CezaryZal.api.report.shortened.manager.mapper.ShortReportToDtoConverter;
+import com.CezaryZal.api.report.shortened.manager.mapper.ShortReportConverter;
 import com.CezaryZal.api.report.shortened.manager.repo.ShortReportRepoService;
 import com.CezaryZal.api.report.shortened.model.entity.ShortReport;
 import com.CezaryZal.api.report.shortened.model.ShortReportDto;
@@ -15,24 +14,21 @@ import java.util.List;
 public class ShortReportService {
 
     private final ShortReportRepoService shortReportRepoService;
-    private final ShortReportToDtoConverter shortReportToDtoConverter;
-    private final ListShortReportToListDtoConverter listShortReportToListDtoConverter;
+    private final ShortReportConverter shortReportConverter;
 
     @Autowired
-    public ShortReportService(ShortReportRepoService shortReportRepoService,
-                              ShortReportToDtoConverter shortReportToDtoConverter,
-                              ListShortReportToListDtoConverter listShortReportToListDtoConverter) {
+    public ShortReportService(ShortReportRepoService shortReportRepoService, ShortReportConverter shortReportConverter) {
         this.shortReportRepoService = shortReportRepoService;
-        this.shortReportToDtoConverter = shortReportToDtoConverter;
-        this.listShortReportToListDtoConverter = listShortReportToListDtoConverter;
+        this.shortReportConverter = shortReportConverter;
     }
 
     public ShortReportDto getShortReportDtoById(Long id) {
-        return shortReportToDtoConverter.mappingEntity(shortReportRepoService.getShortReportById(id));
+        return shortReportConverter.mappingShortReportToDto(shortReportRepoService.getShortReportById(id));
     }
 
     public ShortReportDto getShortReportDtoByDateAndUserId(LocalDate localDate, Long userId) {
-        return shortReportToDtoConverter.mappingEntity(shortReportRepoService.getShortReportByDateAndUserId(localDate, userId));
+        return shortReportConverter.mappingShortReportToDto(
+                shortReportRepoService.getShortReportByDateAndUserId(localDate, userId));
     }
 
     public List<ShortReportDto> getShortReportsByInputDateAndUserId(String inputDate, Long userId) {
@@ -44,11 +40,11 @@ public class ShortReportService {
         LocalDate localDateMax = inputLocalDate.plusDays(30);
         List<ShortReport> shortReportsByDateAndUserId =
                 shortReportRepoService.getShortsReportByMaxMinDateAndUserId(localDateMin, localDateMax, userId);
-        return listShortReportToListDtoConverter.mappingList(shortReportsByDateAndUserId);
+        return shortReportConverter.mappingListShortReportToDto(shortReportsByDateAndUserId);
     }
 
     public List<ShortReportDto> getShorts() {
-        return listShortReportToListDtoConverter.mappingList(shortReportRepoService.getAll());
+        return shortReportConverter.mappingListShortReportToDto(shortReportRepoService.getAll());
     }
 
 }

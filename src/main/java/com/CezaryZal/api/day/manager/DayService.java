@@ -6,8 +6,8 @@ import com.CezaryZal.api.day.model.DayDto;
 import com.CezaryZal.api.day.manager.creator.DayCreator;
 import com.CezaryZal.api.day.manager.mapper.*;
 import com.CezaryZal.api.day.manager.repo.DayRepoService;
-import com.CezaryZal.api.report.shortened.manager.creator.ObjectToSaveDayToShortDayConverter;
 import com.CezaryZal.api.report.shortened.manager.creator.ShortReportCreator;
+import com.CezaryZal.api.report.shortened.manager.mapper.ShortReportConverter;
 import com.CezaryZal.api.report.shortened.model.entity.ShortReport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,7 +21,7 @@ public class DayService {
     private final DayRepoService dayRepoService;
     private final DayToDtoConverter dayToDtoConverter;
     private final ObjectToSaveDayToDayConverter objectToSaveDayToDayConverter;
-    private final ObjectToSaveDayToShortDayConverter objectToSaveDayToShortDayConverter;
+    private final ShortReportConverter shortReportConverter;
     private final ShortReportCreator shortReportCreator;
     private final DayCreator dayCreator;
 
@@ -29,13 +29,13 @@ public class DayService {
     public DayService(DayRepoService dayRepoService,
                       DayToDtoConverter dayToDtoConverter,
                       ObjectToSaveDayToDayConverter objectToSaveDayToDayConverter,
-                      ObjectToSaveDayToShortDayConverter objectToSaveDayToShortDayConverter,
+                      ShortReportConverter shortReportConverter,
                       ShortReportCreator shortReportCreator,
                       DayCreator dayCreator) {
         this.dayRepoService = dayRepoService;
         this.dayToDtoConverter = dayToDtoConverter;
         this.objectToSaveDayToDayConverter = objectToSaveDayToDayConverter;
-        this.objectToSaveDayToShortDayConverter = objectToSaveDayToShortDayConverter;
+        this.shortReportConverter = shortReportConverter;
         this.shortReportCreator = shortReportCreator;
         this.dayCreator = dayCreator;
     }
@@ -55,7 +55,7 @@ public class DayService {
     }
 
     public String addNewDay(ObjectToSaveDay day){
-        ShortReport newShortReport = objectToSaveDayToShortDayConverter.mappingEntity(day);
+        ShortReport newShortReport = shortReportConverter.mappingObjectToSaveDayToShortReport(day);
         Day newDay = objectToSaveDayToDayConverter.mappingEntity(day);
         newDay.setShortReport(newShortReport);
         dayRepoService.addDay(newDay);
