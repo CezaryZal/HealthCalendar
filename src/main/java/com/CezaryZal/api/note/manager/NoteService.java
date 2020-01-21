@@ -4,9 +4,7 @@ import com.CezaryZal.api.note.entity.Header;
 import com.CezaryZal.api.note.entity.Note;
 import com.CezaryZal.api.note.entity.NoteDto;
 import com.CezaryZal.api.note.manager.creator.HeadersCreator;
-import com.CezaryZal.api.note.manager.mapper.DtoToNoteConverter;
-import com.CezaryZal.api.note.manager.mapper.ListNoteToListDtoConverter;
-import com.CezaryZal.api.note.manager.mapper.NoteToDtoConverter;
+import com.CezaryZal.api.note.manager.mapper.NoteConverter;
 import com.CezaryZal.api.note.manager.repo.NoteRepoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,26 +15,20 @@ import java.util.List;
 public class NoteService{
 
     private final NoteRepoService noteRepoService;
-    private final NoteToDtoConverter noteToDtoConverter;
-    private final DtoToNoteConverter dtoToNoteConverter;
-    private final ListNoteToListDtoConverter  listNoteToListDtoConverter;
+    private final NoteConverter noteConverter;
     private final HeadersCreator headersCreator;
 
     @Autowired
     public NoteService(NoteRepoService noteRepoService,
-                       NoteToDtoConverter noteToDtoConverter,
-                       DtoToNoteConverter dtoToNoteConverter,
-                       ListNoteToListDtoConverter listNoteToListDtoConverter,
+                       NoteConverter noteConverter,
                        HeadersCreator headersCreator) {
         this.noteRepoService = noteRepoService;
-        this.noteToDtoConverter = noteToDtoConverter;
-        this.dtoToNoteConverter = dtoToNoteConverter;
-        this.listNoteToListDtoConverter = listNoteToListDtoConverter;
+        this.noteConverter = noteConverter;
         this.headersCreator = headersCreator;
     }
 
     public NoteDto getNoteDtoById(Long id){
-        return noteToDtoConverter.mappingEntity(noteRepoService.getNoteById(id));
+        return noteConverter.mappingNoteToDto(noteRepoService.getNoteById(id));
     }
 
     public List<Header> getHeadersByDay(Long dayId){
@@ -48,20 +40,20 @@ public class NoteService{
     }
 
     public List<NoteDto> getNotesDtoByDay(Long dayId){
-        return listNoteToListDtoConverter.mappingList(noteRepoService.getNotesByDayId(dayId));
+        return noteConverter.mappingListNoteToListDto(noteRepoService.getNotesByDayId(dayId));
     }
 
     public List<NoteDto> getAllNote (){
-        return listNoteToListDtoConverter.mappingList(noteRepoService.getAll());
+        return noteConverter.mappingListNoteToListDto(noteRepoService.getAll());
     }
 
     public String addNoteByDto (NoteDto noteDto){
-        noteRepoService.addNote(dtoToNoteConverter.mappingEntity(noteDto));
+        noteRepoService.addNote(noteConverter.mappingDtoToNote(noteDto));
         return "Przesłana notatka została zapisana w bazie danych";
     }
 
     public String updateNoteByDto (NoteDto noteDto){
-        noteRepoService.updateNote(dtoToNoteConverter.mappingEntity(noteDto));
+        noteRepoService.updateNote(noteConverter.mappingDtoToNote(noteDto));
         return "Przesłana notatka została uaktualniona";
     }
 
