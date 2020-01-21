@@ -19,44 +19,41 @@ import java.util.stream.Collectors;
 public class DayService {
 
     private final DayRepoService dayRepoService;
-    private final DayToDtoConverter dayToDtoConverter;
-    private final ObjectToSaveDayToDayConverter objectToSaveDayToDayConverter;
+    private final DayConverter dayConverter;
     private final ShortReportConverter shortReportConverter;
     private final ShortReportCreator shortReportCreator;
     private final DayCreator dayCreator;
 
     @Autowired
     public DayService(DayRepoService dayRepoService,
-                      DayToDtoConverter dayToDtoConverter,
-                      ObjectToSaveDayToDayConverter objectToSaveDayToDayConverter,
+                      DayConverter dayConverter,
                       ShortReportConverter shortReportConverter,
                       ShortReportCreator shortReportCreator,
                       DayCreator dayCreator) {
         this.dayRepoService = dayRepoService;
-        this.dayToDtoConverter = dayToDtoConverter;
-        this.objectToSaveDayToDayConverter = objectToSaveDayToDayConverter;
+        this.dayConverter = dayConverter;
         this.shortReportConverter = shortReportConverter;
         this.shortReportCreator = shortReportCreator;
         this.dayCreator = dayCreator;
     }
 
     public DayDto getDayDtoById(Long id) {
-        return dayToDtoConverter.mappingEntity(dayRepoService.getDayById(id));
+        return dayConverter.mappingDayToDto(dayRepoService.getDayById(id));
     }
 
     public DayDto getDayDtoByDateAndUserId(String inputDate, Long userId) {
-        return dayToDtoConverter.mappingEntity(dayRepoService.getDayByDateAndUserId(inputDate, userId));
+        return dayConverter.mappingDayToDto(dayRepoService.getDayByDateAndUserId(inputDate, userId));
     }
 
     public List<DayDto> getDaysDto(){
         return dayRepoService.getAll().stream()
-                .map(dayToDtoConverter::mappingEntity)
+                .map(dayConverter::mappingDayToDto)
                 .collect(Collectors.toList());
     }
 
     public String addNewDay(ObjectToSaveDay day){
         ShortReport newShortReport = shortReportConverter.mappingObjectToSaveDayToShortReport(day);
-        Day newDay = objectToSaveDayToDayConverter.mappingEntity(day);
+        Day newDay = dayConverter.mappingObjectToSaveDayToDay(day);
         newDay.setShortReport(newShortReport);
         dayRepoService.addDay(newDay);
         return "Dzień z aktualną datą został dodany do bazy danych";
