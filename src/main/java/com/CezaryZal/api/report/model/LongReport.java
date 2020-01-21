@@ -3,7 +3,7 @@ package com.CezaryZal.api.report.model;
 import com.CezaryZal.api.meal.entity.DailyDiet;
 import com.CezaryZal.api.note.entity.Header;
 import com.CezaryZal.api.report.shortened.model.ShortReportDto;
-import com.CezaryZal.api.training.entity.TrainingsSummary;
+import com.CezaryZal.api.training.model.TrainingsSummary;
 import lombok.Getter;
 import lombok.ToString;
 

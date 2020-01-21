@@ -1,6 +1,6 @@
 package com.CezaryZal.api.training;
 
-import com.CezaryZal.api.training.entity.Training;
+import com.CezaryZal.api.training.model.entity.Training;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

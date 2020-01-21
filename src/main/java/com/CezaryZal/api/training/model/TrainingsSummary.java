@@ -1,4 +1,4 @@
-package com.CezaryZal.api.training.entity;
+package com.CezaryZal.api.training.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

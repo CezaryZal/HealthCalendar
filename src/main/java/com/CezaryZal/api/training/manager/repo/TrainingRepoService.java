@@ -1,7 +1,7 @@
 package com.CezaryZal.api.training.manager.repo;
 
 import com.CezaryZal.api.training.TrainingRepository;
-import com.CezaryZal.api.training.entity.Training;
+import com.CezaryZal.api.training.model.entity.Training;
 import com.CezaryZal.exceptions.not.found.TrainingNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

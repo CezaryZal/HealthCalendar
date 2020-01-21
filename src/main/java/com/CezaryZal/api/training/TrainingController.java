@@ -1,7 +1,7 @@
 package com.CezaryZal.api.training;
 
-import com.CezaryZal.api.training.entity.TrainingDto;
-import com.CezaryZal.api.training.entity.TrainingsSummary;
+import com.CezaryZal.api.training.model.TrainingDto;
+import com.CezaryZal.api.training.model.TrainingsSummary;
 import com.CezaryZal.api.training.manager.TrainingService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

@@ -1,7 +1,7 @@
 package com.CezaryZal.api.training.manager.creator;
 
-import com.CezaryZal.api.training.entity.TrainingDto;
-import com.CezaryZal.api.training.entity.TrainingsSummary;
+import com.CezaryZal.api.training.model.TrainingDto;
+import com.CezaryZal.api.training.model.TrainingsSummary;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;

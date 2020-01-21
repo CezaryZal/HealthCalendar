@@ -1,6 +1,6 @@
 package com.CezaryZal.production.admin.controllers;
 
-import com.CezaryZal.api.training.entity.TrainingDto;
+import com.CezaryZal.api.training.model.TrainingDto;
 import com.CezaryZal.api.training.manager.TrainingService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
