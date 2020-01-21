@@ -4,7 +4,7 @@ import com.CezaryZal.api.report.model.FormReport;
 import com.CezaryZal.api.day.model.entity.Day;
 import com.CezaryZal.api.report.manager.creator.ReportCreator;
 import com.CezaryZal.api.day.manager.repo.DayRepoService;
-import com.CezaryZal.api.user.entity.User;
+import com.CezaryZal.api.user.model.entity.User;
 import com.CezaryZal.api.user.manager.repo.UserRepoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

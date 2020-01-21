@@ -1,6 +1,6 @@
 package com.CezaryZal.api.user;
 
-import com.CezaryZal.api.user.entity.User;
+import com.CezaryZal.api.user.model.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

@@ -1,4 +1,4 @@
-package com.CezaryZal.api.user.entity;
+package com.CezaryZal.api.user.model;
 
 import lombok.*;
 

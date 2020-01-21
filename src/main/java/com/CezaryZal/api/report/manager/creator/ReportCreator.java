@@ -11,7 +11,7 @@ import com.CezaryZal.api.limits.manager.checker.LimitsChecker;
 import com.CezaryZal.api.meal.manager.MealService;
 import com.CezaryZal.api.report.shortened.manager.ShortReportService;
 import com.CezaryZal.api.training.manager.TrainingService;
-import com.CezaryZal.api.user.entity.User;
+import com.CezaryZal.api.user.model.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

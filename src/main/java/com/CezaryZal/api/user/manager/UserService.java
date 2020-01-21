@@ -1,10 +1,8 @@
 package com.CezaryZal.api.user.manager;
 
-import com.CezaryZal.api.user.manager.mapper.UserToDtoConverter;
+import com.CezaryZal.api.user.manager.mapper.UserConverter;
 import com.CezaryZal.api.user.manager.repo.UserRepoService;
-import com.CezaryZal.api.user.UserRepository;
-import com.CezaryZal.api.user.entity.User;
-import com.CezaryZal.api.user.entity.UserDto;
+import com.CezaryZal.api.user.model.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,25 +13,25 @@ import java.util.stream.Collectors;
 public class UserService {
 
     private final UserRepoService userRepoService;
-    private final UserToDtoConverter userToDtoConverter;
+    private final UserConverter userConverter;
 
     @Autowired
-    public UserService(UserRepoService userRepoService, UserToDtoConverter userToDtoConverter) {
+    public UserService(UserRepoService userRepoService, UserConverter userConverter) {
         this.userRepoService = userRepoService;
-        this.userToDtoConverter = userToDtoConverter;
+        this.userConverter = userConverter;
     }
 
     public UserDto getUserDtoById(Long id) {
-        return userToDtoConverter.mappingEntity(userRepoService.getUserById(id));
+        return userConverter.mappingUserToDto(userRepoService.getUserById(id));
     }
 
     public UserDto getUserDtoByLoginName(String loginName){
-        return userToDtoConverter.mappingEntity(userRepoService.getUserByLoginName(loginName));
+        return userConverter.mappingUserToDto(userRepoService.getUserByLoginName(loginName));
     }
 
     public List<UserDto> getUsersDto(){
         return userRepoService.getUsers().stream()
-                .map(userToDtoConverter::mappingEntity)
+                .map(userConverter::mappingUserToDto)
                 .collect(Collectors.toList());
     }
 

@@ -1,6 +1,6 @@
 package com.CezaryZal.authentication.manager;
 
-import com.CezaryZal.api.user.entity.AccountEntity;
+import com.CezaryZal.api.user.model.AccountEntity;
 import com.CezaryZal.authentication.UserAuthRepository;
 import com.CezaryZal.authentication.entity.UserAuthentication;
 import com.CezaryZal.authentication.manager.mapper.AccountEntityToUserAuthConverter;

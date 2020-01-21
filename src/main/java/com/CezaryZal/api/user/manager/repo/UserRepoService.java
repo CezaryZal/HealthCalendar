@@ -1,6 +1,6 @@
 package com.CezaryZal.api.user.manager.repo;
 
-import com.CezaryZal.api.user.entity.User;
+import com.CezaryZal.api.user.model.entity.User;
 import com.CezaryZal.api.user.UserRepository;
 import com.CezaryZal.exceptions.not.found.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;

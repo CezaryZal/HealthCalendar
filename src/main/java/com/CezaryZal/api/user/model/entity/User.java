@@ -1,4 +1,4 @@
-package com.CezaryZal.api.user.entity;
+package com.CezaryZal.api.user.model.entity;
 
 import com.CezaryZal.api.body.entity.BodySize;
 import com.CezaryZal.api.limits.entity.DailyLimits;

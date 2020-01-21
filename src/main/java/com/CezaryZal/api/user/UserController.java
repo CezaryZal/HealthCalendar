@@ -1,8 +1,7 @@
 package com.CezaryZal.api.user;
 
-import com.CezaryZal.api.user.entity.AccountEntity;
-import com.CezaryZal.api.user.entity.User;
-import com.CezaryZal.api.user.entity.UserDto;
+import com.CezaryZal.api.user.model.AccountEntity;
+import com.CezaryZal.api.user.model.UserDto;
 import com.CezaryZal.api.user.manager.UpdateUser;
 import com.CezaryZal.api.user.manager.UserService;
 import com.CezaryZal.api.user.manager.creator.NewAccountCreator;

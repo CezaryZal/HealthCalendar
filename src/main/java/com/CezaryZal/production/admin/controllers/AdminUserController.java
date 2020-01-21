@@ -1,7 +1,7 @@
 package com.CezaryZal.production.admin.controllers;
 
-import com.CezaryZal.api.user.entity.User;
-import com.CezaryZal.api.user.entity.UserDto;
+import com.CezaryZal.api.user.model.entity.User;
+import com.CezaryZal.api.user.model.UserDto;
 import com.CezaryZal.api.user.manager.UserService;
 import com.CezaryZal.api.user.manager.repo.UserRepoService;
 import io.swagger.annotations.Api;

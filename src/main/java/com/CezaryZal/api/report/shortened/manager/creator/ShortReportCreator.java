@@ -7,7 +7,7 @@ import com.CezaryZal.api.meal.manager.MealService;
 import com.CezaryZal.api.meal.manager.repo.MealRepoService;
 import com.CezaryZal.api.report.shortened.manager.repo.ShortReportRepoService;
 import com.CezaryZal.api.report.shortened.model.entity.ShortReport;
-import com.CezaryZal.api.user.entity.User;
+import com.CezaryZal.api.user.model.entity.User;
 import com.CezaryZal.api.user.manager.repo.UserRepoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
