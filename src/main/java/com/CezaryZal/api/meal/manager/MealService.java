@@ -4,9 +4,7 @@ import com.CezaryZal.api.meal.entity.DailyDiet;
 import com.CezaryZal.api.meal.entity.Meal;
 import com.CezaryZal.api.meal.entity.MealDto;
 import com.CezaryZal.api.meal.manager.creator.DailyDietCreator;
-import com.CezaryZal.api.meal.manager.mapper.DtoToMealConverter;
-import com.CezaryZal.api.meal.manager.mapper.ListMealToListDtoConverter;
-import com.CezaryZal.api.meal.manager.mapper.MealToDtoConverter;
+import com.CezaryZal.api.meal.manager.mapper.MealConverter;
 import com.CezaryZal.api.meal.manager.repo.MealRepoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,26 +15,20 @@ import java.util.List;
 public class MealService {
 
     private final MealRepoService mealRepoService;
-    private final MealToDtoConverter mealToDtoConverter;
-    private final DtoToMealConverter dtoToMealConverter;
+    private final MealConverter mealConverter;
     private final DailyDietCreator dailyDietCreator;
-    private final ListMealToListDtoConverter listMealToListDtoConverter;
 
     @Autowired
     public MealService(MealRepoService mealRepoService,
-                       MealToDtoConverter mealToDtoConverter,
-                       DtoToMealConverter dtoToMealConverter,
-                       DailyDietCreator dailyDietCreator,
-                       ListMealToListDtoConverter listMealToListDtoConverter) {
+                       MealConverter mealConverter,
+                       DailyDietCreator dailyDietCreator) {
         this.mealRepoService = mealRepoService;
-        this.mealToDtoConverter = mealToDtoConverter;
-        this.dtoToMealConverter = dtoToMealConverter;
+        this.mealConverter = mealConverter;
         this.dailyDietCreator = dailyDietCreator;
-        this.listMealToListDtoConverter = listMealToListDtoConverter;
     }
 
     public MealDto getMealDtoById(Long id) {
-        return mealToDtoConverter.mappingEntity(mealRepoService.findMealById(id));
+        return mealConverter.mappingMealToDto(mealRepoService.findMealById(id));
     }
 
     public DailyDiet getDailyDietByDayId(Long dayId) {
@@ -44,21 +36,21 @@ public class MealService {
     }
 
     public DailyDiet getDailyDietByListMeal(List<Meal> meals){
-        List<MealDto> listMealDto = listMealToListDtoConverter.mappingList(meals);
+        List<MealDto> listMealDto = mealConverter.mappingListMealToListDto(meals);
         return dailyDietCreator.createDailyDiet(listMealDto);
     }
 
     public List<MealDto> getListMealDto() {
-        return listMealToListDtoConverter.mappingList(mealRepoService.getAll());
+        return mealConverter.mappingListMealToListDto(mealRepoService.getAll());
     }
 
     public String addMealByDto(MealDto mealDto) {
-        mealRepoService.addMeal(dtoToMealConverter.mappingEntity(mealDto));
+        mealRepoService.addMeal(mealConverter.mappingDtoToMeal(mealDto));
         return "Przesłany posiłek został zapisany w bazie danych";
     }
 
     public String updateMealByDto(MealDto mealDto) {
-        mealRepoService.updateMeal(dtoToMealConverter.mappingEntity(mealDto));
+        mealRepoService.updateMeal(mealConverter.mappingDtoToMeal(mealDto));
         return "Przesłane posiłek zostały uaktualnione";
     }
 
