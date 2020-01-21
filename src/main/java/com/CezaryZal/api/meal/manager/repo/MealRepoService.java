@@ -1,7 +1,7 @@
 package com.CezaryZal.api.meal.manager.repo;
 
 import com.CezaryZal.api.meal.MealRepository;
-import com.CezaryZal.api.meal.entity.Meal;
+import com.CezaryZal.api.meal.model.entity.Meal;
 import com.CezaryZal.exceptions.not.found.MealNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

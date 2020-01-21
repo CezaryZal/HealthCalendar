@@ -1,6 +1,6 @@
 package com.CezaryZal.api.user.manager;
 
-import com.CezaryZal.api.limits.entity.DailyLimits;
+import com.CezaryZal.api.limits.model.entity.DailyLimits;
 import com.CezaryZal.api.limits.manager.mapper.DailyLimitsConverter;
 import com.CezaryZal.api.user.model.AccountEntity;
 import com.CezaryZal.api.user.model.entity.User;

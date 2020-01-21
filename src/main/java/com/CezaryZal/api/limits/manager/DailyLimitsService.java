@@ -1,7 +1,7 @@
 package com.CezaryZal.api.limits.manager;
 
-import com.CezaryZal.api.limits.entity.DailyLimits;
-import com.CezaryZal.api.limits.entity.DailyLimitsDto;
+import com.CezaryZal.api.limits.model.entity.DailyLimits;
+import com.CezaryZal.api.limits.model.DailyLimitsDto;
 import com.CezaryZal.api.limits.manager.mapper.DailyLimitsConverter;
 import com.CezaryZal.api.limits.manager.repo.DailyLimitsRepoService;
 import org.springframework.beans.factory.annotation.Autowired;

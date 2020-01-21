@@ -1,6 +1,6 @@
 package com.CezaryZal.production.admin.controllers;
 
-import com.CezaryZal.api.meal.entity.MealDto;
+import com.CezaryZal.api.meal.model.MealDto;
 import com.CezaryZal.api.meal.manager.MealService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

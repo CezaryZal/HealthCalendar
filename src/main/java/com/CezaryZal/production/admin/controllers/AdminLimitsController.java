@@ -1,6 +1,6 @@
 package com.CezaryZal.production.admin.controllers;
 
-import com.CezaryZal.api.limits.entity.DailyLimitsDto;
+import com.CezaryZal.api.limits.model.DailyLimitsDto;
 import com.CezaryZal.api.limits.manager.DailyLimitsService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

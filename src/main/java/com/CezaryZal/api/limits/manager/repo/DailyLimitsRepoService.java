@@ -1,7 +1,7 @@
 package com.CezaryZal.api.limits.manager.repo;
 
 import com.CezaryZal.api.limits.DailyLimitsRepository;
-import com.CezaryZal.api.limits.entity.DailyLimits;
+import com.CezaryZal.api.limits.model.entity.DailyLimits;
 import com.CezaryZal.exceptions.not.found.DailyLimitsNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

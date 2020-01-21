@@ -1,7 +1,7 @@
 package com.CezaryZal.api.meal.manager.creator;
 
-import com.CezaryZal.api.meal.entity.DailyDiet;
-import com.CezaryZal.api.meal.entity.MealDto;
+import com.CezaryZal.api.meal.model.DailyDiet;
+import com.CezaryZal.api.meal.model.MealDto;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

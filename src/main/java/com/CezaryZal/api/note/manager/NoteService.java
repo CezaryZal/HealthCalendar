@@ -1,8 +1,8 @@
 package com.CezaryZal.api.note.manager;
 
-import com.CezaryZal.api.note.entity.Header;
-import com.CezaryZal.api.note.entity.Note;
-import com.CezaryZal.api.note.entity.NoteDto;
+import com.CezaryZal.api.note.model.Header;
+import com.CezaryZal.api.note.model.entity.Note;
+import com.CezaryZal.api.note.model.NoteDto;
 import com.CezaryZal.api.note.manager.creator.HeadersCreator;
 import com.CezaryZal.api.note.manager.mapper.NoteConverter;
 import com.CezaryZal.api.note.manager.repo.NoteRepoService;

@@ -1,7 +1,7 @@
 package com.CezaryZal.api.note;
 
-import com.CezaryZal.api.note.entity.Header;
-import com.CezaryZal.api.note.entity.NoteDto;
+import com.CezaryZal.api.note.model.Header;
+import com.CezaryZal.api.note.model.NoteDto;
 import com.CezaryZal.api.note.manager.NoteService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

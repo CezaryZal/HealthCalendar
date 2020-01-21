@@ -2,7 +2,7 @@ package com.CezaryZal.api.report.shortened.manager.creator;
 
 import com.CezaryZal.api.day.model.ObjectToSaveDay;
 import com.CezaryZal.api.limits.manager.checker.LimitsChecker;
-import com.CezaryZal.api.meal.entity.Meal;
+import com.CezaryZal.api.meal.model.entity.Meal;
 import com.CezaryZal.api.meal.manager.MealService;
 import com.CezaryZal.api.meal.manager.repo.MealRepoService;
 import com.CezaryZal.api.report.shortened.manager.repo.ShortReportRepoService;

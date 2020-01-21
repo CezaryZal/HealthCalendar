@@ -1,7 +1,7 @@
 package com.CezaryZal.api.limits.manager.mapper;
 
-import com.CezaryZal.api.limits.entity.DailyLimits;
-import com.CezaryZal.api.limits.entity.DailyLimitsDto;
+import com.CezaryZal.api.limits.model.entity.DailyLimits;
+import com.CezaryZal.api.limits.model.DailyLimitsDto;
 import com.CezaryZal.api.user.model.AccountEntity;
 import org.springframework.stereotype.Service;
 

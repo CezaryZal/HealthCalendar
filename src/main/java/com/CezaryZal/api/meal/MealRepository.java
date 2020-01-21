@@ -1,6 +1,6 @@
 package com.CezaryZal.api.meal;
 
-import com.CezaryZal.api.meal.entity.Meal;
+import com.CezaryZal.api.meal.model.entity.Meal;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

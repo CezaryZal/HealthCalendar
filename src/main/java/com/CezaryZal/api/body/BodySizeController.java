@@ -1,6 +1,6 @@
 package com.CezaryZal.api.body;
 
-import com.CezaryZal.api.body.entity.BodySizeDto;
+import com.CezaryZal.api.body.model.BodySizeDto;
 import com.CezaryZal.api.body.manager.BodySizeService;
 import com.CezaryZal.api.body.manager.repo.BodySizeRepoService;
 import io.swagger.annotations.Api;

@@ -1,7 +1,7 @@
 package com.CezaryZal.api.report.manager.creator;
 
 import com.CezaryZal.api.body.manager.repo.BodySizeRepoService;
-import com.CezaryZal.api.meal.entity.DailyDiet;
+import com.CezaryZal.api.meal.model.DailyDiet;
 import com.CezaryZal.api.note.manager.creator.HeadersCreator;
 import com.CezaryZal.api.report.model.FormReport;
 import com.CezaryZal.api.report.model.LongReport;

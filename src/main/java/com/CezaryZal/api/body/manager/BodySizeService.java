@@ -1,7 +1,7 @@
 package com.CezaryZal.api.body.manager;
 
-import com.CezaryZal.api.body.entity.BodySize;
-import com.CezaryZal.api.body.entity.BodySizeDto;
+import com.CezaryZal.api.body.model.entity.BodySize;
+import com.CezaryZal.api.body.model.BodySizeDto;
 import com.CezaryZal.api.body.manager.mapper.BodySizeConverter;
 import com.CezaryZal.api.body.manager.repo.BodySizeRepoService;
 import com.CezaryZal.exceptions.not.found.DateNotFoundException;

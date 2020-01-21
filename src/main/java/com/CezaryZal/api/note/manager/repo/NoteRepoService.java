@@ -1,7 +1,7 @@
 package com.CezaryZal.api.note.manager.repo;
 
 import com.CezaryZal.api.note.NoteRepository;
-import com.CezaryZal.api.note.entity.Note;
+import com.CezaryZal.api.note.model.entity.Note;
 import com.CezaryZal.exceptions.not.found.NoteNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

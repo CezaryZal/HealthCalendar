@@ -1,4 +1,4 @@
-package com.CezaryZal.api.limits.entity;
+package com.CezaryZal.api.limits.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

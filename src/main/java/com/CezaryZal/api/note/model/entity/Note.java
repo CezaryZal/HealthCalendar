@@ -1,4 +1,4 @@
-package com.CezaryZal.api.note.entity;
+package com.CezaryZal.api.note.model.entity;
 
 
 import lombok.AllArgsConstructor;

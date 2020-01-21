@@ -1,8 +1,8 @@
 package com.CezaryZal.api.meal.manager;
 
-import com.CezaryZal.api.meal.entity.DailyDiet;
-import com.CezaryZal.api.meal.entity.Meal;
-import com.CezaryZal.api.meal.entity.MealDto;
+import com.CezaryZal.api.meal.model.DailyDiet;
+import com.CezaryZal.api.meal.model.entity.Meal;
+import com.CezaryZal.api.meal.model.MealDto;
 import com.CezaryZal.api.meal.manager.creator.DailyDietCreator;
 import com.CezaryZal.api.meal.manager.mapper.MealConverter;
 import com.CezaryZal.api.meal.manager.repo.MealRepoService;

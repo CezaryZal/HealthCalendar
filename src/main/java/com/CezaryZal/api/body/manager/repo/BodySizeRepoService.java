@@ -1,7 +1,7 @@
 package com.CezaryZal.api.body.manager.repo;
 
 import com.CezaryZal.api.body.BodySizeRepository;
-import com.CezaryZal.api.body.entity.BodySize;
+import com.CezaryZal.api.body.model.entity.BodySize;
 import com.CezaryZal.exceptions.not.found.BodySizeNotFoundException;
 import com.CezaryZal.exceptions.not.found.DateNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;

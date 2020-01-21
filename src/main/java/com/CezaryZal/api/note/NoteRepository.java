@@ -1,6 +1,6 @@
 package com.CezaryZal.api.note;
 
-import com.CezaryZal.api.note.entity.Note;
+import com.CezaryZal.api.note.model.entity.Note;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

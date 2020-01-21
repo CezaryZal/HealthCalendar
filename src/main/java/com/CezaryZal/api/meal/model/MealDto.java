@@ -1,4 +1,4 @@
-package com.CezaryZal.api.meal.entity;
+package com.CezaryZal.api.meal.model;
 
 import java.time.LocalDateTime;
 

@@ -1,8 +1,8 @@
 package com.CezaryZal.api.day.model.entity;
 
 import com.CezaryZal.api.report.shortened.model.entity.ShortReport;
-import com.CezaryZal.api.meal.entity.Meal;
-import com.CezaryZal.api.note.entity.Note;
+import com.CezaryZal.api.meal.model.entity.Meal;
+import com.CezaryZal.api.note.model.entity.Note;
 import com.CezaryZal.api.training.model.entity.Training;
 import lombok.AllArgsConstructor;
 import lombok.Data;

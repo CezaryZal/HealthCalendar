@@ -1,7 +1,7 @@
 package com.CezaryZal.api.note.manager.mapper;
 
-import com.CezaryZal.api.note.entity.Note;
-import com.CezaryZal.api.note.entity.NoteDto;
+import com.CezaryZal.api.note.model.entity.Note;
+import com.CezaryZal.api.note.model.NoteDto;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

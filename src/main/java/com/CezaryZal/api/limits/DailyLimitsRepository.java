@@ -1,6 +1,6 @@
 package com.CezaryZal.api.limits;
 
-import com.CezaryZal.api.limits.entity.DailyLimits;
+import com.CezaryZal.api.limits.model.entity.DailyLimits;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

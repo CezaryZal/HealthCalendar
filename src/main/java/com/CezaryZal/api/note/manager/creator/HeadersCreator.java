@@ -1,7 +1,7 @@
 package com.CezaryZal.api.note.manager.creator;
 
-import com.CezaryZal.api.note.entity.Header;
-import com.CezaryZal.api.note.entity.Note;
+import com.CezaryZal.api.note.model.Header;
+import com.CezaryZal.api.note.model.entity.Note;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
