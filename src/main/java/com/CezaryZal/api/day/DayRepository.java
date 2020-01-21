@@ -1,6 +1,6 @@
 package com.CezaryZal.api.day;
 
-import com.CezaryZal.api.day.entity.day.Day;
+import com.CezaryZal.api.day.model.entity.Day;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;

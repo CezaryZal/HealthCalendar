@@ -1,10 +1,8 @@
 package com.CezaryZal.api.day;
 
-import com.CezaryZal.api.day.entity.api.DayApi;
-import com.CezaryZal.api.day.entity.day.Day;
-import com.CezaryZal.api.day.entity.api.DayApiWithConnectedEntities;
-import com.CezaryZal.api.day.entity.day.DayBasic;
-import com.CezaryZal.api.day.manager.DayApiService;
+import com.CezaryZal.api.day.manager.repo.DayRepoService;
+import com.CezaryZal.api.day.model.ObjectToSaveDay;
+import com.CezaryZal.api.report.manager.ReportService;
 import com.CezaryZal.api.day.manager.DayService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -13,8 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.security.auth.login.AccountNotFoundException;
-
 @CrossOrigin(origins = "*", maxAge = 3600)
 @Api(tags = "Day")
 @RestController
@@ -22,12 +18,12 @@ import javax.security.auth.login.AccountNotFoundException;
 public class DayController {
 
     private final DayService dayService;
-    private final DayApiService dayApiService;
+    private final DayRepoService dayRepoService;
 
     @Autowired
-    public DayController(DayService dayService, DayApiService dayApiService) {
+    public DayController(DayService dayService, DayRepoService dayRepoService) {
         this.dayService = dayService;
-        this.dayApiService = dayApiService;
+        this.dayRepoService = dayRepoService;
     }
 
     @ApiOperation(value = "This will get a day id by date and user id")
@@ -35,33 +31,17 @@ public class DayController {
     public ResponseEntity<Long> getDayIdByDateAndUserId(
             @PathVariable String date,
             @PathVariable Long userId) {
-        return new ResponseEntity<>(dayService.getDayIdByDateAndUserId(date, userId), HttpStatus.OK);
-    }
-
-    @ApiOperation(value = "This will get a basic information of `DayApi` by date and user id")
-    @GetMapping("/api/basic/{date}/{userId}")
-    public ResponseEntity<DayApi> getDayApiByDateAndUserId(
-            @PathVariable String date,
-            @PathVariable Long userId){
-        return new ResponseEntity<>(dayApiService.getDayApiByDateAndUserId(date, userId), HttpStatus.OK);
-    }
-
-    @ApiOperation(value = "This will get a `DayApi` with connected entities by date and user id")
-    @GetMapping("/api/with-entities/{date}/{userId}")
-    public ResponseEntity<DayApiWithConnectedEntities> getDayApiWithEntitiesByDateAndUserId(
-            @PathVariable String date,
-            @PathVariable Long userId){
-        return new ResponseEntity<>(dayApiService.getDayApiWithEntitiesByDateAndUserId(date, userId), HttpStatus.OK);
+        return new ResponseEntity<>(dayRepoService.getDayIdByDateAndUserId(date, userId), HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity<String> addDay(@RequestBody DayBasic day) {
+    public ResponseEntity<String> addDay(@RequestBody ObjectToSaveDay day) {
         return new ResponseEntity<>(dayService.addNewDay(day), HttpStatus.CREATED);
     }
 
     @PutMapping
-    public ResponseEntity<String> updateDay(@RequestBody DayApi dayApi) {
-        return new ResponseEntity<>(dayService.update(dayApi), HttpStatus.OK);
+    public ResponseEntity<String> updateDay(@RequestBody ObjectToSaveDay day) {
+        return new ResponseEntity<>(dayService.update(day), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")

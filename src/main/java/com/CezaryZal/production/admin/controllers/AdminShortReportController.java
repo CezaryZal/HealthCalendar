@@ -1,7 +1,7 @@
 package com.CezaryZal.production.admin.controllers;
 
-import com.CezaryZal.api.shortReport.entity.ShortReportDto;
-import com.CezaryZal.api.shortReport.manager.ShortReportService;
+import com.CezaryZal.api.report.shortened.manager.ShortReportService;
+import com.CezaryZal.api.report.shortened.model.ShortReportDto;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;

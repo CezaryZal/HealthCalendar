@@ -1,7 +1,7 @@
 package com.CezaryZal.api.day.manager.repo;
 
 import com.CezaryZal.api.day.DayRepository;
-import com.CezaryZal.api.day.entity.day.Day;
+import com.CezaryZal.api.day.model.entity.Day;
 import com.CezaryZal.exceptions.not.found.DayNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
