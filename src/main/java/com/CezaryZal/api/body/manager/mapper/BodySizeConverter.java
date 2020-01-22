@@ -1,5 +1,6 @@
 package com.CezaryZal.api.body.manager.mapper;
 
+import com.CezaryZal.api.body.model.FormBodySize;
 import com.CezaryZal.api.body.model.entity.BodySize;
 import com.CezaryZal.api.body.model.BodySizeDto;
 import org.springframework.stereotype.Service;
@@ -7,35 +8,36 @@ import org.springframework.stereotype.Service;
 @Service
 public class BodySizeConverter {
 
-    public BodySizeDto mappingBodySizeToDto(BodySize bodySize){
-        return new BodySizeDto(
-                bodySize.getId(),
-                bodySize.getBodyWeight(),
-                bodySize.getNeckSize(),
-                bodySize.getArmSize(),
-                bodySize.getBustSize(),
-                bodySize.getWaist(),
-                bodySize.getHipsSize(),
-                bodySize.getFemoralSize(),
-                bodySize.getCalf(),
-                bodySize.getDateMeasurement(),
-                bodySize.getUserId()
-        );
+    public FormBodySize mappingBodySizeToDto(BodySize bodySize){
+        return BodySizeDto.Builder.builder()
+                .id(bodySize.getId())
+                .bodyWeight(bodySize.getBodyWeight())
+                .neckSize(bodySize.getNeckSize())
+                .armSize(bodySize.getArmSize())
+                .bustSize(bodySize.getBustSize())
+                .waist(bodySize.getWaist())
+                .hipsSize(bodySize.getHipsSize())
+                .femoralSize(bodySize.getFemoralSize())
+                .calf(bodySize.getCalf())
+                .dateMeasurement(bodySize.getDateMeasurement())
+                .userId(bodySize.getUserId())
+                .build();
     }
 
     public BodySize mappingDtoToBodySize(BodySizeDto bodySizeDto){
-        return new BodySize(
-                bodySizeDto.getId(),
-                bodySizeDto.getBodyWeight(),
-                bodySizeDto.getNeckSize(),
-                bodySizeDto.getArmSize(),
-                bodySizeDto.getBustSize(),
-                bodySizeDto.getWaist(),
-                bodySizeDto.getHipsSize(),
-                bodySizeDto.getFemoralSize(),
-                bodySizeDto.getCalf(),
-                bodySizeDto.getDateMeasurement(),
-                bodySizeDto.getUserId());
+        return BodySize.Builder.builder()
+                .id(bodySizeDto.getId())
+                .bodyWeight(bodySizeDto.getBodyWeight())
+                .neckSize(bodySizeDto.getNeckSize())
+                .armSize(bodySizeDto.getArmSize())
+                .bustSize(bodySizeDto.getBustSize())
+                .waist(bodySizeDto.getWaist())
+                .hipsSize(bodySizeDto.getHipsSize())
+                .femoralSize(bodySizeDto.getFemoralSize())
+                .calf(bodySizeDto.getCalf())
+                .dateMeasurement(bodySizeDto.getDateMeasurement())
+                .userId(bodySizeDto.getUserId())
+                .build();
 
     }
 
