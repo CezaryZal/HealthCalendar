@@ -14,14 +14,11 @@ import java.util.Optional;
 @Repository
 public interface BodySizeRepository extends JpaRepository<BodySize, Long> {
 
-    @Query(value = "select id from day where date =:inputDate and user_id =:userId", nativeQuery = true)
-    Optional<Long> getDayIdByDateAndUserId(@Param("inputDate") LocalDate localDate, @Param("userId") Long userId);
-
     @Query(value = "select date from body_size where user_id =:userId order by date desc LIMIT 1", nativeQuery = true)
     Date findDateLastMeasureByUserId(@Param("userId") Long userId);
 
     @Query(value = "select date from body_size where user_id =:userId", nativeQuery = true)
-    List<Date> findByUserIdAllDate(@Param("userId") Long userId);
+    Optional<List<Date>> findByUserIdAllDate(@Param("userId") Long userId);
 
     Optional<BodySize> findByDateMeasurementAndUserId(LocalDate localDate, Long userId);
 

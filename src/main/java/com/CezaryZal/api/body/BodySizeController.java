@@ -41,14 +41,6 @@ public class BodySizeController {
         return new ResponseEntity<>(bodySizeRepoService.getListDatesByUserId(userId), HttpStatus.OK);
     }
 
-    @ApiOperation(value = "This will be get a day id by date and user id")
-    @GetMapping("/user-id/{date}/{userId}")
-    public ResponseEntity<Long> getDayIdByDateAndUserId(
-            @PathVariable String date,
-            @PathVariable Long userId) {
-        return new ResponseEntity<>(bodySizeRepoService.getDayIdByDateAndUserId(date, userId), HttpStatus.OK);
-    }
-
     @ApiOperation(value = "This will be get a `BodySize` by date and user id")
     @GetMapping("/{date}/{userId}")
     public ResponseEntity<FormBodySize> getBodyByDateAndUserId(
