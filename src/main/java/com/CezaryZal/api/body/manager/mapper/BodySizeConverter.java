@@ -21,7 +21,7 @@ public class BodySizeConverter {
                 .calf(bodySize.getCalf())
                 .dateMeasurement(bodySize.getDateMeasurement())
                 .userId(bodySize.getUserId())
-                .build();
+                .buildDto();
     }
 
     public BodySize mappingDtoToBodySize(BodySizeDto bodySizeDto){

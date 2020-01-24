@@ -85,8 +85,11 @@ public abstract class FormBodySize {
             return this;
         }
 
-        public FormBodySize build() {
-            FormBodySize formBodySize = new BodySizeDto();
+        public FormBodySize buildDto() {
+            return passDateToObject(new BodySizeDto());
+        }
+
+        private FormBodySize passDateToObject(FormBodySize formBodySize){
             formBodySize.id = this.id;
             formBodySize.bodyWeight = this.bodyWeight;
             formBodySize.neckSize = this.neckSize;
