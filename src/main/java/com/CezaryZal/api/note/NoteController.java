@@ -1,5 +1,6 @@
 package com.CezaryZal.api.note;
 
+import com.CezaryZal.api.note.model.FormNote;
 import com.CezaryZal.api.note.model.Header;
 import com.CezaryZal.api.note.model.NoteDto;
 import com.CezaryZal.api.note.manager.NoteService;
@@ -39,7 +40,7 @@ public class NoteController {
 
     @ApiOperation(value = "This will get a list `Note` by day id")
     @GetMapping("/day-id/{dayId}")
-    public ResponseEntity<List<NoteDto>> getListNoteByDayId(@PathVariable Long dayId){
+    public ResponseEntity<List<FormNote>> getListNoteByDayId(@PathVariable Long dayId){
         return new ResponseEntity<>(noteService.getNotesDtoByDay(dayId), HttpStatus.OK);
     }
 

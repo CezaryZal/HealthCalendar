@@ -1,5 +1,6 @@
 package com.CezaryZal.api.note.manager;
 
+import com.CezaryZal.api.note.model.FormNote;
 import com.CezaryZal.api.note.model.Header;
 import com.CezaryZal.api.note.model.NoteDto;
 import com.CezaryZal.api.note.manager.mapper.NoteConverter;
@@ -22,7 +23,7 @@ public class NoteService{
         this.noteConverter = noteConverter;
     }
 
-    public NoteDto getNoteDtoById(Long id){
+    public FormNote getNoteDtoById(Long id){
         return noteConverter.mappingNoteToDto(noteRepoService.getNoteById(id));
     }
 
@@ -34,11 +35,11 @@ public class NoteService{
         return noteRepoService.getListHeaderById(dayId);
     }
 
-    public List<NoteDto> getNotesDtoByDay(Long dayId){
+    public List<FormNote> getNotesDtoByDay(Long dayId){
         return noteConverter.mappingListNoteToListDto(noteRepoService.getNotesByDayId(dayId));
     }
 
-    public List<NoteDto> getAllNote (){
+    public List<FormNote> getAllNote (){
         return noteConverter.mappingListNoteToListDto(noteRepoService.getAll());
     }
 

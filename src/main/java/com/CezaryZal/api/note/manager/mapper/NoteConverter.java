@@ -1,5 +1,6 @@
 package com.CezaryZal.api.note.manager.mapper;
 
+import com.CezaryZal.api.note.model.FormNote;
 import com.CezaryZal.api.note.model.entity.Note;
 import com.CezaryZal.api.note.model.NoteDto;
 import org.springframework.stereotype.Service;
@@ -11,24 +12,24 @@ import java.util.stream.Collectors;
 public class NoteConverter {
 
     public Note mappingDtoToNote(NoteDto noteDto) {
-        return new Note(
-                noteDto.getId(),
-                noteDto.getHeader(),
-                noteDto.getDetailsNote(),
-                noteDto.getDayId()
-        );
+        return Note.Builder.builder()
+                .id(noteDto.getId())
+                .header(noteDto.getHeader())
+                .details(noteDto.getDetailsNote())
+                .dayId(noteDto.getDayId())
+                .build();
     }
 
-    public NoteDto mappingNoteToDto(Note note) {
-        return new NoteDto(
-                note.getId(),
-                note.getHeader(),
-                note.getDetailsNote(),
-                note.getDayId()
-        );
+    public FormNote mappingNoteToDto(Note note) {
+        return NoteDto.Builder.builder()
+                .id(note.getId())
+                .header(note.getHeader())
+                .details(note.getDetailsNote())
+                .dayId(note.getDayId())
+                .buildDto();
     }
 
-    public List<NoteDto> mappingListNoteToListDto(List<Note> notes) {
+    public List<FormNote> mappingListNoteToListDto(List<Note> notes) {
         return notes.stream()
                 .map(this::mappingNoteToDto)
                 .collect(Collectors.toList());

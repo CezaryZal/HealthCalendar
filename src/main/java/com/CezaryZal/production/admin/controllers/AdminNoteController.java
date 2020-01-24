@@ -1,6 +1,6 @@
 package com.CezaryZal.production.admin.controllers;
 
-import com.CezaryZal.api.note.model.NoteDto;
+import com.CezaryZal.api.note.model.FormNote;
 import com.CezaryZal.api.note.manager.NoteService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -26,13 +26,13 @@ public class AdminNoteController {
 
     @ApiOperation(value = "This will get a `Note` by id")
     @GetMapping("/{id}")
-    public ResponseEntity<NoteDto> getNoteBtoById (@PathVariable Long id){
+    public ResponseEntity<FormNote> getNoteBtoById (@PathVariable Long id){
         return new ResponseEntity<>(noteService.getNoteDtoById(id), HttpStatus.OK);
     }
 
     @ApiOperation(value = "This will get a list `Note`, all records")
     @GetMapping
-    public ResponseEntity<List<NoteDto>> getAll(){
+    public ResponseEntity<List<FormNote>> getAll(){
         return new ResponseEntity<>(noteService.getAllNote(), HttpStatus.OK);
     }
 }
