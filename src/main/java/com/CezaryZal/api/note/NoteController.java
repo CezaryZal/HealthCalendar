@@ -25,13 +25,13 @@ public class NoteController {
         this.noteService = noteService;
     }
 
-    @ApiOperation(value = "This will get a `Note` by id")
+    @ApiOperation(value = "This will get a `details of Note` by id")
     @GetMapping("/{id}")
-    public ResponseEntity<NoteDto> getNoteBtoById (@PathVariable Long id){
-        return new ResponseEntity<>(noteService.getNoteDtoById(id), HttpStatus.OK);
+    public ResponseEntity<String> getDetailsNoteById (@PathVariable Long id){
+        return new ResponseEntity<>(noteService.getDetailsById(id), HttpStatus.OK);
     }
 
-    @ApiOperation(value = "This will get a list `Header` by day id")
+    @ApiOperation(value = "This will get a list `header` by day id")
     @GetMapping("/headers/day-id/{dayId}")
     public ResponseEntity<List<Header>> getListHeaderByDayId(@PathVariable Long dayId){
         return new ResponseEntity<>(noteService.getHeadersByDay(dayId), HttpStatus.OK);

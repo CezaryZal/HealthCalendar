@@ -1,6 +1,7 @@
 package com.CezaryZal.api.note.model.entity;
 
 
+import com.CezaryZal.api.note.model.Header;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,6 +13,22 @@ import javax.persistence.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@SqlResultSetMapping(
+        name="ResultInHeader",
+        classes = {
+                @ConstructorResult(
+                        targetClass = Header.class,
+                        columns = {
+                                @ColumnResult(name="id", type = Long.class),
+                                @ColumnResult(name="header", type = String.class)
+
+                        })
+        })
+@NamedNativeQuery(
+        name = "Result",
+        query = "select n.id, n.header from note AS n where n.day_id=:dayId",
+        resultSetMapping = "ResultInHeader"
+)
 public class Note {
 
     @Id

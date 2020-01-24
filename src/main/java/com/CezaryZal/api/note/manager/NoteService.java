@@ -1,9 +1,7 @@
 package com.CezaryZal.api.note.manager;
 
 import com.CezaryZal.api.note.model.Header;
-import com.CezaryZal.api.note.model.entity.Note;
 import com.CezaryZal.api.note.model.NoteDto;
-import com.CezaryZal.api.note.manager.creator.HeadersCreator;
 import com.CezaryZal.api.note.manager.mapper.NoteConverter;
 import com.CezaryZal.api.note.manager.repo.NoteRepoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,27 +14,24 @@ public class NoteService{
 
     private final NoteRepoService noteRepoService;
     private final NoteConverter noteConverter;
-    private final HeadersCreator headersCreator;
 
     @Autowired
     public NoteService(NoteRepoService noteRepoService,
-                       NoteConverter noteConverter,
-                       HeadersCreator headersCreator) {
+                       NoteConverter noteConverter) {
         this.noteRepoService = noteRepoService;
         this.noteConverter = noteConverter;
-        this.headersCreator = headersCreator;
     }
 
     public NoteDto getNoteDtoById(Long id){
         return noteConverter.mappingNoteToDto(noteRepoService.getNoteById(id));
     }
 
-    public List<Header> getHeadersByDay(Long dayId){
-        return getHeadersByNotes(noteRepoService.getNotesByDayId(dayId));
+    public String getDetailsById(Long id){
+        return noteRepoService.getDetailsNoteById(id);
     }
 
-    public List<Header> getHeadersByNotes(List<Note> notes){
-        return headersCreator.getHeadersByNotes(notes);
+    public List<Header> getHeadersByDay(Long dayId){
+        return noteRepoService.getListHeaderById(dayId);
     }
 
     public List<NoteDto> getNotesDtoByDay(Long dayId){
