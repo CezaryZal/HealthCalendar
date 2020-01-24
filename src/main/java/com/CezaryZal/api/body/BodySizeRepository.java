@@ -15,7 +15,7 @@ import java.util.Optional;
 public interface BodySizeRepository extends JpaRepository<BodySize, Long> {
 
     @Query(value = "select date from body_size where user_id =:userId order by date desc LIMIT 1", nativeQuery = true)
-    Date findDateLastMeasureByUserId(@Param("userId") Long userId);
+    Optional<Date> findDateLastMeasureByUserId(@Param("userId") Long userId);
 
     @Query(value = "select date from body_size where user_id =:userId", nativeQuery = true)
     Optional<List<Date>> findByUserIdAllDate(@Param("userId") Long userId);

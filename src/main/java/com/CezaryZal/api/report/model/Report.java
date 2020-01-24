@@ -14,7 +14,7 @@ public class Report extends FormReport {
                   int portionsDrink,
                   int portionsAlcohol,
                   int portionsSnack, String nick,
-                  LocalDate lastDateMeasureBody,
+                  String lastDateMeasureBody,
                   boolean isAchievedDrink,
                   boolean isAchievedKcal) {
         super(id,

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -27,9 +28,9 @@ public class BodySizeRepoService {
                 .orElseThrow(() -> new BodySizeNotFoundException("Body size not found by id"));
     }
 
-    public LocalDate getDateLastMeasureByUserId(Long userId) {
-        Date tmpDate = bodySizeR.findDateLastMeasureByUserId(userId);
-        return tmpDate == null ? null : tmpDate.toLocalDate();
+    public Optional<LocalDate> getDateLastMeasureByUserId(Long userId) {
+        return bodySizeR.findDateLastMeasureByUserId(userId)
+                .map(Date::toLocalDate);
     }
 
     public List<LocalDate> getListDatesByUserId(Long userId) {

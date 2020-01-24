@@ -11,7 +11,7 @@ import java.time.LocalDate;
 public abstract class FormReport extends FormDay {
 
     private String nick;
-    private LocalDate lastDateMeasureBody;
+    private String lastDateMeasureBody;
     private boolean isAchievedDrink;
     private boolean isAchievedKcal;
 
@@ -22,7 +22,7 @@ public abstract class FormReport extends FormDay {
                       int portionsAlcohol,
                       int portionsSnack,
                       String nick,
-                      LocalDate lastDateMeasureBody,
+                      String lastDateMeasureBody,
                       boolean isAchievedDrink,
                       boolean isAchievedKcal) {
         super(id, date, userId, portionsDrink, portionsAlcohol, portionsSnack);

@@ -26,7 +26,7 @@ public class LongReport extends FormReport {
                       int portionsAlcohol,
                       int portionsSnack,
                       String nick,
-                      LocalDate lastDateMeasureBody,
+                      String lastDateMeasureBody,
                       boolean isAchievedDrink,
                       boolean isAchievedKcal,
                       DailyDiet dailyDiet,

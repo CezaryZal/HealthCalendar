@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
 @Service
 public class ReportCreator {
@@ -42,9 +43,12 @@ public class ReportCreator {
         this.shortReportService = shortReportService;
     }
 
+    //Zoptymalizować przez pobieranie lilitu bezpośrednio a nie całego użytkownika
     public FormReport createByDayAndUser (Day day, User user, boolean isLongReport){
         int sumOfKcal = mealService.getDailyDietByListMeal(day.getListMealsDB()).getSumOfKcal();
-        LocalDate dateLastMeasureBody = bodySizeRepoService.getDateLastMeasureByUserId(user.getId());
+        String dateLastMeasureBody = bodySizeRepoService.getDateLastMeasureByUserId(user.getId())
+                .map(String::valueOf)
+                .orElse("Nie wykonano żadnego pomiaru ciała");
         DailyDiet dailyDietByListMeal = mealService.getDailyDietByListMeal(day.getListMealsDB());
         boolean isAchievedDrink = limitsChecker.checkIsAchievedDrink(
                 user.getDailyLimits().getDrinkDemandPerDay(),

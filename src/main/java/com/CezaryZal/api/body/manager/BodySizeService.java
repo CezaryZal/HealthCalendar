@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -31,9 +30,7 @@ public class BodySizeService {
     }
 
     public LocalDate getDateLastMeasureByUserIdForBSController(Long userId) {
-        Optional<LocalDate> optionalDateLastMeasure =
-                Optional.ofNullable(bodySizeRepoService.getDateLastMeasureByUserId(userId));
-        return optionalDateLastMeasure
+        return bodySizeRepoService.getDateLastMeasureByUserId(userId)
                 .orElseThrow(() -> new DateNotFoundException("Date not found by user id"));
     }
 
