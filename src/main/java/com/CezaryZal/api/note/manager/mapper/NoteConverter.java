@@ -1,6 +1,5 @@
 package com.CezaryZal.api.note.manager.mapper;
 
-import com.CezaryZal.api.note.model.FormNote;
 import com.CezaryZal.api.note.model.entity.Note;
 import com.CezaryZal.api.note.model.NoteDto;
 import org.springframework.stereotype.Service;
@@ -20,16 +19,16 @@ public class NoteConverter {
                 .build();
     }
 
-    public FormNote mappingNoteToDto(Note note) {
+    public NoteDto mappingNoteToDto(Note note) {
         return NoteDto.Builder.builder()
                 .id(note.getId())
                 .header(note.getHeader())
                 .details(note.getDetailsNote())
                 .dayId(note.getDayId())
-                .buildDto();
+                .build();
     }
 
-    public List<FormNote> mappingListNoteToListDto(List<Note> notes) {
+    public List<NoteDto> mappingListNoteToListDto(List<Note> notes) {
         return notes.stream()
                 .map(this::mappingNoteToDto)
                 .collect(Collectors.toList());
