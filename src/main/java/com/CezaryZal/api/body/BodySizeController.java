@@ -3,7 +3,6 @@ package com.CezaryZal.api.body;
 import com.CezaryZal.api.body.model.BodySizeDto;
 import com.CezaryZal.api.body.manager.BodySizeService;
 import com.CezaryZal.api.body.manager.repo.BodySizeRepoService;
-import com.CezaryZal.api.body.model.FormBodySize;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +42,7 @@ public class BodySizeController {
 
     @ApiOperation(value = "This will be get a `BodySize` by date and user id")
     @GetMapping("/{date}/{userId}")
-    public ResponseEntity<FormBodySize> getBodyByDateAndUserId(
+    public ResponseEntity<BodySizeDto> getBodyByDateAndUserId(
             @PathVariable String date,
             @PathVariable Long userId) {
         return new ResponseEntity<>(bodySizeService.getBodyDtoByDateAndUserId(date, userId), HttpStatus.OK);
@@ -66,6 +65,4 @@ public class BodySizeController {
     public ResponseEntity<String> deleteBodyById(@PathVariable Long id) {
         return new ResponseEntity<>(bodySizeService.deleteBodySizeById(id), HttpStatus.NO_CONTENT);
     }
-
-
 }

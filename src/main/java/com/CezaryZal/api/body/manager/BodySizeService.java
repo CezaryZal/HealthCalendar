@@ -1,6 +1,5 @@
 package com.CezaryZal.api.body.manager;
 
-import com.CezaryZal.api.body.model.FormBodySize;
 import com.CezaryZal.api.body.model.entity.BodySize;
 import com.CezaryZal.api.body.model.BodySizeDto;
 import com.CezaryZal.api.body.manager.mapper.BodySizeConverter;
@@ -25,7 +24,7 @@ public class BodySizeService {
         this.bodySizeConverter = bodySizeConverter;
     }
 
-    public FormBodySize getBodySizeDtoById(Long id) {
+    public BodySizeDto getBodySizeDtoById(Long id) {
         return bodySizeConverter.mappingBodySizeToDto(bodySizeRepoService.getBodyById(id));
     }
 
@@ -34,12 +33,12 @@ public class BodySizeService {
                 .orElseThrow(() -> new DateNotFoundException("Date not found by user id"));
     }
 
-    public FormBodySize getBodyDtoByDateAndUserId(String inputDate, Long userId) {
+    public BodySizeDto getBodyDtoByDateAndUserId(String inputDate, Long userId) {
         return bodySizeConverter.mappingBodySizeToDto(
                 bodySizeRepoService.getBodyByDateAndUserId(inputDate, userId));
     }
 
-    public List<FormBodySize> getListBodySizeDto() {
+    public List<BodySizeDto> getListBodySizeDto() {
         List<BodySize> allBodySize = bodySizeRepoService.getAll();
         return allBodySize.stream()
                 .map(bodySizeConverter::mappingBodySizeToDto)

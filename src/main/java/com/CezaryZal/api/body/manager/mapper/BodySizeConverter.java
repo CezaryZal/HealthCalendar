@@ -1,6 +1,5 @@
 package com.CezaryZal.api.body.manager.mapper;
 
-import com.CezaryZal.api.body.model.FormBodySize;
 import com.CezaryZal.api.body.model.entity.BodySize;
 import com.CezaryZal.api.body.model.BodySizeDto;
 import org.springframework.stereotype.Service;
@@ -8,7 +7,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class BodySizeConverter {
 
-    public FormBodySize mappingBodySizeToDto(BodySize bodySize){
+    public BodySizeDto mappingBodySizeToDto(BodySize bodySize){
         return BodySizeDto.Builder.builder()
                 .id(bodySize.getId())
                 .bodyWeight(bodySize.getBodyWeight())
@@ -38,7 +37,5 @@ public class BodySizeConverter {
                 .dateMeasurement(bodySizeDto.getDateMeasurement())
                 .userId(bodySizeDto.getUserId())
                 .build();
-
     }
-
 }
