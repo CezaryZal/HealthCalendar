@@ -24,7 +24,8 @@ public class TrainingRepoService {
     }
 
     public List<Training> getTrainingsByDayId (Long dayId){
-        return trainingRepository.findAllByDayId(dayId);
+        return trainingRepository.findAllByDayId(dayId)
+                .orElseThrow(() -> new TrainingNotFoundException("Trainings not found by id"));
     }
 
     public List<Training> getAllTrainings (){

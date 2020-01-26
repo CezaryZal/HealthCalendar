@@ -12,7 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 public class TrainingsSummary {
 
-    private List<TrainingDto> listTrainings;
+    private List<FormTraining> listTrainings;
     private int sumOfBurnKcal;
     private LocalTime sumOfTimes;
 
