@@ -1,6 +1,5 @@
 package com.CezaryZal.api.training.manager.mapper;
 
-import com.CezaryZal.api.training.model.FormTraining;
 import com.CezaryZal.api.training.model.TrainingDto;
 import com.CezaryZal.api.training.model.entity.Training;
 import org.springframework.stereotype.Service;
@@ -11,7 +10,7 @@ import java.util.stream.Collectors;
 @Service
 public class TrainingConverter {
 
-    public FormTraining mappingTrainingToDto(Training training){
+    public TrainingDto mappingTrainingToDto(Training training){
         return TrainingDto.Builder.builder()
                 .id(training.getId())
                 .dateTimeOfExecution(training.getDateTimeOfExecution())
@@ -19,7 +18,7 @@ public class TrainingConverter {
                 .elapsedTime(training.getElapsedTime())
                 .burnKcal(training.getBurnKcal())
                 .dayId(training.getDayId())
-                .build();
+                .buildDto();
     }
 
     public Training mappingDtoToTraining(TrainingDto trainingDto){
@@ -33,7 +32,7 @@ public class TrainingConverter {
                 .build();
     }
 
-    public List<FormTraining> mappingListTrainingToListDto(List<Training> trainings){
+    public List<TrainingDto> mappingListTrainingToListDto(List<Training> trainings){
         return trainings.stream()
                 .map(this::mappingTrainingToDto)
                 .collect(Collectors.toList());

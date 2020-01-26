@@ -1,6 +1,5 @@
 package com.CezaryZal.production.admin.controllers;
 
-import com.CezaryZal.api.training.model.FormTraining;
 import com.CezaryZal.api.training.model.TrainingDto;
 import com.CezaryZal.api.training.manager.TrainingService;
 import io.swagger.annotations.Api;
@@ -27,13 +26,13 @@ public class AdminTrainingController {
 
     @ApiOperation(value = "This will get a `Training` by id")
     @GetMapping("/{id}")
-    public ResponseEntity<FormTraining> getTrainingDtoById (@PathVariable Long id){
+    public ResponseEntity<TrainingDto> getTrainingDtoById (@PathVariable Long id){
         return new ResponseEntity<>(trainingService.getTrainingDtoById(id), HttpStatus.OK);
     }
 
     @ApiOperation(value = "This will get a list `Training`, all records")
     @GetMapping
-    public ResponseEntity<List<FormTraining>> getAllTrainings(){
+    public ResponseEntity<List<TrainingDto>> getAllTrainings(){
         return new ResponseEntity<>(trainingService.getAllTrainingsDto(), HttpStatus.OK);
     }
 }

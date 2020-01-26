@@ -1,7 +1,6 @@
 package com.CezaryZal.api.training.manager;
 
 import com.CezaryZal.api.training.manager.mapper.TrainingConverter;
-import com.CezaryZal.api.training.model.FormTraining;
 import com.CezaryZal.api.training.model.TrainingDto;
 import com.CezaryZal.api.training.model.entity.Training;
 import com.CezaryZal.api.training.model.TrainingsSummary;
@@ -28,7 +27,7 @@ public class TrainingService {
         this.trainingsSummaryCreator = trainingsSummaryCreator;
     }
 
-    public FormTraining getTrainingDtoById (Long id){
+    public TrainingDto getTrainingDtoById (Long id){
         return trainingConverter.mappingTrainingToDto(trainingRepoService.getTrainingById(id));
     }
 
@@ -37,11 +36,11 @@ public class TrainingService {
     }
 
     public TrainingsSummary getTrainingsSummaryByTrainings(List<Training> trainingsByDayId){
-        List<FormTraining> trainingsDto = trainingConverter.mappingListTrainingToListDto(trainingsByDayId);
+        List<TrainingDto> trainingsDto = trainingConverter.mappingListTrainingToListDto(trainingsByDayId);
         return trainingsSummaryCreator.createTrainingsSummary(trainingsDto);
     }
 
-    public List<FormTraining> getAllTrainingsDto (){
+    public List<TrainingDto> getAllTrainingsDto (){
         return trainingConverter.mappingListTrainingToListDto(trainingRepoService.getAllTrainings());
     }
 
