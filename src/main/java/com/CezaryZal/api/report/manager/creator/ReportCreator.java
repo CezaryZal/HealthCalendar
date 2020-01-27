@@ -57,34 +57,34 @@ public class ReportCreator {
                 user.getDailyLimits().getKcalDemandPerDay(),
                 sumOfKcal);
         if (isLongReport){
-            return new LongReport(
-                    day.getId(),
-                    day.getDate(),
-                    user.getId(),
-                    day.getPortionsDrink(),
-                    day.getPortionsAlcohol(),
-                    day.getPortionsSnack(),
-                    user.getNick(),
-                    dateLastMeasureBody,
-                    isAchievedDrink,
-                    isAchievedKcal,
-                    dailyDietByListMeal,
-                    trainingService.getTrainingsSummaryByTrainings(day.getListTrainingsDB()),
-                    headersCreator.getHeadersByNotes(day.getListNotesDB()),
-                    shortReportService.getShortReportsByDateAndUserId(day.getDate(), user.getId())
-            );
+            return FormReport.Builder.builder()
+                    .id(day.getId())
+                    .date(day.getDate())
+                    .userId(user.getId())
+                    .portionsDrink(day.getPortionsDrink())
+                    .portionsAlcohol(day.getPortionsAlcohol())
+                    .portionsSnack(day.getPortionsSnack())
+                    .nick(user.getNick())
+                    .lastDateMeasureBody(dateLastMeasureBody)
+                    .isAchievedDrink(isAchievedDrink)
+                    .isAchievedKcal(isAchievedKcal)
+                    .dailyDiet(dailyDietByListMeal)
+                    .trainings(trainingService.getTrainingsSummaryByTrainings(day.getListTrainingsDB()))
+                    .listHeaders(headersCreator.getHeadersByNotes(day.getListNotesDB()))
+                    .listShortsDayDto(shortReportService.getShortReportsByDateAndUserId(day.getDate(), user.getId()))
+                    .buildLongReport();
         }
-        return new Report(
-                day.getId(),
-                day.getDate(),
-                user.getId(),
-                day.getPortionsDrink(),
-                day.getPortionsAlcohol(),
-                day.getPortionsSnack(),
-                user.getNick(),
-                dateLastMeasureBody,
-                isAchievedDrink,
-                isAchievedKcal
-        );
+        return FormReport.Builder.builder()
+                .id(day.getId())
+                .date(day.getDate())
+                .userId(user.getId())
+                .portionsDrink(day.getPortionsDrink())
+                .portionsAlcohol(day.getPortionsAlcohol())
+                .portionsSnack(day.getPortionsSnack())
+                .nick(user.getNick())
+                .lastDateMeasureBody(dateLastMeasureBody)
+                .isAchievedDrink(isAchievedDrink)
+                .isAchievedKcal(isAchievedKcal)
+                .buildReport();
     }
 }

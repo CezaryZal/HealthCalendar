@@ -1,5 +1,6 @@
 package com.CezaryZal.api.day.model.entity;
 
+import com.CezaryZal.api.day.model.DayDto;
 import com.CezaryZal.api.report.shortened.model.entity.ShortReport;
 import com.CezaryZal.api.meal.model.entity.Meal;
 import com.CezaryZal.api.note.model.entity.Note;
@@ -20,7 +21,6 @@ import java.util.List;
 @Entity
 @Table(name = "day")
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 public class Day {
 
@@ -71,32 +71,78 @@ public class Day {
     @JoinColumn(name = "short_day_id")
     private ShortReport shortReport;
 
-    public Day(LocalDate date,
-               Long userId,
-               int portionsDrink,
-               int portionsAlcohol,
-               int portionsSnack) {
-        this.date = date;
-        this.userId = userId;
-        this.portionsDrink = portionsDrink;
-        this.portionsAlcohol = portionsAlcohol;
-        this.portionsSnack = portionsSnack;
-    }
 
-    public Day(Long id,
-               LocalDate date,
-               Long userId,
-               int portionsDrink,
-               int portionsAlcohol,
-               int portionsSnack,
-               ShortReport shortReport) {
-        this.id = id;
-        this.date = date;
-        this.userId = userId;
-        this.portionsDrink = portionsDrink;
-        this.portionsAlcohol = portionsAlcohol;
-        this.portionsSnack = portionsSnack;
-        this.shortReport = shortReport;
+    public static final class Builder{
+        private Long id;
+        private LocalDate date;
+        private Long userId;
+        private int portionsDrink;
+        private int portionsAlcohol;
+        private int portionsSnack;
+        private List<Meal> listMealsDB;
+        private List<Training> listTrainingsDB;
+        private List<Note> listNotesDB;
+        private ShortReport shortReport;
+
+        public static Builder builder(){
+            return new Builder();
+        }
+
+        public Builder id(Long id){
+            this.id = id;
+            return this;
+        }
+        public Builder date(LocalDate date){
+            this.date = date;
+            return this;
+        }
+        public Builder userId(Long userId){
+            this.userId = userId;
+            return this;
+        }
+        public Builder portionsDrink(int portionsDrink){
+            this.portionsDrink = portionsDrink;
+            return this;
+        }
+        public Builder portionsAlcohol(int portionsAlcohol){
+            this.portionsAlcohol = portionsAlcohol;
+            return this;
+        }
+        public Builder portionsSnack(int portionsSnack){
+            this.portionsSnack = portionsSnack;
+            return this;
+        }
+        public Builder listMeal(List<Meal> listMeals){
+            this.listMealsDB = listMeals;
+            return this;
+        }
+        public Builder listTrainings(List<Training> listTrainings){
+            this.listTrainingsDB = listTrainings;
+            return this;
+        }
+        public Builder listNotes(List<Note> listNotes) {
+            this.listNotesDB = listNotes;
+            return this;
+        }
+        public Builder shortReport(ShortReport shortReport){
+            this.shortReport = shortReport;
+            return this;
+        }
+
+        public Day build(){
+            Day day = new Day();
+            day.id = this.id;
+            day.date = this.date;
+            day.userId = this.userId;
+            day.portionsDrink = this.portionsDrink;
+            day.portionsAlcohol = this.portionsAlcohol;
+            day.portionsSnack = this.portionsSnack;
+            day.listMealsDB = this.listMealsDB;
+            day.listTrainingsDB = this.listTrainingsDB;
+            day.listNotesDB = this.listNotesDB;
+            day.shortReport = this.shortReport;
+            return day;
+        }
     }
 
 

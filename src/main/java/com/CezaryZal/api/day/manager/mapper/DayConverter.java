@@ -9,27 +9,27 @@ import org.springframework.stereotype.Service;
 public class DayConverter {
 
     public DayDto mappingDayToDto(Day day){
-        return new DayDto(
-                day.getId(),
-                day.getDate(),
-                day.getUserId(),
-                day.getPortionsDrink(),
-                day.getPortionsAlcohol(),
-                day.getPortionsSnack(),
-                day.getListMealsDB(),
-                day.getListTrainingsDB(),
-                day.getListNotesDB(),
-                day.getShortReport()
-        );
+        return DayDto.Builder.builder()
+                .id(day.getId())
+                .date(day.getDate())
+                .userId(day.getUserId())
+                .portionsDrink(day.getPortionsDrink())
+                .portionsAlcohol(day.getPortionsAlcohol())
+                .portionsSnack(day.getPortionsSnack())
+                .listMeal(day.getListMealsDB())
+                .listTrainings(day.getListTrainingsDB())
+                .listNotes(day.getListNotesDB())
+                .shortReport(day.getShortReport())
+                .build();
     }
 
     public Day mappingObjectToSaveDayToDay(ObjectToSaveDay day){
-        return new Day(
-                day.getDate(),
-                day.getUserId(),
-                day.getPortionsDrink(),
-                day.getPortionsAlcohol(),
-                day.getPortionsSnack()
-        );
+        return Day.Builder.builder()
+                .date(day.getDate())
+                .userId(day.getUserId())
+                .portionsDrink(day.getPortionsDrink())
+                .portionsAlcohol(day.getPortionsAlcohol())
+                .portionsSnack(day.getPortionsSnack())
+                .build();
     }
 }

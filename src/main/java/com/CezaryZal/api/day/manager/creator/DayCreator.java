@@ -9,14 +9,14 @@ import org.springframework.stereotype.Service;
 public class DayCreator {
 
     public Day createByDayApiAndShortDay(ObjectToSaveDay day, ShortReport shortReport){
-        return new Day(
-                day.getId(),
-                day.getDate(),
-                day.getUserId(),
-                day.getPortionsDrink(),
-                day.getPortionsAlcohol(),
-                day.getPortionsSnack(),
-                shortReport
-        );
+        return Day.Builder.builder()
+                .id(day.getId())
+                .date(day.getDate())
+                .userId(day.getUserId())
+                .portionsDrink(day.getPortionsDrink())
+                .portionsAlcohol(day.getPortionsAlcohol())
+                .portionsSnack(day.getPortionsSnack())
+                .shortReport(shortReport)
+                .build();
     }
 }
