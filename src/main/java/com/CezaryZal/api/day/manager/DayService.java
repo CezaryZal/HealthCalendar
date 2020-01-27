@@ -60,7 +60,7 @@ public class DayService {
     }
 
     public String update(ObjectToSaveDay day) {
-        ShortReport updatedShortReport = shortReportCreator.createByDay(day);
+        ShortReport updatedShortReport = shortReportCreator.createToUpdateRecordByDay(day);
         dayRepoService.updateDay(dayCreator.createByDayApiAndShortDay(day, updatedShortReport));
         return "Wskazany dzień został aktualizowany wraz ze skrótem";
     }

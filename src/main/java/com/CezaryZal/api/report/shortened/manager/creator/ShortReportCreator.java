@@ -33,14 +33,15 @@ public class ShortReportCreator {
         this.mealRepoService = mealRepoService;
     }
 
-    public ShortReport createByDay(ObjectToSaveDay saveDay)  {
-        ShortReport shortReport = shortReportRepoService.getShortReportByDateAndUserId(saveDay.getDate(), saveDay.getUserId());
+    public ShortReport createToUpdateRecordByDay(ObjectToSaveDay saveDay)  {
+        Long shortReportId = shortReportRepoService.getShortReportIdByDateAndUserId(
+                saveDay.getDate(), saveDay.getUserId());
         User user = userRepoService.getUserById(saveDay.getUserId());
         List<Meal> listMealByDayId = mealRepoService.getListMealByDayId(saveDay.getUserId());
         int sumOfKcal = mealService.getDailyDietByListMeal(listMealByDayId)
                 .getSumOfKcal();
         return ShortReport.Builder.builder()
-                .id(shortReport.getId())
+                .id(shortReportId)
                 .date(saveDay.getDate())
                 .isAchievedKcal(limitsChecker.checkIsAchievedKcal(
                         user.getDailyLimits().getKcalDemandPerDay(),

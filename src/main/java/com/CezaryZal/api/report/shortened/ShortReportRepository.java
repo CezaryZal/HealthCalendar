@@ -13,11 +13,18 @@ import java.util.Optional;
 @Repository
 public interface ShortReportRepository extends JpaRepository<ShortReport, Long> {
 
+    @Query(value = "select id from short_report, day where short_report.id = day.short_day_id AND " +
+            "short_report.date=:inputDate and day.user_id=:inputUserId",
+            nativeQuery = true)
+    Optional<Long> getIdByDateAndUserId(
+            @Param("inputDate") LocalDate localDate,
+            @Param("inputUserId") Long userId);
+
     @Query(value = "SELECT * FROM short_report, day WHERE short_report.id = day.short_day_id AND " +
-            "day.user_id=:inputUserId AND short_report.date=:date",
+            "day.user_id=:inputUserId AND short_report.date=:inputDate",
             nativeQuery = true)
     Optional<ShortReport> findShortReportByDateAndUserId(
-            @Param("date")LocalDate localDate,
+            @Param("inputDate")LocalDate localDate,
             @Param("inputUserId") Long userId);
 
     @Query(value = "SELECT * FROM short_report, day WHERE short_report.id = day.short_day_id AND " +

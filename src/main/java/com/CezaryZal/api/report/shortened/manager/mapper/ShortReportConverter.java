@@ -13,7 +13,6 @@ public class ShortReportConverter {
 
     public ShortReport mappingObjectToSaveDayToShortReport(ObjectToSaveDay day)  {
         return ShortReport.Builder.builder()
-                .id(day.getId())
                 .date(day.getDate())
                 .isAchievedKcal(false)
                 .isAchievedDrink(false)

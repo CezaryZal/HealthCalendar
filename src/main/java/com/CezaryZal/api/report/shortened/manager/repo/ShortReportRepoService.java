@@ -29,6 +29,11 @@ public class ShortReportRepoService {
                 .orElseThrow(() -> new ShortReportNotFoundException("Short report not found by date and user id"));
     }
 
+    public Long getShortReportIdByDateAndUserId(LocalDate localDate, Long userId){
+        return shortReportRepository.getIdByDateAndUserId(localDate, userId)
+                .orElseThrow(() -> new ShortReportNotFoundException("Short report not found by date and user id"));
+    }
+
     public List<ShortReport> getShortsReportByMaxMinDateAndUserId(LocalDate localDateMin, LocalDate localDateMax, Long userId) {
         return shortReportRepository.findShortDayByUserIdAndMonthForwardAndBackward(userId, localDateMin, localDateMax);
     }
