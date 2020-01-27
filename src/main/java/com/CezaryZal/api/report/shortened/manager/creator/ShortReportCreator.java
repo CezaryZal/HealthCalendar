@@ -39,19 +39,17 @@ public class ShortReportCreator {
         List<Meal> listMealByDayId = mealRepoService.getListMealByDayId(saveDay.getUserId());
         int sumOfKcal = mealService.getDailyDietByListMeal(listMealByDayId)
                 .getSumOfKcal();
-
-        return new ShortReport(
-                shortReport.getId(),
-                saveDay.getUserId(),
-                saveDay.getDate(),
-                limitsChecker.checkIsAchievedDrink(
-                        user.getDailyLimits().getDrinkDemandPerDay(),
-                        saveDay.getPortionsDrink()),
-                limitsChecker.checkIsAchievedKcal(
+        return ShortReport.Builder.builder()
+                .id(shortReport.getId())
+                .date(saveDay.getDate())
+                .isAchievedKcal(limitsChecker.checkIsAchievedKcal(
                         user.getDailyLimits().getKcalDemandPerDay(),
-                        sumOfKcal),
-                saveDay.getPortionsAlcohol() != 0,
-                saveDay.getPortionsSnack() != 0
-        );
+                        sumOfKcal))
+                .isAchievedDrink(limitsChecker.checkIsAchievedDrink(
+                        user.getDailyLimits().getDrinkDemandPerDay(),
+                        saveDay.getPortionsDrink()))
+                .isAlcohol(saveDay.getPortionsAlcohol() != 0)
+                .isSnacks(saveDay.getPortionsSnack() != 0)
+                .build();
     }
 }

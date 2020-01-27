@@ -12,28 +12,25 @@ import java.util.stream.Collectors;
 public class ShortReportConverter {
 
     public ShortReport mappingObjectToSaveDayToShortReport(ObjectToSaveDay day)  {
-
-        return new ShortReport(
-                day.getId(),
-                day.getUserId(),
-                day.getDate(),
-                false,
-                false,
-                day.getPortionsAlcohol() != 0,
-                day.getPortionsSnack() != 0
-        );
+        return ShortReport.Builder.builder()
+                .id(day.getId())
+                .date(day.getDate())
+                .isAchievedKcal(false)
+                .isAchievedDrink(false)
+                .isAlcohol(day.getPortionsAlcohol() != 0)
+                .isSnacks(day.getPortionsSnack() != 0)
+                .build();
     }
 
     public ShortReportDto mappingShortReportToDto(ShortReport shortReport){
-        return new ShortReportDto(
-                shortReport.getId(),
-                shortReport.getUserId(),
-                shortReport.getDate(),
-                shortReport.isAchievedKcal(),
-                shortReport.isAchievedDrink(),
-                shortReport.isAlcohol(),
-                shortReport.isSnacks()
-        );
+        return ShortReportDto.Builder.builder()
+                .id(shortReport.getId())
+                .date(shortReport.getDate())
+                .isAchievedKcal(shortReport.isAchievedKcal())
+                .isAchievedDrink(shortReport.isAchievedDrink())
+                .isAlcohol(shortReport.isAlcohol())
+                .isSnacks(shortReport.isSnacks())
+                .build();
     }
 
     public List<ShortReportDto> mappingListShortReportToDto(List<ShortReport> shortReportsDto){
