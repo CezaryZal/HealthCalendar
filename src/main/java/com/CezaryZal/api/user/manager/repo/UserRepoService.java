@@ -2,6 +2,7 @@ package com.CezaryZal.api.user.manager.repo;
 
 import com.CezaryZal.api.user.model.entity.User;
 import com.CezaryZal.api.user.UserRepository;
+import com.CezaryZal.authentication.model.ObjectToAuthResponse;
 import com.CezaryZal.exceptions.not.found.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,6 +31,11 @@ public class UserRepoService {
 
     public Long getIdByLoginName(String loginName){
         return userRepository.getUserIdByLoginName(loginName)
+                .orElseThrow(() -> new UserNotFoundException("User not found by login name"));
+    }
+
+    public ObjectToAuthResponse getObjectToAuthResponse(String loginName){
+        return userRepository.getResultToAuthResponse(loginName)
                 .orElseThrow(() -> new UserNotFoundException("User not found by login name"));
     }
 

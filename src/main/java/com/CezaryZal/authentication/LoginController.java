@@ -23,6 +23,11 @@ public class LoginController {
     @ApiOperation(value = "This will get a token and user id by input login name and password")
     @PostMapping("/login")
     public ResponseEntity<AuthenticationResponse> getAuthResponse(@RequestBody AuthenticationRequest inputAuthenticationRequest) {
-        return new ResponseEntity<>(loginService.getAuthResponseByUserLogin(inputAuthenticationRequest), HttpStatus.OK);
+
+        Long now = System.currentTimeMillis();
+        ResponseEntity<AuthenticationResponse> tmp = new ResponseEntity<>(loginService.getAuthResponseByUserLogin(inputAuthenticationRequest), HttpStatus.OK);
+        Long time = System.currentTimeMillis() - now;
+        System.out.println(time);
+        return tmp;
     }
 }

@@ -1,6 +1,7 @@
 package com.CezaryZal.api.user;
 
 import com.CezaryZal.api.user.model.entity.User;
+import com.CezaryZal.authentication.model.ObjectToAuthResponse;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -15,5 +16,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Query(value = "select id from user where login_name =:loginName", nativeQuery = true)
     Optional<Long> getUserIdByLoginName(@Param("loginName") String loginName);
+
+    @Query(name = "query_to_handle_login_endpoint", nativeQuery = true)
+    Optional<ObjectToAuthResponse> getResultToAuthResponse(@Param("loginName") String loginName);
 
 }
