@@ -1,6 +1,6 @@
 package com.CezaryZal.authentication.manager.builder;
 
-import com.CezaryZal.authentication.entity.UserAuthentication;
+import com.CezaryZal.authentication.model.entity.UserAuthentication;
 import com.CezaryZal.authentication.constants.AuthenticationConstants;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

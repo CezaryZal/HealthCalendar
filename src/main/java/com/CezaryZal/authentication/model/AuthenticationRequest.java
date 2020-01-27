@@ -1,4 +1,4 @@
-package com.CezaryZal.authentication.entity;
+package com.CezaryZal.authentication.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,7 +7,7 @@ import lombok.ToString;
 @ToString
 @Getter
 @AllArgsConstructor
-public abstract class FormAuthenticationEntity {
+public class AuthenticationRequest{
 
     private String loginName;
     private String password;

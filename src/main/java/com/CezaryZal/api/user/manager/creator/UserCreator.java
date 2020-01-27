@@ -3,7 +3,7 @@ package com.CezaryZal.api.user.manager.creator;
 import com.CezaryZal.api.limits.model.entity.DailyLimits;
 import com.CezaryZal.api.user.model.AccountEntity;
 import com.CezaryZal.api.user.model.entity.User;
-import com.CezaryZal.authentication.entity.UserAuthentication;
+import com.CezaryZal.authentication.model.entity.UserAuthentication;
 import org.springframework.stereotype.Service;
 
 @Service

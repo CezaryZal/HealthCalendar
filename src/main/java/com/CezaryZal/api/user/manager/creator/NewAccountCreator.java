@@ -6,7 +6,7 @@ import com.CezaryZal.api.limits.manager.repo.DailyLimitsRepoService;
 import com.CezaryZal.api.user.model.AccountEntity;
 import com.CezaryZal.api.user.model.entity.User;
 import com.CezaryZal.api.user.manager.repo.UserRepoService;
-import com.CezaryZal.authentication.entity.UserAuthentication;
+import com.CezaryZal.authentication.model.entity.UserAuthentication;
 import com.CezaryZal.authentication.manager.UserAuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

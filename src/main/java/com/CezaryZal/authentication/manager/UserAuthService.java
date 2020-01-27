@@ -1,32 +1,38 @@
 package com.CezaryZal.authentication.manager;
 
 import com.CezaryZal.api.user.model.AccountEntity;
-import com.CezaryZal.authentication.UserAuthRepository;
-import com.CezaryZal.authentication.entity.UserAuthentication;
-import com.CezaryZal.authentication.manager.mapper.AccountEntityToUserAuthConverter;
+import com.CezaryZal.authentication.model.entity.UserAuthentication;
+import com.CezaryZal.authentication.manager.mapper.UserAuthenticationConverter;
 import com.CezaryZal.authentication.manager.repo.UserAuthRepoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-@Service
-public class UserAuthService extends UserAuthRepoService {
+import java.util.List;
 
-    private final AccountEntityToUserAuthConverter accountEntityToUserAuthConverter;
+@Service
+public class UserAuthService {
+
+    private final UserAuthRepoService userAuthRepoService;
+    private final UserAuthenticationConverter userAuthenticationConverter;
     private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserAuthService(UserAuthRepository userAuthRepository,
-                           AccountEntityToUserAuthConverter accountEntityToUserAuthConverter,
+    public UserAuthService(UserAuthRepoService userAuthRepoService,
+                           UserAuthenticationConverter userAuthenticationConverter,
                            PasswordEncoder passwordEncoder) {
-        super(userAuthRepository);
-        this.accountEntityToUserAuthConverter = accountEntityToUserAuthConverter;
+        this.userAuthRepoService = userAuthRepoService;
+        this.userAuthenticationConverter = userAuthenticationConverter;
         this.passwordEncoder = passwordEncoder;
     }
 
     public UserAuthentication preparingEntityForSave(AccountEntity accountEntity){
         String passwordBcrypt = passwordEncoder.encode(accountEntity.getPassword());
         accountEntity.setPassword(passwordBcrypt);
-        return accountEntityToUserAuthConverter.mappingEntity(accountEntity);
+        return userAuthenticationConverter.mappingAccountEntityToUserAuth(accountEntity);
+    }
+
+    public List<UserAuthentication> getUsersAuth(){
+        return userAuthRepoService.getListUserAuth();
     }
 }
