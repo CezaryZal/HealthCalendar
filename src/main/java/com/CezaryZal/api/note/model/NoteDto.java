@@ -43,12 +43,12 @@ public class NoteDto{
         }
 
         public NoteDto build(){
-            NoteDto formNote = new NoteDto();
-            formNote.id = this.id;
-            formNote.header = this.header;
-            formNote.detailsNote = this.detailsNote;
-            formNote.dayId = this.dayId;
-            return formNote;
+            NoteDto noteDto = new NoteDto();
+            noteDto.id = this.id;
+            noteDto.header = this.header;
+            noteDto.detailsNote = this.detailsNote;
+            noteDto.dayId = this.dayId;
+            return noteDto;
         }
     }
 }

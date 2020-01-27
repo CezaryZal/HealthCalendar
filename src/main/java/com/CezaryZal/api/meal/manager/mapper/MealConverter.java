@@ -11,25 +11,25 @@ import java.util.stream.Collectors;
 public class MealConverter {
 
     public MealDto mappingMealToDto(Meal meal){
-        return new MealDto(
-                meal.getId(),
-                meal.getDateTimeOfEat(),
-                meal.getType(),
-                meal.getKcal(),
-                meal.getDescription(),
-                meal.getDayId()
-        );
+        return MealDto.Builder.builder()
+                .id(meal.getId())
+                .dateTimeOfEat(meal.getDateTimeOfEat())
+                .type(meal.getType())
+                .kcal(meal.getKcal())
+                .description(meal.getDescription())
+                .dayId(meal.getDayId())
+                .build();
     }
 
     public Meal mappingDtoToMeal(MealDto mealDto){
-        return new Meal(
-                mealDto.getId(),
-                mealDto.getDateTimeOfEat(),
-                mealDto.getType(),
-                mealDto.getKcal(),
-                mealDto.getDescription(),
-                mealDto.getDayId()
-        );
+        return Meal.Builder.builder()
+                .id(mealDto.getId())
+                .dateTimeOfEat(mealDto.getDateTimeOfEat())
+                .type(mealDto.getType())
+                .kcal(mealDto.getKcal())
+                .description(mealDto.getDescription())
+                .dayId(mealDto.getDayId())
+                .build();
     }
 
     public List<MealDto> mappingListMealToListDto(List<Meal> meals){
