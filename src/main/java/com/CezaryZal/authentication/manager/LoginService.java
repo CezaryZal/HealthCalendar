@@ -1,5 +1,7 @@
 package com.CezaryZal.authentication.manager;
 
+import com.CezaryZal.api.user.manager.repo.UserRepoService;
+import com.CezaryZal.api.user.model.entity.User;
 import com.CezaryZal.authentication.model.AuthenticationResponse;
 import com.CezaryZal.authentication.model.entity.UserAuthentication;
 import com.CezaryZal.authentication.manager.builder.TokenBuilder;
@@ -13,23 +15,24 @@ import org.springframework.stereotype.Service;
 public class LoginService {
 
     private UserAuthRepoService userAuthRepoService;
+    private final UserRepoService userRepoService;
     private TokenBuilder tokenBuilder;
     private PasswordComparator passwordComparator;
 
     @Autowired
-    public LoginService(UserAuthRepoService userAuthRepoService,
-                        TokenBuilder tokenBuilder,
-                        PasswordComparator passwordComparator) {
+    public LoginService(UserAuthRepoService userAuthRepoService, UserRepoService userRepoService,
+                        TokenBuilder tokenBuilder, PasswordComparator passwordComparator) {
         this.userAuthRepoService = userAuthRepoService;
+        this.userRepoService = userRepoService;
         this.tokenBuilder = tokenBuilder;
         this.passwordComparator = passwordComparator;
     }
 
-    public AuthenticationResponse getTokenByUserLogin(AuthenticationRequest inputAuthRequest){
+    public AuthenticationResponse getAuthResponseByUserLogin(AuthenticationRequest inputAuthRequest){
         UserAuthentication foundUserAuth = userAuthRepoService.findByLoginName(inputAuthRequest.getLoginName());
         passwordComparator.throwIfIsNotEqualsPassword(inputAuthRequest.getPassword(), foundUserAuth.getPassword());
-
-        return tokenBuilder.buildTokenByUser(foundUserAuth);
+        Long userId = userRepoService.getIdByLoginName(inputAuthRequest.getLoginName());
+        return new AuthenticationResponse(tokenBuilder.buildTokenByUser(foundUserAuth), userId);
     }
 
 }
