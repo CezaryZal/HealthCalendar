@@ -34,10 +34,6 @@ public class UserAuthentication {
     @Column(name = "id")
     private Long id;
 
-    //unique
-    @Column(name = "login_name")
-    private String loginName;
-
     @Column(name = "password")
     private String password;
 
@@ -57,7 +53,6 @@ public class UserAuthentication {
 
     public static final class Builder{
         private Long id;
-        private String loginName;
         private String password;
         private boolean active;
         private String roles;
@@ -69,10 +64,6 @@ public class UserAuthentication {
 
         public Builder id(Long id){
             this.id = id;
-            return this;
-        }
-        public Builder loginName(String loginName){
-            this.loginName = loginName;
             return this;
         }
         public Builder password(String password){
@@ -95,7 +86,6 @@ public class UserAuthentication {
         public UserAuthentication build(){
             UserAuthentication userAuthentication = new UserAuthentication();
             userAuthentication.id = this.id;
-            userAuthentication.loginName = this.loginName;
             userAuthentication.password = this.password;
             userAuthentication.active = this.active;
             userAuthentication.roles = this.roles;

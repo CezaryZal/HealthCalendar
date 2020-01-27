@@ -11,7 +11,6 @@ public class UserAuthenticationConverter {
     public UserAuthentication mappingAccountEntityToUserAuth(AccountEntity accountEntity){
         return UserAuthentication.Builder.builder()
                 .id(accountEntity.getId())
-                .loginName(accountEntity.getLoginName())
                 .password(accountEntity.getPassword())
                 .active(true)
                 .roles(Roles.USER.name())

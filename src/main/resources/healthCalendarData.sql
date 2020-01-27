@@ -5,9 +5,9 @@ INSERT INTO `daily_limits` VALUES
 (3, 3000, 2500, 3);
 
 INSERT INTO `users_auth` VALUES
-(1, true, 'janek', '$2a$14$qvPKR4sT9jI1svoxv/IbaOC0hQJ9sHDUkW5W9lsBCXKF84oWglyDa', 'ADD', 'VIEWER'),
-(2, true, 'tomek', '$2a$14$YMpWNeW5XrzvJnI/TuosWenErLQght/C56DhIE5BNkUs296PvPFLC', 'ADD', 'USER'),
-(3, true, 'czar', '$2a$10$aAIl0ih538I2tHl93BTUzuiQMZZbnzNIUyeM3/dkXc6MzQorLALe.', 'ADD', 'ADMIN');
+(1, true, '$2a$14$qvPKR4sT9jI1svoxv/IbaOC0hQJ9sHDUkW5W9lsBCXKF84oWglyDa', 'ADD', 'VIEWER'),
+(2, true, '$2a$14$YMpWNeW5XrzvJnI/TuosWenErLQght/C56DhIE5BNkUs296PvPFLC', 'ADD', 'USER'),
+(3, true, '$2a$10$aAIl0ih538I2tHl93BTUzuiQMZZbnzNIUyeM3/dkXc6MzQorLALe.', 'ADD', 'ADMIN');
 
 INSERT INTO `user` VALUES
 (1, '1966-05-23', 'anna@gmail.com', 'janek','jan', 569842365, 0, 1, 1),
