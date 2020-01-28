@@ -30,7 +30,8 @@ public class DailyLimitsRepoService {
     }
 
     public LimitsCleanDate getLimitsCleanDateByUserId(Long id){
-        return limitsRepository.getLimitsCleanDate(id);
+        return limitsRepository.getLimitsCleanDate(id)
+                .orElseGet(() -> new LimitsCleanDate(10000, 100));
     }
 
     public List<DailyLimits> getListLimits(){

@@ -15,6 +15,6 @@ public interface DailyLimitsRepository extends JpaRepository<DailyLimits, Long> 
     Optional<DailyLimits> findByUserId(Long dayId);
 
     @Query(name = "Result_for_daily_limits", nativeQuery = true)
-    LimitsCleanDate getLimitsCleanDate(@Param("inputUserId") Long userId);
+    Optional<LimitsCleanDate> getLimitsCleanDate(@Param("inputUserId") Long userId);
 
 }

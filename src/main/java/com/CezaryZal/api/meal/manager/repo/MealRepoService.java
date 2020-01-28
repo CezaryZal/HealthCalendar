@@ -23,9 +23,14 @@ public class MealRepoService {
                 .orElseThrow(() -> new MealNotFoundException("Meal not found by id"));
     }
 
-    public List<Meal> getListMealByDayId(Long dayId){
+    public List<Meal> getListMealByDayId(Long dayId) {
         return mealRepository.findAllByDayId(dayId)
                 .orElseThrow(() -> new MealNotFoundException("Meals not found by day id"));
+    }
+
+    public Integer getKcalByDayId(Long dayId) {
+        return mealRepository.getKcal(dayId)
+                .orElseGet(() -> 0);
     }
 
     public List<Meal> getAll() {
