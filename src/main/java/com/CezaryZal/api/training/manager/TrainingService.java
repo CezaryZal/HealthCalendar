@@ -1,5 +1,6 @@
 package com.CezaryZal.api.training.manager;
 
+import com.CezaryZal.api.training.manager.creator.TrainingCreator;
 import com.CezaryZal.api.training.manager.mapper.TrainingConverter;
 import com.CezaryZal.api.training.model.TrainingDto;
 import com.CezaryZal.api.training.model.entity.Training;
@@ -17,14 +18,17 @@ public class TrainingService {
     private final TrainingRepoService trainingRepoService;
     private final TrainingConverter trainingConverter;
     private final TrainingsSummaryCreator trainingsSummaryCreator;
+    private final TrainingCreator trainingCreator;
 
     @Autowired
     public TrainingService(TrainingRepoService trainingRepoService,
                            TrainingConverter trainingConverter,
-                           TrainingsSummaryCreator trainingsSummaryCreator) {
+                           TrainingsSummaryCreator trainingsSummaryCreator,
+                           TrainingCreator trainingCreator) {
         this.trainingRepoService = trainingRepoService;
         this.trainingConverter = trainingConverter;
         this.trainingsSummaryCreator = trainingsSummaryCreator;
+        this.trainingCreator = trainingCreator;
     }
 
     public TrainingDto getTrainingDtoById (Long id){
@@ -45,12 +49,12 @@ public class TrainingService {
     }
 
     public String addTrainingByDto (TrainingDto trainingDto){
-        trainingRepoService.addTraining(trainingConverter.mappingDtoToTraining(trainingDto));
+        trainingRepoService.addTraining(trainingCreator.createByDtoAndId(trainingDto));
         return "Przesłany trening został zapisany w bazie danych";
     }
 
-    public String updateTrainingByDto (TrainingDto trainingDto){
-        trainingRepoService.updateTraining(trainingConverter.mappingDtoToTraining(trainingDto));
+    public String updateTrainingByDto (TrainingDto trainingDto, Long trainingId){
+        trainingRepoService.updateTraining(trainingCreator.createToUpdateByDtoAndId(trainingDto, trainingId));
         return "Przesłany trening został uaktualniony";
     }
 

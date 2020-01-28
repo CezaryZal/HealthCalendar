@@ -34,9 +34,9 @@ public class TrainingController {
         return new ResponseEntity<>(trainingService.addTrainingByDto(trainingDto), HttpStatus.CREATED);
     }
 
-    @PutMapping
-    public ResponseEntity<String> update (@RequestBody TrainingDto trainingDto){
-        return new ResponseEntity<>(trainingService.updateTrainingByDto(trainingDto), HttpStatus.OK);
+    @PutMapping("/{id}")
+    public ResponseEntity<String> update (@RequestBody TrainingDto trainingDto, @PathVariable Long id){
+        return new ResponseEntity<>(trainingService.updateTrainingByDto(trainingDto, id), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")

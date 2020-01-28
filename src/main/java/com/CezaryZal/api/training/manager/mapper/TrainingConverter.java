@@ -21,17 +21,6 @@ public class TrainingConverter {
                 .buildDto();
     }
 
-    public Training mappingDtoToTraining(TrainingDto trainingDto){
-        return Training.Builder.builder()
-                .id(trainingDto.getId())
-                .dateTimeOfExecution(trainingDto.getDateTimeOfExecution())
-                .description(trainingDto.getDescription())
-                .elapsedTime(trainingDto.getElapsedTime())
-                .burnKcal(trainingDto.getBurnKcal())
-                .dayId(trainingDto.getDayId())
-                .build();
-    }
-
     public List<TrainingDto> mappingListTrainingToListDto(List<Training> trainings){
         return trainings.stream()
                 .map(this::mappingTrainingToDto)

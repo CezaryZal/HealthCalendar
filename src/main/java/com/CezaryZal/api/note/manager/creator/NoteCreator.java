@@ -18,7 +18,7 @@ public class NoteCreator {
         return mappingDtoToNoteBuilder(noteDto).build();
     }
 
-    public Note.Builder mappingDtoToNoteBuilder(NoteDto noteDto) {
+    private Note.Builder mappingDtoToNoteBuilder(NoteDto noteDto) {
         return Note.Builder.builder()
                 .header(noteDto.getHeader())
                 .details(noteDto.getDetailsNote())
