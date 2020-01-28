@@ -34,6 +34,11 @@ public class UserRepoService {
                 .orElseThrow(() -> new UserNotFoundException("User not found by login name"));
     }
 
+    public String getNickByUserId(Long userId){
+        return userRepository.getNick(userId)
+                .orElse("Nick nie został jeszcze dopisany");
+    }
+
     public ObjectToAuthResponse getObjectToAuthResponse(String loginName){
         return userRepository.getResultToAuthResponse(loginName)
                 .orElseThrow(() -> new UserNotFoundException("User not found by login name"));

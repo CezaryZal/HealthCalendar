@@ -30,7 +30,7 @@ public class MealRepoService {
 
     public Integer getKcalByDayId(Long dayId) {
         return mealRepository.getKcal(dayId)
-                .orElseGet(() -> 0);
+                .orElse(0);
     }
 
     public List<Meal> getAll() {

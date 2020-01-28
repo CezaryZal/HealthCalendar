@@ -3,6 +3,7 @@ package com.CezaryZal.api.report.manager.creator;
 import com.CezaryZal.api.body.manager.repo.BodySizeRepoService;
 import com.CezaryZal.api.limits.manager.repo.DailyLimitsRepoService;
 import com.CezaryZal.api.limits.model.LimitsCleanDate;
+import com.CezaryZal.api.meal.manager.repo.MealRepoService;
 import com.CezaryZal.api.meal.model.DailyDiet;
 import com.CezaryZal.api.note.manager.creator.HeadersCreator;
 import com.CezaryZal.api.report.model.FormReport;
@@ -11,6 +12,7 @@ import com.CezaryZal.api.limits.manager.checker.LimitsChecker;
 import com.CezaryZal.api.meal.manager.MealService;
 import com.CezaryZal.api.report.shortened.manager.ShortReportService;
 import com.CezaryZal.api.training.manager.TrainingService;
+import com.CezaryZal.api.user.manager.repo.UserRepoService;
 import com.CezaryZal.api.user.model.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,6 +27,8 @@ public class ReportCreator {
     private final HeadersCreator headersCreator;
     private final ShortReportService shortReportService;
     private final DailyLimitsRepoService dailyLimitsRepoService;
+    private final UserRepoService userRepoService;
+    private final MealRepoService mealRepoService;
 
     @Autowired
     public ReportCreator(LimitsChecker limitsChecker,
@@ -33,7 +37,9 @@ public class ReportCreator {
                          TrainingService trainingService,
                          HeadersCreator headersCreator,
                          ShortReportService shortReportService,
-                         DailyLimitsRepoService dailyLimitsRepoService) {
+                         DailyLimitsRepoService dailyLimitsRepoService,
+                         UserRepoService userRepoService,
+                         MealRepoService mealRepoService) {
         this.limitsChecker = limitsChecker;
         this.mealService = mealService;
         this.bodySizeRepoService = bodySizeRepoService;
@@ -41,47 +47,52 @@ public class ReportCreator {
         this.headersCreator = headersCreator;
         this.shortReportService = shortReportService;
         this.dailyLimitsRepoService = dailyLimitsRepoService;
+        this.userRepoService = userRepoService;
+        this.mealRepoService = mealRepoService;
     }
 
     //Zoptymalizować przez pobieranie lilitu bezpośrednio a nie całego użytkownika
-    public FormReport createByDayAndUser (Day day, User user, boolean isLongReport){
-        String dateLastMeasureBody = bodySizeRepoService.getDateLastMeasureByUserId(user.getId())
+    public FormReport createByDayAndUser (Day day, Long userId, boolean isLongReport){
+        String dateLastMeasureBody = bodySizeRepoService.getDateLastMeasureByUserId(userId)
                 .map(String::valueOf)
                 .orElse("Nie wykonano żadnego pomiaru ciała");
-        DailyDiet dailyDietByListMeal = mealService.getDailyDietByListMeal(day.getListMealsDB());
-        LimitsCleanDate limitsCleanDate = dailyLimitsRepoService.getLimitsCleanDateByUserId(user.getId());
+
+        LimitsCleanDate limitsCleanDate = dailyLimitsRepoService.getLimitsCleanDateByUserId(userId);
+        String nickByUserId = userRepoService.getNickByUserId(userId);
         boolean isAchievedDrink = limitsChecker.checkIsAchievedDrink(
-                user.getDailyLimits().getDrinkDemandPerDay(),
-                day.getPortionsDrink());
-        boolean isAchievedKcal = limitsChecker.checkIsAchievedKcal(
-                user.getDailyLimits().getKcalDemandPerDay(),
-                dailyDietByListMeal.getSumOfKcal());
+                limitsCleanDate.getDrinkDemandPerDay(), day.getPortionsDrink());
         if (isLongReport){
+            DailyDiet dailyDietByListMeal = mealService.getDailyDietByListMeal(day.getListMealsDB());
+            boolean isAchievedKcal = limitsChecker.checkIsAchievedKcal(
+                    limitsCleanDate.getKcalDemandPerDay(), dailyDietByListMeal.getSumOfKcal());
             return FormReport.Builder.builder()
                     .id(day.getId())
                     .date(day.getDate())
-                    .userId(user.getId())
+                    .userId(userId)
                     .portionsDrink(day.getPortionsDrink())
                     .portionsAlcohol(day.getPortionsAlcohol())
                     .portionsSnack(day.getPortionsSnack())
-                    .nick(user.getNick())
+                    .nick(nickByUserId)
                     .lastDateMeasureBody(dateLastMeasureBody)
                     .isAchievedDrink(isAchievedDrink)
                     .isAchievedKcal(isAchievedKcal)
                     .dailyDiet(dailyDietByListMeal)
                     .trainings(trainingService.getTrainingsSummaryByTrainings(day.getListTrainingsDB()))
                     .listHeaders(headersCreator.getHeadersByNotes(day.getListNotesDB()))
-                    .listShortsDayDto(shortReportService.getShortReportsByDateAndUserId(day.getDate(), user.getId()))
+                    .listShortsDayDto(shortReportService.getShortReportsByDateAndUserId(day.getDate(), userId))
                     .buildLongReport();
         }
+        int sumOfKcal = mealRepoService.getKcalByDayId(day.getId());
+        boolean isAchievedKcal = limitsChecker.checkIsAchievedKcal(
+                limitsCleanDate.getKcalDemandPerDay(), sumOfKcal);
         return FormReport.Builder.builder()
                 .id(day.getId())
                 .date(day.getDate())
-                .userId(user.getId())
+                .userId(userId)
                 .portionsDrink(day.getPortionsDrink())
                 .portionsAlcohol(day.getPortionsAlcohol())
                 .portionsSnack(day.getPortionsSnack())
-                .nick(user.getNick())
+                .nick(nickByUserId)
                 .lastDateMeasureBody(dateLastMeasureBody)
                 .isAchievedDrink(isAchievedDrink)
                 .isAchievedKcal(isAchievedKcal)
