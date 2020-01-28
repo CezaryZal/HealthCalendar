@@ -28,9 +28,10 @@ public class UserCreator {
     public User createUserToUpdateByAccountEntityAndLimitsAndUserAuth(
             AccountEntity accountEntity,
             DailyLimits dailyLimits,
-            UserAuthentication userAuthentication){
+            UserAuthentication userAuthentication,
+            Long userId){
         return User.Builder.builder()
-                .id(accountEntity.getId())
+                .id(userId)
                 .loginName(accountEntity.getLoginName())
                 .nick(accountEntity.getNick())
                 .email(accountEntity.getEmail())

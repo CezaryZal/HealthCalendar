@@ -29,6 +29,11 @@ public class DailyLimitsRepoService {
                 .orElseThrow(() -> new DailyLimitsNotFoundException("Daily limits not found by user id"));
     }
 
+    public Long getLimitsId(Long userId){
+        return limitsRepository.getLimitsIdByUserId(userId)
+                .orElseThrow(() -> new DailyLimitsNotFoundException("Id not found by user id"));
+    }
+
     public LimitsCleanDate getLimitsCleanDateByUserId(Long id){
         return limitsRepository.getLimitsCleanDate(id)
                 .orElseGet(() -> new LimitsCleanDate(10000, 100));

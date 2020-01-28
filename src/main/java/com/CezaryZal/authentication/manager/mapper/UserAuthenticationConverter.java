@@ -10,7 +10,6 @@ public class UserAuthenticationConverter {
 
     public UserAuthentication mappingAccountEntityToUserAuth(AccountEntity accountEntity){
         return UserAuthentication.Builder.builder()
-                .id(accountEntity.getId())
                 .password(accountEntity.getPassword())
                 .active(true)
                 .roles(Roles.USER.name())

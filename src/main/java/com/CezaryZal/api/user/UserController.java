@@ -53,9 +53,9 @@ public class UserController {
         return new ResponseEntity<>(newAccountCreator.createAccountByAccountEntity(accountEntity), HttpStatus.CREATED);
     }
 
-    @PutMapping
-    public ResponseEntity<String> updateUser(@RequestBody AccountEntity accountEntity) {
-        return new ResponseEntity<>(updateUser.updateByAccountEntity(accountEntity), HttpStatus.OK);
+    @PutMapping("/{id}")
+    public ResponseEntity<String> updateUser(@RequestBody AccountEntity accountEntity, @PathVariable Long id) {
+        return new ResponseEntity<>(updateUser.updateByAccountEntity(accountEntity, id), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
