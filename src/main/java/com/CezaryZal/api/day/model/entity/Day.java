@@ -48,7 +48,7 @@ public class Day {
 
     //loading like EAGER
     @OneToMany(cascade = CascadeType.ALL)
-    @LazyCollection(LazyCollectionOption.FALSE)
+    @LazyCollection(LazyCollectionOption.TRUE)
     @JoinColumn(name = "day_id")
     @BatchSize(size = 5)
     private List<Meal> listMealsDB;
@@ -57,17 +57,17 @@ public class Day {
     private int portionsSnack;
 
     @OneToMany(cascade = CascadeType.ALL)
-    @LazyCollection(LazyCollectionOption.FALSE)
+    @LazyCollection(LazyCollectionOption.TRUE)
     @JoinColumn(name = "day_id")
     @BatchSize(size = 2)
     private List<Training> listTrainingsDB;
 
     @OneToMany(cascade = CascadeType.ALL)
-    @LazyCollection(LazyCollectionOption.FALSE)
+    @LazyCollection(LazyCollectionOption.TRUE)
     @JoinColumn(name = "day_id")
     private List<Note> listNotesDB;
 
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "short_day_id")
     private ShortReport shortReport;
 
@@ -144,8 +144,4 @@ public class Day {
             return day;
         }
     }
-
-
-
-
 }

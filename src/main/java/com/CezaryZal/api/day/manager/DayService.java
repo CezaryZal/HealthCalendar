@@ -20,19 +20,16 @@ public class DayService {
 
     private final DayRepoService dayRepoService;
     private final DayConverter dayConverter;
-    private final ShortReportConverter shortReportConverter;
     private final ShortReportCreator shortReportCreator;
     private final DayCreator dayCreator;
 
     @Autowired
     public DayService(DayRepoService dayRepoService,
                       DayConverter dayConverter,
-                      ShortReportConverter shortReportConverter,
                       ShortReportCreator shortReportCreator,
                       DayCreator dayCreator) {
         this.dayRepoService = dayRepoService;
         this.dayConverter = dayConverter;
-        this.shortReportConverter = shortReportConverter;
         this.shortReportCreator = shortReportCreator;
         this.dayCreator = dayCreator;
     }
@@ -52,7 +49,7 @@ public class DayService {
     }
 
     public String addNewDay(ObjectToSaveDay day){
-        ShortReport newShortReport = shortReportConverter.mappingObjectToSaveDayToShortReport(day);
+        ShortReport newShortReport = shortReportCreator.createNewShortReport(day);
         Day newDay = dayConverter.mappingObjectToSaveDayToDay(day);
         newDay.setShortReport(newShortReport);
         dayRepoService.addDay(newDay);

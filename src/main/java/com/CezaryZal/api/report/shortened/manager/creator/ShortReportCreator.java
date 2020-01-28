@@ -29,6 +29,16 @@ public class ShortReportCreator {
         this.mealRepoService = mealRepoService;
     }
 
+    public ShortReport createNewShortReport(ObjectToSaveDay saveDay)  {
+        return ShortReport.Builder.builder()
+                .date(saveDay.getDate())
+                .isAchievedKcal(false)
+                .isAchievedDrink(false)
+                .isAlcohol(saveDay.getPortionsAlcohol() != 0)
+                .isSnacks(saveDay.getPortionsSnack() != 0)
+                .build();
+    }
+
     public ShortReport createToUpdateRecordByDay(ObjectToSaveDay saveDay)  {
         Long shortReportId = shortReportRepoService.getShortReportIdByDateAndUserId(
                 saveDay.getDate(), saveDay.getUserId());
