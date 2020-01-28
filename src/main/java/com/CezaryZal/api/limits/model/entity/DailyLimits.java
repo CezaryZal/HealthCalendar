@@ -1,6 +1,6 @@
 package com.CezaryZal.api.limits.model.entity;
 
-
+import com.CezaryZal.api.limits.model.LimitsCleanDate;
 import lombok.*;
 
 import javax.persistence.*;
@@ -11,6 +11,22 @@ import javax.persistence.*;
 @RequiredArgsConstructor
 @AllArgsConstructor
 @NoArgsConstructor
+@SqlResultSetMapping(
+        name="ResultToLimits",
+        classes = {
+                @ConstructorResult(
+                        targetClass = LimitsCleanDate.class,
+                        columns = {
+                                @ColumnResult(name="kcal_demand", type = Integer.class),
+                                @ColumnResult(name="drink_demand", type = Integer.class)
+
+                        })
+        })
+@NamedNativeQuery(
+        name = "Result_for_daily_limits",
+        query = "select dl.kcal_demand, dl.drink_demand from daily_limits AS dl where dl.user_id=:inputUserId",
+        resultSetMapping = "ResultToLimits"
+)
 public class DailyLimits {
 
     @Id

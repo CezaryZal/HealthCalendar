@@ -1,12 +1,16 @@
 package com.CezaryZal.api.limits.model;
 
-public class DailyLimitsDto extends FormDailyLimits{
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.ToString;
 
-    public DailyLimitsDto(
-            Long id,
-            int kcalDemandPerDay,
-            int drinkDemandPerDay,
-            Long userId) {
-        super(id, kcalDemandPerDay, drinkDemandPerDay, userId);
-    }
+@ToString
+@Getter
+@AllArgsConstructor
+public class DailyLimitsDto {
+
+    private Long id;
+    private int kcalDemandPerDay;
+    private int drinkDemandPerDay;
+    private Long userId;
 }

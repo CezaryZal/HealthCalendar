@@ -7,10 +7,8 @@ import lombok.ToString;
 @ToString
 @Getter
 @AllArgsConstructor
-public abstract class FormDailyLimits {
+public class LimitsCleanDate {
 
-    private Long id;
     private int kcalDemandPerDay;
     private int drinkDemandPerDay;
-    private Long userId;
 }

@@ -2,6 +2,8 @@ package com.CezaryZal.api.report.shortened.manager.creator;
 
 import com.CezaryZal.api.day.model.ObjectToSaveDay;
 import com.CezaryZal.api.limits.manager.checker.LimitsChecker;
+import com.CezaryZal.api.limits.manager.repo.DailyLimitsRepoService;
+import com.CezaryZal.api.limits.model.LimitsCleanDate;
 import com.CezaryZal.api.meal.model.entity.Meal;
 import com.CezaryZal.api.meal.manager.MealService;
 import com.CezaryZal.api.meal.manager.repo.MealRepoService;
@@ -18,17 +20,20 @@ import java.util.List;
 public class ShortReportCreator {
 
     private final ShortReportRepoService shortReportRepoService;
+    private final DailyLimitsRepoService dailyLimitsRepoService;
     private final LimitsChecker limitsChecker;
-    private final UserRepoService userRepoService;
     private final MealService mealService;
     private final MealRepoService mealRepoService;
 
     @Autowired
-    public ShortReportCreator(ShortReportRepoService shortReportRepoService, LimitsChecker limitsChecker,
-                              UserRepoService userRepoService, MealService mealService, MealRepoService mealRepoService) {
+    public ShortReportCreator(ShortReportRepoService shortReportRepoService,
+                              DailyLimitsRepoService dailyLimitsRepoService,
+                              LimitsChecker limitsChecker,
+                              MealService mealService,
+                              MealRepoService mealRepoService) {
         this.shortReportRepoService = shortReportRepoService;
+        this.dailyLimitsRepoService = dailyLimitsRepoService;
         this.limitsChecker = limitsChecker;
-        this.userRepoService = userRepoService;
         this.mealService = mealService;
         this.mealRepoService = mealRepoService;
     }
@@ -36,7 +41,7 @@ public class ShortReportCreator {
     public ShortReport createToUpdateRecordByDay(ObjectToSaveDay saveDay)  {
         Long shortReportId = shortReportRepoService.getShortReportIdByDateAndUserId(
                 saveDay.getDate(), saveDay.getUserId());
-        User user = userRepoService.getUserById(saveDay.getUserId());
+        LimitsCleanDate limitsCleanDate = dailyLimitsRepoService.getLimitsCleanDateByUserId(saveDay.getUserId());
         List<Meal> listMealByDayId = mealRepoService.getListMealByDayId(saveDay.getUserId());
         int sumOfKcal = mealService.getDailyDietByListMeal(listMealByDayId)
                 .getSumOfKcal();
@@ -44,11 +49,9 @@ public class ShortReportCreator {
                 .id(shortReportId)
                 .date(saveDay.getDate())
                 .isAchievedKcal(limitsChecker.checkIsAchievedKcal(
-                        user.getDailyLimits().getKcalDemandPerDay(),
-                        sumOfKcal))
+                        limitsCleanDate.getKcalDemandPerDay(), sumOfKcal))
                 .isAchievedDrink(limitsChecker.checkIsAchievedDrink(
-                        user.getDailyLimits().getDrinkDemandPerDay(),
-                        saveDay.getPortionsDrink()))
+                        limitsCleanDate.getDrinkDemandPerDay(), saveDay.getPortionsDrink()))
                 .isAlcohol(saveDay.getPortionsAlcohol() != 0)
                 .isSnacks(saveDay.getPortionsSnack() != 0)
                 .build();

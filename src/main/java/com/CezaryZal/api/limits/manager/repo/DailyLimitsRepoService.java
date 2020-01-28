@@ -1,6 +1,7 @@
 package com.CezaryZal.api.limits.manager.repo;
 
 import com.CezaryZal.api.limits.DailyLimitsRepository;
+import com.CezaryZal.api.limits.model.LimitsCleanDate;
 import com.CezaryZal.api.limits.model.entity.DailyLimits;
 import com.CezaryZal.exceptions.not.found.DailyLimitsNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,10 @@ public class DailyLimitsRepoService {
     public DailyLimits getLimitsByUserId(Long id){
         return limitsRepository.findByUserId(id)
                 .orElseThrow(() -> new DailyLimitsNotFoundException("Daily limits not found by user id"));
+    }
+
+    public LimitsCleanDate getLimitsCleanDateByUserId(Long id){
+        return limitsRepository.getLimitsCleanDate(id);
     }
 
     public List<DailyLimits> getListLimits(){
