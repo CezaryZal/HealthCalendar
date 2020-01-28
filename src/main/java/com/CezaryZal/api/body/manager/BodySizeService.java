@@ -1,5 +1,6 @@
 package com.CezaryZal.api.body.manager;
 
+import com.CezaryZal.api.body.creator.BodySizeCreator;
 import com.CezaryZal.api.body.model.entity.BodySize;
 import com.CezaryZal.api.body.model.BodySizeDto;
 import com.CezaryZal.api.body.manager.mapper.BodySizeConverter;
@@ -17,11 +18,15 @@ public class BodySizeService {
 
     private final BodySizeRepoService bodySizeRepoService;
     private final BodySizeConverter bodySizeConverter;
+    private final BodySizeCreator bodySizeCreator;
 
     @Autowired
-    public BodySizeService(BodySizeRepoService bodySizeRepoService, BodySizeConverter bodySizeConverter) {
+    public BodySizeService(BodySizeRepoService bodySizeRepoService,
+                           BodySizeConverter bodySizeConverter,
+                           BodySizeCreator bodySizeCreator) {
         this.bodySizeRepoService = bodySizeRepoService;
         this.bodySizeConverter = bodySizeConverter;
+        this.bodySizeCreator = bodySizeCreator;
     }
 
     public BodySizeDto getBodySizeDtoById(Long id) {
@@ -46,12 +51,12 @@ public class BodySizeService {
     }
 
     public String addBodySizeByDto(BodySizeDto bodySizeDto) {
-        bodySizeRepoService.addBody(bodySizeConverter.mappingDtoToBodySize(bodySizeDto));
+        bodySizeRepoService.addBody(bodySizeCreator.createByDtoAndBodyId(bodySizeDto));
         return "Przesłany pomiar ciała został zapisany w bazie danych";
     }
 
-    public String updateBodySizeByDto(BodySizeDto bodySizeDto){
-        bodySizeRepoService.updateBody(bodySizeConverter.mappingDtoToBodySize(bodySizeDto));
+    public String updateBodySizeByDto(BodySizeDto bodySizeDto, Long id){
+        bodySizeRepoService.updateBody(bodySizeCreator.createToUpdateByDtoAndBodyId(bodySizeDto, id));
         return "Przesłany pomiar został uaktualniony";
     }
 

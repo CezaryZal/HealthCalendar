@@ -22,20 +22,4 @@ public class BodySizeConverter {
                 .userId(bodySize.getUserId())
                 .buildDto();
     }
-
-    public BodySize mappingDtoToBodySize(BodySizeDto bodySizeDto){
-        return BodySize.Builder.builder()
-                .id(bodySizeDto.getId())
-                .bodyWeight(bodySizeDto.getBodyWeight())
-                .neckSize(bodySizeDto.getNeckSize())
-                .armSize(bodySizeDto.getArmSize())
-                .bustSize(bodySizeDto.getBustSize())
-                .waist(bodySizeDto.getWaist())
-                .hipsSize(bodySizeDto.getHipsSize())
-                .femoralSize(bodySizeDto.getFemoralSize())
-                .calf(bodySizeDto.getCalf())
-                .dateMeasurement(bodySizeDto.getDateMeasurement())
-                .userId(bodySizeDto.getUserId())
-                .build();
-    }
 }

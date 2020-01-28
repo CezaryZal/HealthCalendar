@@ -55,9 +55,9 @@ public class BodySizeController {
 
     //TO DO - zmiana tylko w dniu zapisu
     @ApiOperation(value = "This endpoint input `BodySize` object update ")
-    @PutMapping
-    public ResponseEntity<String> updateBodySizeByDao(@RequestBody BodySizeDto bodySizeDto) {
-        return new ResponseEntity<>(bodySizeService.updateBodySizeByDto(bodySizeDto), HttpStatus.OK);
+    @PutMapping("/{id}")
+    public ResponseEntity<String> updateBodySizeByDao(@RequestBody BodySizeDto bodySizeDto, @PathVariable Long id) {
+        return new ResponseEntity<>(bodySizeService.updateBodySizeByDto(bodySizeDto, id), HttpStatus.OK);
     }
 
     //TO DO - usunięcie tylko w dniu zapisu
