@@ -1,5 +1,6 @@
 package com.CezaryZal.api.note.manager;
 
+import com.CezaryZal.api.note.manager.creator.NoteCreator;
 import com.CezaryZal.api.note.model.Header;
 import com.CezaryZal.api.note.model.NoteDto;
 import com.CezaryZal.api.note.manager.mapper.NoteConverter;
@@ -14,12 +15,15 @@ public class NoteService{
 
     private final NoteRepoService noteRepoService;
     private final NoteConverter noteConverter;
+    private final NoteCreator noteCreator;
 
     @Autowired
     public NoteService(NoteRepoService noteRepoService,
-                       NoteConverter noteConverter) {
+                       NoteConverter noteConverter,
+                       NoteCreator noteCreator) {
         this.noteRepoService = noteRepoService;
         this.noteConverter = noteConverter;
+        this.noteCreator = noteCreator;
     }
 
     public NoteDto getNoteDtoById(Long id){
@@ -43,12 +47,12 @@ public class NoteService{
     }
 
     public String addNoteByDto (NoteDto noteDto){
-        noteRepoService.addNote(noteConverter.mappingDtoToNote(noteDto));
+        noteRepoService.addNote(noteCreator.createByDtoAndNoteId(noteDto));
         return "Przesłana notatka została zapisana w bazie danych";
     }
 
-    public String updateNoteByDto (NoteDto noteDto){
-        noteRepoService.updateNote(noteConverter.mappingDtoToNote(noteDto));
+    public String updateNoteByDto (NoteDto noteDto, Long noteId){
+        noteRepoService.updateNote(noteCreator.createToUpdateByDtoAndNoteId(noteDto, noteId));
         return "Przesłana notatka została uaktualniona";
     }
 

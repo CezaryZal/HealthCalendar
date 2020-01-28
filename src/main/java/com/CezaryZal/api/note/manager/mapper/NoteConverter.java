@@ -10,15 +10,6 @@ import java.util.stream.Collectors;
 @Service
 public class NoteConverter {
 
-    public Note mappingDtoToNote(NoteDto noteDto) {
-        return Note.Builder.builder()
-                .id(noteDto.getId())
-                .header(noteDto.getHeader())
-                .details(noteDto.getDetailsNote())
-                .dayId(noteDto.getDayId())
-                .build();
-    }
-
     public NoteDto mappingNoteToDto(Note note) {
         return NoteDto.Builder.builder()
                 .id(note.getId())

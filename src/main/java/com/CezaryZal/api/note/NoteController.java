@@ -50,9 +50,9 @@ public class NoteController {
     }
 
     @ApiOperation(value = "This endpoint input `Note` object update ")
-    @PutMapping
-    public ResponseEntity<String> updateMeal (@RequestBody NoteDto noteDto){
-        return new ResponseEntity<>(noteService.updateNoteByDto(noteDto), HttpStatus.OK);
+    @PutMapping("/{id}")
+    public ResponseEntity<String> updateMeal (@RequestBody NoteDto noteDto, @PathVariable Long id){
+        return new ResponseEntity<>(noteService.updateNoteByDto(noteDto, id), HttpStatus.OK);
     }
 
     @ApiOperation(value = "This endpoint remove `Note` by id")
