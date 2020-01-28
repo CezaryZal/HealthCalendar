@@ -21,17 +21,6 @@ public class MealConverter {
                 .build();
     }
 
-    public Meal mappingDtoToMeal(MealDto mealDto){
-        return Meal.Builder.builder()
-                .id(mealDto.getId())
-                .dateTimeOfEat(mealDto.getDateTimeOfEat())
-                .type(mealDto.getType())
-                .kcal(mealDto.getKcal())
-                .description(mealDto.getDescription())
-                .dayId(mealDto.getDayId())
-                .build();
-    }
-
     public List<MealDto> mappingListMealToListDto(List<Meal> meals){
         return meals.stream()
                 .map(this::mappingMealToDto)

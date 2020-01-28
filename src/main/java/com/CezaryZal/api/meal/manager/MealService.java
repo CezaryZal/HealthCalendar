@@ -1,5 +1,6 @@
 package com.CezaryZal.api.meal.manager;
 
+import com.CezaryZal.api.meal.manager.creator.MealCreator;
 import com.CezaryZal.api.meal.model.DailyDiet;
 import com.CezaryZal.api.meal.model.entity.Meal;
 import com.CezaryZal.api.meal.model.MealDto;
@@ -17,14 +18,17 @@ public class MealService {
     private final MealRepoService mealRepoService;
     private final MealConverter mealConverter;
     private final DailyDietCreator dailyDietCreator;
+    private final MealCreator mealCreator;
 
     @Autowired
     public MealService(MealRepoService mealRepoService,
                        MealConverter mealConverter,
-                       DailyDietCreator dailyDietCreator) {
+                       DailyDietCreator dailyDietCreator,
+                       MealCreator mealCreator) {
         this.mealRepoService = mealRepoService;
         this.mealConverter = mealConverter;
         this.dailyDietCreator = dailyDietCreator;
+        this.mealCreator = mealCreator;
     }
 
     public MealDto getMealDtoById(Long id) {
@@ -45,12 +49,12 @@ public class MealService {
     }
 
     public String addMealByDto(MealDto mealDto) {
-        mealRepoService.addMeal(mealConverter.mappingDtoToMeal(mealDto));
+        mealRepoService.addMeal(mealCreator.createByDtoAndMealId(mealDto));
         return "Przesłany posiłek został zapisany w bazie danych";
     }
 
-    public String updateMealByDto(MealDto mealDto) {
-        mealRepoService.updateMeal(mealConverter.mappingDtoToMeal(mealDto));
+    public String updateMealByDto(MealDto mealDto, Long mealId) {
+        mealRepoService.updateMeal(mealCreator.createToUpdateByDtoAndMealId(mealDto, mealId));
         return "Przesłane posiłek zostały uaktualnione";
     }
 
