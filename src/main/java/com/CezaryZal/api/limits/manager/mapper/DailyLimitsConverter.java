@@ -12,8 +12,7 @@ public class DailyLimitsConverter {
         return new DailyLimitsDto(
                 dailyLimits.getId(),
                 dailyLimits.getKcalDemandPerDay(),
-                dailyLimits.getDrinkDemandPerDay(),
-                dailyLimits.getUserId());
+                dailyLimits.getDrinkDemandPerDay());
     }
 
     public DailyLimits mappingAccountEntityToDailyLimits(AccountEntity accountEntity){

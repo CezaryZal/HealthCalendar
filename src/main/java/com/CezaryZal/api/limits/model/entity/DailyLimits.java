@@ -2,8 +2,11 @@ package com.CezaryZal.api.limits.model.entity;
 
 import com.CezaryZal.api.limits.model.LimitsCleanDate;
 import lombok.*;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import javax.persistence.*;
+import java.util.Optional;
 
 @Entity
 @Table(name = "daily_limits")
@@ -24,7 +27,8 @@ import javax.persistence.*;
         })
 @NamedNativeQuery(
         name = "Result_for_daily_limits",
-        query = "select dl.kcal_demand, dl.drink_demand from daily_limits AS dl where dl.user_id=:inputUserId",
+        query = "select dl.kcal_demand, dl.drink_demand from daily_limits AS dl, user AS u " +
+                "where  dl.id = u.daily_limits_id AND u.id=:inputUserId",
         resultSetMapping = "ResultToLimits"
 )
 public class DailyLimits {
@@ -39,7 +43,4 @@ public class DailyLimits {
 
     @Column(name = "drink_demand")
     @NonNull private int drinkDemandPerDay;
-
-    @Column(name = "user_id")
-    private Long userId;
 }

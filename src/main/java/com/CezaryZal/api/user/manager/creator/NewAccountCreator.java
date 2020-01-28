@@ -14,19 +14,16 @@ import org.springframework.stereotype.Service;
 @Service
 public class NewAccountCreator {
 
-    private final DailyLimitsRepoService dailyLimitsRepoService;
     private final UserAuthService userAuthService;
     private final UserRepoService userRepoService;
     private final DailyLimitsConverter dailyLimitsConverter;
     private final UserCreator userCreator;
 
     @Autowired
-    public NewAccountCreator(DailyLimitsRepoService dailyLimitsRepoService,
-                             UserAuthService userAuthService,
+    public NewAccountCreator(UserAuthService userAuthService,
                              UserRepoService userRepoService,
                              DailyLimitsConverter dailyLimitsConverter,
                              UserCreator userCreator) {
-        this.dailyLimitsRepoService = dailyLimitsRepoService;
         this.userAuthService = userAuthService;
         this.userRepoService = userRepoService;
         this.dailyLimitsConverter = dailyLimitsConverter;
@@ -38,15 +35,8 @@ public class NewAccountCreator {
         UserAuthentication newUserAuth = userAuthService.preparingEntityForSave(accountEntity);
         User newUser = userCreator.createUserByAccountEntityAndLimitsAndUserAuth(
                 accountEntity, newDailyLimits, newUserAuth);
-        User createdUser = userRepoService.addUser(newUser);
-        setUserIdToDailyLimits(createdUser);
+        userRepoService.addUser(newUser);
 
         return "Przesłane dane nowego konta zostały podzielone i zapisane w bazie danych";
-    }
-
-    private void setUserIdToDailyLimits(User createdUser){
-        DailyLimits limits = createdUser.getDailyLimits();
-        limits.setUserId(createdUser.getId());
-        dailyLimitsRepoService.updateLimits(limits);
     }
 }

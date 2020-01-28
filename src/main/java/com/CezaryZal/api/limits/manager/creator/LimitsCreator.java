@@ -1,4 +1,4 @@
-package com.CezaryZal.api.limits.manager;
+package com.CezaryZal.api.limits.manager.creator;
 
 import com.CezaryZal.api.limits.model.DailyLimitsDto;
 import com.CezaryZal.api.limits.model.entity.DailyLimits;
@@ -11,7 +11,6 @@ public class LimitsCreator {
         return new DailyLimits(
                 id,
                 dailyLimitsDto.getKcalDemandPerDay(),
-                dailyLimitsDto.getDrinkDemandPerDay(),
-                dailyLimitsDto.getUserId());
+                dailyLimitsDto.getDrinkDemandPerDay());
     }
 }

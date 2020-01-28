@@ -1,8 +1,8 @@
 
 INSERT INTO `daily_limits` VALUES
-(1, 2500, 2000, 1),
-(2, 4000, 3000, 2),
-(3, 3000, 2500, 3);
+(1, 2500, 2000),
+(2, 4000, 3000),
+(3, 3000, 2500);
 
 INSERT INTO `users_auth` VALUES
 (1, true, '$2a$14$qvPKR4sT9jI1svoxv/IbaOC0hQJ9sHDUkW5W9lsBCXKF84oWglyDa', 'ADD', 'VIEWER'),

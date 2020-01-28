@@ -1,5 +1,6 @@
 package com.CezaryZal.api.limits.manager;
 
+import com.CezaryZal.api.limits.manager.creator.LimitsCreator;
 import com.CezaryZal.api.limits.model.entity.DailyLimits;
 import com.CezaryZal.api.limits.model.DailyLimitsDto;
 import com.CezaryZal.api.limits.manager.mapper.DailyLimitsConverter;
@@ -30,8 +31,8 @@ public class DailyLimitsService{
         return dailyLimitsConverter.mappingDailyLimitsToDto(dailyLimitsRepoService.getLimitById(id));
     }
 
-    public DailyLimitsDto getLimitsDtoByUserId(Long id){
-        return dailyLimitsConverter.mappingDailyLimitsToDto(dailyLimitsRepoService.getLimitsByUserId(id));
+    public DailyLimitsDto getLimitsDtoByUserId(Long userId){
+        return dailyLimitsConverter.mappingDailyLimitsToDto(dailyLimitsRepoService.getLimitsByUserId(userId));
     }
 
     public List<DailyLimitsDto> getListLimitsDto(){

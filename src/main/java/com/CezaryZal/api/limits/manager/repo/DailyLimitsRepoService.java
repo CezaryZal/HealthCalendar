@@ -24,8 +24,8 @@ public class DailyLimitsRepoService {
                 .orElseThrow(() -> new DailyLimitsNotFoundException("Daily limits not found by id"));
     }
 
-    public DailyLimits getLimitsByUserId(Long id){
-        return limitsRepository.findByUserId(id)
+    public DailyLimits getLimitsByUserId(Long userId){
+        return limitsRepository.getLimitsByUserId(userId)
                 .orElseThrow(() -> new DailyLimitsNotFoundException("Daily limits not found by user id"));
     }
 

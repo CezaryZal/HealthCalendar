@@ -12,5 +12,4 @@ public class DailyLimitsDto {
     private Long id;
     private int kcalDemandPerDay;
     private int drinkDemandPerDay;
-    private Long userId;
 }
