@@ -13,17 +13,32 @@ public class UserCreator {
             AccountEntity accountEntity,
             DailyLimits dailyLimits,
             UserAuthentication userAuthentication){
+        return User.Builder.builder()
+                .loginName(accountEntity.getLoginName())
+                .nick(accountEntity.getNick())
+                .email(accountEntity.getEmail())
+                .phoneNumber(accountEntity.getPhoneNumber())
+                .sex(accountEntity.getSex())
+                .birthDate(accountEntity.getBirthDate())
+                .dailyLimits(dailyLimits)
+                .userAuthentication(userAuthentication)
+                .build();
+    }
 
-        return new User(
-                accountEntity.getId(),
-                accountEntity.getLoginName(),
-                accountEntity.getNick(),
-                accountEntity.getEmail(),
-                accountEntity.getPhoneNumber(),
-                accountEntity.getSex(),
-                accountEntity.getBirthDate(),
-                dailyLimits,
-                userAuthentication
-        );
+    public User createUserToUpdateByAccountEntityAndLimitsAndUserAuth(
+            AccountEntity accountEntity,
+            DailyLimits dailyLimits,
+            UserAuthentication userAuthentication){
+        return User.Builder.builder()
+                .id(accountEntity.getId())
+                .loginName(accountEntity.getLoginName())
+                .nick(accountEntity.getNick())
+                .email(accountEntity.getEmail())
+                .phoneNumber(accountEntity.getPhoneNumber())
+                .sex(accountEntity.getSex())
+                .birthDate(accountEntity.getBirthDate())
+                .dailyLimits(dailyLimits)
+                .userAuthentication(userAuthentication)
+                .build();
     }
 }

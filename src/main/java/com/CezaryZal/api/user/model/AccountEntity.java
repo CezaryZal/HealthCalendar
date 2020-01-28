@@ -1,40 +1,27 @@
 package com.CezaryZal.api.user.model;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import java.time.LocalDate;
 
 @ToString
 @Getter
-public class AccountEntity extends FormUser {
+@NoArgsConstructor
+public class AccountEntity {
 
-
+    private Long id;
+    private String loginName;
+    private String nick;
+    private String email;
+    private int phoneNumber;
+    private int sex;
     private String password;
     private String permissions;
     private LocalDate birthDate;
     private int kcalDemandPerDay;
     private int drinkDemandPerDay;
-
-    public AccountEntity(
-            Long id,
-            String loginName,
-            String nick,
-            String email,
-            int phoneNumber,
-            int sex,
-            String password,
-            String permissions,
-            LocalDate birthDate,
-            int kcalDemandPerDay,
-            int drinkDemandPerDay) {
-        super(id, loginName, nick, email, phoneNumber, sex);
-        this.password = password;
-        this.permissions = permissions;
-        this.birthDate = birthDate;
-        this.kcalDemandPerDay = kcalDemandPerDay;
-        this.drinkDemandPerDay = drinkDemandPerDay;
-    }
 
     public void setPassword(String password) {
         this.password = password;

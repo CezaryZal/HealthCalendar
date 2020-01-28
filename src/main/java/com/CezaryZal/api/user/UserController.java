@@ -48,7 +48,7 @@ public class UserController {
     }
 
     @ApiOperation(value = "This will create new account")
-    @PostMapping("/user-id/new-account")
+    @PostMapping("/new-account")
     public ResponseEntity<String> createNewAccount(@RequestBody AccountEntity accountEntity){
         return new ResponseEntity<>(newAccountCreator.createAccountByAccountEntity(accountEntity), HttpStatus.CREATED);
     }

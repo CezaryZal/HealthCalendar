@@ -38,15 +38,15 @@ public class NewAccountCreator {
         UserAuthentication newUserAuth = userAuthService.preparingEntityForSave(accountEntity);
         User newUser = userCreator.createUserByAccountEntityAndLimitsAndUserAuth(
                 accountEntity, newDailyLimits, newUserAuth);
-        userRepoService.addUser(newUser);
-        setUserIdToDailyLimits(newUser.getId(), newDailyLimits.getId());
+        User createdUser = userRepoService.addUser(newUser);
+        setUserIdToDailyLimits(createdUser);
 
         return "Przesłane dane nowego konta zostały podzielone i zapisane w bazie danych";
     }
 
-    private void setUserIdToDailyLimits(Long userId, Long limitsId){
-        DailyLimits limitById = dailyLimitsRepoService.getLimitById(limitsId);
-        limitById.setUserId(userId);
-        dailyLimitsRepoService.updateLimits(limitById);
+    private void setUserIdToDailyLimits(User createdUser){
+        DailyLimits limits = createdUser.getDailyLimits();
+        limits.setUserId(createdUser.getId());
+        dailyLimitsRepoService.updateLimits(limits);
     }
 }

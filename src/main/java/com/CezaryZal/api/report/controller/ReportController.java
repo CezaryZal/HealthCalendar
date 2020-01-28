@@ -27,11 +27,7 @@ public class ReportController {
     public ResponseEntity<FormReport> getReportByDateAndUserId(
             @PathVariable String date,
             @PathVariable Long userId){
-        Long now = System.currentTimeMillis();
-        ResponseEntity<FormReport> tmp = new ResponseEntity<>(reportService.getFormReportByDateAndUserId(date, userId, false), HttpStatus.OK);
-        Long time = System.currentTimeMillis() - now;
-        System.out.println(time);
-        return tmp;
+        return new ResponseEntity<>(reportService.getFormReportByDateAndUserId(date, userId, false), HttpStatus.OK);
     }
 
     @ApiOperation(value = "This will get a `LongReport` by date and user id")

@@ -22,14 +22,4 @@ public class DayConverter {
                 .shortReport(day.getShortReport())
                 .build();
     }
-
-    public Day mappingObjectToSaveDayToDay(ObjectToSaveDay day){
-        return Day.Builder.builder()
-                .date(day.getDate())
-                .userId(day.getUserId())
-                .portionsDrink(day.getPortionsDrink())
-                .portionsAlcohol(day.getPortionsAlcohol())
-                .portionsSnack(day.getPortionsSnack())
-                .build();
-    }
 }

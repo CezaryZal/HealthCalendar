@@ -7,7 +7,6 @@ import com.CezaryZal.api.day.manager.creator.DayCreator;
 import com.CezaryZal.api.day.manager.mapper.*;
 import com.CezaryZal.api.day.manager.repo.DayRepoService;
 import com.CezaryZal.api.report.shortened.manager.creator.ShortReportCreator;
-import com.CezaryZal.api.report.shortened.manager.mapper.ShortReportConverter;
 import com.CezaryZal.api.report.shortened.model.entity.ShortReport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -50,15 +49,13 @@ public class DayService {
 
     public String addNewDay(ObjectToSaveDay day){
         ShortReport newShortReport = shortReportCreator.createNewShortReport(day);
-        Day newDay = dayConverter.mappingObjectToSaveDayToDay(day);
-        newDay.setShortReport(newShortReport);
-        dayRepoService.addDay(newDay);
+        dayRepoService.addDay(dayCreator.createByDayApi(day, newShortReport));
         return "Dzień z aktualną datą został dodany do bazy danych";
     }
 
     public String update(ObjectToSaveDay day) {
         ShortReport updatedShortReport = shortReportCreator.createToUpdateRecordByDay(day);
-        dayRepoService.updateDay(dayCreator.createByDayApiAndShortDay(day, updatedShortReport));
+        dayRepoService.updateDay(dayCreator.createToUpdateByDayApiAndShortDay(day, updatedShortReport));
         return "Wskazany dzień został aktualizowany wraz ze skrótem";
     }
 
