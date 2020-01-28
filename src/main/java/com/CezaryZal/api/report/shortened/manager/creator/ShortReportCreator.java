@@ -39,11 +39,11 @@ public class ShortReportCreator {
                 .build();
     }
 
-    public ShortReport createToUpdateRecordByDay(ObjectToSaveDay saveDay)  {
+    public ShortReport createToUpdateRecordByDay(ObjectToSaveDay saveDay, Long dayId)  {
         Long shortReportId = shortReportRepoService.getShortReportIdByDateAndUserId(
                 saveDay.getDate(), saveDay.getUserId());
         LimitsCleanDate limitsCleanDate = dailyLimitsRepoService.getLimitsCleanDateByUserId(saveDay.getUserId());
-        int sumOfKcal = mealRepoService.getKcalByDayId(saveDay.getId());
+        int sumOfKcal = mealRepoService.getKcalByDayId(dayId);
         return ShortReport.Builder.builder()
                 .id(shortReportId)
                 .date(saveDay.getDate())

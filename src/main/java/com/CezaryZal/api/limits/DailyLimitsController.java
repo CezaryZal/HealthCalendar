@@ -35,9 +35,9 @@ public class DailyLimitsController {
     }
 
     @ApiOperation(value = "This endpoint input `DailyLimits` object update ")
-    @PutMapping
-    public ResponseEntity<String> updateLimits (@RequestBody DailyLimitsDto dailyLimitsDto){
-        return new ResponseEntity<>(dailyLimitsS.updateDailyLimits(dailyLimitsDto), HttpStatus.OK);
+    @PutMapping("/{id}")
+    public ResponseEntity<String> updateLimits (@RequestBody DailyLimitsDto dailyLimitsDto, @PathVariable Long id){
+        return new ResponseEntity<>(dailyLimitsS.updateDailyLimits(dailyLimitsDto, id), HttpStatus.OK);
     }
 
 }

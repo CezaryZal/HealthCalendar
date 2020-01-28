@@ -11,7 +11,6 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class ObjectToSaveDay{
 
-    private Long id;
     private LocalDate date;
     private Long userId;
     private int portionsDrink;
@@ -20,7 +19,6 @@ public class ObjectToSaveDay{
 
 
     public static final class Builder{
-        private Long id;
         private LocalDate date;
         private Long userId;
         private int portionsDrink;
@@ -31,10 +29,6 @@ public class ObjectToSaveDay{
             return new Builder();
         }
 
-        public Builder id(Long id){
-            this.id = id;
-            return this;
-        }
         public Builder date(LocalDate date){
             this.date = date;
             return this;
@@ -58,7 +52,6 @@ public class ObjectToSaveDay{
 
         public ObjectToSaveDay build(){
             ObjectToSaveDay objectToSaveDay = new ObjectToSaveDay();
-            objectToSaveDay.id = this.id;
             objectToSaveDay.date = this.date;
             objectToSaveDay.userId = this.userId;
             objectToSaveDay.portionsDrink = this.portionsDrink;
