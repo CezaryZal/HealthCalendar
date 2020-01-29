@@ -1,6 +1,6 @@
 package com.CezaryZal.api.body.manager;
 
-import com.CezaryZal.api.body.creator.BodySizeCreator;
+import com.CezaryZal.api.body.manager.creator.BodySizeCreator;
 import com.CezaryZal.api.body.model.entity.BodySize;
 import com.CezaryZal.api.body.model.BodySizeDto;
 import com.CezaryZal.api.body.manager.mapper.BodySizeConverter;

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 public class DayConverter {
 
     public DayDto mappingDayToDto(Day day){
-        return DayDto.Builder.builder()
+        return DayDto.builder()
                 .id(day.getId())
                 .date(day.getDate())
                 .userId(day.getUserId())

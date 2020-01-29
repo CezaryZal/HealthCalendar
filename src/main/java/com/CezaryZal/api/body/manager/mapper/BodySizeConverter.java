@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 public class BodySizeConverter {
 
     public BodySizeDto mappingBodySizeToDto(BodySize bodySize){
-        return BodySizeDto.Builder.builder()
+        return BodySizeDto.builder()
                 .id(bodySize.getId())
                 .bodyWeight(bodySize.getBodyWeight())
                 .neckSize(bodySize.getNeckSize())

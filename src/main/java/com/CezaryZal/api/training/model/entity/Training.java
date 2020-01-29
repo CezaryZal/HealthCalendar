@@ -33,6 +33,11 @@ public class Training {
     @Column(name = "day_id")
     private Long dayId;
 
+
+    public static Builder builder(){
+        return new Builder();
+    }
+
     public static final class Builder{
         private Long id;
         private LocalDateTime dateTimeOfExecution;
@@ -40,10 +45,6 @@ public class Training {
         private LocalTime elapsedTime;
         private int burnKcal;
         private Long dayId;
-
-        public static Builder builder(){
-            return new Builder();
-        }
 
         public Builder id(Long id){
             this.id = id;

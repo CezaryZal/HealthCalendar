@@ -18,6 +18,11 @@ public class MealDto {
     private String description;
     private Long dayId;
 
+
+    public static Builder builder(){
+        return new Builder();
+    }
+
     public static final class Builder{
         private Long id;
         private LocalDateTime dateTimeOfEat;
@@ -25,10 +30,6 @@ public class MealDto {
         private int kcal;
         private String description;
         private Long dayId;
-
-        public static Builder builder(){
-            return new Builder();
-        }
 
         public Builder id(Long id){
             this.id = id;

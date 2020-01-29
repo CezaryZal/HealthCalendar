@@ -19,7 +19,7 @@ public class DayCreator {
     }
 
     private Day.Builder mappingDtoToDayBuilder(ObjectToSaveDay day, ShortReport shortReport){
-        return Day.Builder.builder()
+        return Day.builder()
                 .date(day.getDate())
                 .userId(day.getUserId())
                 .portionsDrink(day.getPortionsDrink())

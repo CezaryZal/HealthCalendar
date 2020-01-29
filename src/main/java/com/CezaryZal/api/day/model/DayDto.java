@@ -27,6 +27,9 @@ public class DayDto {
     private List<Note> listNotesDB;
     private ShortReport shortReport;
 
+    public static Builder builder(){
+        return new Builder();
+    }
 
     public static final class Builder{
         private Long id;
@@ -39,10 +42,6 @@ public class DayDto {
         private List<Training> listTrainingsDB;
         private List<Note> listNotesDB;
         private ShortReport shortReport;
-
-        public static Builder builder(){
-            return new Builder();
-        }
 
         public Builder id(Long id){
             this.id = id;

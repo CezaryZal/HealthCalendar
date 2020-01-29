@@ -17,6 +17,9 @@ public class ObjectToSaveDay{
     private int portionsAlcohol;
     private int portionsSnack;
 
+    public static Builder builder(){
+        return new Builder();
+    }
 
     public static final class Builder{
         private LocalDate date;
@@ -24,10 +27,6 @@ public class ObjectToSaveDay{
         private int portionsDrink;
         private int portionsAlcohol;
         private int portionsSnack;
-
-        public static Builder builder(){
-            return new Builder();
-        }
 
         public Builder date(LocalDate date){
             this.date = date;

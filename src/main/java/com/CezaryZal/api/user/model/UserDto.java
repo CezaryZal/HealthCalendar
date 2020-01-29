@@ -18,6 +18,10 @@ public class UserDto {
     private int age;
 
 
+    public static Builder builder(){
+        return new Builder();
+    }
+
     public static final class Builder{
         private Long id;
         private String loginName;
@@ -26,10 +30,6 @@ public class UserDto {
         private int phoneNumber;
         private int sex;
         private int age;
-
-        public static Builder builder(){
-            return new Builder();
-        }
 
         public Builder id(Long id){
             this.id = id;

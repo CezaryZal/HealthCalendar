@@ -18,6 +18,11 @@ public class ShortReportDto {
     private boolean isAlcohol;
     private boolean isSnacks;
 
+
+    public static Builder builder(){
+        return new Builder();
+    }
+
     public static final class Builder{
         private Long id;
         private LocalDate date;
@@ -25,10 +30,6 @@ public class ShortReportDto {
         private boolean isAchievedDrink;
         private boolean isAlcohol;
         private boolean isSnacks;
-
-        public static Builder builder(){
-            return new Builder();
-        }
 
         public Builder id(Long id){
             this.id = id;

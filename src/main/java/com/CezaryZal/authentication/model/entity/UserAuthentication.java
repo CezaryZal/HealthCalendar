@@ -51,16 +51,16 @@ public class UserAuthentication {
     }
 
 
+    public static Builder builder(){
+        return new Builder();
+    }
+
     public static final class Builder{
         private Long id;
         private String password;
         private boolean active;
         private String roles;
         private String permissions;
-
-        public static Builder builder(){
-            return new Builder();
-        }
 
         public Builder id(Long id){
             this.id = id;

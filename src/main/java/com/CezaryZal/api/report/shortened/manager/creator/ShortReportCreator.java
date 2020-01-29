@@ -30,7 +30,7 @@ public class ShortReportCreator {
     }
 
     public ShortReport createNewShortReport(ObjectToSaveDay saveDay)  {
-        return ShortReport.Builder.builder()
+        return ShortReport.builder()
                 .date(saveDay.getDate())
                 .isAchievedKcal(false)
                 .isAchievedDrink(false)
@@ -44,7 +44,7 @@ public class ShortReportCreator {
                 saveDay.getDate(), saveDay.getUserId());
         LimitsCleanDate limitsCleanDate = dailyLimitsRepoService.getLimitsCleanDateByUserId(saveDay.getUserId());
         int sumOfKcal = mealRepoService.getKcalByDayId(dayId);
-        return ShortReport.Builder.builder()
+        return ShortReport.builder()
                 .id(shortReportId)
                 .date(saveDay.getDate())
                 .isAchievedKcal(limitsChecker.checkIsAchievedKcal(

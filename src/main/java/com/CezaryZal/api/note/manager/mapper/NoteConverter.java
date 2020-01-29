@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 public class NoteConverter {
 
     public NoteDto mappingNoteToDto(Note note) {
-        return NoteDto.Builder.builder()
+        return NoteDto.builder()
                 .id(note.getId())
                 .header(note.getHeader())
                 .details(note.getDetailsNote())

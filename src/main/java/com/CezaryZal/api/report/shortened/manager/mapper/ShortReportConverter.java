@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 public class ShortReportConverter {
 
     public ShortReportDto mappingShortReportToDto(ShortReport shortReport){
-        return ShortReportDto.Builder.builder()
+        return ShortReportDto.builder()
                 .id(shortReport.getId())
                 .date(shortReport.getDate())
                 .isAchievedKcal(shortReport.isAchievedKcal())

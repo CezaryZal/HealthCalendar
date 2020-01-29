@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 public class TrainingConverter {
 
     public TrainingDto mappingTrainingToDto(Training training){
-        return TrainingDto.Builder.builder()
+        return TrainingDto.builder()
                 .id(training.getId())
                 .dateTimeOfExecution(training.getDateTimeOfExecution())
                 .description(training.getDescription())

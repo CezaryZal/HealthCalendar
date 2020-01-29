@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 public class MealConverter {
 
     public MealDto mappingMealToDto(Meal meal){
-        return MealDto.Builder.builder()
+        return MealDto.builder()
                 .id(meal.getId())
                 .dateTimeOfEat(meal.getDateTimeOfEat())
                 .type(meal.getType())

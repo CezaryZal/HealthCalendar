@@ -65,7 +65,7 @@ public class ReportCreator {
             DailyDiet dailyDietByListMeal = mealService.getDailyDietByListMeal(day.getListMealsDB());
             boolean isAchievedKcal = limitsChecker.checkIsAchievedKcal(
                     limitsCleanDate.getKcalDemandPerDay(), dailyDietByListMeal.getSumOfKcal());
-            return FormReport.Builder.builder()
+            return FormReport.builder()
                     .id(day.getId())
                     .date(day.getDate())
                     .userId(userId)
@@ -85,7 +85,7 @@ public class ReportCreator {
         int sumOfKcal = mealRepoService.getKcalByDayId(day.getId());
         boolean isAchievedKcal = limitsChecker.checkIsAchievedKcal(
                 limitsCleanDate.getKcalDemandPerDay(), sumOfKcal);
-        return FormReport.Builder.builder()
+        return FormReport.builder()
                 .id(day.getId())
                 .date(day.getDate())
                 .userId(userId)

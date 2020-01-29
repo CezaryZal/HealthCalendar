@@ -19,7 +19,7 @@ public class NoteCreator {
     }
 
     private Note.Builder mappingDtoToNoteBuilder(NoteDto noteDto) {
-        return Note.Builder.builder()
+        return Note.builder()
                 .header(noteDto.getHeader())
                 .details(noteDto.getDetailsNote())
                 .dayId(noteDto.getDayId());

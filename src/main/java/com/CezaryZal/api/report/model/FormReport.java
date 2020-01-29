@@ -31,6 +31,11 @@ public abstract class FormReport {
     private List<Header> listHeaders;
     private List<ShortReportDto> listShortsDayDto;
 
+
+    public static Builder builder(){
+        return new Builder();
+    }
+
     public static final class Builder{
         private Long id;
         private LocalDate date;
@@ -46,10 +51,6 @@ public abstract class FormReport {
         private TrainingsSummary trainings;
         private List<Header> listHeaders;
         private List<ShortReportDto> listShortsDayDto;
-
-        public static Builder builder(){
-            return new Builder();
-        }
 
         public Builder id(Long id){
             this.id = id;

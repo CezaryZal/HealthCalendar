@@ -34,6 +34,11 @@ public class Meal {
     @Column(name = "day_id")
     private Long dayId;
 
+
+    public static Builder builder(){
+        return new Builder();
+    }
+
     public static final class Builder{
         private Long id;
         private LocalDateTime dateTimeOfEat;
@@ -41,10 +46,6 @@ public class Meal {
         private int kcal;
         private String description;
         private Long dayId;
-
-        public static Builder builder(){
-            return new Builder();
-        }
 
         public Builder id(Long id){
             this.id = id;

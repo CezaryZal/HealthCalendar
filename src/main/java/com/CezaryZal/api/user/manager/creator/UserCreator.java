@@ -13,7 +13,7 @@ public class UserCreator {
             AccountEntity accountEntity,
             DailyLimits dailyLimits,
             UserAuthentication userAuthentication){
-        return User.Builder.builder()
+        return User.builder()
                 .loginName(accountEntity.getLoginName())
                 .nick(accountEntity.getNick())
                 .email(accountEntity.getEmail())
@@ -30,7 +30,7 @@ public class UserCreator {
             DailyLimits dailyLimits,
             UserAuthentication userAuthentication,
             Long userId){
-        return User.Builder.builder()
+        return User.builder()
                 .id(userId)
                 .loginName(accountEntity.getLoginName())
                 .nick(accountEntity.getNick())

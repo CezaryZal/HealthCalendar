@@ -1,4 +1,4 @@
-package com.CezaryZal.api.body.creator;
+package com.CezaryZal.api.body.manager.creator;
 
 import com.CezaryZal.api.body.model.BodySizeDto;
 import com.CezaryZal.api.body.model.entity.BodySize;
@@ -19,7 +19,7 @@ public class BodySizeCreator {
     }
 
     private BodySize.Builder mappingDtoToBodySizeBuilder(BodySizeDto bodySizeDto){
-        return BodySize.Builder.builder()
+        return BodySize.builder()
                 .bodyWeight(bodySizeDto.getBodyWeight())
                 .neckSize(bodySizeDto.getNeckSize())
                 .armSize(bodySizeDto.getArmSize())

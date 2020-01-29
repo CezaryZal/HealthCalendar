@@ -15,15 +15,17 @@ public class NoteDto{
     private Long dayId;
 
 
+    public static Builder builder(){
+        return new Builder();
+    }
+
     public static final class Builder{
         private Long id;
         private String header;
         private String detailsNote;
         private Long dayId;
 
-        public static Builder builder(){
-            return new Builder();
-        }
+
 
         public Builder id(Long id){
             this.id = id;

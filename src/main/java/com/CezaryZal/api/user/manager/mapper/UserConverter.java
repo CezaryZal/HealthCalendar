@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 public class UserConverter {
 
     public UserDto mappingUserToDto(User user) {
-        return UserDto.Builder.builder()
+        return UserDto.builder()
                 .id(user.getId())
                 .loginName(user.getLoginName())
                 .nick(user.getNick())

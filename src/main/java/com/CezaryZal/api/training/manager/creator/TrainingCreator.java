@@ -19,7 +19,7 @@ public class TrainingCreator {
     }
 
     private Training.Builder mappingDtoToTraining(TrainingDto trainingDto){
-        return Training.Builder.builder()
+        return Training.builder()
                 .dateTimeOfExecution(trainingDto.getDateTimeOfExecution())
                 .description(trainingDto.getDescription())
                 .elapsedTime(trainingDto.getElapsedTime())

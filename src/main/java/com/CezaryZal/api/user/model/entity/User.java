@@ -73,6 +73,10 @@ public class User {
     }
 
 
+    public static Builder builder(){
+        return new Builder();
+    }
+
     public static final class Builder{
         private Long id;
         private String loginName;
@@ -83,10 +87,6 @@ public class User {
         private LocalDate birthDate;
         private DailyLimits dailyLimits;
         private UserAuthentication userAuthentication;
-
-        public static Builder builder(){
-            return new Builder();
-        }
 
         public Builder id(Long id){
             this.id = id;

@@ -19,7 +19,7 @@ public class MealCreator {
     }
 
     private Meal.Builder mappingDtoToMealBuilder(MealDto mealDto){
-        return Meal.Builder.builder()
+        return Meal.builder()
                 .dateTimeOfEat(mealDto.getDateTimeOfEat())
                 .type(mealDto.getType())
                 .kcal(mealDto.getKcal())

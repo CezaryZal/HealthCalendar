@@ -19,6 +19,11 @@ public class TrainingDto {
     private int burnKcal;
     private Long dayId;
 
+
+    public static Builder builder(){
+        return new Builder();
+    }
+
     public static final class Builder{
         private Long id;
         private LocalDateTime dateTimeOfExecution;
@@ -26,10 +31,6 @@ public class TrainingDto {
         private LocalTime elapsedTime;
         private int burnKcal;
         private Long dayId;
-
-        public static Builder builder(){
-            return new Builder();
-        }
 
         public Builder id(Long id){
             this.id = id;

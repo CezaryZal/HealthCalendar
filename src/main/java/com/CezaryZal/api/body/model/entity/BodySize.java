@@ -56,6 +56,10 @@ public class BodySize{
     private Long userId;
 
 
+    public static Builder builder(){
+        return new Builder();
+    }
+
     public static final class Builder {
         private Long id;
         private int bodyWeight;
@@ -68,10 +72,6 @@ public class BodySize{
         private int calf;
         private LocalDate dateMeasurement;
         private Long userId;
-
-        public static Builder builder(){
-            return new Builder();
-        }
 
         public Builder id(Long id){
             this.id = id;

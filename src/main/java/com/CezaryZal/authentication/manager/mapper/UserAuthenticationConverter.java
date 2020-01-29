@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 public class UserAuthenticationConverter {
 
     public UserAuthentication mappingAccountEntityToUserAuth(AccountEntity accountEntity){
-        return UserAuthentication.Builder.builder()
+        return UserAuthentication.builder()
                 .password(accountEntity.getPassword())
                 .active(true)
                 .roles(Roles.USER.name())
