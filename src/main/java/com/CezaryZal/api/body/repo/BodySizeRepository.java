@@ -1,4 +1,4 @@
-package com.CezaryZal.api.body;
+package com.CezaryZal.api.body.repo;
 
 import com.CezaryZal.api.body.model.entity.BodySize;
 import org.springframework.data.jpa.repository.JpaRepository;

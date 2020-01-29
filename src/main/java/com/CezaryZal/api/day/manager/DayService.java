@@ -1,12 +1,11 @@
 package com.CezaryZal.api.day.manager;
 
-import com.CezaryZal.api.day.model.entity.Day;
 import com.CezaryZal.api.day.model.ObjectToSaveDay;
 import com.CezaryZal.api.day.model.DayDto;
 import com.CezaryZal.api.day.manager.creator.DayCreator;
 import com.CezaryZal.api.day.manager.mapper.*;
 import com.CezaryZal.api.day.manager.repo.DayRepoService;
-import com.CezaryZal.api.report.shortened.manager.creator.ShortReportCreator;
+import com.CezaryZal.api.report.shortened.manager.ShortReportService;
 import com.CezaryZal.api.report.shortened.model.entity.ShortReport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,17 +18,17 @@ public class DayService {
 
     private final DayRepoService dayRepoService;
     private final DayConverter dayConverter;
-    private final ShortReportCreator shortReportCreator;
+    private final ShortReportService shortReportService;
     private final DayCreator dayCreator;
 
     @Autowired
     public DayService(DayRepoService dayRepoService,
                       DayConverter dayConverter,
-                      ShortReportCreator shortReportCreator,
+                      ShortReportService shortReportService,
                       DayCreator dayCreator) {
         this.dayRepoService = dayRepoService;
         this.dayConverter = dayConverter;
-        this.shortReportCreator = shortReportCreator;
+        this.shortReportService = shortReportService;
         this.dayCreator = dayCreator;
     }
 
@@ -48,13 +47,13 @@ public class DayService {
     }
 
     public String addNewDay(ObjectToSaveDay day){
-        ShortReport newShortReport = shortReportCreator.createNewShortReport(day);
+        ShortReport newShortReport = shortReportService.createShortReport(day, null, true);
         dayRepoService.addDay(dayCreator.createByDayApi(day, newShortReport));
         return "Dzień z aktualną datą został dodany do bazy danych";
     }
 
     public String update(ObjectToSaveDay day, Long dayId) {
-        ShortReport updatedShortReport = shortReportCreator.createToUpdateRecordByDay(day, dayId);
+        ShortReport updatedShortReport = shortReportService.createShortReport(day, dayId, false);
         dayRepoService.updateDay(dayCreator.createToUpdateByDayApiAndShortDay(day, updatedShortReport, dayId));
         return "Wskazany dzień został aktualizowany wraz ze skrótem";
     }

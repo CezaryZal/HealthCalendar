@@ -1,4 +1,4 @@
-package com.CezaryZal.api.body.manager.creator;
+package com.CezaryZal.api.body.manager;
 
 import com.CezaryZal.api.body.model.BodySizeDto;
 import com.CezaryZal.api.body.model.entity.BodySize;
@@ -7,14 +7,14 @@ import org.springframework.stereotype.Service;
 @Service
 public class BodySizeCreator {
 
-    public BodySize createToUpdateByDtoAndBodyId(BodySizeDto bodySizeDto, Long id){
+    protected BodySize createToUpdateByDtoAndBodyId(BodySizeDto bodySizeDto, Long id){
         BodySize.Builder builder = mappingDtoToBodySizeBuilder(bodySizeDto);
         return builder
                 .id(id)
                 .build();
     }
 
-    public BodySize createByDtoAndBodyId(BodySizeDto bodySizeDto){
+    protected BodySize createByDtoAndBodyId(BodySizeDto bodySizeDto){
         return mappingDtoToBodySizeBuilder(bodySizeDto).build();
     }
 

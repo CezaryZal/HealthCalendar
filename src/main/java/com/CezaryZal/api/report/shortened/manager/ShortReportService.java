@@ -1,5 +1,7 @@
 package com.CezaryZal.api.report.shortened.manager;
 
+import com.CezaryZal.api.day.model.ObjectToSaveDay;
+import com.CezaryZal.api.report.shortened.manager.creator.ShortReportCreator;
 import com.CezaryZal.api.report.shortened.manager.mapper.ShortReportConverter;
 import com.CezaryZal.api.report.shortened.manager.repo.ShortReportRepoService;
 import com.CezaryZal.api.report.shortened.model.entity.ShortReport;
@@ -15,11 +17,15 @@ public class ShortReportService {
 
     private final ShortReportRepoService shortReportRepoService;
     private final ShortReportConverter shortReportConverter;
+    private final ShortReportCreator shortReportCreator;
 
     @Autowired
-    public ShortReportService(ShortReportRepoService shortReportRepoService, ShortReportConverter shortReportConverter) {
+    public ShortReportService(ShortReportRepoService shortReportRepoService,
+                              ShortReportConverter shortReportConverter,
+                              ShortReportCreator shortReportCreator) {
         this.shortReportRepoService = shortReportRepoService;
         this.shortReportConverter = shortReportConverter;
+        this.shortReportCreator = shortReportCreator;
     }
 
     public ShortReportDto getShortReportDtoById(Long id) {
@@ -33,6 +39,11 @@ public class ShortReportService {
 
     public List<ShortReportDto> getShortReportsByInputDateAndUserId(String inputDate, Long userId) {
         return getShortReportsByDateAndUserId(LocalDate.parse(inputDate), userId);
+    }
+
+    public ShortReport createShortReport(ObjectToSaveDay saveDay, Long dayId, boolean isNewObject){
+        return isNewObject? shortReportCreator.createNewShortReport(saveDay) :
+                shortReportCreator.createToUpdateRecordByDay(saveDay, dayId);
     }
 
     public List<ShortReportDto> getShortReportsByDateAndUserId(LocalDate inputLocalDate, Long userId) {

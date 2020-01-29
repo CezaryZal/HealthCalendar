@@ -2,7 +2,6 @@ package com.CezaryZal.api.body;
 
 import com.CezaryZal.api.body.model.BodySizeDto;
 import com.CezaryZal.api.body.manager.BodySizeService;
-import com.CezaryZal.api.body.manager.repo.BodySizeRepoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,12 +18,10 @@ import java.util.List;
 @RequestMapping("/api/body")
 public class BodySizeController {
 
-    private final BodySizeRepoService bodySizeRepoService;
     private final BodySizeService bodySizeService;
 
     @Autowired
-    public BodySizeController(BodySizeRepoService bodySizeRepoService, BodySizeService bodySizeService) {
-        this.bodySizeRepoService = bodySizeRepoService;
+    public BodySizeController(BodySizeService bodySizeService) {
         this.bodySizeService = bodySizeService;
     }
 
@@ -37,7 +34,7 @@ public class BodySizeController {
     @ApiOperation(value = "This will be get a list dates by user id")
     @GetMapping("/dates/user-id/{userId}")
     public ResponseEntity<List<LocalDate>> getListDatesByUserId(@PathVariable Long userId) {
-        return new ResponseEntity<>(bodySizeRepoService.getListDatesByUserId(userId), HttpStatus.OK);
+        return new ResponseEntity<>(bodySizeService.getListDatesByUserId(userId), HttpStatus.OK);
     }
 
     @ApiOperation(value = "This will be get a `BodySize` by date and user id")

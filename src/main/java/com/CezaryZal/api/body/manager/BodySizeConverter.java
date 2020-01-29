@@ -1,4 +1,4 @@
-package com.CezaryZal.api.body.manager.mapper;
+package com.CezaryZal.api.body.manager;
 
 import com.CezaryZal.api.body.model.entity.BodySize;
 import com.CezaryZal.api.body.model.BodySizeDto;
@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class BodySizeConverter {
 
-    public BodySizeDto mappingBodySizeToDto(BodySize bodySize){
+    protected BodySizeDto mappingBodySizeToDto(BodySize bodySize){
         return BodySizeDto.builder()
                 .id(bodySize.getId())
                 .bodyWeight(bodySize.getBodyWeight())
