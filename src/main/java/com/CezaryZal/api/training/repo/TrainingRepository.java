@@ -1,4 +1,4 @@
-package com.CezaryZal.api.training;
+package com.CezaryZal.api.training.repo;
 
 import com.CezaryZal.api.training.model.entity.Training;
 import org.springframework.data.jpa.repository.JpaRepository;

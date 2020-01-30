@@ -56,12 +56,12 @@ public class NoteService{
     }
 
     public String addNoteByDto (NoteDto noteDto){
-        noteRepository.save(noteCreator.createByDtoAndNoteId(noteDto));
+        noteRepository.save(noteCreator.createNoteByDtoAndNoteId(noteDto));
         return "Przesłana notatka została zapisana w bazie danych";
     }
 
     public String updateNoteByDto (NoteDto noteDto, Long noteId){
-        noteRepository.save(noteCreator.createToUpdateByDtoAndNoteId(noteDto, noteId));
+        noteRepository.save(noteCreator.createNoteToUpdateByDtoAndNoteId(noteDto, noteId));
         return "Przesłana notatka została uaktualniona";
     }
 

@@ -1,4 +1,4 @@
-package com.CezaryZal.api.training.manager.creator;
+package com.CezaryZal.api.training.manager;
 
 import com.CezaryZal.api.training.model.TrainingDto;
 import com.CezaryZal.api.training.model.TrainingsSummary;
@@ -11,7 +11,7 @@ import java.util.List;
 @Service
 public class TrainingsSummaryCreator {
 
-    public TrainingsSummary createTrainingsSummary(List<TrainingDto> listTraining) {
+    TrainingsSummary createTrainingsSummary(List<TrainingDto> listTraining) {
         int sumOfBurnKcal = 0;
         LocalTime sumOfTimes = LocalTime.of(0, 0);
         if (!listTraining.isEmpty()) {

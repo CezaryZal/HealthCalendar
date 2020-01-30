@@ -51,12 +51,12 @@ public class MealService {
     }
 
     public String addMealByDto(MealDto mealDto) {
-        mealRepository.save(mealCreator.createByDtoAndMealId(mealDto));
+        mealRepository.save(mealCreator.createMealByDtoAndMealId(mealDto));
         return "Przesłany posiłek został zapisany w bazie danych";
     }
 
     public String updateMealByDto(MealDto mealDto, Long mealId) {
-        mealRepository.save(mealCreator.createToUpdateByDtoAndMealId(mealDto, mealId));
+        mealRepository.save(mealCreator.createMealToUpdateByDtoAndMealId(mealDto, mealId));
         return "Przesłane posiłek zostały uaktualnione";
     }
 

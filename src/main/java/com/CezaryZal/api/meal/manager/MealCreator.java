@@ -7,14 +7,14 @@ import org.springframework.stereotype.Service;
 @Service
 public class MealCreator {
 
-    Meal createToUpdateByDtoAndMealId(MealDto mealDto, Long mealId){
+    Meal createMealToUpdateByDtoAndMealId(MealDto mealDto, Long mealId){
         Meal.Builder builder = mappingDtoToMealBuilder(mealDto);
         return builder
                 .id(mealId)
                 .build();
     }
 
-    Meal createByDtoAndMealId(MealDto mealDto){
+    Meal createMealByDtoAndMealId(MealDto mealDto){
         return mappingDtoToMealBuilder(mealDto).build();
     }
 

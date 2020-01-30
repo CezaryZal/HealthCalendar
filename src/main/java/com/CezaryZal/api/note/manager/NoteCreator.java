@@ -7,14 +7,14 @@ import org.springframework.stereotype.Service;
 @Service
 public class NoteCreator {
 
-    Note createToUpdateByDtoAndNoteId(NoteDto noteDto, Long id){
+    Note createNoteToUpdateByDtoAndNoteId(NoteDto noteDto, Long id){
         Note.Builder builder = mappingDtoToNoteBuilder(noteDto);
         return builder
                 .id(id)
                 .build();
     }
 
-    Note createByDtoAndNoteId(NoteDto noteDto){
+    Note createNoteByDtoAndNoteId(NoteDto noteDto){
         return mappingDtoToNoteBuilder(noteDto).build();
     }
 

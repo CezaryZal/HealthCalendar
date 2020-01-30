@@ -1,4 +1,4 @@
-package com.CezaryZal.api.training.manager.creator;
+package com.CezaryZal.api.training.manager;
 
 import com.CezaryZal.api.training.model.TrainingDto;
 import com.CezaryZal.api.training.model.entity.Training;
@@ -7,14 +7,14 @@ import org.springframework.stereotype.Service;
 @Service
 public class TrainingCreator {
 
-    public Training createToUpdateByDtoAndId(TrainingDto trainingDto, Long id){
+    Training createTrainingToUpdateByDtoAndId(TrainingDto trainingDto, Long id){
         Training.Builder builder = mappingDtoToTraining(trainingDto);
         return builder
                 .id(id)
                 .build();
     }
 
-    public Training createByDtoAndId(TrainingDto trainingDto){
+    Training createTrainingByDtoAndId(TrainingDto trainingDto){
         return mappingDtoToTraining(trainingDto).build();
     }
 

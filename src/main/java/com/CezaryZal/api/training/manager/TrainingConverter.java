@@ -1,4 +1,4 @@
-package com.CezaryZal.api.training.manager.mapper;
+package com.CezaryZal.api.training.manager;
 
 import com.CezaryZal.api.training.model.TrainingDto;
 import com.CezaryZal.api.training.model.entity.Training;
@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 @Service
 public class TrainingConverter {
 
-    public TrainingDto mappingTrainingToDto(Training training){
+    TrainingDto mappingTrainingToDto(Training training){
         return TrainingDto.builder()
                 .id(training.getId())
                 .dateTimeOfExecution(training.getDateTimeOfExecution())
@@ -21,7 +21,7 @@ public class TrainingConverter {
                 .buildDto();
     }
 
-    public List<TrainingDto> mappingListTrainingToListDto(List<Training> trainings){
+    List<TrainingDto> mappingListTrainingToListDto(List<Training> trainings){
         return trainings.stream()
                 .map(this::mappingTrainingToDto)
                 .collect(Collectors.toList());
