@@ -1,10 +1,10 @@
 package com.CezaryZal.api.note.manager;
 
-import com.CezaryZal.api.note.manager.creator.NoteCreator;
+import com.CezaryZal.api.note.repo.NoteRepository;
 import com.CezaryZal.api.note.model.Header;
 import com.CezaryZal.api.note.model.NoteDto;
-import com.CezaryZal.api.note.manager.mapper.NoteConverter;
-import com.CezaryZal.api.note.manager.repo.NoteRepoService;
+import com.CezaryZal.api.note.model.entity.Note;
+import com.CezaryZal.exceptions.not.found.NoteNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,51 +13,60 @@ import java.util.List;
 @Service
 public class NoteService{
 
-    private final NoteRepoService noteRepoService;
+    private final NoteRepository noteRepository;
     private final NoteConverter noteConverter;
     private final NoteCreator noteCreator;
 
     @Autowired
-    public NoteService(NoteRepoService noteRepoService,
+    public NoteService(NoteRepository noteRepository,
                        NoteConverter noteConverter,
                        NoteCreator noteCreator) {
-        this.noteRepoService = noteRepoService;
+        this.noteRepository = noteRepository;
         this.noteConverter = noteConverter;
         this.noteCreator = noteCreator;
     }
 
     public NoteDto getNoteDtoById(Long id){
-        return noteConverter.mappingNoteToDto(noteRepoService.getNoteById(id));
+        Note note = noteRepository.findById(id)
+                .orElseThrow(() -> new NoteNotFoundException("Details note not found by id"));
+        return noteConverter.mappingNoteToDto(note);
     }
 
     public String getDetailsById(Long id){
-        return noteRepoService.getDetailsNoteById(id);
+        return noteRepository.getDetailsById(id)
+                .orElseThrow(() -> new NoteNotFoundException("Note not found by id"));
     }
 
     public List<Header> getHeadersByDay(Long dayId){
-        return noteRepoService.getListHeaderById(dayId);
+        List<Header> headersById = noteRepository.getHeadersById(dayId);
+        if (headersById.isEmpty()){
+            throw new NoteNotFoundException("Headers note not found by id");
+        }
+        return headersById;
     }
 
     public List<NoteDto> getNotesDtoByDay(Long dayId){
-        return noteConverter.mappingListNoteToListDto(noteRepoService.getNotesByDayId(dayId));
+        List<Note> notes = noteRepository.findAllByDayId(dayId)
+                .orElseThrow(() -> new NoteNotFoundException("Notes not found by id"));
+        return noteConverter.mappingListNoteToListDto(notes);
     }
 
     public List<NoteDto> getAllNote (){
-        return noteConverter.mappingListNoteToListDto(noteRepoService.getAll());
+        return noteConverter.mappingListNoteToListDto(noteRepository.findAll());
     }
 
     public String addNoteByDto (NoteDto noteDto){
-        noteRepoService.addNote(noteCreator.createByDtoAndNoteId(noteDto));
+        noteRepository.save(noteCreator.createByDtoAndNoteId(noteDto));
         return "Przesłana notatka została zapisana w bazie danych";
     }
 
     public String updateNoteByDto (NoteDto noteDto, Long noteId){
-        noteRepoService.updateNote(noteCreator.createToUpdateByDtoAndNoteId(noteDto, noteId));
+        noteRepository.save(noteCreator.createToUpdateByDtoAndNoteId(noteDto, noteId));
         return "Przesłana notatka została uaktualniona";
     }
 
     public String deleteNoteDtoById (Long id){
-        noteRepoService.deleteNoteById(id);
+        noteRepository.deleteById(id);
         return "Notatka o przesłanym id została usunieta";
     }
 }

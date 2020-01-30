@@ -1,4 +1,4 @@
-package com.CezaryZal.api.note.manager.creator;
+package com.CezaryZal.api.note.manager;
 
 import com.CezaryZal.api.note.model.NoteDto;
 import com.CezaryZal.api.note.model.entity.Note;
@@ -7,14 +7,14 @@ import org.springframework.stereotype.Service;
 @Service
 public class NoteCreator {
 
-    public Note createToUpdateByDtoAndNoteId(NoteDto noteDto, Long id){
+    Note createToUpdateByDtoAndNoteId(NoteDto noteDto, Long id){
         Note.Builder builder = mappingDtoToNoteBuilder(noteDto);
         return builder
                 .id(id)
                 .build();
     }
 
-    public Note createByDtoAndNoteId(NoteDto noteDto){
+    Note createByDtoAndNoteId(NoteDto noteDto){
         return mappingDtoToNoteBuilder(noteDto).build();
     }
 

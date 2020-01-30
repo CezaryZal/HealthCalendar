@@ -1,4 +1,4 @@
-package com.CezaryZal.api.note;
+package com.CezaryZal.api.note.repo;
 
 import com.CezaryZal.api.note.model.Header;
 import com.CezaryZal.api.note.model.entity.Note;

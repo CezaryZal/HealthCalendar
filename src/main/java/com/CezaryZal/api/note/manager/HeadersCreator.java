@@ -1,4 +1,4 @@
-package com.CezaryZal.api.note.manager.creator;
+package com.CezaryZal.api.note.manager;
 
 import com.CezaryZal.api.note.model.Header;
 import com.CezaryZal.api.note.model.entity.Note;

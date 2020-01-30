@@ -1,4 +1,4 @@
-package com.CezaryZal.api.note.manager.mapper;
+package com.CezaryZal.api.note.manager;
 
 import com.CezaryZal.api.note.model.entity.Note;
 import com.CezaryZal.api.note.model.NoteDto;
@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 @Service
 public class NoteConverter {
 
-    public NoteDto mappingNoteToDto(Note note) {
+    NoteDto mappingNoteToDto(Note note) {
         return NoteDto.builder()
                 .id(note.getId())
                 .header(note.getHeader())
@@ -19,7 +19,7 @@ public class NoteConverter {
                 .build();
     }
 
-    public List<NoteDto> mappingListNoteToListDto(List<Note> notes) {
+    List<NoteDto> mappingListNoteToListDto(List<Note> notes) {
         return notes.stream()
                 .map(this::mappingNoteToDto)
                 .collect(Collectors.toList());

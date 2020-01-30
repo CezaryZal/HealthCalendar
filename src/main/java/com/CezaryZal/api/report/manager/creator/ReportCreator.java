@@ -4,7 +4,7 @@ import com.CezaryZal.api.body.manager.BodySizeService;
 import com.CezaryZal.api.limits.manager.DailyLimitsService;
 import com.CezaryZal.api.limits.model.LimitsCleanDate;
 import com.CezaryZal.api.meal.model.DailyDiet;
-import com.CezaryZal.api.note.manager.creator.HeadersCreator;
+import com.CezaryZal.api.note.manager.HeadersCreator;
 import com.CezaryZal.api.report.model.FormReport;
 import com.CezaryZal.api.day.model.entity.Day;
 import com.CezaryZal.api.limits.manager.LimitsChecker;
