@@ -1,4 +1,4 @@
-package com.CezaryZal.api.limits.manager.mapper;
+package com.CezaryZal.api.limits.manager;
 
 import com.CezaryZal.api.limits.model.entity.DailyLimits;
 import com.CezaryZal.api.limits.model.DailyLimitsDto;
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class DailyLimitsConverter {
 
-    public DailyLimitsDto mappingDailyLimitsToDto(DailyLimits dailyLimits){
+    DailyLimitsDto mappingDailyLimitsToDto(DailyLimits dailyLimits){
         return new DailyLimitsDto(
                 dailyLimits.getId(),
                 dailyLimits.getKcalDemandPerDay(),

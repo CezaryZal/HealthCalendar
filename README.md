@@ -14,5 +14,3 @@ Backend:
 ## To do
 - get/add certificate
 - add check input value/object
-- add exception when list will be empty
-- check hibernate optimization after connection with frontend app

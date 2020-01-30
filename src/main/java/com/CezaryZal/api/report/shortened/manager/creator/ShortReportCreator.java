@@ -1,8 +1,8 @@
 package com.CezaryZal.api.report.shortened.manager.creator;
 
 import com.CezaryZal.api.day.model.ObjectToSaveDay;
-import com.CezaryZal.api.limits.manager.checker.LimitsChecker;
-import com.CezaryZal.api.limits.manager.repo.DailyLimitsRepoService;
+import com.CezaryZal.api.limits.manager.DailyLimitsService;
+import com.CezaryZal.api.limits.manager.LimitsChecker;
 import com.CezaryZal.api.limits.model.LimitsCleanDate;
 import com.CezaryZal.api.meal.manager.repo.MealRepoService;
 import com.CezaryZal.api.report.shortened.manager.repo.ShortReportRepoService;
@@ -14,17 +14,17 @@ import org.springframework.stereotype.Service;
 public class ShortReportCreator {
 
     private final ShortReportRepoService shortReportRepoService;
-    private final DailyLimitsRepoService dailyLimitsRepoService;
+    private final DailyLimitsService dailyLimitsService;
     private final LimitsChecker limitsChecker;
     private final MealRepoService mealRepoService;
 
     @Autowired
     public ShortReportCreator(ShortReportRepoService shortReportRepoService,
-                              DailyLimitsRepoService dailyLimitsRepoService,
+                              DailyLimitsService dailyLimitsService,
                               LimitsChecker limitsChecker,
                               MealRepoService mealRepoService) {
         this.shortReportRepoService = shortReportRepoService;
-        this.dailyLimitsRepoService = dailyLimitsRepoService;
+        this.dailyLimitsService = dailyLimitsService;
         this.limitsChecker = limitsChecker;
         this.mealRepoService = mealRepoService;
     }
@@ -42,7 +42,7 @@ public class ShortReportCreator {
     public ShortReport createToUpdateRecordByDay(ObjectToSaveDay saveDay, Long dayId)  {
         Long shortReportId = shortReportRepoService.getShortReportIdByDateAndUserId(
                 saveDay.getDate(), saveDay.getUserId());
-        LimitsCleanDate limitsCleanDate = dailyLimitsRepoService.getLimitsCleanDateByUserId(saveDay.getUserId());
+        LimitsCleanDate limitsCleanDate = dailyLimitsService.getLimitsCleanDateByUserId(saveDay.getUserId());
         int sumOfKcal = mealRepoService.getKcalByDayId(dayId);
         return ShortReport.builder()
                 .id(shortReportId)

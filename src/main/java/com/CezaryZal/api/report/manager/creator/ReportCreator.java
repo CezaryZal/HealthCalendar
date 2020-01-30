@@ -1,15 +1,14 @@
 package com.CezaryZal.api.report.manager.creator;
 
-import com.CezaryZal.api.body.manager.BodySizeRepoService;
 import com.CezaryZal.api.body.manager.BodySizeService;
-import com.CezaryZal.api.limits.manager.repo.DailyLimitsRepoService;
+import com.CezaryZal.api.limits.manager.DailyLimitsService;
 import com.CezaryZal.api.limits.model.LimitsCleanDate;
 import com.CezaryZal.api.meal.manager.repo.MealRepoService;
 import com.CezaryZal.api.meal.model.DailyDiet;
 import com.CezaryZal.api.note.manager.creator.HeadersCreator;
 import com.CezaryZal.api.report.model.FormReport;
 import com.CezaryZal.api.day.model.entity.Day;
-import com.CezaryZal.api.limits.manager.checker.LimitsChecker;
+import com.CezaryZal.api.limits.manager.LimitsChecker;
 import com.CezaryZal.api.meal.manager.MealService;
 import com.CezaryZal.api.report.shortened.manager.ShortReportService;
 import com.CezaryZal.api.training.manager.TrainingService;
@@ -26,7 +25,7 @@ public class ReportCreator {
     private final TrainingService trainingService;
     private final HeadersCreator headersCreator;
     private final ShortReportService shortReportService;
-    private final DailyLimitsRepoService dailyLimitsRepoService;
+    private final DailyLimitsService dailyLimitsService;
     private final UserRepoService userRepoService;
     private final MealRepoService mealRepoService;
 
@@ -37,7 +36,7 @@ public class ReportCreator {
                          TrainingService trainingService,
                          HeadersCreator headersCreator,
                          ShortReportService shortReportService,
-                         DailyLimitsRepoService dailyLimitsRepoService,
+                         DailyLimitsService dailyLimitsService,
                          UserRepoService userRepoService,
                          MealRepoService mealRepoService) {
         this.limitsChecker = limitsChecker;
@@ -46,7 +45,7 @@ public class ReportCreator {
         this.trainingService = trainingService;
         this.headersCreator = headersCreator;
         this.shortReportService = shortReportService;
-        this.dailyLimitsRepoService = dailyLimitsRepoService;
+        this.dailyLimitsService = dailyLimitsService;
         this.userRepoService = userRepoService;
         this.mealRepoService = mealRepoService;
     }
@@ -57,7 +56,7 @@ public class ReportCreator {
                 .map(String::valueOf)
                 .orElse("Nie wykonano żadnego pomiaru ciała");
 
-        LimitsCleanDate limitsCleanDate = dailyLimitsRepoService.getLimitsCleanDateByUserId(userId);
+        LimitsCleanDate limitsCleanDate = dailyLimitsService.getLimitsCleanDateByUserId(userId);
         String nickByUserId = userRepoService.getNickByUserId(userId);
         boolean isAchievedDrink = limitsChecker.checkIsAchievedDrink(
                 limitsCleanDate.getDrinkDemandPerDay(), day.getPortionsDrink());

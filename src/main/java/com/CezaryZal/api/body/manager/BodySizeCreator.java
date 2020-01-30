@@ -7,14 +7,14 @@ import org.springframework.stereotype.Service;
 @Service
 public class BodySizeCreator {
 
-    protected BodySize createToUpdateByDtoAndBodyId(BodySizeDto bodySizeDto, Long id){
+    BodySize createBodySizeToUpdateByDtoAndBodyId(BodySizeDto bodySizeDto, Long id){
         BodySize.Builder builder = mappingDtoToBodySizeBuilder(bodySizeDto);
         return builder
                 .id(id)
                 .build();
     }
 
-    protected BodySize createByDtoAndBodyId(BodySizeDto bodySizeDto){
+    BodySize createBodySizeByDtoAndBodyId(BodySizeDto bodySizeDto){
         return mappingDtoToBodySizeBuilder(bodySizeDto).build();
     }
 

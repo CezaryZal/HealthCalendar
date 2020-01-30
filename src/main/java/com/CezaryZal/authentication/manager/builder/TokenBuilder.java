@@ -1,6 +1,6 @@
 package com.CezaryZal.authentication.manager.builder;
 
-import com.CezaryZal.authentication.constants.AuthenticationConstants;
+import com.CezaryZal.constants.AuthenticationConstants;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.stereotype.Service;

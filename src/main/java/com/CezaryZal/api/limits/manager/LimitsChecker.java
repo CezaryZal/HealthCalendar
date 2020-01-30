@@ -1,4 +1,4 @@
-package com.CezaryZal.api.limits.manager.checker;
+package com.CezaryZal.api.limits.manager;
 
 import org.springframework.stereotype.Service;
 

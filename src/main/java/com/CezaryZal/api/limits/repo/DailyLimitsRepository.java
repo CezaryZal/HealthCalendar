@@ -1,4 +1,4 @@
-package com.CezaryZal.api.limits;
+package com.CezaryZal.api.limits.repo;
 
 import com.CezaryZal.api.limits.model.LimitsCleanDate;
 import com.CezaryZal.api.limits.model.entity.DailyLimits;

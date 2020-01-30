@@ -1,4 +1,4 @@
-package com.CezaryZal.authentication.constants;
+package com.CezaryZal.constants;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;

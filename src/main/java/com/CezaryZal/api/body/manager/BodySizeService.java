@@ -68,12 +68,12 @@ public class BodySizeService {
     }
 
     public String addBodySizeByDto(BodySizeDto bodySizeDto) {
-        bodySizeRepository.save(bodySizeCreator.createByDtoAndBodyId(bodySizeDto));
+        bodySizeRepository.save(bodySizeCreator.createBodySizeByDtoAndBodyId(bodySizeDto));
         return "Przesłany pomiar ciała został zapisany w bazie danych";
     }
 
     public String updateBodySizeByDto(BodySizeDto bodySizeDto, Long id){
-        bodySizeRepository.save(bodySizeCreator.createToUpdateByDtoAndBodyId(bodySizeDto, id));
+        bodySizeRepository.save(bodySizeCreator.createBodySizeToUpdateByDtoAndBodyId(bodySizeDto, id));
         return "Przesłany pomiar został uaktualniony";
     }
 
