@@ -1,4 +1,4 @@
-package com.CezaryZal.api.meal;
+package com.CezaryZal.api.meal.repo;
 
 import com.CezaryZal.api.meal.model.entity.Meal;
 import org.springframework.data.jpa.repository.JpaRepository;

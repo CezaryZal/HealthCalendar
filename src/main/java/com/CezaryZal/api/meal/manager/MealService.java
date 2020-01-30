@@ -1,12 +1,10 @@
 package com.CezaryZal.api.meal.manager;
 
-import com.CezaryZal.api.meal.manager.creator.MealCreator;
 import com.CezaryZal.api.meal.model.DailyDiet;
 import com.CezaryZal.api.meal.model.entity.Meal;
 import com.CezaryZal.api.meal.model.MealDto;
-import com.CezaryZal.api.meal.manager.creator.DailyDietCreator;
-import com.CezaryZal.api.meal.manager.mapper.MealConverter;
-import com.CezaryZal.api.meal.manager.repo.MealRepoService;
+import com.CezaryZal.api.meal.repo.MealRepository;
+import com.CezaryZal.exceptions.not.found.MealNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,28 +13,32 @@ import java.util.List;
 @Service
 public class MealService {
 
-    private final MealRepoService mealRepoService;
     private final MealConverter mealConverter;
     private final DailyDietCreator dailyDietCreator;
     private final MealCreator mealCreator;
+    private final MealRepository mealRepository;
 
     @Autowired
-    public MealService(MealRepoService mealRepoService,
-                       MealConverter mealConverter,
+    public MealService(MealConverter mealConverter,
                        DailyDietCreator dailyDietCreator,
-                       MealCreator mealCreator) {
-        this.mealRepoService = mealRepoService;
+                       MealCreator mealCreator,
+                       MealRepository mealRepository) {
         this.mealConverter = mealConverter;
         this.dailyDietCreator = dailyDietCreator;
         this.mealCreator = mealCreator;
+        this.mealRepository = mealRepository;
     }
 
     public MealDto getMealDtoById(Long id) {
-        return mealConverter.mappingMealToDto(mealRepoService.findMealById(id));
+        Meal meal = mealRepository.findById(id)
+                .orElseThrow(() -> new MealNotFoundException("Meal not found by id"));
+        return mealConverter.mappingMealToDto(meal);
     }
 
     public DailyDiet getDailyDietByDayId(Long dayId) {
-        return getDailyDietByListMeal(mealRepoService.getListMealByDayId(dayId));
+        List<Meal> meals = mealRepository.findAllByDayId(dayId)
+                .orElseThrow(() -> new MealNotFoundException("Meals not found by day id"));
+        return getDailyDietByListMeal(meals);
     }
 
     public DailyDiet getDailyDietByListMeal(List<Meal> meals){
@@ -45,22 +47,27 @@ public class MealService {
     }
 
     public List<MealDto> getListMealDto() {
-        return mealConverter.mappingListMealToListDto(mealRepoService.getAll());
+        return mealConverter.mappingListMealToListDto(mealRepository.findAll());
     }
 
     public String addMealByDto(MealDto mealDto) {
-        mealRepoService.addMeal(mealCreator.createByDtoAndMealId(mealDto));
+        mealRepository.save(mealCreator.createByDtoAndMealId(mealDto));
         return "Przesłany posiłek został zapisany w bazie danych";
     }
 
     public String updateMealByDto(MealDto mealDto, Long mealId) {
-        mealRepoService.updateMeal(mealCreator.createToUpdateByDtoAndMealId(mealDto, mealId));
+        mealRepository.save(mealCreator.createToUpdateByDtoAndMealId(mealDto, mealId));
         return "Przesłane posiłek zostały uaktualnione";
     }
 
     public String deleteById(Long id) {
-        mealRepoService.deleteMealById(id);
+        mealRepository.deleteById(id);
         return "Posiłek o przesłanym id został usuniety";
+    }
+
+    public Integer getKcalByDayId(Long dayId) {
+        return mealRepository.getKcal(dayId)
+                .orElse(0);
     }
 
 }

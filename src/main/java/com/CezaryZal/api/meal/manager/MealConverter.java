@@ -1,4 +1,4 @@
-package com.CezaryZal.api.meal.manager.mapper;
+package com.CezaryZal.api.meal.manager;
 
 import com.CezaryZal.api.meal.model.entity.Meal;
 import com.CezaryZal.api.meal.model.MealDto;
@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 @Service
 public class MealConverter {
 
-    public MealDto mappingMealToDto(Meal meal){
+    MealDto mappingMealToDto(Meal meal){
         return MealDto.builder()
                 .id(meal.getId())
                 .dateTimeOfEat(meal.getDateTimeOfEat())
@@ -21,7 +21,7 @@ public class MealConverter {
                 .build();
     }
 
-    public List<MealDto> mappingListMealToListDto(List<Meal> meals){
+    List<MealDto> mappingListMealToListDto(List<Meal> meals){
         return meals.stream()
                 .map(this::mappingMealToDto)
                 .collect(Collectors.toList());

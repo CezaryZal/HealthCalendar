@@ -4,7 +4,7 @@ import com.CezaryZal.api.day.model.ObjectToSaveDay;
 import com.CezaryZal.api.limits.manager.DailyLimitsService;
 import com.CezaryZal.api.limits.manager.LimitsChecker;
 import com.CezaryZal.api.limits.model.LimitsCleanDate;
-import com.CezaryZal.api.meal.manager.repo.MealRepoService;
+import com.CezaryZal.api.meal.manager.MealService;
 import com.CezaryZal.api.report.shortened.manager.repo.ShortReportRepoService;
 import com.CezaryZal.api.report.shortened.model.entity.ShortReport;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,17 +16,17 @@ public class ShortReportCreator {
     private final ShortReportRepoService shortReportRepoService;
     private final DailyLimitsService dailyLimitsService;
     private final LimitsChecker limitsChecker;
-    private final MealRepoService mealRepoService;
+    private final MealService mealService;
 
     @Autowired
     public ShortReportCreator(ShortReportRepoService shortReportRepoService,
                               DailyLimitsService dailyLimitsService,
                               LimitsChecker limitsChecker,
-                              MealRepoService mealRepoService) {
+                              MealService mealService) {
         this.shortReportRepoService = shortReportRepoService;
         this.dailyLimitsService = dailyLimitsService;
         this.limitsChecker = limitsChecker;
-        this.mealRepoService = mealRepoService;
+        this.mealService = mealService;
     }
 
     public ShortReport createNewShortReport(ObjectToSaveDay saveDay)  {
@@ -43,7 +43,7 @@ public class ShortReportCreator {
         Long shortReportId = shortReportRepoService.getShortReportIdByDateAndUserId(
                 saveDay.getDate(), saveDay.getUserId());
         LimitsCleanDate limitsCleanDate = dailyLimitsService.getLimitsCleanDateByUserId(saveDay.getUserId());
-        int sumOfKcal = mealRepoService.getKcalByDayId(dayId);
+        int sumOfKcal = mealService.getKcalByDayId(dayId);
         return ShortReport.builder()
                 .id(shortReportId)
                 .date(saveDay.getDate())

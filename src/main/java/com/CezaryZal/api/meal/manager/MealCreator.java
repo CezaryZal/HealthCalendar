@@ -1,4 +1,4 @@
-package com.CezaryZal.api.meal.manager.creator;
+package com.CezaryZal.api.meal.manager;
 
 import com.CezaryZal.api.meal.model.MealDto;
 import com.CezaryZal.api.meal.model.entity.Meal;
@@ -7,14 +7,14 @@ import org.springframework.stereotype.Service;
 @Service
 public class MealCreator {
 
-    public Meal createToUpdateByDtoAndMealId(MealDto mealDto, Long mealId){
+    Meal createToUpdateByDtoAndMealId(MealDto mealDto, Long mealId){
         Meal.Builder builder = mappingDtoToMealBuilder(mealDto);
         return builder
                 .id(mealId)
                 .build();
     }
 
-    public Meal createByDtoAndMealId(MealDto mealDto){
+    Meal createByDtoAndMealId(MealDto mealDto){
         return mappingDtoToMealBuilder(mealDto).build();
     }
 

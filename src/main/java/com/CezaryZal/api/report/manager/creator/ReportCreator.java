@@ -3,7 +3,6 @@ package com.CezaryZal.api.report.manager.creator;
 import com.CezaryZal.api.body.manager.BodySizeService;
 import com.CezaryZal.api.limits.manager.DailyLimitsService;
 import com.CezaryZal.api.limits.model.LimitsCleanDate;
-import com.CezaryZal.api.meal.manager.repo.MealRepoService;
 import com.CezaryZal.api.meal.model.DailyDiet;
 import com.CezaryZal.api.note.manager.creator.HeadersCreator;
 import com.CezaryZal.api.report.model.FormReport;
@@ -27,7 +26,6 @@ public class ReportCreator {
     private final ShortReportService shortReportService;
     private final DailyLimitsService dailyLimitsService;
     private final UserRepoService userRepoService;
-    private final MealRepoService mealRepoService;
 
     @Autowired
     public ReportCreator(LimitsChecker limitsChecker,
@@ -37,8 +35,7 @@ public class ReportCreator {
                          HeadersCreator headersCreator,
                          ShortReportService shortReportService,
                          DailyLimitsService dailyLimitsService,
-                         UserRepoService userRepoService,
-                         MealRepoService mealRepoService) {
+                         UserRepoService userRepoService) {
         this.limitsChecker = limitsChecker;
         this.mealService = mealService;
         this.bodySizeService = bodySizeService;
@@ -47,7 +44,6 @@ public class ReportCreator {
         this.shortReportService = shortReportService;
         this.dailyLimitsService = dailyLimitsService;
         this.userRepoService = userRepoService;
-        this.mealRepoService = mealRepoService;
     }
 
     //Zoptymalizować przez pobieranie lilitu bezpośrednio a nie całego użytkownika
@@ -81,7 +77,7 @@ public class ReportCreator {
                     .listShortsDayDto(shortReportService.getShortReportsByDateAndUserId(day.getDate(), userId))
                     .buildLongReport();
         }
-        int sumOfKcal = mealRepoService.getKcalByDayId(day.getId());
+        int sumOfKcal = mealService.getKcalByDayId(day.getId());
         boolean isAchievedKcal = limitsChecker.checkIsAchievedKcal(
                 limitsCleanDate.getKcalDemandPerDay(), sumOfKcal);
         return FormReport.builder()

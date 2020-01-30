@@ -1,4 +1,4 @@
-package com.CezaryZal.api.meal.manager.creator;
+package com.CezaryZal.api.meal.manager;
 
 import com.CezaryZal.api.meal.model.DailyDiet;
 import com.CezaryZal.api.meal.model.MealDto;
@@ -9,7 +9,7 @@ import java.util.List;
 @Service
 public class DailyDietCreator {
 
-    public DailyDiet createDailyDiet(List<MealDto> listMealsDto) {
+    DailyDiet createDailyDiet(List<MealDto> listMealsDto) {
         int sumOfKcal = listMealsDto.stream()
                 .mapToInt(MealDto::getKcal)
                 .sum();
