@@ -1,4 +1,4 @@
-package com.CezaryZal.api.report.shortened;
+package com.CezaryZal.api.report.shortened.repo;
 
 import com.CezaryZal.api.report.shortened.model.entity.ShortReport;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -1,4 +1,4 @@
-package com.CezaryZal.api.report.shortened.manager.mapper;
+package com.CezaryZal.api.report.shortened.manager;
 
 import com.CezaryZal.api.report.shortened.model.ShortReportDto;
 import com.CezaryZal.api.report.shortened.model.entity.ShortReport;
@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 @Service
 public class ShortReportConverter {
 
-    public ShortReportDto mappingShortReportToDto(ShortReport shortReport){
+    ShortReportDto mappingShortReportToDto(ShortReport shortReport){
         return ShortReportDto.builder()
                 .id(shortReport.getId())
                 .date(shortReport.getDate())
@@ -21,7 +21,7 @@ public class ShortReportConverter {
                 .build();
     }
 
-    public List<ShortReportDto> mappingListShortReportToDto(List<ShortReport> shortReportsDto){
+    List<ShortReportDto> mappingListShortReportToDto(List<ShortReport> shortReportsDto){
         return shortReportsDto.stream()
                 .map(this::mappingShortReportToDto)
                 .collect(Collectors.toList());

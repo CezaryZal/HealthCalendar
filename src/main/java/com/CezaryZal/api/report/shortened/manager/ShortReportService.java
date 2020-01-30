@@ -1,11 +1,10 @@
 package com.CezaryZal.api.report.shortened.manager;
 
 import com.CezaryZal.api.day.model.ObjectToSaveDay;
-import com.CezaryZal.api.report.shortened.manager.creator.ShortReportCreator;
-import com.CezaryZal.api.report.shortened.manager.mapper.ShortReportConverter;
-import com.CezaryZal.api.report.shortened.manager.repo.ShortReportRepoService;
+import com.CezaryZal.api.report.shortened.repo.ShortReportRepository;
 import com.CezaryZal.api.report.shortened.model.entity.ShortReport;
 import com.CezaryZal.api.report.shortened.model.ShortReportDto;
+import com.CezaryZal.exceptions.not.found.ShortReportNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,26 +14,29 @@ import java.util.List;
 @Service
 public class ShortReportService {
 
-    private final ShortReportRepoService shortReportRepoService;
+    private final ShortReportRepository shortReportRepository;
     private final ShortReportConverter shortReportConverter;
     private final ShortReportCreator shortReportCreator;
 
     @Autowired
-    public ShortReportService(ShortReportRepoService shortReportRepoService,
+    public ShortReportService(ShortReportRepository shortReportRepository,
                               ShortReportConverter shortReportConverter,
                               ShortReportCreator shortReportCreator) {
-        this.shortReportRepoService = shortReportRepoService;
+        this.shortReportRepository = shortReportRepository;
         this.shortReportConverter = shortReportConverter;
         this.shortReportCreator = shortReportCreator;
     }
 
     public ShortReportDto getShortReportDtoById(Long id) {
-        return shortReportConverter.mappingShortReportToDto(shortReportRepoService.getShortReportById(id));
+        ShortReport shortReport = shortReportRepository.findById(id)
+                .orElseThrow(() -> new ShortReportNotFoundException("Short report not found by id"));
+        return shortReportConverter.mappingShortReportToDto(shortReport);
     }
 
     public ShortReportDto getShortReportDtoByDateAndUserId(LocalDate localDate, Long userId) {
-        return shortReportConverter.mappingShortReportToDto(
-                shortReportRepoService.getShortReportByDateAndUserId(localDate, userId));
+        ShortReport shortReport = shortReportRepository.findShortReportByDateAndUserId(localDate, userId)
+                .orElseThrow(() -> new ShortReportNotFoundException("Short report not found by date and user id"));
+        return shortReportConverter.mappingShortReportToDto(shortReport);
     }
 
     public List<ShortReportDto> getShortReportsByInputDateAndUserId(String inputDate, Long userId) {
@@ -42,20 +44,26 @@ public class ShortReportService {
     }
 
     public ShortReport createShortReport(ObjectToSaveDay saveDay, Long dayId, boolean isNewObject){
+        Long shortReportId = getShortReportIdByDateAndUserId(saveDay.getDate(), saveDay.getUserId());
         return isNewObject? shortReportCreator.createNewShortReport(saveDay) :
-                shortReportCreator.createToUpdateRecordByDay(saveDay, dayId);
+                shortReportCreator.createToUpdateRecordByDay(saveDay, dayId, shortReportId);
     }
 
     public List<ShortReportDto> getShortReportsByDateAndUserId(LocalDate inputLocalDate, Long userId) {
         LocalDate localDateMin = inputLocalDate.minusDays(30);
         LocalDate localDateMax = inputLocalDate.plusDays(30);
-        List<ShortReport> shortReportsByDateAndUserId =
-                shortReportRepoService.getShortsReportByMaxMinDateAndUserId(localDateMin, localDateMax, userId);
-        return shortReportConverter.mappingListShortReportToDto(shortReportsByDateAndUserId);
+        List<ShortReport> listShortReport =
+                shortReportRepository.findShortDayByUserIdAndMonthForwardAndBackward(userId, localDateMin, localDateMax);
+        return shortReportConverter.mappingListShortReportToDto(listShortReport);
     }
 
     public List<ShortReportDto> getShorts() {
-        return shortReportConverter.mappingListShortReportToDto(shortReportRepoService.getAll());
+        return shortReportConverter.mappingListShortReportToDto(shortReportRepository.findAll());
+    }
+
+    private Long getShortReportIdByDateAndUserId(LocalDate localDate, Long userId){
+        return shortReportRepository.getIdByDateAndUserId(localDate, userId)
+                .orElseThrow(() -> new ShortReportNotFoundException("Short report not found by date and user id"));
     }
 
 }
