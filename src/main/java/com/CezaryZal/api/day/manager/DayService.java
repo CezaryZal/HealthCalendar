@@ -2,64 +2,79 @@ package com.CezaryZal.api.day.manager;
 
 import com.CezaryZal.api.day.model.ObjectToSaveDay;
 import com.CezaryZal.api.day.model.DayDto;
-import com.CezaryZal.api.day.manager.creator.DayCreator;
-import com.CezaryZal.api.day.manager.mapper.*;
-import com.CezaryZal.api.day.manager.repo.DayRepoService;
+import com.CezaryZal.api.day.model.entity.Day;
+import com.CezaryZal.api.day.repo.DayRepository;
 import com.CezaryZal.api.report.shortened.manager.ShortReportService;
 import com.CezaryZal.api.report.shortened.model.entity.ShortReport;
+import com.CezaryZal.exceptions.not.found.DayNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 public class DayService {
 
-    private final DayRepoService dayRepoService;
+    private final DayRepository dayRepository;
     private final DayConverter dayConverter;
     private final ShortReportService shortReportService;
     private final DayCreator dayCreator;
 
     @Autowired
-    public DayService(DayRepoService dayRepoService,
+    public DayService(DayRepository dayRepository,
                       DayConverter dayConverter,
                       ShortReportService shortReportService,
                       DayCreator dayCreator) {
-        this.dayRepoService = dayRepoService;
+        this.dayRepository = dayRepository;
         this.dayConverter = dayConverter;
         this.shortReportService = shortReportService;
         this.dayCreator = dayCreator;
     }
 
     public DayDto getDayDtoById(Long id) {
-        return dayConverter.mappingDayToDto(dayRepoService.getDayById(id));
+        Day day = dayRepository.findById(id)
+                .orElseThrow(() -> new DayNotFoundException("Day not found by id"));
+        return dayConverter.mappingDayToDto(day);
     }
 
     public DayDto getDayDtoByDateAndUserId(String inputDate, Long userId) {
-        return dayConverter.mappingDayToDto(dayRepoService.getDayByDateAndUserId(inputDate, userId));
+        return dayConverter.mappingDayToDto(getDayByDateAndUserId(inputDate, userId));
     }
 
     public List<DayDto> getDaysDto(){
-        return dayRepoService.getAll().stream()
+        return dayRepository.findAll()
+                .stream()
                 .map(dayConverter::mappingDayToDto)
                 .collect(Collectors.toList());
     }
 
     public String addNewDay(ObjectToSaveDay day){
         ShortReport newShortReport = shortReportService.createShortReport(day, null, true);
-        dayRepoService.addDay(dayCreator.createByDayApi(day, newShortReport));
+        dayRepository.save(dayCreator.createDayByDayApi(day, newShortReport));
         return "Dzień z aktualną datą został dodany do bazy danych";
     }
 
     public String update(ObjectToSaveDay day, Long dayId) {
         ShortReport updatedShortReport = shortReportService.createShortReport(day, dayId, false);
-        dayRepoService.updateDay(dayCreator.createToUpdateByDayApiAndShortDay(day, updatedShortReport, dayId));
+        dayRepository.save(dayCreator.createDayToUpdateByDayApiAndShortDay(day, updatedShortReport, dayId));
         return "Wskazany dzień został aktualizowany wraz ze skrótem";
     }
 
     public String deleteDay(Long id) {
-        dayRepoService.deleteDayById(id);
+        dayRepository.deleteById(id);
         return "Dzień o podanym id został usunięty wraz ze skrótem dnia";
     }
+
+    public Long getDayIdByDateAndUserId(String inputDate, Long userId) {
+        return dayRepository.getDayIdByDateAndUserId(LocalDate.parse(inputDate), userId)
+                .orElseThrow(() -> new DayNotFoundException("Id day not found by date and user id"));
+    }
+
+    public Day getDayByDateAndUserId(String inputDate, Long userId) {
+        return dayRepository.findDayByDateAndUserId(LocalDate.parse(inputDate), userId)
+                .orElseThrow(() -> new DayNotFoundException("Day not found by date and user id"));
+    }
+
 }

@@ -1,4 +1,4 @@
-package com.CezaryZal.api.day;
+package com.CezaryZal.api.day.repo;
 
 import com.CezaryZal.api.day.model.entity.Day;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -16,8 +16,5 @@ public interface DayRepository extends JpaRepository<Day, Long> {
     Optional<Long> getDayIdByDateAndUserId(@Param("inputDate") LocalDate localDate, @Param("userId") Long userId);
 
     Optional<Day> findDayByDateAndUserId(LocalDate localDate, Long userId);
-
-//Join fetch w query HQL pozwala zaciągnięcie wszystkich danych przy jednym zapytaniu, ale join musi istnieć(być powiązanie)
-//        Query query = entityManager.createQuery("SELECT DISTINCT d FROM Day d JOIN fetch d.listNotesDB ", Day.class);
 
 }

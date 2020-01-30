@@ -1,4 +1,4 @@
-package com.CezaryZal.api.day.manager.mapper;
+package com.CezaryZal.api.day.manager;
 
 import com.CezaryZal.api.day.model.DayDto;
 import com.CezaryZal.api.day.model.ObjectToSaveDay;
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class DayConverter {
 
-    public DayDto mappingDayToDto(Day day){
+    DayDto mappingDayToDto(Day day){
         return DayDto.builder()
                 .id(day.getId())
                 .date(day.getDate())

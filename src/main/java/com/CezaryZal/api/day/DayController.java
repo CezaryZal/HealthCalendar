@@ -1,8 +1,6 @@
 package com.CezaryZal.api.day;
 
-import com.CezaryZal.api.day.manager.repo.DayRepoService;
 import com.CezaryZal.api.day.model.ObjectToSaveDay;
-import com.CezaryZal.api.report.manager.ReportService;
 import com.CezaryZal.api.day.manager.DayService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -18,12 +16,10 @@ import org.springframework.web.bind.annotation.*;
 public class DayController {
 
     private final DayService dayService;
-    private final DayRepoService dayRepoService;
 
     @Autowired
-    public DayController(DayService dayService, DayRepoService dayRepoService) {
+    public DayController(DayService dayService) {
         this.dayService = dayService;
-        this.dayRepoService = dayRepoService;
     }
 
     @ApiOperation(value = "This will get a day id by date and user id")
@@ -31,7 +27,7 @@ public class DayController {
     public ResponseEntity<Long> getDayIdByDateAndUserId(
             @PathVariable String date,
             @PathVariable Long userId) {
-        return new ResponseEntity<>(dayRepoService.getDayIdByDateAndUserId(date, userId), HttpStatus.OK);
+        return new ResponseEntity<>(dayService.getDayIdByDateAndUserId(date, userId), HttpStatus.OK);
     }
 
     @PostMapping

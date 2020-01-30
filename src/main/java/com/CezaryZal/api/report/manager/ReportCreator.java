@@ -1,4 +1,4 @@
-package com.CezaryZal.api.report.manager.creator;
+package com.CezaryZal.api.report.manager;
 
 import com.CezaryZal.api.body.manager.BodySizeService;
 import com.CezaryZal.api.limits.manager.DailyLimitsService;
@@ -46,8 +46,7 @@ public class ReportCreator {
         this.userRepoService = userRepoService;
     }
 
-    //Zoptymalizować przez pobieranie lilitu bezpośrednio a nie całego użytkownika
-    public FormReport createByDayAndUser (Day day, Long userId, boolean isLongReport){
+    FormReport createFormReportByDayAndUser(Day day, Long userId, boolean isLongReport){
         String dateLastMeasureBody = bodySizeService.getDateLastMeasureByUserId(userId)
                 .map(String::valueOf)
                 .orElse("Nie wykonano żadnego pomiaru ciała");

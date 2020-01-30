@@ -1,4 +1,4 @@
-package com.CezaryZal.api.day.manager.creator;
+package com.CezaryZal.api.day.manager;
 
 import com.CezaryZal.api.day.model.ObjectToSaveDay;
 import com.CezaryZal.api.day.model.entity.Day;
@@ -8,13 +8,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class DayCreator {
 
-    public Day createToUpdateByDayApiAndShortDay(ObjectToSaveDay day, ShortReport shortReport, Long dayId){
+    Day createDayToUpdateByDayApiAndShortDay(ObjectToSaveDay day, ShortReport shortReport, Long dayId){
         return mappingDtoToDayBuilder(day, shortReport)
                 .id(dayId)
                 .build();
     }
 
-    public Day createByDayApi(ObjectToSaveDay day, ShortReport shortReport){
+    Day createDayByDayApi(ObjectToSaveDay day, ShortReport shortReport){
         return mappingDtoToDayBuilder(day, shortReport).build();
     }
 
