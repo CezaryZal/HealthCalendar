@@ -7,7 +7,6 @@ import com.CezaryZal.api.user.model.AccountEntity;
 import com.CezaryZal.api.user.model.entity.User;
 import com.CezaryZal.api.user.manager.creator.UserCreator;
 import com.CezaryZal.api.user.manager.repo.UserRepoService;
-import com.CezaryZal.authentication.manager.repo.UserAuthRepoService;
 import com.CezaryZal.authentication.model.entity.UserAuthentication;
 import com.CezaryZal.authentication.manager.UserAuthService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +19,6 @@ public class UpdateUser {
     private final UserAuthService userAuthService;
     private final DailyLimitsConverter dailyLimitsConverter;
     private final UserCreator userCreator;
-    private final UserAuthRepoService userAuthRepoService;
     private final DailyLimitsService dailyLimitsService;
 
     @Autowired
@@ -28,13 +26,11 @@ public class UpdateUser {
                       UserAuthService userAuthService,
                       DailyLimitsConverter dailyLimitsConverter,
                       UserCreator userCreator,
-                      UserAuthRepoService userAuthRepoService,
                       DailyLimitsService dailyLimitsService) {
         this.userRepoService = userRepoService;
         this.userAuthService = userAuthService;
         this.dailyLimitsConverter = dailyLimitsConverter;
         this.userCreator = userCreator;
-        this.userAuthRepoService = userAuthRepoService;
         this.dailyLimitsService = dailyLimitsService;
     }
 
@@ -56,7 +52,7 @@ public class UpdateUser {
     }
 
     private UserAuthentication handleUserAuthToUpdate(AccountEntity accountEntity, Long userId){
-        Long userAuthId = userAuthRepoService.getUserAuth(userId);
+        Long userAuthId = userAuthService.getUserAuthId(userId);
         UserAuthentication userAuthentication = userAuthService.preparingEntityForSave(accountEntity);
         userAuthentication.setId(userAuthId);
         return userAuthentication;

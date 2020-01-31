@@ -1,4 +1,4 @@
-package com.CezaryZal.authentication;
+package com.CezaryZal.authentication.repo;
 
 import com.CezaryZal.authentication.model.entity.UserAuthentication;
 import org.springframework.data.jpa.repository.JpaRepository;

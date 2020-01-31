@@ -2,8 +2,8 @@ package com.CezaryZal.authentication.manager;
 
 import com.CezaryZal.api.user.model.AccountEntity;
 import com.CezaryZal.authentication.model.entity.UserAuthentication;
-import com.CezaryZal.authentication.manager.mapper.UserAuthenticationConverter;
-import com.CezaryZal.authentication.manager.repo.UserAuthRepoService;
+import com.CezaryZal.authentication.repo.UserAuthRepository;
+import com.CezaryZal.exceptions.not.found.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -13,15 +13,15 @@ import java.util.List;
 @Service
 public class UserAuthService {
 
-    private final UserAuthRepoService userAuthRepoService;
+    private final UserAuthRepository userAuthRepository;
     private final UserAuthenticationConverter userAuthenticationConverter;
     private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserAuthService(UserAuthRepoService userAuthRepoService,
+    public UserAuthService(UserAuthRepository userAuthRepository,
                            UserAuthenticationConverter userAuthenticationConverter,
                            PasswordEncoder passwordEncoder) {
-        this.userAuthRepoService = userAuthRepoService;
+        this.userAuthRepository = userAuthRepository;
         this.userAuthenticationConverter = userAuthenticationConverter;
         this.passwordEncoder = passwordEncoder;
     }
@@ -33,6 +33,11 @@ public class UserAuthService {
     }
 
     public List<UserAuthentication> getUsersAuth(){
-        return userAuthRepoService.getListUserAuth();
+        return userAuthRepository.findAll();
+    }
+
+    public Long getUserAuthId(Long userId){
+        return userAuthRepository.getUserAuthIdByUserId(userId)
+                .orElseThrow(() -> new UserNotFoundException("Użytkownik o wpisanym id nie istnieje"));
     }
 }

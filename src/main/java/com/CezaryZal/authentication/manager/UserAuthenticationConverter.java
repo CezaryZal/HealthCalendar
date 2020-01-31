@@ -1,4 +1,4 @@
-package com.CezaryZal.authentication.manager.mapper;
+package com.CezaryZal.authentication.manager;
 
 import com.CezaryZal.api.user.model.AccountEntity;
 import com.CezaryZal.authentication.model.entity.UserAuthentication;
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserAuthenticationConverter {
 
-    public UserAuthentication mappingAccountEntityToUserAuth(AccountEntity accountEntity){
+    UserAuthentication mappingAccountEntityToUserAuth(AccountEntity accountEntity){
         return UserAuthentication.builder()
                 .password(accountEntity.getPassword())
                 .active(true)

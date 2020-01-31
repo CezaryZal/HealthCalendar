@@ -3,7 +3,6 @@ package com.CezaryZal.authentication.manager;
 import com.CezaryZal.api.user.manager.repo.UserRepoService;
 import com.CezaryZal.authentication.model.AuthenticationResponse;
 import com.CezaryZal.authentication.model.ObjectToAuthResponse;
-import com.CezaryZal.authentication.manager.builder.TokenBuilder;
 import com.CezaryZal.authentication.model.AuthenticationRequest;
 import com.CezaryZal.authentication.manager.filter.PasswordComparator;
 import org.springframework.beans.factory.annotation.Autowired;

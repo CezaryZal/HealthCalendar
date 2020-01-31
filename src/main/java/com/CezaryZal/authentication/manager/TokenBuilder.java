@@ -1,4 +1,4 @@
-package com.CezaryZal.authentication.manager.builder;
+package com.CezaryZal.authentication.manager;
 
 import com.CezaryZal.constants.AuthenticationConstants;
 import io.jsonwebtoken.Jwts;
@@ -10,7 +10,7 @@ import java.util.Date;
 @Service
 public class TokenBuilder {
 
-    public String buildTokenByUser(String loginName, String roles){
+    String buildTokenByUser(String loginName, String roles){
         String secret = AuthenticationConstants.SECRET_KEY;
 
         return Jwts
