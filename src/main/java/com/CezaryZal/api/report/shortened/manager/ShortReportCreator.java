@@ -2,7 +2,7 @@ package com.CezaryZal.api.report.shortened.manager;
 
 import com.CezaryZal.api.day.model.ObjectToSaveDay;
 import com.CezaryZal.api.limits.manager.DailyLimitsService;
-import com.CezaryZal.api.limits.manager.LimitsChecker;
+import com.CezaryZal.api.limits.manager.DailyLimitsChecker;
 import com.CezaryZal.api.limits.model.LimitsCleanDate;
 import com.CezaryZal.api.meal.manager.MealService;
 import com.CezaryZal.api.report.shortened.model.entity.ShortReport;
@@ -13,15 +13,15 @@ import org.springframework.stereotype.Service;
 public class ShortReportCreator {
 
     private final DailyLimitsService dailyLimitsService;
-    private final LimitsChecker limitsChecker;
+    private final DailyLimitsChecker dailyLimitsChecker;
     private final MealService mealService;
 
     @Autowired
     public ShortReportCreator(DailyLimitsService dailyLimitsService,
-                              LimitsChecker limitsChecker,
+                              DailyLimitsChecker dailyLimitsChecker,
                               MealService mealService) {
         this.dailyLimitsService = dailyLimitsService;
-        this.limitsChecker = limitsChecker;
+        this.dailyLimitsChecker = dailyLimitsChecker;
         this.mealService = mealService;
     }
 
@@ -41,9 +41,9 @@ public class ShortReportCreator {
         return ShortReport.builder()
                 .id(shortReportId)
                 .date(saveDay.getDate())
-                .isAchievedKcal(limitsChecker.checkIsAchievedKcal(
+                .isAchievedKcal(dailyLimitsChecker.checkIsAchievedKcal(
                         limitsCleanDate.getKcalDemandPerDay(), sumOfKcal))
-                .isAchievedDrink(limitsChecker.checkIsAchievedDrink(
+                .isAchievedDrink(dailyLimitsChecker.checkIsAchievedDrink(
                         limitsCleanDate.getDrinkDemandPerDay(), saveDay.getPortionsDrink()))
                 .isAlcohol(saveDay.getPortionsAlcohol() != 0)
                 .isSnacks(saveDay.getPortionsSnack() != 0)

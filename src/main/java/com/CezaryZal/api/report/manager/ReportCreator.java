@@ -4,10 +4,10 @@ import com.CezaryZal.api.body.manager.BodySizeService;
 import com.CezaryZal.api.limits.manager.DailyLimitsService;
 import com.CezaryZal.api.limits.model.LimitsCleanDate;
 import com.CezaryZal.api.meal.model.DailyDiet;
-import com.CezaryZal.api.note.manager.HeadersCreator;
+import com.CezaryZal.api.note.manager.NoteService;
 import com.CezaryZal.api.report.model.FormReport;
 import com.CezaryZal.api.day.model.entity.Day;
-import com.CezaryZal.api.limits.manager.LimitsChecker;
+import com.CezaryZal.api.limits.manager.DailyLimitsChecker;
 import com.CezaryZal.api.meal.manager.MealService;
 import com.CezaryZal.api.report.shortened.manager.ShortReportService;
 import com.CezaryZal.api.training.manager.TrainingService;
@@ -18,29 +18,29 @@ import org.springframework.stereotype.Service;
 @Service
 public class ReportCreator {
 
-    private final LimitsChecker limitsChecker;
+    private final DailyLimitsChecker dailyLimitsChecker;
     private final MealService mealService;
     private final BodySizeService bodySizeService;
     private final TrainingService trainingService;
-    private final HeadersCreator headersCreator;
+    private final NoteService noteService;
     private final ShortReportService shortReportService;
     private final DailyLimitsService dailyLimitsService;
     private final UserService userService;
 
     @Autowired
-    public ReportCreator(LimitsChecker limitsChecker,
+    public ReportCreator(DailyLimitsChecker dailyLimitsChecker,
                          MealService mealService,
                          BodySizeService bodySizeService,
                          TrainingService trainingService,
-                         HeadersCreator headersCreator,
+                         NoteService noteService,
                          ShortReportService shortReportService,
                          DailyLimitsService dailyLimitsService,
                          UserService userService) {
-        this.limitsChecker = limitsChecker;
+        this.dailyLimitsChecker = dailyLimitsChecker;
         this.mealService = mealService;
         this.bodySizeService = bodySizeService;
         this.trainingService = trainingService;
-        this.headersCreator = headersCreator;
+        this.noteService = noteService;
         this.shortReportService = shortReportService;
         this.dailyLimitsService = dailyLimitsService;
         this.userService = userService;
@@ -53,11 +53,11 @@ public class ReportCreator {
 
         LimitsCleanDate limitsCleanDate = dailyLimitsService.getLimitsCleanDateByUserId(userId);
         String nickByUserId = userService.getNickByUserId(userId);
-        boolean isAchievedDrink = limitsChecker.checkIsAchievedDrink(
+        boolean isAchievedDrink = dailyLimitsChecker.checkIsAchievedDrink(
                 limitsCleanDate.getDrinkDemandPerDay(), day.getPortionsDrink());
         if (isLongReport){
             DailyDiet dailyDietByListMeal = mealService.getDailyDietByListMeal(day.getListMealsDB());
-            boolean isAchievedKcal = limitsChecker.checkIsAchievedKcal(
+            boolean isAchievedKcal = dailyLimitsChecker.checkIsAchievedKcal(
                     limitsCleanDate.getKcalDemandPerDay(), dailyDietByListMeal.getSumOfKcal());
             return FormReport.builder()
                     .id(day.getId())
@@ -72,12 +72,12 @@ public class ReportCreator {
                     .isAchievedKcal(isAchievedKcal)
                     .dailyDiet(dailyDietByListMeal)
                     .trainings(trainingService.getTrainingsSummaryByTrainings(day.getListTrainingsDB()))
-                    .listHeaders(headersCreator.getHeadersByNotes(day.getListNotesDB()))
+                    .listHeaders(noteService.getHeadersByDayId(day.getId()))
                     .listShortsDayDto(shortReportService.getShortReportsByDateAndUserId(day.getDate(), userId))
                     .buildLongReport();
         }
         int sumOfKcal = mealService.getKcalByDayId(day.getId());
-        boolean isAchievedKcal = limitsChecker.checkIsAchievedKcal(
+        boolean isAchievedKcal = dailyLimitsChecker.checkIsAchievedKcal(
                 limitsCleanDate.getKcalDemandPerDay(), sumOfKcal);
         return FormReport.builder()
                 .id(day.getId())

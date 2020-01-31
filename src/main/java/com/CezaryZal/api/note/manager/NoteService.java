@@ -37,12 +37,12 @@ public class NoteService{
                 .orElseThrow(() -> new NoteNotFoundException("Note not found by id"));
     }
 
-    public List<Header> getHeadersByDay(Long dayId){
-        List<Header> headersById = noteRepository.getHeadersById(dayId);
-        if (headersById.isEmpty()){
+    public List<Header> getHeadersByDayId(Long dayId){
+        List<Header> headersByDayId = noteRepository.getHeadersById(dayId);
+        if (headersByDayId.isEmpty()){
             throw new NoteNotFoundException("Headers note not found by id");
         }
-        return headersById;
+        return headersByDayId;
     }
 
     public List<NoteDto> getNotesDtoByDay(Long dayId){

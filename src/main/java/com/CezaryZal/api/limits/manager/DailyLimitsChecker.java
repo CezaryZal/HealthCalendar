@@ -3,7 +3,7 @@ package com.CezaryZal.api.limits.manager;
 import org.springframework.stereotype.Service;
 
 @Service
-public class LimitsChecker {
+public class DailyLimitsChecker {
 
     private final int PORTION_OF_DRINK = 250;
     private final double LIMIT_OF_EAT_KCAL = 0.05; // 5%

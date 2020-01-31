@@ -15,21 +15,18 @@ public class UpdateUser {
 
     private final UserService userService;
     private final UserAuthService userAuthService;
-    private final DailyLimitsConverter dailyLimitsConverter;
-    private final UserCreator userCreator;
     private final DailyLimitsService dailyLimitsService;
+    private final UserCreator userCreator;
 
     @Autowired
     public UpdateUser(UserService userService,
                       UserAuthService userAuthService,
-                      DailyLimitsConverter dailyLimitsConverter,
                       UserCreator userCreator,
                       DailyLimitsService dailyLimitsService) {
         this.userService = userService;
         this.userAuthService = userAuthService;
-        this.dailyLimitsConverter = dailyLimitsConverter;
-        this.userCreator = userCreator;
         this.dailyLimitsService = dailyLimitsService;
+        this.userCreator = userCreator;
     }
 
     public String updateByAccountEntity(AccountEntity accountEntity, Long userId){
@@ -44,7 +41,7 @@ public class UpdateUser {
 
     private DailyLimits handleDailyLimitsToUpdate(AccountEntity accountEntity, Long userId){
         Long limitsId = dailyLimitsService.getLimitsId(userId);
-        DailyLimits dailyLimits = dailyLimitsConverter.mappingAccountEntityToDailyLimits(accountEntity);
+        DailyLimits dailyLimits = dailyLimitsService.convertAccountEntityToDailyLimits(accountEntity);
         dailyLimits.setId(limitsId);
         return dailyLimits;
     }

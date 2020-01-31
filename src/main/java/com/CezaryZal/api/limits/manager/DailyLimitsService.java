@@ -4,6 +4,7 @@ import com.CezaryZal.api.limits.model.LimitsCleanDate;
 import com.CezaryZal.api.limits.model.entity.DailyLimits;
 import com.CezaryZal.api.limits.model.DailyLimitsDto;
 import com.CezaryZal.api.limits.repo.DailyLimitsRepository;
+import com.CezaryZal.api.user.model.AccountEntity;
 import com.CezaryZal.constants.ObjectsConstants;
 import com.CezaryZal.exceptions.not.found.DailyLimitsNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,17 +18,17 @@ public class DailyLimitsService{
 
     private final DailyLimitsRepository limitsRepository;
     private final DailyLimitsConverter dailyLimitsConverter;
-    private final LimitsCreator limitsCreator;
+    private final DailyLimitsCreator dailyLimitsCreator;
     private final ObjectsConstants objectsConstants;
 
     @Autowired
     public DailyLimitsService(DailyLimitsRepository limitsRepository,
                               DailyLimitsConverter dailyLimitsConverter,
-                              LimitsCreator limitsCreator,
+                              DailyLimitsCreator dailyLimitsCreator,
                               ObjectsConstants objectsConstants) {
         this.limitsRepository = limitsRepository;
         this.dailyLimitsConverter = dailyLimitsConverter;
-        this.limitsCreator = limitsCreator;
+        this.dailyLimitsCreator = dailyLimitsCreator;
         this.objectsConstants = objectsConstants;
     }
 
@@ -43,16 +44,8 @@ public class DailyLimitsService{
         return dailyLimitsConverter.mappingDailyLimitsToDto(dailyLimits);
     }
 
-    public List<DailyLimitsDto> getListLimitsDto(){
-        List<DailyLimits> allDailyLimits = limitsRepository.findAll();
-        return allDailyLimits.stream()
-                .map(dailyLimitsConverter::mappingDailyLimitsToDto)
-                .collect(Collectors.toList());
-    }
-
-    public String updateDailyLimits (DailyLimitsDto dailyLimitsDto, Long limitsId){
-        limitsRepository.save(limitsCreator.createLimitsToUpdateByDtoAndId(dailyLimitsDto, limitsId));
-        return "Przesłane limity zostały uaktualnione";
+    public DailyLimits convertAccountEntityToDailyLimits(AccountEntity accountEntity){
+        return dailyLimitsConverter.mappingAccountEntityToDailyLimits(accountEntity);
     }
 
     public Long getLimitsId(Long userId){
@@ -64,5 +57,21 @@ public class DailyLimitsService{
         return limitsRepository.getLimitsCleanDate(id)
                 .orElseGet(objectsConstants::getLimitsCleanDateWithFinalArgs);
     }
+
+    public List<DailyLimitsDto> getListLimitsDto(){
+        List<DailyLimits> allDailyLimits = limitsRepository.findAll();
+        return allDailyLimits.stream()
+                .map(dailyLimitsConverter::mappingDailyLimitsToDto)
+                .collect(Collectors.toList());
+    }
+
+    public String updateDailyLimits (DailyLimitsDto dailyLimitsDto, Long limitsId){
+        limitsRepository.save(dailyLimitsCreator.createLimitsToUpdateByDtoAndId(dailyLimitsDto, limitsId));
+        return "Przesłane limity zostały uaktualnione";
+    }
+
+
+
+
 
 }

@@ -1,5 +1,6 @@
 package com.CezaryZal.api.user.manager;
 
+import com.CezaryZal.api.limits.manager.DailyLimitsService;
 import com.CezaryZal.api.limits.model.entity.DailyLimits;
 import com.CezaryZal.api.limits.manager.DailyLimitsConverter;
 import com.CezaryZal.api.user.model.AccountEntity;
@@ -14,22 +15,22 @@ public class NewAccountCreator {
 
     private final UserAuthService userAuthService;
     private final UserService userService;
-    private final DailyLimitsConverter dailyLimitsConverter;
+    private final DailyLimitsService dailyLimitsService;
     private final UserCreator userCreator;
 
     @Autowired
     public NewAccountCreator(UserAuthService userAuthService,
                              UserService userService,
-                             DailyLimitsConverter dailyLimitsConverter,
+                             DailyLimitsService dailyLimitsService,
                              UserCreator userCreator) {
         this.userAuthService = userAuthService;
         this.userService = userService;
-        this.dailyLimitsConverter = dailyLimitsConverter;
+        this.dailyLimitsService = dailyLimitsService;
         this.userCreator = userCreator;
     }
 
     public String createAccountByAccountEntity(AccountEntity accountEntity){
-        DailyLimits newDailyLimits = dailyLimitsConverter.mappingAccountEntityToDailyLimits(accountEntity);
+        DailyLimits newDailyLimits = dailyLimitsService.convertAccountEntityToDailyLimits(accountEntity);
         UserAuthentication newUserAuth = userAuthService.preparingEntityForSave(accountEntity);
         User newUser = userCreator.createUserByAccountEntityAndLimitsAndUserAuth(
                 accountEntity, newDailyLimits, newUserAuth);
