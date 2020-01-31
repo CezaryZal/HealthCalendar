@@ -5,8 +5,6 @@ import com.CezaryZal.api.limits.model.entity.DailyLimits;
 import com.CezaryZal.api.limits.manager.DailyLimitsConverter;
 import com.CezaryZal.api.user.model.AccountEntity;
 import com.CezaryZal.api.user.model.entity.User;
-import com.CezaryZal.api.user.manager.creator.UserCreator;
-import com.CezaryZal.api.user.manager.repo.UserRepoService;
 import com.CezaryZal.authentication.model.entity.UserAuthentication;
 import com.CezaryZal.authentication.manager.UserAuthService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,19 +13,19 @@ import org.springframework.stereotype.Service;
 @Service
 public class UpdateUser {
 
-    private final UserRepoService userRepoService;
+    private final UserService userService;
     private final UserAuthService userAuthService;
     private final DailyLimitsConverter dailyLimitsConverter;
     private final UserCreator userCreator;
     private final DailyLimitsService dailyLimitsService;
 
     @Autowired
-    public UpdateUser(UserRepoService userRepoService,
+    public UpdateUser(UserService userService,
                       UserAuthService userAuthService,
                       DailyLimitsConverter dailyLimitsConverter,
                       UserCreator userCreator,
                       DailyLimitsService dailyLimitsService) {
-        this.userRepoService = userRepoService;
+        this.userService = userService;
         this.userAuthService = userAuthService;
         this.dailyLimitsConverter = dailyLimitsConverter;
         this.userCreator = userCreator;
@@ -39,7 +37,7 @@ public class UpdateUser {
         UserAuthentication userAuthentication = handleUserAuthToUpdate(accountEntity, userId);
         User user = userCreator.createUserToUpdateByAccountEntityAndLimitsAndUserAuth(
                 accountEntity, dailyLimits, userAuthentication, userId);
-        userRepoService.updateUser(user);
+        userService.updateUser(user);
 
         return "Przesłane dane dnia zostały uaktualnione w bazie danych";
     }

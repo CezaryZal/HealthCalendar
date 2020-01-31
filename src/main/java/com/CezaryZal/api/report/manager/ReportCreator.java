@@ -11,7 +11,7 @@ import com.CezaryZal.api.limits.manager.LimitsChecker;
 import com.CezaryZal.api.meal.manager.MealService;
 import com.CezaryZal.api.report.shortened.manager.ShortReportService;
 import com.CezaryZal.api.training.manager.TrainingService;
-import com.CezaryZal.api.user.manager.repo.UserRepoService;
+import com.CezaryZal.api.user.manager.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +25,7 @@ public class ReportCreator {
     private final HeadersCreator headersCreator;
     private final ShortReportService shortReportService;
     private final DailyLimitsService dailyLimitsService;
-    private final UserRepoService userRepoService;
+    private final UserService userService;
 
     @Autowired
     public ReportCreator(LimitsChecker limitsChecker,
@@ -35,7 +35,7 @@ public class ReportCreator {
                          HeadersCreator headersCreator,
                          ShortReportService shortReportService,
                          DailyLimitsService dailyLimitsService,
-                         UserRepoService userRepoService) {
+                         UserService userService) {
         this.limitsChecker = limitsChecker;
         this.mealService = mealService;
         this.bodySizeService = bodySizeService;
@@ -43,7 +43,7 @@ public class ReportCreator {
         this.headersCreator = headersCreator;
         this.shortReportService = shortReportService;
         this.dailyLimitsService = dailyLimitsService;
-        this.userRepoService = userRepoService;
+        this.userService = userService;
     }
 
     FormReport createFormReportByDayAndUser(Day day, Long userId, boolean isLongReport){
@@ -52,7 +52,7 @@ public class ReportCreator {
                 .orElse("Nie wykonano żadnego pomiaru ciała");
 
         LimitsCleanDate limitsCleanDate = dailyLimitsService.getLimitsCleanDateByUserId(userId);
-        String nickByUserId = userRepoService.getNickByUserId(userId);
+        String nickByUserId = userService.getNickByUserId(userId);
         boolean isAchievedDrink = limitsChecker.checkIsAchievedDrink(
                 limitsCleanDate.getDrinkDemandPerDay(), day.getPortionsDrink());
         if (isLongReport){

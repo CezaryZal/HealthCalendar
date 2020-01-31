@@ -3,7 +3,6 @@ package com.CezaryZal.production.admin.controllers;
 import com.CezaryZal.api.user.model.entity.User;
 import com.CezaryZal.api.user.model.UserDto;
 import com.CezaryZal.api.user.manager.UserService;
-import com.CezaryZal.api.user.manager.repo.UserRepoService;
 import com.CezaryZal.authentication.manager.UserAuthService;
 import com.CezaryZal.authentication.model.entity.UserAuthentication;
 import io.swagger.annotations.Api;
@@ -21,15 +20,12 @@ import java.util.List;
 @RequestMapping("/admin/api/user")
 public class AdminUserController {
 
-    private final UserRepoService userRepoService;
     private final UserService userService;
     private final UserAuthService userAuthService;
 
     @Autowired
-    public AdminUserController(UserRepoService userRepoService,
-                               UserService userService,
+    public AdminUserController(UserService userService,
                                UserAuthService userAuthService) {
-        this.userRepoService = userRepoService;
         this.userService = userService;
         this.userAuthService = userAuthService;
     }
@@ -37,7 +33,7 @@ public class AdminUserController {
     @ApiOperation(value = "This will get a `User` by id")
     @GetMapping("/{id}")
     public ResponseEntity<User> getUser(@PathVariable Long id) {
-        return new ResponseEntity<>(userRepoService.getUserById(id), HttpStatus.OK);
+        return new ResponseEntity<>(userService.getUserById(id), HttpStatus.OK);
     }
 
     @ApiOperation(value = "This will get a `UserDTO` by id")
@@ -52,11 +48,11 @@ public class AdminUserController {
         return new ResponseEntity<>(userService.getUsersDto(), HttpStatus.OK);
     }
 
-    @ApiOperation(value = "This will get a list `User`, all records")
-    @GetMapping
-    public ResponseEntity<List<User>> getUsers() {
-        return new ResponseEntity<>(userRepoService.getUsers(), HttpStatus.OK);
-    }
+//    @ApiOperation(value = "This will get a list `User`, all records")
+//    @GetMapping
+//    public ResponseEntity<List<User>> getUsers() {
+//        return new ResponseEntity<>(userService.getUsers(), HttpStatus.OK);
+//    }
 
     @ApiOperation(value = "This will get a list `UserAuthentication`, all records")
     @GetMapping("/auth")

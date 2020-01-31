@@ -1,4 +1,4 @@
-package com.CezaryZal.api.user;
+package com.CezaryZal.api.user.repo;
 
 import com.CezaryZal.api.user.model.entity.User;
 import com.CezaryZal.authentication.model.ObjectToAuthResponse;

@@ -1,4 +1,4 @@
-package com.CezaryZal.api.user.manager.creator;
+package com.CezaryZal.api.user.manager;
 
 import com.CezaryZal.api.limits.model.entity.DailyLimits;
 import com.CezaryZal.api.user.model.AccountEntity;
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserCreator {
 
-    public User createUserByAccountEntityAndLimitsAndUserAuth(
+    User createUserByAccountEntityAndLimitsAndUserAuth(
             AccountEntity accountEntity,
             DailyLimits dailyLimits,
             UserAuthentication userAuthentication){
@@ -25,7 +25,7 @@ public class UserCreator {
                 .build();
     }
 
-    public User createUserToUpdateByAccountEntityAndLimitsAndUserAuth(
+    User createUserToUpdateByAccountEntityAndLimitsAndUserAuth(
             AccountEntity accountEntity,
             DailyLimits dailyLimits,
             UserAuthentication userAuthentication,
