@@ -1,20 +1,15 @@
 package com.CezaryZal.api.body.manager;
 
-import com.CezaryZal.api.body.model.BodySizeDto;
 import com.CezaryZal.api.body.model.entity.BodySize;
-import com.CezaryZal.api.structure.ApiConverter;
-import com.CezaryZal.api.structure.FormEntity;
-import com.CezaryZal.api.structure.FormEntityDto;
+import com.CezaryZal.api.body.model.BodySizeDto;
 import org.springframework.stereotype.Service;
 
 @Service
-public class BodySizeConverterTwo implements ApiConverter {
+public class BodySizeConverter {
 
-    @Override
-    public FormEntityDto convert(FormEntity formEntity) {
-        BodySize bodySize = (BodySize) formEntity;
+    BodySizeDto mappingBodySizeToDto(BodySize bodySize){
         return BodySizeDto.builder()
-                .id(((BodySize) formEntity).getId())
+                .id(bodySize.getId())
                 .bodyWeight(bodySize.getBodyWeight())
                 .neckSize(bodySize.getNeckSize())
                 .armSize(bodySize.getArmSize())

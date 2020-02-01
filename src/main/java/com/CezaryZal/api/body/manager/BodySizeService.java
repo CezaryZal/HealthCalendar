@@ -3,8 +3,6 @@ package com.CezaryZal.api.body.manager;
 import com.CezaryZal.api.body.model.entity.BodySize;
 import com.CezaryZal.api.body.model.BodySizeDto;
 import com.CezaryZal.api.body.repo.BodySizeRepository;
-import com.CezaryZal.api.structure.ApiManager;
-import com.CezaryZal.api.structure.FormEntityDto;
 import com.CezaryZal.exceptions.not.found.BodySizeNotFoundException;
 import com.CezaryZal.exceptions.not.found.DateNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,19 +18,23 @@ import java.util.stream.Collectors;
 public class BodySizeService {
 
     private final BodySizeRepository bodySizeRepository;
-    private final ApiManager apiManager;
+    private final BodySizeConverter bodySizeConverter;
+    private final BodySizeCreator bodySizeCreator;
+//    private final ApiManager apiManager;
 
     @Autowired
-    public BodySizeService(BodySizeRepository bodySizeRepository) {
+    public BodySizeService(BodySizeRepository bodySizeRepository, BodySizeConverter bodySizeConverter, BodySizeCreator bodySizeCreator) {
         this.bodySizeRepository = bodySizeRepository;
-        this.apiManager = new BodySizeManager();
+        this.bodySizeConverter = bodySizeConverter;
+        this.bodySizeCreator = bodySizeCreator;
     }
 
-    public FormEntityDto getBodySizeDtoById(Long id) {
+    public BodySizeDto getBodySizeDtoById(Long id) {
         BodySize bodySize = bodySizeRepository.findById(id)
                 .orElseThrow(() -> new BodySizeNotFoundException("Body size not found by id"));
-        FormEntityDto bodySizeDto = apiManager.convertDtoByEntity(bodySize);
-        return bodySizeDto;
+//        FormEntityDto bodySizeDto = apiManager.convertDtoByEntity(bodySize);
+//        return bodySizeDto;
+        return bodySizeConverter.mappingBodySizeToDto(bodySize);
     }
 
     public LocalDate getDateLastMeasureByUserIdForBSController(Long userId) {
@@ -45,10 +47,11 @@ public class BodySizeService {
                 .map(Date::toLocalDate);
     }
 
-    public FormEntityDto getBodyDtoByDateAndUserId(String inputDate, Long userId) {
+    public BodySizeDto getBodyDtoByDateAndUserId(String inputDate, Long userId) {
         BodySize bodySize = bodySizeRepository.findByDateMeasurementAndUserId(LocalDate.parse(inputDate), userId)
                 .orElseThrow(() -> new BodySizeNotFoundException("Body size not found by user id and date"));
-        return apiManager.convertDtoByEntity(bodySize);
+//        return apiManager.convertDtoByEntity(bodySize);
+        return bodySizeConverter.mappingBodySizeToDto(bodySize);
     }
 
     public List<LocalDate> getListDatesByUserId(Long userId) {
@@ -59,20 +62,20 @@ public class BodySizeService {
                 .collect(Collectors.toList());
     }
 
-    public List<FormEntityDto> getListBodySizeDto() {
+    public List<BodySizeDto> getListBodySizeDto() {
         List<BodySize> allBodySize = bodySizeRepository.findAll();
         return allBodySize.stream()
-                .map(apiManager::convertDtoByEntity)
+                .map(bodySizeConverter::mappingBodySizeToDto)
                 .collect(Collectors.toList());
     }
 
     public String addBodySizeByDto(BodySizeDto bodySizeDto) {
-        bodySizeRepository.save((BodySize) apiManager.createNewEntityByEntityDto(bodySizeDto));
+        bodySizeRepository.save(bodySizeCreator.createBodySizeByDtoAndBodyId(bodySizeDto));
         return "Przesłany pomiar ciała został zapisany w bazie danych";
     }
 
     public String updateBodySizeByDto(BodySizeDto bodySizeDto, Long id){
-        bodySizeRepository.save((BodySize) apiManager.createEntityToUpdateByEntityDto(bodySizeDto, id));
+        bodySizeRepository.save(bodySizeCreator.createBodySizeToUpdateByDtoAndBodyId(bodySizeDto, id));
         return "Przesłany pomiar został uaktualniony";
     }
 
