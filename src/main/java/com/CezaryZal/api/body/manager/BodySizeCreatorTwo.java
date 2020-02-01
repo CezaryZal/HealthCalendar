@@ -2,23 +2,30 @@ package com.CezaryZal.api.body.manager;
 
 import com.CezaryZal.api.body.model.BodySizeDto;
 import com.CezaryZal.api.body.model.entity.BodySize;
+import com.CezaryZal.api.structure.ApiCreator;
+import com.CezaryZal.api.structure.FormEntity;
+import com.CezaryZal.api.structure.FormEntityDto;
 import org.springframework.stereotype.Service;
 
 @Service
-public class BodySizeCreator {
+public class BodySizeCreatorTwo implements ApiCreator {
 
-    BodySize createBodySizeToUpdateByDtoAndBodyId(BodySizeDto bodySizeDto, Long id){
+
+    @Override
+    public FormEntity createNewEntity(FormEntityDto formEntityDto) {
+        return mappingDtoToBodySizeBuilder(formEntityDto).build();
+    }
+
+    @Override
+    public FormEntity createEntityToUpdate(BodySizeDto bodySizeDto, Long id) {
         BodySize.Builder builder = mappingDtoToBodySizeBuilder(bodySizeDto);
         return builder
                 .id(id)
                 .build();
     }
 
-    BodySize createBodySizeByDtoAndBodyId(BodySizeDto bodySizeDto){
-        return mappingDtoToBodySizeBuilder(bodySizeDto).build();
-    }
-
-    private BodySize.Builder mappingDtoToBodySizeBuilder(BodySizeDto bodySizeDto){
+    private BodySize.Builder mappingDtoToBodySizeBuilder(FormEntityDto formEntityDto){
+        BodySizeDto bodySizeDto = (BodySizeDto) formEntityDto;
         return BodySize.builder()
                 .bodyWeight(bodySizeDto.getBodyWeight())
                 .neckSize(bodySizeDto.getNeckSize())

@@ -1,5 +1,6 @@
 package com.CezaryZal.api.body.model.entity;
 
+import com.CezaryZal.api.structure.FormEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,7 +13,7 @@ import java.time.LocalDate;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class BodySize {
+public class BodySize extends FormEntity {
 
 
     @Id
