@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class BodySize extends FormEntity {
+public class BodySize implements FormEntity {
 
 
     @Id

@@ -10,7 +10,7 @@ import java.time.LocalDate;
 @ToString
 @Getter
 @NoArgsConstructor
-public class BodySizeDto extends FormEntityDto {
+public class BodySizeDto implements FormEntityDto {
 
     private Long id;
     private int bodyWeight;

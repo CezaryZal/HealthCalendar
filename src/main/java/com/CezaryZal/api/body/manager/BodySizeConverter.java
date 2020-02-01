@@ -8,7 +8,7 @@ import com.CezaryZal.api.structure.FormEntityDto;
 import org.springframework.stereotype.Service;
 
 @Service
-public class BodySizeConverterTwo implements ApiConverter {
+public class BodySizeConverter implements ApiConverter {
 
     @Override
     public FormEntityDto convert(FormEntity formEntity) {

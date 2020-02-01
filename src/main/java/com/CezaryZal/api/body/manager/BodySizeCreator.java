@@ -8,7 +8,7 @@ import com.CezaryZal.api.structure.FormEntityDto;
 import org.springframework.stereotype.Service;
 
 @Service
-public class BodySizeCreatorTwo implements ApiCreator {
+public class BodySizeCreator implements ApiCreator {
 
 
     @Override

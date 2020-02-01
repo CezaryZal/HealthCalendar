@@ -9,8 +9,8 @@ import org.springframework.stereotype.Service;
 public class BodySizeManager extends ApiManager {
 
     public BodySizeManager() {
-        apiConverter = new BodySizeConverterTwo();
-        apiCreator = new BodySizeCreatorTwo();
+        apiConverter = new BodySizeConverter();
+        apiCreator = new BodySizeCreator();
     }
 
     @Override

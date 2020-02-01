@@ -4,7 +4,6 @@ import com.CezaryZal.api.body.model.entity.BodySize;
 import com.CezaryZal.api.body.model.BodySizeDto;
 import com.CezaryZal.api.body.repo.BodySizeRepository;
 import com.CezaryZal.api.structure.ApiManager;
-import com.CezaryZal.api.structure.FormEntity;
 import com.CezaryZal.api.structure.FormEntityDto;
 import com.CezaryZal.exceptions.not.found.BodySizeNotFoundException;
 import com.CezaryZal.exceptions.not.found.DateNotFoundException;
