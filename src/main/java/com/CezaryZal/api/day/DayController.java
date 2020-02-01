@@ -1,11 +1,13 @@
 package com.CezaryZal.api.day;
 
+import com.CezaryZal.api.day.model.ObjectToSaveDay;
+import com.CezaryZal.api.day.manager.DayService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import javax.security.auth.login.AccountNotFoundException;
-import java.util.List;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @Api(tags = "Day")
@@ -13,55 +15,34 @@ import java.util.List;
 @RequestMapping("/api/day")
 public class DayController {
 
-    private DayService dayS;
+    private final DayService dayService;
 
-    public DayController(DayService DService) {
-        this.dayS = DService;
-    }
-
-    @ApiOperation(value = "This will get a `Day` by id")
-    @GetMapping("/{id}")
-    public Day getDayById(@PathVariable Long id){
-        return dayS.getDayById(id);
-    }
-
-    @ApiOperation(value = "This will get a `DayDTO` by date and user id")
-    @GetMapping("/dto/{date}/{userId}")
-    public DayDTO getDayDTOByDateAndUserId(@PathVariable String date, @PathVariable Long userId) throws AccountNotFoundException {
-        return dayS.getDayDTOByDateAndUserId(date, userId);
+    @Autowired
+    public DayController(DayService dayService) {
+        this.dayService = dayService;
     }
 
     @ApiOperation(value = "This will get a day id by date and user id")
     @GetMapping("/day-id/{date}/{userId}")
-    public Long getDayIdByDateAndUserId(@PathVariable String date, @PathVariable Long userId){
-        return dayS.getDayIdByDateAndUserId(date, userId);
-    }
-
-    @ApiOperation(value = "This will get a `Day` by date and user id")
-    @GetMapping("/{date}/{userId}")
-    public Day getDayByDateAndUserId(@PathVariable String date, @PathVariable Long userId){
-        return dayS.getDayByDateAndUserId(date, userId);
-    }
-
-    @ApiOperation(value = "This will get a list `Day`, all records")
-    @GetMapping
-    public List<Day> getAll(){
-        return dayS.getAll();
+    public ResponseEntity<Long> getDayIdByDateAndUserId(
+            @PathVariable String date,
+            @PathVariable Long userId) {
+        return new ResponseEntity<>(dayService.getDayIdByDateAndUserId(date, userId), HttpStatus.OK);
     }
 
     @PostMapping
-    public String addDiet (@RequestBody Day day) throws AccountNotFoundException {
-        return dayS.addDay(day);
+    public ResponseEntity<String> addDay(@RequestBody ObjectToSaveDay day) {
+        return new ResponseEntity<>(dayService.addNewDay(day), HttpStatus.CREATED);
     }
 
-    @PutMapping
-    public String updateDay (@RequestBody Day day) throws AccountNotFoundException {
-        return dayS.updateDay(day);
+    @PutMapping("/{id}")
+    public ResponseEntity<String> updateDay(@RequestBody ObjectToSaveDay day, @PathVariable Long id) {
+        return new ResponseEntity<>(dayService.update(day, id), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    public String delete (@PathVariable Long id){
-        return dayS.deleteDayById(id);
+    public ResponseEntity<String> deleteDayById(@PathVariable Long id) {
+        return new ResponseEntity<>(dayService.deleteDay(id), HttpStatus.NO_CONTENT);
     }
 
 }

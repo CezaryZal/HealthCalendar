@@ -1,7 +1,13 @@
 package com.CezaryZal.api.note;
 
+import com.CezaryZal.api.note.model.Header;
+import com.CezaryZal.api.note.model.NoteDto;
+import com.CezaryZal.api.note.manager.NoteService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,48 +18,46 @@ import java.util.List;
 @RequestMapping("/api/note")
 public class NoteController {
 
-    private NoteService NoteS;
+    private final NoteService noteService;
 
-    public NoteController(NoteService NService) {
-        this.NoteS = NService;
+    @Autowired
+    public NoteController(NoteService noteService) {
+        this.noteService = noteService;
     }
 
-    @ApiOperation(value = "This will get a `Note` by id")
+    @ApiOperation(value = "This will get a `details of Note` by id")
     @GetMapping("/{id}")
-    public Note getNoteById (@PathVariable Long id){
-        return NoteS.getNoteById(id);
+    public ResponseEntity<String> getDetailsNoteById (@PathVariable Long id){
+        return new ResponseEntity<>(noteService.getDetailsById(id), HttpStatus.OK);
     }
 
-    @ApiOperation(value = "This will get a list `Header` by day id")
+    @ApiOperation(value = "This will get a list `header` by day id")
     @GetMapping("/headers/day-id/{dayId}")
-    public List<Header> getListHeaderByDayId(@PathVariable Long dayId){
-        return NoteS.getHeadersByDay(dayId);
+    public ResponseEntity<List<Header>> getListHeaderByDayId(@PathVariable Long dayId){
+        return new ResponseEntity<>(noteService.getHeadersByDayId(dayId), HttpStatus.OK);
     }
 
     @ApiOperation(value = "This will get a list `Note` by day id")
     @GetMapping("/day-id/{dayId}")
-    public List<Note> getListNoteByDayId(@PathVariable Long dayId){
-        return NoteS.getNotesByDay(dayId);
+    public ResponseEntity<List<NoteDto>> getListNoteByDayId(@PathVariable Long dayId){
+        return new ResponseEntity<>(noteService.getNotesDtoByDay(dayId), HttpStatus.OK);
     }
 
-    @ApiOperation(value = "This will get a list `Note`, all records")
-    @GetMapping
-    public List<Note> getAll(){
-        return NoteS.getAll();
-    }
-
+    @ApiOperation(value = "This endpoint addition `Note`")
     @PostMapping
-    public void addDiet (@RequestBody Note note){
-        NoteS.addNote(note);
+    public ResponseEntity<String> addNote (@RequestBody NoteDto noteDto){
+        return new ResponseEntity<>(noteService.addNoteByDto(noteDto), HttpStatus.CREATED);
     }
 
-    @PutMapping
-    public void updateMeal (@RequestBody Note note){
-        NoteS.updateNote(note);
+    @ApiOperation(value = "This endpoint input `Note` object update ")
+    @PutMapping("/{id}")
+    public ResponseEntity<String> updateNote (@RequestBody NoteDto noteDto, @PathVariable Long id){
+        return new ResponseEntity<>(noteService.updateNoteByDto(noteDto, id), HttpStatus.OK);
     }
 
+    @ApiOperation(value = "This endpoint remove `Note` by id")
     @DeleteMapping("/{id}")
-    public void delete (@PathVariable Long id){
-        NoteS.deleteNoteById(id);
+    public ResponseEntity<String> delete (@PathVariable Long id){
+        return new ResponseEntity<>(noteService.deleteNoteDtoById(id), HttpStatus.NO_CONTENT);
     }
 }

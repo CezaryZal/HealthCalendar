@@ -1,17 +1,16 @@
 package com.CezaryZal.api.user;
 
-import com.CezaryZal.api.user.entity.User;
-import com.CezaryZal.api.user.entity.UserCreator;
-import com.CezaryZal.api.user.entity.UserDTO;
-import com.CezaryZal.api.user.manager.NewAccountAdder;
+import com.CezaryZal.api.user.model.AccountEntity;
+import com.CezaryZal.api.user.model.UserDto;
+import com.CezaryZal.api.user.manager.UpdateUser;
 import com.CezaryZal.api.user.manager.UserService;
+import com.CezaryZal.api.user.manager.NewAccountCreator;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import javax.security.auth.login.AccountNotFoundException;
-import java.util.List;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @Api(tags = "User")
@@ -19,69 +18,45 @@ import java.util.List;
 @RequestMapping("/api/user")
 public class UserController {
 
-    private UserService userS;
-    private NewAccountAdder newAccountAdder;
+    private final UserService userService;
+    private final NewAccountCreator newAccountCreator;
+    private final UpdateUser updateUser;
 
     @Autowired
-    public UserController(UserService userS, NewAccountAdder newAccountAdder) {
-        this.userS = userS;
-        this.newAccountAdder = newAccountAdder;
+    public UserController(UserService userService,
+                          NewAccountCreator newAccountCreator,
+                          UpdateUser updateUser) {
+        this.userService = userService;
+        this.newAccountCreator = newAccountCreator;
+        this.updateUser = updateUser;
     }
 
-    @ApiOperation(value = "This will get a `User` by id")
-    @GetMapping("/{id}")
-    public User getUser (@PathVariable Long id) throws AccountNotFoundException {
-        return userS.getUserById(id);
+    @ApiOperation(value = "This will get a `User` by login name")
+    @GetMapping("/login-name/{loginName}")
+    public ResponseEntity<UserDto> getUserByLoginName(@PathVariable String loginName){
+        return new ResponseEntity<>(userService.getUserDtoByLoginName(loginName), HttpStatus.OK);
     }
 
-    @ApiOperation(value = "This will get a `UserDTO` by id")
-    @GetMapping("/dto/user-id/{id}")
-    public UserDTO getUserDTO (@PathVariable Long id) throws AccountNotFoundException {
-        return userS.getUserDTOById(id);
+    @ApiOperation(value = "This will get number userId by login name")
+    @GetMapping("/user-id/login-name/{loginName}")
+    public ResponseEntity<Long> getUserIdByLoginName(@PathVariable String loginName){
+        return new ResponseEntity<>(userService.getIdByLoginName(loginName), HttpStatus.OK);
     }
 
-//    @ApiOperation(value = "This will get a `User` by login name")
-//    @GetMapping("/login-name/{loginName}")
-//    public User getUserByLoginName(@PathVariable String loginName){
-//        return  userS.getUserByLoginName(loginName);
-//    }
-
-//    @ApiOperation(value = "This will get number userId by login name")
-//    @GetMapping("/user-id/login-name/{loginName}")
-//    public Long getUserIdByLoginName(@PathVariable String loginName){
-//        return userS.getUserIdByLoginName(loginName);
-//    }
-
-    @ApiOperation(value = "This will get a list `UserDTO`")
-    @GetMapping("/dto")
-    public List<UserDTO> getUsersDTO(){
-        return  userS.getAllUsersDTO();
+    @ApiOperation(value = "This will create new account")
+    @PostMapping("/new-account")
+    public ResponseEntity<String> createNewAccount(@RequestBody AccountEntity accountEntity){
+        return new ResponseEntity<>(newAccountCreator.createAccountByAccountEntity(accountEntity), HttpStatus.CREATED);
     }
 
-    @ApiOperation(value = "This will get a list `User`, all records")
-    @GetMapping
-    public List<User> getUsers(){
-        return userS.getAllUsers();
-    }
-
-    @PostMapping
-    public boolean addUser (@RequestBody User user){
-        return userS.addUser(user);
-    }
-
-//    @PostMapping("/user-id/new-account")
-//    public Long createNewAccountAndGetHimUserId(@RequestBody UserCreator userCreator){
-//        return newAccountAdder.createNewAccountAndGetHimUserId(userCreator);
-//    }
-
-    @PutMapping
-    public boolean updateUser (@RequestBody User user){
-        return userS.updateUser(user);
+    @PutMapping("/{id}")
+    public ResponseEntity<String> updateUser(@RequestBody AccountEntity accountEntity, @PathVariable Long id) {
+        return new ResponseEntity<>(updateUser.updateByAccountEntity(accountEntity, id), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    public void delete (@PathVariable Long id){
-        userS.deleteUserById(id);
+    public ResponseEntity<String> delete(@PathVariable Long id) {
+        return new ResponseEntity<>(userService.deleteUser(id), HttpStatus.NO_CONTENT);
     }
 
 }

@@ -1,18 +1,18 @@
 
 INSERT INTO `daily_limits` VALUES
-(1, 2500, 2000, 1),
-(2, 4000, 3000, 2),
-(3, 3000, 2500, 3);
+(1, 2500, 2000),
+(2, 4000, 3000),
+(3, 3000, 2500);
 
 INSERT INTO `users_auth` VALUES
-(1, true, 'janek', '$2a$14$qvPKR4sT9jI1svoxv/IbaOC0hQJ9sHDUkW5W9lsBCXKF84oWglyDa', 'ADD', 'VIEWER'),
-(2, true, 'tomek', '$2a$14$YMpWNeW5XrzvJnI/TuosWenErLQght/C56DhIE5BNkUs296PvPFLC', 'ADD', 'USER'),
-(3, true, 'czar', '$2a$10$aAIl0ih538I2tHl93BTUzuiQMZZbnzNIUyeM3/dkXc6MzQorLALe.', 'ADD', 'ADMIN');
+(1, true, '$2a$14$qvPKR4sT9jI1svoxv/IbaOC0hQJ9sHDUkW5W9lsBCXKF84oWglyDa', 'ADD', 'VIEWER'),
+(2, true, '$2a$14$YMpWNeW5XrzvJnI/TuosWenErLQght/C56DhIE5BNkUs296PvPFLC', 'ADD', 'USER'),
+(3, true, '$2a$10$aAIl0ih538I2tHl93BTUzuiQMZZbnzNIUyeM3/dkXc6MzQorLALe.', 'ADD', 'ADMIN');
 
 INSERT INTO `user` VALUES
-(1, '1966-05-23', 'anna@gmail.com', 'Anna','jan', 569842365, 0, 1, 1),
-(2, '1996-05-23', 'fiona@gmail.com', 'Fiona','tomek', 846152365, 1, 2, 2),
-(3, '1999-05-23', 'kris@gmail.com', 'Kris','czar', 849642365, 1, 2, 3);
+(1, '1966-05-23', 'anna@gmail.com', 'janek','jan', 569842365, 0, 1, 1),
+(2, '1996-05-23', 'fiona@gmail.com', 'tomek','tomy', 846152365, 1, 2, 2),
+(3, '1999-05-23', 'kris@gmail.com', 'czar','czarek', 849642365, 1, 3, 3);
 
 INSERT INTO `body_size` VALUES
 (1, 65, 38, 31, 98, '2018-05-23', 75, 88, 45, 1, 36),
@@ -20,15 +20,15 @@ INSERT INTO `body_size` VALUES
 (3, 66, 37, 35, 96, '2018-06-23', 74, 87, 47, 2, 37),
 (4, 60, 36, 30, 91, '2018-05-25', 70, 83, 43, 2, 35);
 
-INSERT INTO `short_day` VALUES
-(1, '2018-05-24', TRUE, FALSE, TRUE, TRUE, 1),
-(2, '2018-05-23', TRUE, FALSE, TRUE, TRUE, 1),
-(3, '2018-05-24', TRUE, FALSE, TRUE, TRUE, 2),
-(4, '2018-05-23', TRUE, FALSE, TRUE, TRUE, 2),
-(5, '2018-06-20', TRUE, FALSE, TRUE, TRUE, 1),
-(6, '2018-04-29', TRUE, FALSE, TRUE, TRUE, 1),
-(7, '2018-08-20', TRUE, FALSE, TRUE, TRUE, 1),
-(8, '2018-03-29', TRUE, FALSE, TRUE, TRUE, 1);
+INSERT INTO `short_report` VALUES
+(1, '2018-05-24', TRUE, FALSE, TRUE, TRUE),
+(2, '2018-05-23', TRUE, FALSE, TRUE, TRUE),
+(3, '2018-05-24', TRUE, FALSE, TRUE, TRUE),
+(4, '2018-05-23', TRUE, FALSE, TRUE, TRUE),
+(5, '2018-06-20', TRUE, FALSE, TRUE, TRUE),
+(6, '2018-04-29', TRUE, FALSE, TRUE, TRUE),
+(7, '2018-08-20', TRUE, FALSE, TRUE, TRUE),
+(8, '2018-03-29', TRUE, FALSE, TRUE, TRUE);
 
 INSERT INTO `day` VALUES
 (1, '2018-05-24', 11, 12, 4, 1, 1),

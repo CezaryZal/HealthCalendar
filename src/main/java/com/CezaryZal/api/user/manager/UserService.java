@@ -1,69 +1,79 @@
 package com.CezaryZal.api.user.manager;
 
-import com.CezaryZal.api.user.respository.UserRepository;
-import com.CezaryZal.api.user.entity.User;
-import com.CezaryZal.api.user.entity.UserDTO;
+import com.CezaryZal.api.user.model.UserDto;
+import com.CezaryZal.api.user.model.entity.User;
+import com.CezaryZal.api.user.repo.UserRepository;
+import com.CezaryZal.authentication.model.ObjectToAuthResponse;
+import com.CezaryZal.exceptions.not.found.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.security.auth.login.AccountNotFoundException;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
 
-    private UserRepository userR;
-    private UserObjectConverter converter;
+    private final UserRepository userRepository;
+    private final UserConverter userConverter;
 
     @Autowired
-    public UserService(UserRepository userR, UserObjectConverter converter) {
-        this.userR = userR;
-        this.converter = converter;
+    public UserService(UserRepository userRepository, UserConverter userConverter) {
+        this.userRepository = userRepository;
+        this.userConverter = userConverter;
     }
 
-    public User getUserById(Long id) throws AccountNotFoundException {
-        return userR.findById(id)
-                .orElseThrow(() -> new AccountNotFoundException("User not found by id"));
+    public UserDto getUserDtoById(Long id) {
+        return userConverter.mappingUserToDto(getUserById(id));
     }
 
-    public UserDTO getUserDTOById(Long id) throws AccountNotFoundException {
-        User user = getUserById(id);
-
-        return converter.convertUserToUserDTO(user);
+    public UserDto getUserDtoByLoginName(String loginName){
+        return userConverter.mappingUserToDto(getUserByLoginName(loginName));
     }
 
-//    public User getUserByLoginName(String loginName){
-//        return userR.findByLoginName(loginName);
-//    }
-
-    public List<User> getAllUsers(){
-        return (List<User>) userR.findAll();
+    public List<UserDto> getUsersDto(){
+        return userRepository.findAll()
+                .stream()
+                .map(userConverter::mappingUserToDto)
+                .collect(Collectors.toList());
     }
 
-    public List<UserDTO> getAllUsersDTO(){
-        List<User> listUsersDB = getAllUsers();
-
-        List<UserDTO> listUserDTO = new ArrayList<>();
-        for (User user : listUsersDB){
-            listUserDTO.add(converter.convertUserToUserDTO(user));
-        }
-        return listUserDTO;
+    public String deleteUser (Long id) {
+        userRepository.deleteById(id);
+        return "Skrót dnia o przesłanym id został usuniety";
     }
 
-    public boolean addUser(User user){
-        userR.save(user);
-
-        return true;
+    public User getUserById(Long id) {
+        return userRepository.findById(id)
+                .orElseThrow(() -> new UserNotFoundException("User not found by id"));
     }
 
-    public boolean updateUser(User user){
-        userR.save(user);
-
-        return true;
+    public User getUserByLoginName(String loginName){
+        return userRepository.findByLoginName(loginName)
+                .orElseThrow(() -> new UserNotFoundException("User not found by login name"));
     }
 
-    public void deleteUserById (Long id) {
-        userR.deleteById(id);
+    public Long getIdByLoginName(String loginName){
+        return userRepository.getUserIdByLoginName(loginName)
+                .orElseThrow(() -> new UserNotFoundException("User not found by login name"));
     }
+
+    public String getNickByUserId(Long userId){
+        return userRepository.getNick(userId)
+                .orElse("Nick nie został jeszcze dopisany");
+    }
+
+    public ObjectToAuthResponse getObjectToAuthResponse(String loginName){
+        return userRepository.getResultToAuthResponse(loginName)
+                .orElseThrow(() -> new UserNotFoundException("User not found by login name"));
+    }
+
+    public User addUser(User user){
+        return userRepository.save(user);
+    }
+
+    public void updateUser(User user){
+        userRepository.save(user);
+    }
+
 }
