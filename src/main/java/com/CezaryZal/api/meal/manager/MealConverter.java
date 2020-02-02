@@ -2,15 +2,15 @@ package com.CezaryZal.api.meal.manager;
 
 import com.CezaryZal.api.meal.model.entity.Meal;
 import com.CezaryZal.api.meal.model.MealDto;
-import org.springframework.stereotype.Service;
+import com.CezaryZal.api.structure.ApiConverter;
+import com.CezaryZal.api.structure.models.FormEntity;
+import com.CezaryZal.api.structure.models.FormEntityDto;
 
-import java.util.List;
-import java.util.stream.Collectors;
+public class MealConverter implements ApiConverter {
 
-@Service
-public class MealConverter {
-
-    MealDto mappingMealToDto(Meal meal){
+    @Override
+    public FormEntityDto convertDtoByEntity(FormEntity formEntity) {
+        Meal meal = (Meal) formEntity;
         return MealDto.builder()
                 .id(meal.getId())
                 .dateTimeOfEat(meal.getDateTimeOfEat())
@@ -21,9 +21,4 @@ public class MealConverter {
                 .build();
     }
 
-    List<MealDto> mappingListMealToListDto(List<Meal> meals){
-        return meals.stream()
-                .map(this::mappingMealToDto)
-                .collect(Collectors.toList());
-    }
 }

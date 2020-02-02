@@ -1,5 +1,6 @@
 package com.CezaryZal.api.meal.model;
 
+import com.CezaryZal.api.structure.models.FormEntityDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -9,7 +10,7 @@ import java.time.LocalDateTime;
 @ToString
 @Getter
 @NoArgsConstructor
-public class MealDto {
+public class MealDto implements FormEntityDto {
 
     private Long id;
     private LocalDateTime dateTimeOfEat;

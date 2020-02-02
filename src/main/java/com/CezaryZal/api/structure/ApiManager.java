@@ -1,6 +1,5 @@
 package com.CezaryZal.api.structure;
 
-import com.CezaryZal.api.body.model.BodySizeDto;
 import com.CezaryZal.api.structure.models.FormEntity;
 import com.CezaryZal.api.structure.models.FormEntityDto;
 
@@ -8,11 +7,15 @@ public abstract class ApiManager {
     protected ApiConverter apiConverter;
     protected ApiCreator apiCreator;
 
-    protected abstract FormEntityDto convertDtoByEntity(FormEntity formEntity);
+    protected FormEntityDto convertDtoByEntity(FormEntity formEntity){
+        return apiConverter.convertDtoByEntity(formEntity);
+    }
 
-    protected abstract FormEntity createNewEntityByEntityDto(FormEntityDto formEntityDto);
+    protected FormEntity createNewEntityByEntityDto(FormEntityDto formEntityDto){
+        return apiCreator.createNewEntity(formEntityDto);
+    }
 
-    public FormEntity createEntityToUpdateByEntityDto(BodySizeDto bodySizeDto, Long id){
-        return apiCreator.createEntityToUpdate(bodySizeDto, id);
+    public FormEntity createEntityToUpdateByEntityDto(FormEntityDto formEntityDto, Long id){
+        return apiCreator.createEntityToUpdate(formEntityDto, id);
     }
 }

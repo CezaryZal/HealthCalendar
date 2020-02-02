@@ -2,23 +2,27 @@ package com.CezaryZal.api.meal.manager;
 
 import com.CezaryZal.api.meal.model.MealDto;
 import com.CezaryZal.api.meal.model.entity.Meal;
-import org.springframework.stereotype.Service;
+import com.CezaryZal.api.structure.ApiCreator;
+import com.CezaryZal.api.structure.models.FormEntity;
+import com.CezaryZal.api.structure.models.FormEntityDto;
 
-@Service
-public class MealCreator {
+public class MealCreator implements ApiCreator {
 
-    Meal createMealToUpdateByDtoAndMealId(MealDto mealDto, Long mealId){
-        Meal.Builder builder = mappingDtoToMealBuilder(mealDto);
+    @Override
+    public FormEntity createNewEntity(FormEntityDto formEntityDto) {
+        return mappingDtoToMealBuilder(formEntityDto).build();
+    }
+
+    @Override
+    public FormEntity createEntityToUpdate(FormEntityDto formEntityDto, Long mealId) {
+        Meal.Builder builder = mappingDtoToMealBuilder(formEntityDto);
         return builder
                 .id(mealId)
                 .build();
     }
 
-    Meal createMealByDtoAndMealId(MealDto mealDto){
-        return mappingDtoToMealBuilder(mealDto).build();
-    }
-
-    private Meal.Builder mappingDtoToMealBuilder(MealDto mealDto){
+    private Meal.Builder mappingDtoToMealBuilder(FormEntityDto formEntityDto){
+        MealDto mealDto = (MealDto) formEntityDto;
         return Meal.builder()
                 .dateTimeOfEat(mealDto.getDateTimeOfEat())
                 .type(mealDto.getType())

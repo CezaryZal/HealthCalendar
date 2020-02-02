@@ -17,21 +17,21 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class BodySizeService {
+public class BodySizeService extends ApiManager{
 
     private final BodySizeRepository bodySizeRepository;
-    private final ApiManager apiManager;
 
-    @Autowired
-    public BodySizeService(BodySizeRepository bodySizeRepository, ApiManager apiManager) {
+    public BodySizeService(BodySizeRepository bodySizeRepository) {
         this.bodySizeRepository = bodySizeRepository;
-        this.apiManager = apiManager;
+
+        apiConverter = new BodySizeConverter();
+        apiCreator = new BodySizeCreator();
     }
 
     public FormEntityDto getBodySizeDtoById(Long id) {
         BodySize bodySize = bodySizeRepository.findById(id)
                 .orElseThrow(() -> new BodySizeNotFoundException("Body size not found by id"));
-        return apiManager.convertDtoByEntity(bodySize);
+        return convertDtoByEntity(bodySize);
     }
 
     public LocalDate getDateLastMeasureByUserIdForBSController(Long userId) {
@@ -47,7 +47,7 @@ public class BodySizeService {
     public FormEntityDto getBodyDtoByDateAndUserId(String inputDate, Long userId) {
         BodySize bodySize = bodySizeRepository.findByDateMeasurementAndUserId(LocalDate.parse(inputDate), userId)
                 .orElseThrow(() -> new BodySizeNotFoundException("Body size not found by user id and date"));
-        return apiManager.convertDtoByEntity(bodySize);
+        return convertDtoByEntity(bodySize);
     }
 
     public List<LocalDate> getListDatesByUserId(Long userId) {
@@ -61,17 +61,17 @@ public class BodySizeService {
     public List<FormEntityDto> getListBodySizeDto() {
         List<BodySize> allBodySize = bodySizeRepository.findAll();
         return allBodySize.stream()
-                .map(apiManager::convertDtoByEntity)
+                .map(this::convertDtoByEntity)
                 .collect(Collectors.toList());
     }
 
     public String addBodySizeByDto(BodySizeDto bodySizeDto) {
-        bodySizeRepository.save((BodySize) apiManager.createNewEntityByEntityDto(bodySizeDto));
+        bodySizeRepository.save((BodySize) createNewEntityByEntityDto(bodySizeDto));
         return "Przesłany pomiar ciała został zapisany w bazie danych";
     }
 
     public String updateBodySizeByDto(BodySizeDto bodySizeDto, Long id) {
-        bodySizeRepository.save((BodySize) apiManager.createEntityToUpdateByEntityDto(bodySizeDto, id));
+        bodySizeRepository.save((BodySize) createEntityToUpdateByEntityDto(bodySizeDto, id));
         return "Przesłany pomiar został uaktualniony";
     }
 

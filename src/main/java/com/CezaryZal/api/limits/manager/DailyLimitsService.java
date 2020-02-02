@@ -5,7 +5,7 @@ import com.CezaryZal.api.limits.model.entity.DailyLimits;
 import com.CezaryZal.api.limits.model.DailyLimitsDto;
 import com.CezaryZal.api.limits.repo.DailyLimitsRepository;
 import com.CezaryZal.api.user.model.AccountEntity;
-import com.CezaryZal.constants.ObjectsConstants;
+import com.CezaryZal.constants.DefaultLimitsCleanDate;
 import com.CezaryZal.exceptions.not.found.DailyLimitsNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,17 +19,17 @@ public class DailyLimitsService{
     private final DailyLimitsRepository limitsRepository;
     private final DailyLimitsConverter dailyLimitsConverter;
     private final DailyLimitsCreator dailyLimitsCreator;
-    private final ObjectsConstants objectsConstants;
+    private final DefaultLimitsCleanDate defaultLimitsCleanDate;
 
     @Autowired
     public DailyLimitsService(DailyLimitsRepository limitsRepository,
                               DailyLimitsConverter dailyLimitsConverter,
                               DailyLimitsCreator dailyLimitsCreator,
-                              ObjectsConstants objectsConstants) {
+                              DefaultLimitsCleanDate defaultLimitsCleanDate) {
         this.limitsRepository = limitsRepository;
         this.dailyLimitsConverter = dailyLimitsConverter;
         this.dailyLimitsCreator = dailyLimitsCreator;
-        this.objectsConstants = objectsConstants;
+        this.defaultLimitsCleanDate = defaultLimitsCleanDate;
     }
 
     public DailyLimitsDto getLimitsDtoById(Long id){
@@ -55,7 +55,7 @@ public class DailyLimitsService{
 
     public LimitsCleanDate getLimitsCleanDateByUserId(Long id){
         return limitsRepository.getLimitsCleanDate(id)
-                .orElseGet(objectsConstants::getDefaultLimitsCleanDate);
+                .orElseGet(defaultLimitsCleanDate::getDefaultLimitsCleanDate);
     }
 
     public List<DailyLimitsDto> getListLimitsDto(){

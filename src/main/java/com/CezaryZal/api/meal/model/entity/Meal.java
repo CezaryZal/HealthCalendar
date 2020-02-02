@@ -1,6 +1,7 @@
 package com.CezaryZal.api.meal.model.entity;
 
 import com.CezaryZal.api.meal.model.MealDto;
+import com.CezaryZal.api.structure.models.FormEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,7 +13,7 @@ import java.time.LocalDateTime;
 @Table(name = "meal")
 @Data
 @NoArgsConstructor
-public class Meal {
+public class Meal implements FormEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

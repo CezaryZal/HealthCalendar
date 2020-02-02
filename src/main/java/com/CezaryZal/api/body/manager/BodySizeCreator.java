@@ -5,9 +5,7 @@ import com.CezaryZal.api.body.model.entity.BodySize;
 import com.CezaryZal.api.structure.ApiCreator;
 import com.CezaryZal.api.structure.models.FormEntity;
 import com.CezaryZal.api.structure.models.FormEntityDto;
-import org.springframework.stereotype.Service;
 
-@Service
 public class BodySizeCreator implements ApiCreator {
 
 
@@ -17,8 +15,8 @@ public class BodySizeCreator implements ApiCreator {
     }
 
     @Override
-    public FormEntity createEntityToUpdate(BodySizeDto bodySizeDto, Long id) {
-        BodySize.Builder builder = mappingDtoToBodySizeBuilder(bodySizeDto);
+    public FormEntity createEntityToUpdate(FormEntityDto formEntityDto, Long id) {
+        BodySize.Builder builder = mappingDtoToBodySizeBuilder(formEntityDto);
         return builder
                 .id(id)
                 .build();
