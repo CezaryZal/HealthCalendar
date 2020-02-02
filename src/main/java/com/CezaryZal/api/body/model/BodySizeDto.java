@@ -1,6 +1,6 @@
 package com.CezaryZal.api.body.model;
 
-import com.CezaryZal.api.structure.FormEntityDto;
+import com.CezaryZal.api.structure.models.FormEntityDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;

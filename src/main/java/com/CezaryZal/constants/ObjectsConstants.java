@@ -5,8 +5,19 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class ObjectsConstants {
+    private final int DEFAULT_KCAL_DEMAND_PER_DAY = 10000;
+    private final int DEFAULT_DRINK_DEMAND_PER_DAY = 10000;
 
-    public LimitsCleanDate getLimitsCleanDateWithFinalArgs(){
-        return new LimitsCleanDate(10000, 100);
+    private LimitsCleanDate defaultLimitsCleanDate;
+
+    public ObjectsConstants() {
+        this.defaultLimitsCleanDate = new LimitsCleanDate(
+                DEFAULT_KCAL_DEMAND_PER_DAY,
+                DEFAULT_DRINK_DEMAND_PER_DAY
+        );
+    }
+
+    public LimitsCleanDate getDefaultLimitsCleanDate(){
+        return defaultLimitsCleanDate;
     }
 }

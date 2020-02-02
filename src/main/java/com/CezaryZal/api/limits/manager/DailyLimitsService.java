@@ -55,7 +55,7 @@ public class DailyLimitsService{
 
     public LimitsCleanDate getLimitsCleanDateByUserId(Long id){
         return limitsRepository.getLimitsCleanDate(id)
-                .orElseGet(objectsConstants::getLimitsCleanDateWithFinalArgs);
+                .orElseGet(objectsConstants::getDefaultLimitsCleanDate);
     }
 
     public List<DailyLimitsDto> getListLimitsDto(){

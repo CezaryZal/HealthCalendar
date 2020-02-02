@@ -3,8 +3,8 @@ package com.CezaryZal.api.body.manager;
 import com.CezaryZal.api.body.model.BodySizeDto;
 import com.CezaryZal.api.body.model.entity.BodySize;
 import com.CezaryZal.api.structure.ApiCreator;
-import com.CezaryZal.api.structure.FormEntity;
-import com.CezaryZal.api.structure.FormEntityDto;
+import com.CezaryZal.api.structure.models.FormEntity;
+import com.CezaryZal.api.structure.models.FormEntityDto;
 import org.springframework.stereotype.Service;
 
 @Service

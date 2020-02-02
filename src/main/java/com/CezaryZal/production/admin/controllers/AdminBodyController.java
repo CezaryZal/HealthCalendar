@@ -1,8 +1,7 @@
 package com.CezaryZal.production.admin.controllers;
 
 import com.CezaryZal.api.body.manager.BodySizeService;
-import com.CezaryZal.api.body.model.BodySizeDto;
-import com.CezaryZal.api.structure.FormEntityDto;
+import com.CezaryZal.api.structure.models.FormEntityDto;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -4,7 +4,7 @@ import com.CezaryZal.api.body.model.entity.BodySize;
 import com.CezaryZal.api.body.model.BodySizeDto;
 import com.CezaryZal.api.body.repo.BodySizeRepository;
 import com.CezaryZal.api.structure.ApiManager;
-import com.CezaryZal.api.structure.FormEntityDto;
+import com.CezaryZal.api.structure.models.FormEntityDto;
 import com.CezaryZal.exceptions.not.found.BodySizeNotFoundException;
 import com.CezaryZal.exceptions.not.found.DateNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,9 +31,7 @@ public class BodySizeService {
     public FormEntityDto getBodySizeDtoById(Long id) {
         BodySize bodySize = bodySizeRepository.findById(id)
                 .orElseThrow(() -> new BodySizeNotFoundException("Body size not found by id"));
-        FormEntityDto bodySizeDto = apiManager.convertDtoByEntity(bodySize);
-        return bodySizeDto;
-//        return bodySizeConverter.mappingBodySizeToDto(bodySize);
+        return apiManager.convertDtoByEntity(bodySize);
     }
 
     public LocalDate getDateLastMeasureByUserIdForBSController(Long userId) {
@@ -50,7 +48,6 @@ public class BodySizeService {
         BodySize bodySize = bodySizeRepository.findByDateMeasurementAndUserId(LocalDate.parse(inputDate), userId)
                 .orElseThrow(() -> new BodySizeNotFoundException("Body size not found by user id and date"));
         return apiManager.convertDtoByEntity(bodySize);
-//        return bodySizeConverter.mappingBodySizeToDto(bodySize);
     }
 
     public List<LocalDate> getListDatesByUserId(Long userId) {
@@ -73,12 +70,12 @@ public class BodySizeService {
         return "Przesłany pomiar ciała został zapisany w bazie danych";
     }
 
-    public String updateBodySizeByDto(BodySizeDto bodySizeDto, Long id){
+    public String updateBodySizeByDto(BodySizeDto bodySizeDto, Long id) {
         bodySizeRepository.save((BodySize) apiManager.createEntityToUpdateByEntityDto(bodySizeDto, id));
         return "Przesłany pomiar został uaktualniony";
     }
 
-    public String deleteBodySizeById(Long id){
+    public String deleteBodySizeById(Long id) {
         bodySizeRepository.deleteById(id);
         return "Pomiar ciała o przesłanym id został usunięty";
     }
