@@ -7,13 +7,9 @@ public abstract class ApiManager {
     protected ApiConverter apiConverter;
     protected ApiCreator apiCreator;
 
-    protected FormEntityDto convertDtoByEntity(FormEntity formEntity){
-        return apiConverter.convertDtoByEntity(formEntity);
-    }
+    protected abstract FormEntityDto convertDtoByEntity(FormEntity formEntity);
 
-    protected FormEntity createNewEntityByEntityDto(FormEntityDto formEntityDto){
-        return apiCreator.createNewEntity(formEntityDto);
-    }
+    protected abstract FormEntity createNewEntityByEntityDto(FormEntityDto formEntityDto);
 
     public FormEntity createEntityToUpdateByEntityDto(FormEntityDto formEntityDto, Long id){
         return apiCreator.createEntityToUpdate(formEntityDto, id);

@@ -9,12 +9,12 @@ import com.CezaryZal.api.structure.models.FormEntityDto;
 public class MealCreator implements ApiCreator {
 
     @Override
-    public FormEntity createNewEntity(FormEntityDto formEntityDto) {
+    public Meal createNewEntity(FormEntityDto formEntityDto) {
         return mappingDtoToMealBuilder(formEntityDto).build();
     }
 
     @Override
-    public FormEntity createEntityToUpdate(FormEntityDto formEntityDto, Long mealId) {
+    public Meal createEntityToUpdate(FormEntityDto formEntityDto, Long mealId) {
         Meal.Builder builder = mappingDtoToMealBuilder(formEntityDto);
         return builder
                 .id(mealId)

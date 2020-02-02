@@ -9,7 +9,7 @@ import com.CezaryZal.api.structure.models.FormEntityDto;
 public class MealConverter implements ApiConverter {
 
     @Override
-    public FormEntityDto convertDtoByEntity(FormEntity formEntity) {
+    public MealDto convertDtoByEntity(FormEntity formEntity) {
         Meal meal = (Meal) formEntity;
         return MealDto.builder()
                 .id(meal.getId())

@@ -9,7 +9,7 @@ import com.CezaryZal.api.structure.models.FormEntityDto;
 public class BodySizeConverter implements ApiConverter {
 
     @Override
-    public FormEntityDto convertDtoByEntity(FormEntity formEntity) {
+    public BodySizeDto convertDtoByEntity(FormEntity formEntity) {
         BodySize bodySize = (BodySize) formEntity;
         return BodySizeDto.builder()
                 .id(((BodySize) formEntity).getId())

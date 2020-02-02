@@ -10,12 +10,12 @@ public class BodySizeCreator implements ApiCreator {
 
 
     @Override
-    public FormEntity createNewEntity(FormEntityDto formEntityDto) {
+    public BodySize createNewEntity(FormEntityDto formEntityDto) {
         return mappingDtoToBodySizeBuilder(formEntityDto).build();
     }
 
     @Override
-    public FormEntity createEntityToUpdate(FormEntityDto formEntityDto, Long id) {
+    public BodySize createEntityToUpdate(FormEntityDto formEntityDto, Long id) {
         BodySize.Builder builder = mappingDtoToBodySizeBuilder(formEntityDto);
         return builder
                 .id(id)

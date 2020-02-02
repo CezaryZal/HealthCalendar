@@ -1,7 +1,7 @@
 package com.CezaryZal.production.admin.controllers;
 
 import com.CezaryZal.api.meal.manager.MealService;
-import com.CezaryZal.api.structure.models.FormEntityDto;
+import com.CezaryZal.api.meal.model.MealDto;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,13 +26,13 @@ public class AdminMealController {
 
     @ApiOperation(value = "This will get a `Meal` by id")
     @GetMapping("/{id}")
-    public ResponseEntity<FormEntityDto> getMealDtoById (@PathVariable Long id){
+    public ResponseEntity<MealDto> getMealDtoById (@PathVariable Long id){
         return new ResponseEntity<>(mealService.getMealDtoById(id), HttpStatus.OK);
     }
 
     @ApiOperation(value = "This will get a list `Meal`, all records")
     @GetMapping
-    public ResponseEntity<List<FormEntityDto>> getListMealDto(){
+    public ResponseEntity<List<MealDto>> getListMealDto(){
         return new ResponseEntity<>(mealService.getListMealDto(), HttpStatus.OK);
     }
 }
