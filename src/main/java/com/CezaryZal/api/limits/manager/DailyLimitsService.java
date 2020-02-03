@@ -32,12 +32,6 @@ public class DailyLimitsService{
         this.objectsConstants = objectsConstants;
     }
 
-    public DailyLimitsDto getLimitsDtoById(Long id){
-        DailyLimits dailyLimits = limitsRepository.findById(id)
-                .orElseThrow(() -> new DailyLimitsNotFoundException("Daily limits not found by id"));
-        return dailyLimitsConverter.mappingDailyLimitsToDto(dailyLimits);
-    }
-
     public DailyLimitsDto getLimitsDtoByUserId(Long userId){
         DailyLimits dailyLimits = limitsRepository.getLimitsByUserId(userId)
                 .orElseThrow(() -> new DailyLimitsNotFoundException("Daily limits not found by user id"));
@@ -69,9 +63,4 @@ public class DailyLimitsService{
         limitsRepository.save(dailyLimitsCreator.createLimitsToUpdateByDtoAndId(dailyLimitsDto, limitsId));
         return "Przesłane limity zostały uaktualnione";
     }
-
-
-
-
-
 }

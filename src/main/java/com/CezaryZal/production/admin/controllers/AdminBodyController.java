@@ -31,7 +31,7 @@ public class AdminBodyController {
     }
 
     @ApiOperation(value = "This will get a `BodySizeDto` by user id")
-    @GetMapping("/userId/{id}")
+    @GetMapping("/userId/{userId}")
     public ResponseEntity<List<BodySizeDto>> getListBodySizeDtoByUserId(@PathVariable Long userId) {
         return new ResponseEntity<>(bodySizeService.getListBodySizeDtoByUserId(userId), HttpStatus.OK);
     }

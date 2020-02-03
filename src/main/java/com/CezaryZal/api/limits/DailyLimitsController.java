@@ -22,12 +22,6 @@ public class DailyLimitsController {
         this.dailyLimitsS = dailyLimitsS;
     }
 
-    @ApiOperation(value = "This will get a `DailyLimits` by id")
-    @GetMapping("/{id}")
-    public ResponseEntity<DailyLimitsDto> getLimitsDtoById (@PathVariable Long id){
-        return new ResponseEntity<>(dailyLimitsS.getLimitsDtoById(id), HttpStatus.OK);
-    }
-
     @ApiOperation(value = "This will get a `DailyLimits` by user id")
     @GetMapping("/user-id/{userId}")
     public ResponseEntity<DailyLimitsDto> getLimitsDtoByUserId (@PathVariable Long userId){

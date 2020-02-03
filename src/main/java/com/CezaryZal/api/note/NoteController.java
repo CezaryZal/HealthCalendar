@@ -34,7 +34,7 @@ public class NoteController {
     @ApiOperation(value = "This will get a list `header` by day id")
     @GetMapping("/headers/day-id/{dayId}")
     public ResponseEntity<List<Header>> getListHeaderByDayId(@PathVariable Long dayId){
-        return new ResponseEntity<>(noteService.getHeadersByDayId(dayId), HttpStatus.OK);
+        return new ResponseEntity<>(noteService.getHeadersForNoteControllerByDayId(dayId), HttpStatus.OK);
     }
 
     @ApiOperation(value = "This will get a list `Note` by day id")

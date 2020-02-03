@@ -9,7 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -32,9 +31,9 @@ public class AdminShortReportController {
     }
 
     @ApiOperation(value = "This will get a `ShortReport` by date and user id")
-    @GetMapping("/{localDate}/{userId}")
-    public ResponseEntity<ShortReportDto> getShortReportById(@PathVariable LocalDate localDate, @PathVariable Long userId){
-        return new ResponseEntity<>(shortReportService.getShortReportDtoByDateAndUserId(localDate, userId), HttpStatus.OK);
+    @GetMapping("/{inputDate}/{userId}")
+    public ResponseEntity<ShortReportDto> getShortReportById(@PathVariable String inputDate, @PathVariable Long userId){
+        return new ResponseEntity<>(shortReportService.getShortReportDtoByDateAndUserId(inputDate, userId), HttpStatus.OK);
     }
 
     @ApiOperation(value = "This will get a list `ShortReport`, all records")

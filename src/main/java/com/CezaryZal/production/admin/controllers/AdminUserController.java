@@ -1,6 +1,5 @@
 package com.CezaryZal.production.admin.controllers;
 
-import com.CezaryZal.api.user.model.entity.User;
 import com.CezaryZal.api.user.model.UserDto;
 import com.CezaryZal.api.user.manager.UserService;
 import com.CezaryZal.authentication.manager.UserAuthService;

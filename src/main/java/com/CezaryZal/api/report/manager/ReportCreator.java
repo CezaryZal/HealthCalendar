@@ -72,7 +72,7 @@ public class ReportCreator {
                     .isAchievedKcal(isAchievedKcal)
                     .dailyDiet(dailyDietByListMeal)
                     .trainings(trainingService.getTrainingsSummaryByTrainings(day.getListTrainingsDB()))
-                    .listHeaders(noteService.getHeadersByDayId(day.getId()))
+                    .listHeaders(noteService.getHeadersForLongReportByDayId(day.getId()))
                     .listShortsDayDto(shortReportService.getShortReportsByDateAndUserId(day.getDate(), userId))
                     .buildLongReport();
         }
