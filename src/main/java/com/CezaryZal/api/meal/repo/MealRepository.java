@@ -14,7 +14,10 @@ public interface MealRepository extends JpaRepository<Meal, Long> {
 
     Optional<List<Meal>> findAllByDayId(Long dayId);
 
+    @Query(value = "select * from meal where day_id =:inputDayId", nativeQuery = true)
+    List<Meal> findMealListByDayId(@Param("inputDayId") Long dayId);
+
     @Query(value = "select sum(kcal) from meal where day_id =:inputDayId", nativeQuery = true)
-    Optional<Integer> getKcal(@Param("inputDayId") Long userId);
+    Optional<Integer> getKcal(@Param("inputDayId") Long dayId);
 
 }

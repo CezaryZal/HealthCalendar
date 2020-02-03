@@ -45,7 +45,9 @@ public class TrainingService {
     }
 
     public List<TrainingDto> getTrainingsDtoByDayId(Long dayId){
-        return trainingConverter.mappingListTrainingToListDto(getTrainingsByDayId(dayId));
+        List<Training> trainingListByDayId = trainingRepository.findTrainingListByDayId(dayId);
+        return trainingListByDayId.isEmpty()?
+                null : trainingConverter.mappingListTrainingToListDto(trainingListByDayId);
     }
 
     private List<Training> getTrainingsByDayId(Long dayId){

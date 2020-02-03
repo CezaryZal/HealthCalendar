@@ -21,25 +21,22 @@ public class DayService {
     private final DayConverter dayConverter;
     private final ShortReportService shortReportService;
     private final DayCreator dayCreator;
-    private final DayDtoCreator dayDtoCreator;
 
     @Autowired
     public DayService(DayRepository dayRepository,
                       DayConverter dayConverter,
                       ShortReportService shortReportService,
-                      DayCreator dayCreator,
-                      DayDtoCreator dayDtoCreator) {
+                      DayCreator dayCreator) {
         this.dayRepository = dayRepository;
         this.dayConverter = dayConverter;
         this.shortReportService = shortReportService;
         this.dayCreator = dayCreator;
-        this.dayDtoCreator = dayDtoCreator;
     }
 
     public DayDto getDayDtoById(Long id) {
         Day day = dayRepository.findById(id)
                 .orElseThrow(() -> new DayNotFoundException("Day not found by id"));
-        return dayDtoCreator.createDayDtoByDayAndDayId(day);
+        return dayConverter.mappingDayToDto(day);
     }
 
     public DayDto getDayDtoByDateAndUserId(String inputDate, Long userId) {

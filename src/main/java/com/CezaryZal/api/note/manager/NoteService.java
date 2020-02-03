@@ -46,9 +46,8 @@ public class NoteService{
     }
 
     public List<NoteDto> getNotesDtoByDay(Long dayId){
-        List<Note> notes = noteRepository.findAllByDayId(dayId)
-                .orElseThrow(() -> new NoteNotFoundException("Notes not found by id"));
-        return noteConverter.mappingListNoteToListDto(notes);
+        List<Note> notes = noteRepository.findNoteListByDayId(dayId);
+        return notes.isEmpty() ? null : noteConverter.mappingListNoteToListDto(notes);
     }
 
     public List<NoteDto> getAllNote (){

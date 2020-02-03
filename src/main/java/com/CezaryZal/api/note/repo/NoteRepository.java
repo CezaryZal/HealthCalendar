@@ -15,6 +15,9 @@ public interface NoteRepository extends JpaRepository<Note, Long> {
 
     Optional<List<Note>> findAllByDayId(Long dayId);
 
+    @Query(value = "select * from note where day_id =:inputDayId", nativeQuery = true)
+    List<Note> findNoteListByDayId(@Param("inputDayId") Long dayId);
+
     @Query(value = "select details_note from note where id=:noteId", nativeQuery = true)
     Optional<String> getDetailsById(@Param("noteId") Long id);
 

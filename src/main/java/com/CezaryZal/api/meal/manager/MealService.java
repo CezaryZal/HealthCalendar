@@ -29,8 +29,8 @@ public class MealService {
         this.mealRepository = mealRepository;
     }
 
-    public MealDto getMealDtoById(Long id) {
-        Meal meal = mealRepository.findById(id)
+    public MealDto getMealDtoById(Long mealId) {
+        Meal meal = mealRepository.findById(mealId)
                 .orElseThrow(() -> new MealNotFoundException("Meal not found by id"));
         return mealConverter.mappingMealToDto(meal);
     }
@@ -44,8 +44,10 @@ public class MealService {
         return dailyDietCreator.createDailyDiet(listMealDto);
     }
 
-    public List<MealDto> getMealsDtoByDayId(Long dayId){
-        return mealConverter.mappingListMealToListDto(getMealsByDayId(dayId));
+    public List<MealDto> getMealsDtoByDayIdOrNull(Long dayId){
+        List<Meal> mealListByDayId = mealRepository.findMealListByDayId(dayId);
+        return mealListByDayId.isEmpty() ? null : mealConverter.mappingListMealToListDto(mealListByDayId);
+
     }
 
     private List<Meal> getMealsByDayId(Long dayId){

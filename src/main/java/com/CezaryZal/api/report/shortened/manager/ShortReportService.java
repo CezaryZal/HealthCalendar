@@ -44,9 +44,11 @@ public class ShortReportService {
     }
 
     public ShortReport createShortReport(ObjectToSaveDay saveDay, Long dayId, boolean isNewObject){
+        if (isNewObject){
+            return shortReportCreator.createNewShortReport(saveDay);
+        }
         Long shortReportId = getShortReportIdByDateAndUserId(saveDay.getDate(), saveDay.getUserId());
-        return isNewObject? shortReportCreator.createNewShortReport(saveDay) :
-                shortReportCreator.createShortReportToUpdateRecordByDay(saveDay, dayId, shortReportId);
+        return shortReportCreator.createShortReportToUpdateRecordByDay(saveDay, dayId, shortReportId);
     }
 
     public List<ShortReportDto> getShortReportsByDateAndUserId(LocalDate inputLocalDate, Long userId) {

@@ -40,7 +40,7 @@ public class AdminDayController {
 
     @ApiOperation(value = "This will get a list `DayDto`, all records")
     @GetMapping
-    public ResponseEntity<List<DayDto>> getListDayWithEntities() {
+    public ResponseEntity<List<DayDto>> getAllDataDayDto() {
         return new ResponseEntity<>(dayService.getDaysDto(), HttpStatus.OK);
     }
 

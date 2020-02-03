@@ -36,7 +36,7 @@ public class DayConverter {
                 .portionsDrink(day.getPortionsDrink())
                 .portionsAlcohol(day.getPortionsAlcohol())
                 .portionsSnack(day.getPortionsSnack())
-                .listMeal(mealService.getMealsDtoByDayId(day.getId()))
+                .listMeal(mealService.getMealsDtoByDayIdOrNull(day.getId()))
                 .listTrainings(trainingService.getTrainingsDtoByDayId(day.getId()))
                 .listNotes(noteService.getNotesDtoByDay(day.getId()))
                 .shortReport(shortReportService.getShortReportDtoById(day.getId()))
