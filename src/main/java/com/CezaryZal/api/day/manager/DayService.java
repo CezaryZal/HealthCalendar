@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class DayService {
@@ -39,15 +38,28 @@ public class DayService {
         return dayConverter.mappingDayToDto(day);
     }
 
+    public Long getDayIdByDateAndUserId(String inputDate, Long userId) {
+        return dayRepository.getDayIdByDateAndUserId(LocalDate.parse(inputDate), userId)
+                .orElseThrow(() -> new DayNotFoundException("Id day not found by date and user id"));
+    }
+
     public DayDto getDayDtoByDateAndUserId(String inputDate, Long userId) {
         return dayConverter.mappingDayToDto(getDayByDateAndUserId(inputDate, userId));
     }
 
+    public Day getDayByDateAndUserId(String inputDate, Long userId) {
+        return dayRepository.findDayByDateAndUserId(LocalDate.parse(inputDate), userId)
+                .orElseThrow(() -> new DayNotFoundException("Day not found by date and user id"));
+    }
+
+    public List<DayDto> getDaysDtoByUserId(Long userId){
+        List<Day> dayList = dayRepository.findDaysByUserId(userId);
+        return dayList.isEmpty() ? null : dayConverter.mappingListDayToListDto(dayList);
+    }
+
     public List<DayDto> getDaysDto(){
-        return dayRepository.findAll()
-                .stream()
-                .map(dayConverter::mappingDayToDto)
-                .collect(Collectors.toList());
+        List<Day> all = dayRepository.findAll();
+        return dayConverter.mappingListDayToListDto(all);
     }
 
     public String addNewDay(ObjectToSaveDay day){
@@ -66,15 +78,4 @@ public class DayService {
         dayRepository.deleteById(id);
         return "Dzień o podanym id został usunięty wraz ze skrótem dnia";
     }
-
-    public Long getDayIdByDateAndUserId(String inputDate, Long userId) {
-        return dayRepository.getDayIdByDateAndUserId(LocalDate.parse(inputDate), userId)
-                .orElseThrow(() -> new DayNotFoundException("Id day not found by date and user id"));
-    }
-
-    public Day getDayByDateAndUserId(String inputDate, Long userId) {
-        return dayRepository.findDayByDateAndUserId(LocalDate.parse(inputDate), userId)
-                .orElseThrow(() -> new DayNotFoundException("Day not found by date and user id"));
-    }
-
 }

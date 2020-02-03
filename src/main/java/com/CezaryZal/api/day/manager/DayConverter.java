@@ -9,6 +9,9 @@ import com.CezaryZal.api.training.manager.TrainingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class DayConverter {
 
@@ -41,5 +44,11 @@ public class DayConverter {
                 .listNotes(noteService.getNotesDtoByDay(day.getId()))
                 .shortReport(shortReportService.getShortReportDtoById(day.getId()))
                 .build();
+    }
+
+    List<DayDto> mappingListDayToListDto(List<Day> days){
+        return days.stream()
+                .map(this::mappingDayToDto)
+                .collect(Collectors.toList());
     }
 }

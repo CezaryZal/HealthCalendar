@@ -22,4 +22,6 @@ public interface BodySizeRepository extends JpaRepository<BodySize, Long> {
 
     Optional<BodySize> findByDateMeasurementAndUserId(LocalDate localDate, Long userId);
 
+    List<BodySize> findAllByUserId(Long userId);
+
 }

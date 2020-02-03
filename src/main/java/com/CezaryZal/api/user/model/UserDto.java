@@ -1,8 +1,14 @@
 package com.CezaryZal.api.user.model;
 
+import com.CezaryZal.api.body.model.BodySizeDto;
+import com.CezaryZal.api.day.model.DayDto;
+import com.CezaryZal.authentication.model.entity.UserAuthentication;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+
+import java.time.LocalDate;
+import java.util.List;
 
 @ToString
 @Getter
@@ -16,6 +22,10 @@ public class UserDto {
     private int phoneNumber;
     private int sex;
     private int age;
+    private LocalDate birthDate;
+    private UserAuthentication userAuthentication;
+    private List<BodySizeDto> listBodySizeDto;
+    private List<DayDto> listDayDto;
 
 
     public static Builder builder(){
@@ -30,6 +40,10 @@ public class UserDto {
         private int phoneNumber;
         private int sex;
         private int age;
+        private LocalDate birthDate;
+        private UserAuthentication userAuthentication;
+        private List<BodySizeDto> listBodySizeDto;
+        private List<DayDto> listDayDto;
 
         public Builder id(Long id){
             this.id = id;
@@ -59,6 +73,22 @@ public class UserDto {
             this.age = age;
             return this;
         }
+        public Builder birthDate(LocalDate birthDate){
+            this.birthDate = birthDate;
+            return this;
+        }
+        public Builder userAuthentication(UserAuthentication userAuthentication){
+            this.userAuthentication = userAuthentication;
+            return this;
+        }
+        public Builder listBodySizeDto(List<BodySizeDto> listBodySizeDto){
+            this.listBodySizeDto = listBodySizeDto;
+            return this;
+        }
+        public Builder listDayDto(List<DayDto> listDayDto){
+            this.listDayDto = listDayDto;
+            return this;
+        }
 
         public UserDto build(){
             UserDto userDto = new UserDto();
@@ -69,6 +99,10 @@ public class UserDto {
             userDto.phoneNumber = this.phoneNumber;
             userDto.sex = this.sex;
             userDto.age = this.age;
+            userDto.birthDate = this.birthDate;
+            userDto.userAuthentication = this.userAuthentication;
+            userDto.listBodySizeDto = this.listBodySizeDto;
+            userDto.listDayDto = this.listDayDto;
             return userDto;
         }
     }

@@ -30,6 +30,12 @@ public class AdminBodyController {
         return new ResponseEntity<>(bodySizeService.getBodySizeDtoById(id), HttpStatus.OK);
     }
 
+    @ApiOperation(value = "This will get a `BodySizeDto` by user id")
+    @GetMapping("/userId/{id}")
+    public ResponseEntity<List<BodySizeDto>> getListBodySizeDtoByUserId(@PathVariable Long userId) {
+        return new ResponseEntity<>(bodySizeService.getListBodySizeDtoByUserId(userId), HttpStatus.OK);
+    }
+
     @ApiOperation(value = "This will get a list `BodySizeDto`, all records")
     @GetMapping
     public ResponseEntity<List<BodySizeDto>> getListBodySizeDto() {

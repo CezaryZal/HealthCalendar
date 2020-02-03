@@ -20,10 +20,11 @@ public class BodySizeService {
     private final BodySizeRepository bodySizeRepository;
     private final BodySizeConverter bodySizeConverter;
     private final BodySizeCreator bodySizeCreator;
-//    private final ApiManager apiManager;
 
     @Autowired
-    public BodySizeService(BodySizeRepository bodySizeRepository, BodySizeConverter bodySizeConverter, BodySizeCreator bodySizeCreator) {
+    public BodySizeService(BodySizeRepository bodySizeRepository,
+                           BodySizeConverter bodySizeConverter,
+                           BodySizeCreator bodySizeCreator) {
         this.bodySizeRepository = bodySizeRepository;
         this.bodySizeConverter = bodySizeConverter;
         this.bodySizeCreator = bodySizeCreator;
@@ -32,8 +33,6 @@ public class BodySizeService {
     public BodySizeDto getBodySizeDtoById(Long id) {
         BodySize bodySize = bodySizeRepository.findById(id)
                 .orElseThrow(() -> new BodySizeNotFoundException("Body size not found by id"));
-//        FormEntityDto bodySizeDto = apiManager.convertDtoByEntity(bodySize);
-//        return bodySizeDto;
         return bodySizeConverter.mappingBodySizeToDto(bodySize);
     }
 
@@ -50,7 +49,6 @@ public class BodySizeService {
     public BodySizeDto getBodyDtoByDateAndUserId(String inputDate, Long userId) {
         BodySize bodySize = bodySizeRepository.findByDateMeasurementAndUserId(LocalDate.parse(inputDate), userId)
                 .orElseThrow(() -> new BodySizeNotFoundException("Body size not found by user id and date"));
-//        return apiManager.convertDtoByEntity(bodySize);
         return bodySizeConverter.mappingBodySizeToDto(bodySize);
     }
 
@@ -59,6 +57,13 @@ public class BodySizeService {
                 .orElseThrow(() -> new BodySizeNotFoundException("Is user didn't take measurements"));
         return listDateByUserId.stream()
                 .map(Date::toLocalDate)
+                .collect(Collectors.toList());
+    }
+
+    public List<BodySizeDto> getListBodySizeDtoByUserId(Long userId){
+        List<BodySize> allBodySizeByUserId = bodySizeRepository.findAllByUserId(userId);
+        return allBodySizeByUserId.stream()
+                .map(bodySizeConverter::mappingBodySizeToDto)
                 .collect(Collectors.toList());
     }
 

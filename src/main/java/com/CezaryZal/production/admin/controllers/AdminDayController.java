@@ -30,6 +30,12 @@ public class AdminDayController {
         return new ResponseEntity<>(dayService.getDayDtoById(id), HttpStatus.OK);
     }
 
+    @ApiOperation(value = "This will get a `DayDto` by user id")
+    @GetMapping("/userId/{userId}")
+    public ResponseEntity<List<DayDto>> getAllDateDayDtoByUserId(@PathVariable Long userId) {
+        return new ResponseEntity<>(dayService.getDaysDtoByUserId(userId), HttpStatus.OK);
+    }
+
     @ApiOperation(value = "This will get a `DayDto` by date and user id")
     @GetMapping("/{date}/{userId}")
     public ResponseEntity<DayDto> getDayWithEntitiesByDateAndUserId(

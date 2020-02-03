@@ -30,16 +30,16 @@ public class AdminUserController {
         this.userAuthService = userAuthService;
     }
 
-    @ApiOperation(value = "This will get a `User` by id")
-    @GetMapping("/{id}")
-    public ResponseEntity<User> getUser(@PathVariable Long id) {
-        return new ResponseEntity<>(userService.getUserById(id), HttpStatus.OK);
+    @ApiOperation(value = "This will get a basic `UserDto` by id")
+    @GetMapping("/basic/{id}")
+    public ResponseEntity<UserDto> getBasicUserDto(@PathVariable Long id) {
+        return new ResponseEntity<>(userService.getBasicUserDtoById(id), HttpStatus.OK);
     }
 
-    @ApiOperation(value = "This will get a `UserDTO` by id")
-    @GetMapping("/dto/user-id/{id}")
-    public ResponseEntity<UserDto> getUserDTO(@PathVariable Long id) {
-        return new ResponseEntity<>(userService.getUserDtoById(id), HttpStatus.OK);
+    @ApiOperation(value = "This will get a full `UserDTO` by id")
+    @GetMapping("/full/{id}")
+    public ResponseEntity<UserDto> getFullUserDTO(@PathVariable Long id) {
+        return new ResponseEntity<>(userService.getUserByUserId(id), HttpStatus.OK);
     }
 
     @ApiOperation(value = "This will get a list `UserDTO`")
@@ -47,12 +47,6 @@ public class AdminUserController {
     public ResponseEntity<List<UserDto>> getUsersDTO() {
         return new ResponseEntity<>(userService.getUsersDto(), HttpStatus.OK);
     }
-
-//    @ApiOperation(value = "This will get a list `User`, all records")
-//    @GetMapping
-//    public ResponseEntity<List<User>> getUsers() {
-//        return new ResponseEntity<>(userService.getUsers(), HttpStatus.OK);
-//    }
 
     @ApiOperation(value = "This will get a list `UserAuthentication`, all records")
     @GetMapping("/auth")

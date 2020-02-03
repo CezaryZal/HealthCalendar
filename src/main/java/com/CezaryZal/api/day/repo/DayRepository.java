@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -17,4 +18,5 @@ public interface DayRepository extends JpaRepository<Day, Long> {
 
     Optional<Day> findDayByDateAndUserId(LocalDate localDate, Long userId);
 
+    List<Day> findDaysByUserId(Long userId);
 }
