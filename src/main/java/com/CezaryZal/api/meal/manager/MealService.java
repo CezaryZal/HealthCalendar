@@ -36,14 +36,21 @@ public class MealService {
     }
 
     public DailyDiet getDailyDietByDayId(Long dayId) {
-        List<Meal> meals = mealRepository.findAllByDayId(dayId)
-                .orElseThrow(() -> new MealNotFoundException("Meals not found by day id"));
-        return getDailyDietByListMeal(meals);
+        return getDailyDietByListMeal(getMealsByDayId(dayId));
     }
 
     public DailyDiet getDailyDietByListMeal(List<Meal> meals){
         List<MealDto> listMealDto = mealConverter.mappingListMealToListDto(meals);
         return dailyDietCreator.createDailyDiet(listMealDto);
+    }
+
+    public List<MealDto> getMealsDtoByDayId(Long dayId){
+        return mealConverter.mappingListMealToListDto(getMealsByDayId(dayId));
+    }
+
+    private List<Meal> getMealsByDayId(Long dayId){
+        return mealRepository.findAllByDayId(dayId)
+                .orElseThrow(() -> new MealNotFoundException("Meals not found by day id"));
     }
 
     public List<MealDto> getListMealDto() {

@@ -1,9 +1,9 @@
 package com.CezaryZal.api.day.model;
 
-import com.CezaryZal.api.meal.model.entity.Meal;
-import com.CezaryZal.api.note.model.entity.Note;
-import com.CezaryZal.api.report.shortened.model.entity.ShortReport;
-import com.CezaryZal.api.training.model.entity.Training;
+import com.CezaryZal.api.meal.model.MealDto;
+import com.CezaryZal.api.note.model.NoteDto;
+import com.CezaryZal.api.report.shortened.model.ShortReportDto;
+import com.CezaryZal.api.training.model.TrainingDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -22,10 +22,10 @@ public class DayDto {
     private int portionsDrink;
     private int portionsAlcohol;
     private int portionsSnack;
-    private List<Meal> listMealsDB;
-    private List<Training> listTrainingsDB;
-    private List<Note> listNotesDB;
-    private ShortReport shortReport;
+    private List<MealDto> listMealsDB;
+    private List<TrainingDto> listTrainingsDB;
+    private List<NoteDto> listNotesDB;
+    private ShortReportDto shortReportDto;
 
     public static Builder builder(){
         return new Builder();
@@ -38,10 +38,10 @@ public class DayDto {
         private int portionsDrink;
         private int portionsAlcohol;
         private int portionsSnack;
-        private List<Meal> listMealsDB;
-        private List<Training> listTrainingsDB;
-        private List<Note> listNotesDB;
-        private ShortReport shortReport;
+        private List<MealDto> listMealsDB;
+        private List<TrainingDto> listTrainingsDB;
+        private List<NoteDto> listNotesDB;
+        private ShortReportDto shortReportDto;
 
         public Builder id(Long id){
             this.id = id;
@@ -67,20 +67,20 @@ public class DayDto {
             this.portionsSnack = portionsSnack;
             return this;
         }
-        public Builder listMeal(List<Meal> listMeals){
+        public Builder listMeal(List<MealDto> listMeals){
             this.listMealsDB = listMeals;
             return this;
         }
-        public Builder listTrainings(List<Training> listTrainings){
+        public Builder listTrainings(List<TrainingDto> listTrainings){
             this.listTrainingsDB = listTrainings;
             return this;
         }
-        public Builder listNotes(List<Note> listNotes) {
+        public Builder listNotes(List<NoteDto> listNotes) {
             this.listNotesDB = listNotes;
             return this;
         }
-        public Builder shortReport(ShortReport shortReport){
-            this.shortReport = shortReport;
+        public Builder shortReport(ShortReportDto shortReportDto){
+            this.shortReportDto = shortReportDto;
             return this;
         }
 
@@ -95,7 +95,7 @@ public class DayDto {
             dayDto.listMealsDB = this.listMealsDB;
             dayDto.listTrainingsDB = this.listTrainingsDB;
             dayDto.listNotesDB = this.listNotesDB;
-            dayDto.shortReport = this.shortReport;
+            dayDto.shortReportDto = this.shortReportDto;
             return dayDto;
         }
     }

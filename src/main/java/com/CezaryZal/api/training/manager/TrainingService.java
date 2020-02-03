@@ -35,15 +35,22 @@ public class TrainingService {
         return trainingConverter.mappingTrainingToDto(training);
     }
 
-    public TrainingsSummary getTrainingsSummaryByDayId (Long dayId){
-        List<Training> trainings = trainingRepository.findAllByDayId(dayId)
-                .orElseThrow(() -> new TrainingNotFoundException("Trainings not found by id"));
-        return getTrainingsSummaryByTrainings(trainings);
-    }
-
     public TrainingsSummary getTrainingsSummaryByTrainings(List<Training> trainingsByDayId){
         List<TrainingDto> trainingsDto = trainingConverter.mappingListTrainingToListDto(trainingsByDayId);
         return trainingsSummaryCreator.createTrainingsSummary(trainingsDto);
+    }
+
+    public TrainingsSummary getTrainingsSummaryByDayId (Long dayId){
+        return getTrainingsSummaryByTrainings(getTrainingsByDayId(dayId));
+    }
+
+    public List<TrainingDto> getTrainingsDtoByDayId(Long dayId){
+        return trainingConverter.mappingListTrainingToListDto(getTrainingsByDayId(dayId));
+    }
+
+    private List<Training> getTrainingsByDayId(Long dayId){
+        return trainingRepository.findAllByDayId(dayId)
+                .orElseThrow(() -> new TrainingNotFoundException("Trainings not found by id"));
     }
 
     public List<TrainingDto> getAllTrainingsDto (){

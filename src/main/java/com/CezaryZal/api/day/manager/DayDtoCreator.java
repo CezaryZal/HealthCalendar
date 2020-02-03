@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class DayConverter {
+public class DayDtoCreator {
 
     private final MealService mealService;
     private final NoteService noteService;
@@ -18,17 +18,17 @@ public class DayConverter {
     private final ShortReportService shortReportService;
 
     @Autowired
-    public DayConverter(MealService mealService,
-                        NoteService noteService,
-                        TrainingService trainingService,
-                        ShortReportService shortReportService) {
+    public DayDtoCreator(MealService mealService,
+                         NoteService noteService,
+                         TrainingService trainingService,
+                         ShortReportService shortReportService) {
         this.mealService = mealService;
         this.noteService = noteService;
         this.trainingService = trainingService;
         this.shortReportService = shortReportService;
     }
 
-    DayDto mappingDayToDto(Day day){
+    public DayDto createDayDtoByDayAndDayId(Day day) {
         return DayDto.builder()
                 .id(day.getId())
                 .date(day.getDate())
@@ -37,8 +37,8 @@ public class DayConverter {
                 .portionsAlcohol(day.getPortionsAlcohol())
                 .portionsSnack(day.getPortionsSnack())
                 .listMeal(mealService.getMealsDtoByDayId(day.getId()))
-                .listTrainings(trainingService.getTrainingsDtoByDayId(day.getId()))
                 .listNotes(noteService.getNotesDtoByDay(day.getId()))
+                .listTrainings(trainingService.getTrainingsDtoByDayId(day.getId()))
                 .shortReport(shortReportService.getShortReportDtoById(day.getId()))
                 .build();
     }
