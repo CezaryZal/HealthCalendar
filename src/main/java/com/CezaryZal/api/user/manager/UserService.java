@@ -1,5 +1,6 @@
 package com.CezaryZal.api.user.manager;
 
+import com.CezaryZal.api.user.model.AccountEntity;
 import com.CezaryZal.api.user.model.UserDto;
 import com.CezaryZal.api.user.model.entity.User;
 import com.CezaryZal.api.user.repo.UserRepository;
@@ -17,14 +18,17 @@ public class UserService {
     private final UserRepository userRepository;
     private final UserConverter userConverter;
     private final UserDtoCreator userDtoCreator;
+    private final NewAccountCreator newAccountCreator;
 
     @Autowired
     public UserService(UserRepository userRepository,
                        UserConverter userConverter,
-                       UserDtoCreator userDtoCreator) {
+                       UserDtoCreator userDtoCreator,
+                       NewAccountCreator newAccountCreator) {
         this.userRepository = userRepository;
         this.userConverter = userConverter;
         this.userDtoCreator = userDtoCreator;
+        this.newAccountCreator = newAccountCreator;
     }
 
     public UserDto getBasicUserDtoById(Long id) {
@@ -72,8 +76,10 @@ public class UserService {
                 .orElseThrow(() -> new UserNotFoundException("User not found by id"));
     }
 
-    public User addUser(User user) {
-        return userRepository.save(user);
+    public String createNewAccount(AccountEntity accountEntity) {
+        User newUser = newAccountCreator.createAccountByAccountEntity(accountEntity);
+        userRepository.save(newUser);
+        return "Przesłane dane nowego konta zostały podzielone i zapisane w bazie danych";
     }
 
     public void updateUser(User user) {

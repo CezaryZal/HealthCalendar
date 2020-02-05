@@ -14,28 +14,22 @@ import org.springframework.stereotype.Service;
 public class NewAccountCreator {
 
     private final UserAuthService userAuthService;
-    private final UserService userService;
     private final DailyLimitsService dailyLimitsService;
     private final UserCreator userCreator;
 
     @Autowired
     public NewAccountCreator(UserAuthService userAuthService,
-                             UserService userService,
                              DailyLimitsService dailyLimitsService,
                              UserCreator userCreator) {
         this.userAuthService = userAuthService;
-        this.userService = userService;
         this.dailyLimitsService = dailyLimitsService;
         this.userCreator = userCreator;
     }
 
-    public String createAccountByAccountEntity(AccountEntity accountEntity){
+    public User createAccountByAccountEntity(AccountEntity accountEntity){
         DailyLimits newDailyLimits = dailyLimitsService.convertAccountEntityToDailyLimits(accountEntity);
         UserAuthentication newUserAuth = userAuthService.preparingEntityForSave(accountEntity);
-        User newUser = userCreator.createUserByAccountEntityAndLimitsAndUserAuth(
+        return userCreator.createUserByAccountEntityAndLimitsAndUserAuth(
                 accountEntity, newDailyLimits, newUserAuth);
-        userService.addUser(newUser);
-
-        return "Przesłane dane nowego konta zostały podzielone i zapisane w bazie danych";
     }
 }

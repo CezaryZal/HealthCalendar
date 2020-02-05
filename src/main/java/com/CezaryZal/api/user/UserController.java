@@ -19,15 +19,12 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     private final UserService userService;
-    private final NewAccountCreator newAccountCreator;
     private final UpdateUser updateUser;
 
     @Autowired
     public UserController(UserService userService,
-                          NewAccountCreator newAccountCreator,
                           UpdateUser updateUser) {
         this.userService = userService;
-        this.newAccountCreator = newAccountCreator;
         this.updateUser = updateUser;
     }
 
@@ -46,7 +43,7 @@ public class UserController {
     @ApiOperation(value = "This will create new account")
     @PostMapping("/new-account")
     public ResponseEntity<String> createNewAccount(@RequestBody AccountEntity accountEntity){
-        return new ResponseEntity<>(newAccountCreator.createAccountByAccountEntity(accountEntity), HttpStatus.CREATED);
+        return new ResponseEntity<>(userService.createNewAccount(accountEntity), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
