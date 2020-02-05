@@ -2,9 +2,7 @@ package com.CezaryZal.api.user;
 
 import com.CezaryZal.api.user.model.AccountEntity;
 import com.CezaryZal.api.user.model.UserDto;
-import com.CezaryZal.api.user.manager.UpdateUser;
 import com.CezaryZal.api.user.manager.UserService;
-import com.CezaryZal.api.user.manager.NewAccountCreator;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,13 +17,10 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     private final UserService userService;
-    private final UpdateUser updateUser;
 
     @Autowired
-    public UserController(UserService userService,
-                          UpdateUser updateUser) {
+    public UserController(UserService userService) {
         this.userService = userService;
-        this.updateUser = updateUser;
     }
 
     @ApiOperation(value = "This will get a `User` by login name")
@@ -48,7 +43,7 @@ public class UserController {
 
     @PutMapping("/{id}")
     public ResponseEntity<String> updateUser(@RequestBody AccountEntity accountEntity, @PathVariable Long id) {
-        return new ResponseEntity<>(updateUser.updateByAccountEntity(accountEntity, id), HttpStatus.OK);
+        return new ResponseEntity<>(userService.updateUser(accountEntity, id), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")

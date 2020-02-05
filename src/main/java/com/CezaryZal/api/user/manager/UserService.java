@@ -19,16 +19,19 @@ public class UserService {
     private final UserConverter userConverter;
     private final UserDtoCreator userDtoCreator;
     private final NewAccountCreator newAccountCreator;
+    private final UpdateUser updateUser;
 
     @Autowired
     public UserService(UserRepository userRepository,
                        UserConverter userConverter,
                        UserDtoCreator userDtoCreator,
-                       NewAccountCreator newAccountCreator) {
+                       NewAccountCreator newAccountCreator,
+                       UpdateUser updateUser) {
         this.userRepository = userRepository;
         this.userConverter = userConverter;
         this.userDtoCreator = userDtoCreator;
         this.newAccountCreator = newAccountCreator;
+        this.updateUser = updateUser;
     }
 
     public UserDto getBasicUserDtoById(Long id) {
@@ -82,8 +85,10 @@ public class UserService {
         return "Przesłane dane nowego konta zostały podzielone i zapisane w bazie danych";
     }
 
-    public void updateUser(User user) {
+    public String updateUser(AccountEntity accountEntity, Long userId) {
+        User user = updateUser.updateByAccountEntity(accountEntity, userId);
         userRepository.save(user);
+        return "Przesłane dane dnia zostały uaktualnione w bazie danych";
     }
 
     public String deleteUser(Long id) {
