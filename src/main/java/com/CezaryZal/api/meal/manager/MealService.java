@@ -8,6 +8,7 @@ import com.CezaryZal.exceptions.not.found.MealNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -37,6 +38,12 @@ public class MealService {
 
     public DailyDiet getDailyDietByDayId(Long dayId) {
         return getDailyDietByListMeal(getMealsByDayId(dayId));
+    }
+
+    public DailyDiet getDailyDietByDateAndUserId(String inputDate, Long userId){
+        List<Meal> mealListByDateAndUserId =
+                mealRepository.findMealListByDateAndUserId(LocalDate.parse(inputDate), userId);
+        return getDailyDietByListMeal(mealListByDateAndUserId);
     }
 
     public DailyDiet getDailyDietByListMeal(List<Meal> meals){

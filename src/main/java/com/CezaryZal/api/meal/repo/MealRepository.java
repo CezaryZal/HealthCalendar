@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,6 +17,10 @@ public interface MealRepository extends JpaRepository<Meal, Long> {
 
     @Query(value = "select * from meal where day_id =:inputDayId", nativeQuery = true)
     List<Meal> findMealListByDayId(@Param("inputDayId") Long dayId);
+
+    @Query(value = "select * from meal m, day d where m.day_id =d.id AND d.user_id=:inputUserId AND d.date=:inputDate",
+            nativeQuery = true)
+    List<Meal> findMealListByDateAndUserId(@Param("inputDate")LocalDate date, @Param("inputUserId") Long userId);
 
     @Query(value = "select sum(kcal) from meal where day_id =:inputDayId", nativeQuery = true)
     Optional<Integer> getKcal(@Param("inputDayId") Long dayId);

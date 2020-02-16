@@ -30,6 +30,13 @@ public class MealController {
         return new ResponseEntity<>(mealService.getDailyDietByDayId(dayId), HttpStatus.OK);
     }
 
+    @ApiOperation(value = "This will get a `DailyDietDTO` by date and user id")
+    @GetMapping("/dto/date/user-id/{date}/{userId}")
+    public ResponseEntity<DailyDiet> getDailyDietByDateAndUserId(
+            @PathVariable String date, @PathVariable Long userId){
+        return new ResponseEntity<>(mealService.getDailyDietByDateAndUserId(date, userId), HttpStatus.OK);
+    }
+
     @ApiOperation(value = "This endpoint addition `Meal`")
     @PostMapping
     public ResponseEntity<String> addMeal (@RequestBody MealDto mealDto){
