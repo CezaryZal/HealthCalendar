@@ -35,7 +35,7 @@ public class ShortReportCreator {
                 .build();
     }
 
-    ShortReport createShortReportToUpdateRecordByDay(ObjectToSaveDay saveDay, Long dayId, Long shortReportId)  {
+    ShortReport createShortReportToUpdateByDay(ObjectToSaveDay saveDay, Long dayId, Long shortReportId)  {
         LimitsCleanDate limitsCleanDate = dailyLimitsService.getLimitsCleanDateByUserId(saveDay.getUserId());
         int sumOfKcal = mealService.getKcalByDayId(dayId);
         return ShortReport.builder()

@@ -38,6 +38,6 @@ public class UserAuthService {
 
     public Long getUserAuthId(Long userId){
         return userAuthRepository.getUserAuthIdByUserId(userId)
-                .orElseThrow(() -> new UserNotFoundException("Użytkownik o wpisanym id nie istnieje"));
+                .orElseThrow(() -> new UserNotFoundException("User authentication not found by id"));
     }
 }

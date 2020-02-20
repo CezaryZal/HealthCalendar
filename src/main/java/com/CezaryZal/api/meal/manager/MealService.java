@@ -62,28 +62,27 @@ public class MealService {
                 .orElseThrow(() -> new MealNotFoundException("Meals not found by day id"));
     }
 
+    public Integer getKcalByDayId(Long dayId) {
+        return mealRepository.getKcal(dayId)
+                .orElse(0);
+    }
+
     public List<MealDto> getListMealDto() {
         return mealConverter.mappingListMealToListDto(mealRepository.findAll());
     }
 
     public String addMealByDto(MealDto mealDto) {
         mealRepository.save(mealCreator.createMealByDtoAndMealId(mealDto));
-        return "Przesłany posiłek został zapisany w bazie danych";
+        return "Received the meal object has been saved to the database";
     }
 
     public String updateMealByDto(MealDto mealDto, Long mealId) {
         mealRepository.save(mealCreator.createMealToUpdateByDtoAndMealId(mealDto, mealId));
-        return "Przesłane posiłek zostały uaktualnione";
+        return "Received the meal object and the shortReport has been updated";
     }
 
     public String deleteById(Long id) {
         mealRepository.deleteById(id);
-        return "Posiłek o przesłanym id został usuniety";
+        return "The meal has been removed based on Id";
     }
-
-    public Integer getKcalByDayId(Long dayId) {
-        return mealRepository.getKcal(dayId)
-                .orElse(0);
-    }
-
 }

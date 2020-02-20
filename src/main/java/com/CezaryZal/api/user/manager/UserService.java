@@ -59,7 +59,7 @@ public class UserService {
 
     public String getNickByUserId(Long userId) {
         return userRepository.getNick(userId)
-                .orElse("Nick nie został jeszcze dopisany");
+                .orElse("Nick name has not yet been saved");
     }
 
     public ObjectToAuthResponse getObjectToAuthResponse(String loginName) {
@@ -82,17 +82,17 @@ public class UserService {
     public String createNewAccount(AccountEntity accountEntity) {
         User newUser = newAccountCreator.createAccountByAccountEntity(accountEntity);
         userRepository.save(newUser);
-        return "Przesłane dane nowego konta zostały podzielone i zapisane w bazie danych";
+        return "Received the AccountEntity object has been saved to the database";
     }
 
     public String updateUser(AccountEntity accountEntity, Long userId) {
         User user = updateUser.updateByAccountEntity(accountEntity, userId);
         userRepository.save(user);
-        return "Przesłane dane dnia zostały uaktualnione w bazie danych";
+        return "Received the AccountEntity object has been updated";
     }
 
     public String deleteUser(Long id) {
         userRepository.deleteById(id);
-        return "Skrót dnia o przesłanym id został usuniety";
+        return "The user has been removed based on Id";
     }
 }

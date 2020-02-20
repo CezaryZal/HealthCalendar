@@ -65,17 +65,17 @@ public class DayService {
     public String addNewDay(ObjectToSaveDay day){
         ShortReport newShortReport = shortReportService.createShortReport(day, null, true);
         dayRepository.save(dayCreator.createDayByDayApi(day, newShortReport));
-        return "Dzień z aktualną datą został dodany do bazy danych";
+        return "Received the day object has been saved to the database with its shortcut";
     }
 
     public String update(ObjectToSaveDay day, Long dayId) {
         ShortReport updatedShortReport = shortReportService.createShortReport(day, dayId, false);
         dayRepository.save(dayCreator.createDayToUpdateByDayApiAndShortDay(day, updatedShortReport, dayId));
-        return "Wskazany dzień został aktualizowany wraz ze skrótem";
+        return "Received the day object has been updated with its shortcut";
     }
 
     public String deleteDay(Long id) {
         dayRepository.deleteById(id);
-        return "Dzień o podanym id został usunięty wraz ze skrótem dnia";
+        return "The day with its shortcut has been removed based on Id";
     }
 }

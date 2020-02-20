@@ -54,7 +54,7 @@ public class BodySizeService {
 
     public List<LocalDate> getListDatesByUserId(Long userId) {
         List<Date> listDateByUserId = bodySizeRepository.findByUserIdAllDate(userId)
-                .orElseThrow(() -> new BodySizeNotFoundException("Is user didn't take measurements"));
+                .orElseThrow(() -> new BodySizeNotFoundException("User is didn't take measurements"));
         return listDateByUserId.stream()
                 .map(Date::toLocalDate)
                 .collect(Collectors.toList());
@@ -76,16 +76,16 @@ public class BodySizeService {
 
     public String addBodySizeByDto(BodySizeDto bodySizeDto) {
         bodySizeRepository.save(bodySizeCreator.createBodySizeByDtoAndBodyId(bodySizeDto));
-        return "Przesłany pomiar ciała został zapisany w bazie danych";
+        return "Received the body measurement has been saved to the database";
     }
 
     public String updateBodySizeByDto(BodySizeDto bodySizeDto, Long id){
         bodySizeRepository.save(bodySizeCreator.createBodySizeToUpdateByDtoAndBodyId(bodySizeDto, id));
-        return "Przesłany pomiar został uaktualniony";
+        return "Received the body measurement has been updated";
     }
 
     public String deleteBodySizeById(Long id){
         bodySizeRepository.deleteById(id);
-        return "Pomiar ciała o przesłanym id został usunięty";
+        return "The body measurement has been removed based on Id";
     }
 }

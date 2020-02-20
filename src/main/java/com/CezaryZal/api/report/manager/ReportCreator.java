@@ -49,7 +49,7 @@ public class ReportCreator {
     FormReport createFormReportByDayAndUser(Day day, Long userId, boolean isLongReport){
         String dateLastMeasureBody = bodySizeService.getDateLastMeasureByUserId(userId)
                 .map(String::valueOf)
-                .orElse("Nie wykonano żadnego pomiaru ciała");
+                .orElse("The body measurement has not been done ");
 
         LimitsCleanDate limitsCleanDate = dailyLimitsService.getLimitsCleanDateByUserId(userId);
         String nickByUserId = userService.getNickByUserId(userId);

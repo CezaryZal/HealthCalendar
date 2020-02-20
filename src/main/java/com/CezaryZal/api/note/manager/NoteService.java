@@ -60,16 +60,16 @@ public class NoteService{
 
     public String addNoteByDto (NoteDto noteDto){
         noteRepository.save(noteCreator.createNoteByDtoAndNoteId(noteDto));
-        return "Przesłana notatka została zapisana w bazie danych";
+        return "Received the note object has been saved to the database";
     }
 
     public String updateNoteByDto (NoteDto noteDto, Long noteId){
         noteRepository.save(noteCreator.createNoteToUpdateByDtoAndNoteId(noteDto, noteId));
-        return "Przesłana notatka została uaktualniona";
+        return "Received the note object has been updated";
     }
 
     public String deleteNoteDtoById (Long id){
         noteRepository.deleteById(id);
-        return "Notatka o przesłanym id została usunieta";
+        return "The note has been removed based on Id";
     }
 }

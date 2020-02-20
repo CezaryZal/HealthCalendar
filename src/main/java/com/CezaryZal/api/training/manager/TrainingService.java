@@ -61,16 +61,16 @@ public class TrainingService {
 
     public String addTrainingByDto (TrainingDto trainingDto){
         trainingRepository.save(trainingCreator.createTrainingByDtoAndId(trainingDto));
-        return "Przesłany trening został zapisany w bazie danych";
+        return "Received the training object has been saved to the database";
     }
 
     public String updateTrainingByDto (TrainingDto trainingDto, Long trainingId){
         trainingRepository.save(trainingCreator.createTrainingToUpdateByDtoAndId(trainingDto, trainingId));
-        return "Przesłany trening został uaktualniony";
+        return "Received the training object and the shortReport has been updated";
     }
 
     public String deleteTraining (Long id){
         trainingRepository.deleteById(id);
-        return "Trening o przesłanym id została usuniety";
+        return "The training has been removed based on Id";
     }
 }
