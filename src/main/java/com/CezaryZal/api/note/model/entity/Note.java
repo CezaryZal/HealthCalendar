@@ -25,7 +25,7 @@ import javax.persistence.*;
         })
 @NamedNativeQuery(
         name = "Result",
-        query = "select n.id, n.header from note AS n where n.day_id=:dayId",
+        query = "SELECT n.id, n.header FROM note AS n WHERE n.day_id=:dayId",
         resultSetMapping = "ResultInHeader"
 )
 public class Note {

@@ -13,7 +13,7 @@ import java.util.Optional;
 @Repository
 public interface DayRepository extends JpaRepository<Day, Long> {
 
-    @Query(value = "select id from day where date =:inputDate and user_id =:userId", nativeQuery = true)
+    @Query(value = "SELECT id FROM day WHERE date =:inputDate AND user_id =:userId", nativeQuery = true)
     Optional<Long> getDayIdByDateAndUserId(@Param("inputDate") LocalDate localDate, @Param("userId") Long userId);
 
     Optional<Day> findDayByDateAndUserId(LocalDate localDate, Long userId);

@@ -15,14 +15,14 @@ public interface MealRepository extends JpaRepository<Meal, Long> {
 
     Optional<List<Meal>> findAllByDayId(Long dayId);
 
-    @Query(value = "select * from meal where day_id =:inputDayId", nativeQuery = true)
+    @Query(value = "SELECT * FROM meal WHERE day_id =:inputDayId", nativeQuery = true)
     List<Meal> findMealListByDayId(@Param("inputDayId") Long dayId);
 
-    @Query(value = "select * from meal m, day d where m.day_id =d.id AND d.user_id=:inputUserId AND d.date=:inputDate",
+    @Query(value = "SELECT * FROM meal m, day d WHERE m.day_id =d.id AND d.user_id=:inputUserId AND d.date=:inputDate",
             nativeQuery = true)
     List<Meal> findMealListByDateAndUserId(@Param("inputDate")LocalDate date, @Param("inputUserId") Long userId);
 
-    @Query(value = "select sum(kcal) from meal where day_id =:inputDayId", nativeQuery = true)
+    @Query(value = "SELECT SUM(kcal) FROM meal WHERE day_id =:inputDayId", nativeQuery = true)
     Optional<Integer> getKcal(@Param("inputDayId") Long dayId);
 
 }

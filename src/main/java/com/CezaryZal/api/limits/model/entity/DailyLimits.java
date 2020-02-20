@@ -27,8 +27,8 @@ import java.util.Optional;
         })
 @NamedNativeQuery(
         name = "Result_for_daily_limits",
-        query = "select dl.kcal_demand, dl.drink_demand from daily_limits AS dl, user AS u " +
-                "where  dl.id = u.daily_limits_id AND u.id=:inputUserId",
+        query = "SELECT dl.kcal_demand, dl.drink_demand FROM daily_limits AS dl, user AS u " +
+                "WHERE  dl.id = u.daily_limits_id AND u.id=:inputUserId",
         resultSetMapping = "ResultToLimits"
 )
 public class DailyLimits {

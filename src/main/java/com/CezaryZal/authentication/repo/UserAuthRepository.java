@@ -12,7 +12,7 @@ import java.util.Optional;
 @Repository
 public interface UserAuthRepository extends JpaRepository<UserAuthentication, Long> {
 
-    @Query(value = "select users_auth.id from users_auth, user where users_auth.id = user.users_auth_id AND " +
+    @Query(value = "SELECT users_auth.id FROM users_auth, user WHERE users_auth.id = user.users_auth_id AND " +
             "user.id=:inputUserId ", nativeQuery = true)
     Optional<Long> getUserAuthIdByUserId(@Param("inputUserId") Long userId);
 

@@ -14,6 +14,6 @@ public interface TrainingRepository extends JpaRepository<Training, Long> {
 
     Optional<List<Training>> findAllByDayId(Long dayId);
 
-    @Query(value = "select * from training where day_id =:inputDayId", nativeQuery = true)
+    @Query(value = "SELECT * FROM training WHERE day_id =:inputDayId", nativeQuery = true)
     List<Training> findTrainingListByDayId(@Param("inputDayId") Long dayId);
 }
