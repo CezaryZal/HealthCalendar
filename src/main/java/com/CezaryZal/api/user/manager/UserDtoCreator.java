@@ -33,7 +33,7 @@ public class UserDtoCreator {
                 .nick(user.getNick())
                 .email(user.getEmail())
                 .phoneNumber(user.getPhoneNumber())
-                .sex(user.getSex())
+                .man(user.isMan())
                 .birthDate(user.getBirthDate())
                 .userAuthentication(user.getUserAuthentication())
                 .listBodySizeDto(listBodySizeDtoByUserId)

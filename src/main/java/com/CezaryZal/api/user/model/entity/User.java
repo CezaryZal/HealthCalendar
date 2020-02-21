@@ -33,10 +33,10 @@ public class User {
     private String email;
 
     @Column(name = "phone_number")
-    private int phoneNumber;
+    private String phoneNumber;
 
-    @Column(name = "sex")
-    private int sex;
+    @Column(name = "man")
+    private boolean man;
 
     //don't save param to table
     @Transient
@@ -82,8 +82,8 @@ public class User {
         private String loginName;
         private String nick;
         private String email;
-        private int phoneNumber;
-        private int sex;
+        private String phoneNumber;
+        private boolean man;
         private LocalDate birthDate;
         private DailyLimits dailyLimits;
         private UserAuthentication userAuthentication;
@@ -104,12 +104,12 @@ public class User {
             this.email = email;
             return this;
         }
-        public Builder phoneNumber(int phoneNumber){
+        public Builder phoneNumber(String phoneNumber){
             this.phoneNumber = phoneNumber;
             return this;
         }
-        public Builder sex(int sex){
-            this.sex = sex;
+        public Builder man(boolean man){
+            this.man = man;
             return this;
         }
         public Builder birthDate(LocalDate birthDate){
@@ -132,7 +132,7 @@ public class User {
             user.nick = this.nick;
             user.email = this.email;
             user.phoneNumber = this.phoneNumber;
-            user.sex = this.sex;
+            user.man = this.man;
             user.birthDate = this.birthDate;
             user.dailyLimits = this.dailyLimits;
             user.userAuthentication = this.userAuthentication;

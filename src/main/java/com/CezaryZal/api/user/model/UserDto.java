@@ -19,8 +19,8 @@ public class UserDto {
     private String loginName;
     private String nick;
     private String email;
-    private int phoneNumber;
-    private int sex;
+    private String phoneNumber;
+    private boolean man;
     private int age;
     private LocalDate birthDate;
     private UserAuthentication userAuthentication;
@@ -37,8 +37,8 @@ public class UserDto {
         private String loginName;
         private String nick;
         private String email;
-        private int phoneNumber;
-        private int sex;
+        private String phoneNumber;
+        private boolean man;
         private int age;
         private LocalDate birthDate;
         private UserAuthentication userAuthentication;
@@ -61,12 +61,12 @@ public class UserDto {
             this.email = email;
             return this;
         }
-        public Builder phoneNumber(int phoneNumber){
+        public Builder phoneNumber(String phoneNumber){
             this.phoneNumber = phoneNumber;
             return this;
         }
-        public Builder sex(int sex){
-            this.sex = sex;
+        public Builder man(boolean man){
+            this.man = man;
             return this;
         }
         public Builder age(int age){
@@ -97,7 +97,7 @@ public class UserDto {
             userDto.nick = this.nick;
             userDto.email = this.email;
             userDto.phoneNumber = this.phoneNumber;
-            userDto.sex = this.sex;
+            userDto.man = this.man;
             userDto.age = this.age;
             userDto.birthDate = this.birthDate;
             userDto.userAuthentication = this.userAuthentication;

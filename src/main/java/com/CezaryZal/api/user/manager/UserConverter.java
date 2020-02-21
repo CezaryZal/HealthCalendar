@@ -14,7 +14,7 @@ public class UserConverter {
                 .nick(user.getNick())
                 .email(user.getEmail())
                 .phoneNumber(user.getPhoneNumber())
-                .sex(user.getSex())
+                .man(user.isMan())
                 .age(user.getAge())
                 .build();
     }
