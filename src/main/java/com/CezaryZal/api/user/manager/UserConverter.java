@@ -16,6 +16,9 @@ public class UserConverter {
                 .phoneNumber(user.getPhoneNumber())
                 .man(user.isMan())
                 .age(user.getAge())
+                .birthDate(user.getBirthDate())
+                .kcalDemandPerDay(user.getKcalDemandPerDay())
+                .drinkDemandPerDay(user.getDrinkDemandPerDay())
                 .build();
     }
 }

@@ -1,6 +1,5 @@
 package com.CezaryZal.api.user.manager;
 
-import com.CezaryZal.api.limits.model.entity.DailyLimits;
 import com.CezaryZal.api.user.model.AccountEntity;
 import com.CezaryZal.api.user.model.entity.User;
 import com.CezaryZal.authentication.model.entity.UserAuthentication;
@@ -9,10 +8,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserCreator {
 
-    User createUserByAccountEntityAndLimitsAndUserAuth(
-            AccountEntity accountEntity,
-            DailyLimits dailyLimits,
-            UserAuthentication userAuthentication){
+    User createUserByAccountEntityAndLimitsAndUserAuth(AccountEntity accountEntity,
+                                                       UserAuthentication userAuthentication){
         return User.builder()
                 .loginName(accountEntity.getLoginName())
                 .nick(accountEntity.getNick())
@@ -20,15 +17,14 @@ public class UserCreator {
                 .phoneNumber(accountEntity.getPhoneNumber())
                 .man(accountEntity.isMan())
                 .birthDate(accountEntity.getBirthDate())
-                .dailyLimits(dailyLimits)
+                .kcalDemandPerDay(accountEntity.getKcalDemandPerDay())
+                .drinkDemandPerDay(accountEntity.getDrinkDemandPerDay())
                 .userAuthentication(userAuthentication)
                 .build();
     }
 
-    User createUserToUpdateByAccountEntityAndLimitsAndUserAuth(
-            AccountEntity accountEntity,
-            DailyLimits dailyLimits,
-            UserAuthentication userAuthentication,
+    User createUserToUpdateByAccountEntityAndLimitsAndUserAuth(AccountEntity accountEntity,
+                                                               UserAuthentication userAuthentication,
             Long userId){
         return User.builder()
                 .id(userId)
@@ -38,7 +34,8 @@ public class UserCreator {
                 .phoneNumber(accountEntity.getPhoneNumber())
                 .man(accountEntity.isMan())
                 .birthDate(accountEntity.getBirthDate())
-                .dailyLimits(dailyLimits)
+                .kcalDemandPerDay(accountEntity.getKcalDemandPerDay())
+                .drinkDemandPerDay(accountEntity.getDrinkDemandPerDay())
                 .userAuthentication(userAuthentication)
                 .build();
     }

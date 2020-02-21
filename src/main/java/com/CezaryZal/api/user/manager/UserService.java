@@ -34,6 +34,11 @@ public class UserService {
         this.updateUser = updateUser;
     }
 
+    private User getUserById(Long id) {
+        return userRepository.findById(id)
+                .orElseThrow(() -> new UserNotFoundException("User not found by id"));
+    }
+
     public UserDto getBasicUserDtoById(Long id) {
         return userConverter.mappingUserToDto(getUserById(id));
     }
@@ -72,11 +77,6 @@ public class UserService {
                 .stream()
                 .map(userDtoCreator::createUserDtoByUser)
                 .collect(Collectors.toList());
-    }
-
-    private User getUserById(Long id) {
-        return userRepository.findById(id)
-                .orElseThrow(() -> new UserNotFoundException("User not found by id"));
     }
 
     public String createNewAccount(AccountEntity accountEntity) {

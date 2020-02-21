@@ -5,8 +5,10 @@ import com.CezaryZal.api.day.model.DayDto;
 import com.CezaryZal.authentication.model.entity.UserAuthentication;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import lombok.ToString;
 
+import javax.persistence.Column;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -23,6 +25,8 @@ public class UserDto {
     private boolean man;
     private int age;
     private LocalDate birthDate;
+    private int kcalDemandPerDay;
+    private int drinkDemandPerDay;
     private UserAuthentication userAuthentication;
     private List<BodySizeDto> listBodySizeDto;
     private List<DayDto> listDayDto;
@@ -41,6 +45,8 @@ public class UserDto {
         private boolean man;
         private int age;
         private LocalDate birthDate;
+        private int kcalDemandPerDay;
+        private int drinkDemandPerDay;
         private UserAuthentication userAuthentication;
         private List<BodySizeDto> listBodySizeDto;
         private List<DayDto> listDayDto;
@@ -81,6 +87,14 @@ public class UserDto {
             this.userAuthentication = userAuthentication;
             return this;
         }
+        public Builder kcalDemandPerDay(int kcalDemandPerDay){
+            this.kcalDemandPerDay = kcalDemandPerDay;
+            return this;
+        }
+        public Builder drinkDemandPerDay(int drinkDemandPerDay){
+            this.drinkDemandPerDay = drinkDemandPerDay;
+            return this;
+        }
         public Builder listBodySizeDto(List<BodySizeDto> listBodySizeDto){
             this.listBodySizeDto = listBodySizeDto;
             return this;
@@ -100,6 +114,8 @@ public class UserDto {
             userDto.man = this.man;
             userDto.age = this.age;
             userDto.birthDate = this.birthDate;
+            userDto.kcalDemandPerDay = this.kcalDemandPerDay;
+            userDto.drinkDemandPerDay = drinkDemandPerDay;
             userDto.userAuthentication = this.userAuthentication;
             userDto.listBodySizeDto = this.listBodySizeDto;
             userDto.listDayDto = this.listDayDto;

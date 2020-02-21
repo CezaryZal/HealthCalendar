@@ -5,19 +5,6 @@ USE `health_calendar`;
 SET FOREIGN_KEY_CHECKS = 0;
 
 
-DROP TABLE IF EXISTS `daily_limits`;
-CREATE TABLE `daily_limits` (
-                        `id` BIGINT NOT NULL AUTO_INCREMENT,
-                        `drink_demand` SMALLINT UNSIGNED DEFAULT NULL,
-                        `kcal_demand` SMALLINT UNSIGNED DEFAULT NULL,
-                        PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
-
-INSERT INTO `daily_limits` VALUES
-(1, 2500, 2000),
-(2, 4000, 3000),
-(3, 3000, 2500);
-
 DROP TABLE IF EXISTS `users_auth`;
 CREATE TABLE `users_auth` (
                       `id` BIGINT NOT NULL AUTO_INCREMENT,
@@ -42,19 +29,18 @@ CREATE TABLE `user` (
                     `nick` VARCHAR(24) DEFAULT NULL,
                     `phone_number` VARCHAR(20) DEFAULT NULL,
                     `man` BIT(1) DEFAULT NULL,
-                    `daily_limits_id` BIGINT DEFAULT NULL,
+                    `drink_demand` SMALLINT UNSIGNED DEFAULT NULL,
+                    `kcal_demand` SMALLINT UNSIGNED DEFAULT NULL,
                     `users_auth_id` BIGINT DEFAULT NULL,
                     PRIMARY KEY (`id`),
-                    KEY `daily_limits` (`daily_limits_id`),
                     KEY `users_auth` (`users_auth_id`),
-                    CONSTRAINT `daily_limits` FOREIGN KEY (`daily_limits_id`) REFERENCES `daily_limits` (`id`),
                     CONSTRAINT `users_auth` FOREIGN KEY (`users_auth_id`) REFERENCES `users_auth` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
 
 INSERT INTO `user` VALUES
-(1, '1966-05-23', 'anna@gmail.com', 'janek','jan', '569 842 365', false, 1, 1),
-(2, '1996-05-23', 'fiona@gmail.com', 'tomek','tomy', '846 152 365', true, 2, 2),
-(3, '1999-05-23', 'kris@gmail.com', 'czar','czarek', '849 642 365', true, 3, 3);
+(1, '1966-05-23', 'anna@gmail.com', 'janek','jan', '569 842 365', true, 2500, 2000, 1),
+(2, '1996-05-23', 'fiona@gmail.com', 'tomek','tomy', '846 152 365', true, 4000, 3000, 2),
+(3, '1999-05-23', 'kris@gmail.com', 'czar','czarek', '849 642 365', true, 3000, 2500, 3);
 
 DROP TABLE IF EXISTS `body_size`;
 CREATE TABLE `body_size` (

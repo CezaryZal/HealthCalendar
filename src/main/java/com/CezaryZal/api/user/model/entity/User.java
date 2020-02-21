@@ -6,6 +6,7 @@ import com.CezaryZal.api.day.model.entity.Day;
 import com.CezaryZal.authentication.model.entity.UserAuthentication;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -48,9 +49,13 @@ public class User {
     @Column(name = "birth_date")
     private LocalDate birthDate;
 
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "daily_limits_id")
-    private DailyLimits dailyLimits;
+    @NonNull
+    @Column(name = "kcal_demand")
+    private int kcalDemandPerDay;
+
+    @NonNull
+    @Column(name = "drink_demand")
+    private int drinkDemandPerDay;
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "users_auth_id")
@@ -85,7 +90,8 @@ public class User {
         private String phoneNumber;
         private boolean man;
         private LocalDate birthDate;
-        private DailyLimits dailyLimits;
+        private int kcalDemandPerDay;
+        private int drinkDemandPerDay;
         private UserAuthentication userAuthentication;
 
         public Builder id(Long id){
@@ -116,8 +122,12 @@ public class User {
             this.birthDate = birthDate;
             return this;
         }
-        public Builder dailyLimits(DailyLimits dailyLimits){
-            this.dailyLimits = dailyLimits;
+        public Builder kcalDemandPerDay(int kcalDemandPerDay){
+            this.kcalDemandPerDay = kcalDemandPerDay;
+            return this;
+        }
+        public Builder drinkDemandPerDay(int drinkDemandPerDay){
+            this.drinkDemandPerDay = drinkDemandPerDay;
             return this;
         }
         public Builder userAuthentication(UserAuthentication userAuthentication){
@@ -134,7 +144,8 @@ public class User {
             user.phoneNumber = this.phoneNumber;
             user.man = this.man;
             user.birthDate = this.birthDate;
-            user.dailyLimits = this.dailyLimits;
+            user.kcalDemandPerDay = this.kcalDemandPerDay;
+            user.drinkDemandPerDay = this.drinkDemandPerDay;
             user.userAuthentication = this.userAuthentication;
             return user;
         }
