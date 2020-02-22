@@ -42,7 +42,7 @@ public class DayConverter {
                 .listMeal(mealService.getMealsDtoByDayIdOrNull(day.getId()))
                 .listTrainings(trainingService.getTrainingsDtoByDayId(day.getId()))
                 .listNotes(noteService.getNotesDtoByDay(day.getId()))
-                .shortReport(shortReportService.getShortReportDtoByDateAndUserId(String.valueOf(day.getDate()), day.getUserId()))
+                .shortReport(shortReportService.getShortReportDtoByShortReport(day.getShortReport()))
                 .build();
     }
 

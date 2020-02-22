@@ -30,12 +30,16 @@ public class ShortReportService {
     public ShortReportDto getShortReportDtoById(Long id) {
         ShortReport shortReport = shortReportRepository.findById(id)
                 .orElseThrow(() -> new ShortReportNotFoundException("Short report not found by id"));
-        return shortReportConverter.mappingShortReportToDto(shortReport);
+        return getShortReportDtoByShortReport(shortReport);
     }
 
     public ShortReportDto getShortReportDtoByDateAndUserId(String inputDate, Long userId) {
         ShortReport shortReport = shortReportRepository.findShortReportByDateAndUserId(LocalDate.parse(inputDate), userId)
                 .orElseThrow(() -> new ShortReportNotFoundException("Short report not found by date and user id"));
+        return getShortReportDtoByShortReport(shortReport);
+    }
+
+    public ShortReportDto getShortReportDtoByShortReport(ShortReport shortReport) {
         return shortReportConverter.mappingShortReportToDto(shortReport);
     }
 
