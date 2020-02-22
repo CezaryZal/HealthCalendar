@@ -1,4 +1,4 @@
-package com.CezaryZal.api.limits.manager;
+package com.CezaryZal.api.user.limits.manager;
 
 import org.springframework.stereotype.Service;
 
@@ -8,11 +8,11 @@ public class DailyLimitsChecker {
     private final int PORTION_OF_DRINK = 250;
     private final double LIMIT_OF_EAT_KCAL = 0.05; // 5%
 
-    public boolean checkIsAchievedDrink(int drinkDemandPerDay, int portionsDrink) {
+    boolean checkIsAchievedDrink(int drinkDemandPerDay, int portionsDrink) {
         return drinkDemandPerDay <= portionsDrink * PORTION_OF_DRINK;
     }
 
-    public boolean checkIsAchievedKcal(int kcalDemand, int sumOfKcal) {
+    boolean checkIsAchievedKcal(int kcalDemand, int sumOfKcal) {
         return checkIfEatenTooMuch(kcalDemand, sumOfKcal) && checkIfEatenTooLittle(kcalDemand, sumOfKcal);
     }
 

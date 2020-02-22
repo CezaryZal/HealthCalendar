@@ -1,5 +1,5 @@
 package com.CezaryZal.constants.objects;
-import com.CezaryZal.api.report.model.DailyLimitsTmp;
+import com.CezaryZal.api.user.limits.model.DailyLimitsTmp;
 
 public class DefaultDailyLimits {
     private final int DEFAULT_KCAL_DEMAND_PER_DAY = 8000;

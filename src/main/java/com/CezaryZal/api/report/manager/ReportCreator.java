@@ -3,10 +3,10 @@ package com.CezaryZal.api.report.manager;
 import com.CezaryZal.api.body.manager.BodySizeService;
 import com.CezaryZal.api.meal.model.DailyDiet;
 import com.CezaryZal.api.note.manager.NoteService;
-import com.CezaryZal.api.report.model.DailyLimitsTmp;
+import com.CezaryZal.api.user.limits.manager.DailyLimitsService;
+import com.CezaryZal.api.user.limits.model.DailyLimitsTmp;
 import com.CezaryZal.api.report.model.FormReport;
 import com.CezaryZal.api.day.model.entity.Day;
-import com.CezaryZal.api.limits.manager.DailyLimitsChecker;
 import com.CezaryZal.api.meal.manager.MealService;
 import com.CezaryZal.api.report.shortened.manager.ShortReportService;
 import com.CezaryZal.api.training.manager.TrainingService;
@@ -17,29 +17,29 @@ import org.springframework.stereotype.Service;
 @Service
 public class ReportCreator {
 
-    private final DailyLimitsChecker dailyLimitsChecker;
     private final MealService mealService;
     private final BodySizeService bodySizeService;
     private final TrainingService trainingService;
     private final NoteService noteService;
     private final ShortReportService shortReportService;
     private final UserService userService;
+    private final DailyLimitsService dailyLimitsService;
 
     @Autowired
-    public ReportCreator(DailyLimitsChecker dailyLimitsChecker,
-                         MealService mealService,
+    public ReportCreator(MealService mealService,
                          BodySizeService bodySizeService,
                          TrainingService trainingService,
                          NoteService noteService,
                          ShortReportService shortReportService,
-                         UserService userService) {
-        this.dailyLimitsChecker = dailyLimitsChecker;
+                         UserService userService,
+                         DailyLimitsService dailyLimitsService) {
         this.mealService = mealService;
         this.bodySizeService = bodySizeService;
         this.trainingService = trainingService;
         this.noteService = noteService;
         this.shortReportService = shortReportService;
         this.userService = userService;
+        this.dailyLimitsService = dailyLimitsService;
     }
 
     FormReport createFormReportByDayAndUser(Day day, Long userId, boolean isLongReport){
@@ -47,13 +47,13 @@ public class ReportCreator {
                 .map(String::valueOf)
                 .orElse("The body measurement has not been done ");
 
-        DailyLimitsTmp dailyLimitsTmp = userService.getDailyLimitsByUserId(userId);
+        DailyLimitsTmp dailyLimitsTmp = dailyLimitsService.getDailyLimitsByUserId(userId);
         String nickByUserId = userService.getNickByUserId(userId);
-        boolean isAchievedDrink = dailyLimitsChecker.checkIsAchievedDrink(
+        boolean isAchievedDrink = dailyLimitsService.checkIsAchievedDrink(
                 dailyLimitsTmp.getDrinkDemandPerDay(), day.getPortionsDrink());
         if (isLongReport){
             DailyDiet dailyDietByListMeal = mealService.getDailyDietByListMeal(day.getListMealsDB());
-            boolean isAchievedKcal = dailyLimitsChecker.checkIsAchievedKcal(
+            boolean isAchievedKcal = dailyLimitsService.checkIsAchievedKcal(
                     dailyLimitsTmp.getKcalDemandPerDay(), dailyDietByListMeal.getSumOfKcal());
             return FormReport.builder()
                     .id(day.getId())
@@ -73,7 +73,7 @@ public class ReportCreator {
                     .buildLongReport();
         }
         int sumOfKcal = mealService.getKcalByDayId(day.getId());
-        boolean isAchievedKcal = dailyLimitsChecker.checkIsAchievedKcal(
+        boolean isAchievedKcal = dailyLimitsService.checkIsAchievedKcal(
                 dailyLimitsTmp.getKcalDemandPerDay(), sumOfKcal);
         return FormReport.builder()
                 .id(day.getId())

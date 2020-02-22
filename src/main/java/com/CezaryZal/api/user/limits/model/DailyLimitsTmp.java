@@ -1,4 +1,4 @@
-package com.CezaryZal.api.limits.model;
+package com.CezaryZal.api.user.limits.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,9 +7,8 @@ import lombok.ToString;
 @ToString
 @Getter
 @AllArgsConstructor
-public class DailyLimitsDto {
+public class DailyLimitsTmp {
 
-    private Long id;
     private int kcalDemandPerDay;
     private int drinkDemandPerDay;
 }

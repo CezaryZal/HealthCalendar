@@ -2,7 +2,7 @@ package com.CezaryZal.api.user.model.entity;
 
 import com.CezaryZal.api.body.model.entity.BodySize;
 import com.CezaryZal.api.day.model.entity.Day;
-import com.CezaryZal.api.report.model.DailyLimitsTmp;
+import com.CezaryZal.api.user.limits.model.DailyLimitsTmp;
 import com.CezaryZal.authentication.model.entity.UserAuthentication;
 import lombok.Data;
 import lombok.NoArgsConstructor;

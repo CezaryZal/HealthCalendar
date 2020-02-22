@@ -1,6 +1,6 @@
 package com.CezaryZal.api.user.repo;
 
-import com.CezaryZal.api.report.model.DailyLimitsTmp;
+import com.CezaryZal.api.user.limits.model.DailyLimitsTmp;
 import com.CezaryZal.api.user.model.entity.User;
 import com.CezaryZal.authentication.model.ObjectToAuthResponse;
 import org.springframework.data.jpa.repository.JpaRepository;

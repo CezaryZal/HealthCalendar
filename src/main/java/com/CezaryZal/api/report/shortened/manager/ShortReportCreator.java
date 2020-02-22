@@ -1,10 +1,9 @@
 package com.CezaryZal.api.report.shortened.manager;
 
 import com.CezaryZal.api.day.model.ObjectToSaveDay;
-import com.CezaryZal.api.limits.manager.DailyLimitsService;
-import com.CezaryZal.api.limits.manager.DailyLimitsChecker;
 import com.CezaryZal.api.meal.manager.MealService;
-import com.CezaryZal.api.report.model.DailyLimitsTmp;
+import com.CezaryZal.api.user.limits.manager.DailyLimitsService;
+import com.CezaryZal.api.user.limits.model.DailyLimitsTmp;
 import com.CezaryZal.api.report.shortened.model.entity.ShortReport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,17 +11,14 @@ import org.springframework.stereotype.Service;
 @Service
 public class ShortReportCreator {
 
-    private final DailyLimitsService dailyLimitsService;
-    private final DailyLimitsChecker dailyLimitsChecker;
     private final MealService mealService;
+    private final DailyLimitsService dailyLimitsService;
 
     @Autowired
-    public ShortReportCreator(DailyLimitsService dailyLimitsService,
-                              DailyLimitsChecker dailyLimitsChecker,
-                              MealService mealService) {
-        this.dailyLimitsService = dailyLimitsService;
-        this.dailyLimitsChecker = dailyLimitsChecker;
+    public ShortReportCreator(MealService mealService,
+                              DailyLimitsService dailyLimitsService) {
         this.mealService = mealService;
+        this.dailyLimitsService = dailyLimitsService;
     }
 
     ShortReport createNewShortReport(ObjectToSaveDay saveDay)  {
@@ -36,15 +32,15 @@ public class ShortReportCreator {
     }
 
     ShortReport createShortReportToUpdateByDay(ObjectToSaveDay saveDay, Long dayId, Long shortReportId)  {
-        DailyLimitsTmp defaultDailyLimits = dailyLimitsService.getLimitsCleanDateByUserId(saveDay.getUserId());
+        DailyLimitsTmp dailyLimits = dailyLimitsService.getDailyLimitsByUserId(saveDay.getUserId());
         int sumOfKcal = mealService.getKcalByDayId(dayId);
         return ShortReport.builder()
                 .id(shortReportId)
                 .date(saveDay.getDate())
-                .isAchievedKcal(dailyLimitsChecker.checkIsAchievedKcal(
-                        defaultDailyLimits.getKcalDemandPerDay(), sumOfKcal))
-                .isAchievedDrink(dailyLimitsChecker.checkIsAchievedDrink(
-                        defaultDailyLimits.getDrinkDemandPerDay(), saveDay.getPortionsDrink()))
+                .isAchievedKcal(dailyLimitsService.checkIsAchievedKcal(
+                        dailyLimits.getKcalDemandPerDay(), sumOfKcal))
+                .isAchievedDrink(dailyLimitsService.checkIsAchievedDrink(
+                        dailyLimits.getDrinkDemandPerDay(), saveDay.getPortionsDrink()))
                 .isAlcohol(saveDay.getPortionsAlcohol() != 0)
                 .isSnacks(saveDay.getPortionsSnack() != 0)
                 .build();
