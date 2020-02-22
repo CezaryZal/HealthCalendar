@@ -1,10 +1,12 @@
 package com.CezaryZal.api.user.manager;
 
+import com.CezaryZal.api.report.model.DailyLimitsTmp;
 import com.CezaryZal.api.user.model.AccountEntity;
 import com.CezaryZal.api.user.model.UserDto;
 import com.CezaryZal.api.user.model.entity.User;
 import com.CezaryZal.api.user.repo.UserRepository;
 import com.CezaryZal.authentication.model.ObjectToAuthResponse;
+import com.CezaryZal.constants.objects.DefaultDailyLimits;
 import com.CezaryZal.exceptions.not.found.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -70,6 +72,11 @@ public class UserService {
     public ObjectToAuthResponse getObjectToAuthResponse(String loginName) {
         return userRepository.getResultToAuthResponse(loginName)
                 .orElseThrow(() -> new UserNotFoundException("User not found by login name"));
+    }
+
+    public DailyLimitsTmp getDailyLimitsByUserId(Long id) {
+        return userRepository.getDailyLimits(id)
+                .orElseGet(() -> DefaultDailyLimits.getDefaultDailyLimits().getDailyLimitsTmp());
     }
 
     public List<UserDto> getUsersDto() {

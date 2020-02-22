@@ -111,7 +111,7 @@ public abstract class FormReport {
 
         public FormReport buildReport(){
             FormReport formReport = new Report();
-            return passDataToCreateFormReport(formReport);
+            return buildBaseToCreateFormReport(formReport);
         }
 
         public FormReport buildLongReport(){
@@ -120,10 +120,10 @@ public abstract class FormReport {
             formReport.trainings = this.trainings;
             formReport.listHeaders = this.listHeaders;
             formReport.listShortsDayDto = this.listShortsDayDto;
-            return passDataToCreateFormReport(formReport);
+            return buildBaseToCreateFormReport(formReport);
         }
 
-        private FormReport passDataToCreateFormReport(FormReport formReport){
+        private FormReport buildBaseToCreateFormReport(FormReport formReport){
             formReport.id = this.id;
             formReport.date = this.date;
             formReport.userId = this.userId;

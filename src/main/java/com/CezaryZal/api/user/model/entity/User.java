@@ -1,12 +1,13 @@
 package com.CezaryZal.api.user.model.entity;
 
 import com.CezaryZal.api.body.model.entity.BodySize;
-import com.CezaryZal.api.limits.model.entity.DailyLimits;
 import com.CezaryZal.api.day.model.entity.Day;
+import com.CezaryZal.api.report.model.DailyLimitsTmp;
 import com.CezaryZal.authentication.model.entity.UserAuthentication;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -16,7 +17,23 @@ import java.util.List;
 @Entity
 @Table(name = "user")
 @Data
+@RequiredArgsConstructor
 @NoArgsConstructor
+@SqlResultSetMapping(
+        name="ResultToLimits",
+        classes = {
+                @ConstructorResult(
+                        targetClass = DailyLimitsTmp.class,
+                        columns = {
+                                @ColumnResult(name="kcal_demand", type = Integer.class),
+                                @ColumnResult(name="drink_demand", type = Integer.class)
+                        })
+        })
+@NamedNativeQuery(
+        name = "Result_for_daily_limits",
+        query = "SELECT kcal_demand, drink_demand FROM user AS u WHERE id=:inputUserId",
+        resultSetMapping = "ResultToLimits"
+)
 public class User {
 
     @Id

@@ -1,7 +1,7 @@
 package com.CezaryZal.api.limits.repo;
 
-import com.CezaryZal.api.limits.model.LimitsCleanDate;
 import com.CezaryZal.api.limits.model.entity.DailyLimits;
+import com.CezaryZal.api.report.model.DailyLimitsTmp;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -17,7 +17,7 @@ public interface DailyLimitsRepository extends JpaRepository<DailyLimits, Long> 
     Optional<DailyLimits> getLimitsByUserId(@Param("inputUserId") Long userId);
 
     @Query(name = "Result_for_daily_limits", nativeQuery = true)
-    Optional<LimitsCleanDate> getLimitsCleanDate(@Param("inputUserId") Long userId);
+    Optional<DailyLimitsTmp> getLimitsCleanDate(@Param("inputUserId") Long userId);
 
     @Query(value = "SELECT daily_limits.id FROM daily_limits, user WHERE daily_limits.id = user.daily_limits_id AND " +
             "user.id=:inputUserId ", nativeQuery = true)
