@@ -8,8 +8,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserCreator {
 
-    User createUserByAccountEntityAndLimitsAndUserAuth(AccountEntity accountEntity,
-                                                       UserAuthentication userAuthentication){
+    User createUserByAccountEntityAndLimitsAndUserAuth(
+            AccountEntity accountEntity,
+            UserAuthentication userAuthentication){
         return User.builder()
                 .loginName(accountEntity.getLoginName())
                 .nick(accountEntity.getNick())
@@ -23,8 +24,9 @@ public class UserCreator {
                 .build();
     }
 
-    User createUserToUpdateByAccountEntityAndLimitsAndUserAuth(AccountEntity accountEntity,
-                                                               UserAuthentication userAuthentication,
+    User createUserToUpdateByAccountEntityAndLimitsAndUserAuth(
+            AccountEntity accountEntity,
+            UserAuthentication userAuthentication,
             Long userId){
         return User.builder()
                 .id(userId)
