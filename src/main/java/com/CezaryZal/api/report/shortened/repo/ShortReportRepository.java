@@ -13,7 +13,7 @@ import java.util.Optional;
 @Repository
 public interface ShortReportRepository extends JpaRepository<ShortReport, Long> {
 
-    @Query(value = "SELECT id FROM short_report, day WHERE short_report.id = day.short_day_id AND " +
+    @Query(value = "SELECT short_report.id FROM short_report, day WHERE short_report.id = day.short_day_id AND " +
             "short_report.date=:inputDate and day.user_id=:inputUserId",
             nativeQuery = true)
     Optional<Long> getIdByDateAndUserId(
