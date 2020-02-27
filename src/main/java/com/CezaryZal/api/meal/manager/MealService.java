@@ -4,6 +4,7 @@ import com.CezaryZal.api.meal.model.DailyDiet;
 import com.CezaryZal.api.meal.model.entity.Meal;
 import com.CezaryZal.api.meal.model.MealDto;
 import com.CezaryZal.api.meal.repo.MealRepository;
+import com.CezaryZal.api.report.shortened.manager.ShortReportUpdater;
 import com.CezaryZal.exceptions.not.found.MealNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,16 +19,19 @@ public class MealService {
     private final DailyDietCreator dailyDietCreator;
     private final MealCreator mealCreator;
     private final MealRepository mealRepository;
+    private final ShortReportUpdater shortReportUpdater;
 
     @Autowired
     public MealService(MealConverter mealConverter,
                        DailyDietCreator dailyDietCreator,
                        MealCreator mealCreator,
-                       MealRepository mealRepository) {
+                       MealRepository mealRepository,
+                       ShortReportUpdater shortReportUpdater) {
         this.mealConverter = mealConverter;
         this.dailyDietCreator = dailyDietCreator;
         this.mealCreator = mealCreator;
         this.mealRepository = mealRepository;
+        this.shortReportUpdater = shortReportUpdater;
     }
 
     public MealDto getMealDtoById(Long mealId) {
@@ -73,11 +77,13 @@ public class MealService {
 
     public String addMealByDto(MealDto mealDto) {
         mealRepository.save(mealCreator.createMealByDtoAndMealId(mealDto));
+        shortReportUpdater.updateShortReportByDayId(mealDto.getDayId());
         return "Received the meal object has been saved to the database";
     }
 
     public String updateMealByDto(MealDto mealDto, Long mealId) {
         mealRepository.save(mealCreator.createMealToUpdateByDtoAndMealId(mealDto, mealId));
+        shortReportUpdater.updateShortReportByDayId(mealDto.getDayId());
         return "Received the meal object and the shortReport has been updated";
     }
 

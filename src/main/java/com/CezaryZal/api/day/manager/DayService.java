@@ -4,7 +4,8 @@ import com.CezaryZal.api.day.model.ObjectToSaveDay;
 import com.CezaryZal.api.day.model.DayDto;
 import com.CezaryZal.api.day.model.entity.Day;
 import com.CezaryZal.api.day.repo.DayRepository;
-import com.CezaryZal.api.report.shortened.manager.ShortReportService;
+import com.CezaryZal.api.report.shortened.manager.ShortReportCreator;
+import com.CezaryZal.api.report.shortened.manager.ShortReportUpdater;
 import com.CezaryZal.api.report.shortened.model.entity.ShortReport;
 import com.CezaryZal.exceptions.not.found.DayNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,17 +19,20 @@ public class DayService {
 
     private final DayRepository dayRepository;
     private final DayConverter dayConverter;
-    private final ShortReportService shortReportService;
+    private final ShortReportUpdater shortReportUpdater;
+    private final ShortReportCreator shortReportCreator;
     private final DayCreator dayCreator;
 
     @Autowired
     public DayService(DayRepository dayRepository,
                       DayConverter dayConverter,
-                      ShortReportService shortReportService,
+                      ShortReportUpdater shortReportUpdater,
+                      ShortReportCreator shortReportCreator,
                       DayCreator dayCreator) {
         this.dayRepository = dayRepository;
         this.dayConverter = dayConverter;
-        this.shortReportService = shortReportService;
+        this.shortReportUpdater = shortReportUpdater;
+        this.shortReportCreator = shortReportCreator;
         this.dayCreator = dayCreator;
     }
 
@@ -62,15 +66,15 @@ public class DayService {
         return dayConverter.mappingListDayToListDto(all);
     }
 
-    public String addNewDay(ObjectToSaveDay day){
-        ShortReport newShortReport = shortReportService.createShortReport(day, null, true);
-        dayRepository.save(dayCreator.createDayByDayApi(day, newShortReport));
+    public String addNewDay(ObjectToSaveDay objectToSaveDay){
+        ShortReport newShortReport = shortReportCreator.createNewShortReport(objectToSaveDay);
+        dayRepository.save(dayCreator.createDayByDayApi(objectToSaveDay, newShortReport));
         return "Received the day object has been saved to the database with its shortcut";
     }
 
-    public String update(ObjectToSaveDay day, Long dayId) {
-        ShortReport updatedShortReport = shortReportService.createShortReport(day, dayId, false);
-        dayRepository.save(dayCreator.createDayToUpdateByDayApiAndShortDay(day, updatedShortReport, dayId));
+    public String update(ObjectToSaveDay objectToSaveDay, Long dayId) {
+        ShortReport updatedShortReport = shortReportUpdater.updateShortReportByObjectToSaveDay(objectToSaveDay, dayId);
+        dayRepository.save(dayCreator.createDayToUpdateByDayApiAndShortDay(objectToSaveDay, updatedShortReport, dayId));
         return "Received the day object has been updated with its shortcut";
     }
 

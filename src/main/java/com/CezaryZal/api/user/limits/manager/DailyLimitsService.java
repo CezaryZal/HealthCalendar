@@ -1,6 +1,6 @@
 package com.CezaryZal.api.user.limits.manager;
 
-import com.CezaryZal.api.user.limits.model.DailyLimitsTmp;
+import com.CezaryZal.api.user.limits.model.DailyLimits;
 import com.CezaryZal.api.user.repo.UserRepository;
 import com.CezaryZal.constants.objects.DefaultDailyLimits;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +19,7 @@ public class DailyLimitsService {
         this.dailyLimitsChecker = dailyLimitsChecker;
     }
 
-    public DailyLimitsTmp getDailyLimitsByUserId(Long id) {
+    public DailyLimits getDailyLimitsByUserId(Long id) {
         return userRepository.getDailyLimits(id)
                 .orElseGet(() -> DefaultDailyLimits.getDefaultDailyLimits().getDailyLimitsTmp());
     }

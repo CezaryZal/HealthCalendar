@@ -1,6 +1,6 @@
 package com.CezaryZal.api.user.repo;
 
-import com.CezaryZal.api.user.limits.model.DailyLimitsTmp;
+import com.CezaryZal.api.user.limits.model.DailyLimits;
 import com.CezaryZal.api.user.model.entity.User;
 import com.CezaryZal.authentication.model.ObjectToAuthResponse;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -25,6 +25,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Optional<ObjectToAuthResponse> getResultToAuthResponse(@Param("loginName") String loginName);
 
     @Query(name = "Result_for_daily_limits", nativeQuery = true)
-    Optional<DailyLimitsTmp> getDailyLimits(@Param("inputUserId") Long userId);
+    Optional<DailyLimits> getDailyLimits(@Param("inputUserId") Long userId);
 
 }

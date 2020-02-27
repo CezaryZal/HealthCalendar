@@ -1,6 +1,5 @@
 package com.CezaryZal.api.report.shortened.manager;
 
-import com.CezaryZal.api.day.model.ObjectToSaveDay;
 import com.CezaryZal.api.report.shortened.repo.ShortReportRepository;
 import com.CezaryZal.api.report.shortened.model.entity.ShortReport;
 import com.CezaryZal.api.report.shortened.model.ShortReportDto;
@@ -16,15 +15,12 @@ public class ShortReportService {
 
     private final ShortReportRepository shortReportRepository;
     private final ShortReportConverter shortReportConverter;
-    private final ShortReportCreator shortReportCreator;
 
     @Autowired
     public ShortReportService(ShortReportRepository shortReportRepository,
-                              ShortReportConverter shortReportConverter,
-                              ShortReportCreator shortReportCreator) {
+                              ShortReportConverter shortReportConverter) {
         this.shortReportRepository = shortReportRepository;
         this.shortReportConverter = shortReportConverter;
-        this.shortReportCreator = shortReportCreator;
     }
 
     public ShortReportDto getShortReportDtoById(Long id) {
@@ -47,14 +43,6 @@ public class ShortReportService {
         return getShortReportsByDateAndUserId(LocalDate.parse(inputDate), userId);
     }
 
-    public ShortReport createShortReport(ObjectToSaveDay saveDay, Long dayId, boolean isNewObject){
-        if (isNewObject){
-            return shortReportCreator.createNewShortReport(saveDay);
-        }
-        Long shortReportId = getShortReportIdByDateAndUserId(saveDay.getDate(), saveDay.getUserId());
-        return shortReportCreator.createShortReportToUpdateByDay(saveDay, dayId, shortReportId);
-    }
-
     public List<ShortReportDto> getShortReportsByDateAndUserId(LocalDate inputLocalDate, Long userId) {
         LocalDate localDateMin = inputLocalDate.minusDays(30);
         LocalDate localDateMax = inputLocalDate.plusDays(30);
@@ -66,10 +54,4 @@ public class ShortReportService {
     public List<ShortReportDto> getShorts() {
         return shortReportConverter.mappingListShortReportToDto(shortReportRepository.findAll());
     }
-
-    private Long getShortReportIdByDateAndUserId(LocalDate localDate, Long userId){
-        return shortReportRepository.getIdByDateAndUserId(localDate, userId)
-                .orElseThrow(() -> new ShortReportNotFoundException("Short report not found by date and user id"));
-    }
-
 }

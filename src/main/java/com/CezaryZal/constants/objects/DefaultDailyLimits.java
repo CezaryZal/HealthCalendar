@@ -1,12 +1,12 @@
 package com.CezaryZal.constants.objects;
-import com.CezaryZal.api.user.limits.model.DailyLimitsTmp;
+import com.CezaryZal.api.user.limits.model.DailyLimits;
 
 public class DefaultDailyLimits {
     private final int DEFAULT_KCAL_DEMAND_PER_DAY = 8000;
     private final int DEFAULT_DRINK_DEMAND_PER_DAY = 30;
 
     private static DefaultDailyLimits defaultLimitsCleanDate = new DefaultDailyLimits();
-    private final DailyLimitsTmp limitsCleanDate = new DailyLimitsTmp(
+    private final DailyLimits limitsCleanDate = new DailyLimits(
             DEFAULT_KCAL_DEMAND_PER_DAY, DEFAULT_DRINK_DEMAND_PER_DAY);
 
     private DefaultDailyLimits() {
@@ -16,7 +16,7 @@ public class DefaultDailyLimits {
         return defaultLimitsCleanDate;
     }
 
-    public DailyLimitsTmp getDailyLimitsTmp (){
+    public DailyLimits getDailyLimitsTmp (){
         return limitsCleanDate;
     }
 }

@@ -7,7 +7,7 @@ import lombok.ToString;
 @ToString
 @Getter
 @AllArgsConstructor
-public class DailyLimitsTmp {
+public class DailyLimits {
 
     private int kcalDemandPerDay;
     private int drinkDemandPerDay;

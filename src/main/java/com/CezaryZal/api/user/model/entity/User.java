@@ -2,7 +2,7 @@ package com.CezaryZal.api.user.model.entity;
 
 import com.CezaryZal.api.body.model.entity.BodySize;
 import com.CezaryZal.api.day.model.entity.Day;
-import com.CezaryZal.api.user.limits.model.DailyLimitsTmp;
+import com.CezaryZal.api.user.limits.model.DailyLimits;
 import com.CezaryZal.authentication.model.entity.UserAuthentication;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,7 +23,7 @@ import java.util.List;
         name="ResultToLimits",
         classes = {
                 @ConstructorResult(
-                        targetClass = DailyLimitsTmp.class,
+                        targetClass = DailyLimits.class,
                         columns = {
                                 @ColumnResult(name="kcal_demand", type = Integer.class),
                                 @ColumnResult(name="drink_demand", type = Integer.class)

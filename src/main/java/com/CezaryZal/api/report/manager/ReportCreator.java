@@ -4,7 +4,7 @@ import com.CezaryZal.api.body.manager.BodySizeService;
 import com.CezaryZal.api.meal.model.DailyDiet;
 import com.CezaryZal.api.note.manager.NoteService;
 import com.CezaryZal.api.user.limits.manager.DailyLimitsService;
-import com.CezaryZal.api.user.limits.model.DailyLimitsTmp;
+import com.CezaryZal.api.user.limits.model.DailyLimits;
 import com.CezaryZal.api.report.model.FormReport;
 import com.CezaryZal.api.day.model.entity.Day;
 import com.CezaryZal.api.meal.manager.MealService;
@@ -47,14 +47,14 @@ public class ReportCreator {
                 .map(String::valueOf)
                 .orElse("The body measurement has not been done ");
 
-        DailyLimitsTmp dailyLimitsTmp = dailyLimitsService.getDailyLimitsByUserId(userId);
+        DailyLimits dailyLimits = dailyLimitsService.getDailyLimitsByUserId(userId);
         String nickByUserId = userService.getNickByUserId(userId);
         boolean isAchievedDrink = dailyLimitsService.checkIsAchievedDrink(
-                dailyLimitsTmp.getDrinkDemandPerDay(), day.getPortionsDrink());
+                dailyLimits.getDrinkDemandPerDay(), day.getPortionsDrink());
         if (isLongReport){
             DailyDiet dailyDietByListMeal = mealService.getDailyDietByListMeal(day.getListMealsDB());
             boolean isAchievedKcal = dailyLimitsService.checkIsAchievedKcal(
-                    dailyLimitsTmp.getKcalDemandPerDay(), dailyDietByListMeal.getSumOfKcal());
+                    dailyLimits.getKcalDemandPerDay(), dailyDietByListMeal.getSumOfKcal());
             return FormReport.builder()
                     .id(day.getId())
                     .date(day.getDate())
@@ -74,7 +74,7 @@ public class ReportCreator {
         }
         int sumOfKcal = mealService.getKcalByDayId(day.getId());
         boolean isAchievedKcal = dailyLimitsService.checkIsAchievedKcal(
-                dailyLimitsTmp.getKcalDemandPerDay(), sumOfKcal);
+                dailyLimits.getKcalDemandPerDay(), sumOfKcal);
         return FormReport.builder()
                 .id(day.getId())
                 .date(day.getDate())
