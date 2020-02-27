@@ -13,7 +13,7 @@ public class DailyLimitsChecker {
     }
 
     boolean checkIsAchievedKcal(int kcalDemand, int sumOfKcal) {
-        return checkIfEatenTooMuch(kcalDemand, sumOfKcal) && checkIfEatenTooLittle(kcalDemand, sumOfKcal);
+        return !(checkIfEatenTooMuch(kcalDemand, sumOfKcal) || checkIfEatenTooLittle(kcalDemand, sumOfKcal));
     }
 
     private boolean checkIfEatenTooMuch(int kcalDemand, int sumOfKcal){
