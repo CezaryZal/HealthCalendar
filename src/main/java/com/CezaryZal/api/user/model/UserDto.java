@@ -3,6 +3,7 @@ package com.CezaryZal.api.user.model;
 import com.CezaryZal.api.body.model.BodySizeDto;
 import com.CezaryZal.api.day.model.DayDto;
 import com.CezaryZal.authentication.model.entity.UserAuthentication;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -24,6 +25,8 @@ public class UserDto {
     private String phoneNumber;
     private boolean man;
     private int age;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate birthDate;
     private int kcalDemandPerDay;
     private int drinkDemandPerDay;
@@ -32,11 +35,11 @@ public class UserDto {
     private List<DayDto> listDayDto;
 
 
-    public static Builder builder(){
+    public static Builder builder() {
         return new Builder();
     }
 
-    public static final class Builder{
+    public static final class Builder {
         private Long id;
         private String loginName;
         private String nick;
@@ -51,60 +54,72 @@ public class UserDto {
         private List<BodySizeDto> listBodySizeDto;
         private List<DayDto> listDayDto;
 
-        public Builder id(Long id){
+        public Builder id(Long id) {
             this.id = id;
             return this;
         }
-        public Builder loginName(String loginName){
+
+        public Builder loginName(String loginName) {
             this.loginName = loginName;
             return this;
         }
-        public Builder nick(String nick){
+
+        public Builder nick(String nick) {
             this.nick = nick;
             return this;
         }
-        public Builder email(String email){
+
+        public Builder email(String email) {
             this.email = email;
             return this;
         }
-        public Builder phoneNumber(String phoneNumber){
+
+        public Builder phoneNumber(String phoneNumber) {
             this.phoneNumber = phoneNumber;
             return this;
         }
-        public Builder man(boolean man){
+
+        public Builder man(boolean man) {
             this.man = man;
             return this;
         }
-        public Builder age(int age){
+
+        public Builder age(int age) {
             this.age = age;
             return this;
         }
-        public Builder birthDate(LocalDate birthDate){
+
+        public Builder birthDate(LocalDate birthDate) {
             this.birthDate = birthDate;
             return this;
         }
-        public Builder userAuthentication(UserAuthentication userAuthentication){
+
+        public Builder userAuthentication(UserAuthentication userAuthentication) {
             this.userAuthentication = userAuthentication;
             return this;
         }
-        public Builder kcalDemandPerDay(int kcalDemandPerDay){
+
+        public Builder kcalDemandPerDay(int kcalDemandPerDay) {
             this.kcalDemandPerDay = kcalDemandPerDay;
             return this;
         }
-        public Builder drinkDemandPerDay(int drinkDemandPerDay){
+
+        public Builder drinkDemandPerDay(int drinkDemandPerDay) {
             this.drinkDemandPerDay = drinkDemandPerDay;
             return this;
         }
-        public Builder listBodySizeDto(List<BodySizeDto> listBodySizeDto){
+
+        public Builder listBodySizeDto(List<BodySizeDto> listBodySizeDto) {
             this.listBodySizeDto = listBodySizeDto;
             return this;
         }
-        public Builder listDayDto(List<DayDto> listDayDto){
+
+        public Builder listDayDto(List<DayDto> listDayDto) {
             this.listDayDto = listDayDto;
             return this;
         }
 
-        public UserDto build(){
+        public UserDto build() {
             UserDto userDto = new UserDto();
             userDto.id = this.id;
             userDto.loginName = this.loginName;

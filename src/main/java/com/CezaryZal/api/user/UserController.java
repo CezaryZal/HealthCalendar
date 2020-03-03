@@ -3,6 +3,7 @@ package com.CezaryZal.api.user;
 import com.CezaryZal.api.user.model.AccountEntity;
 import com.CezaryZal.api.user.model.UserDto;
 import com.CezaryZal.api.user.manager.UserService;
+import com.CezaryZal.authentication.model.AuthenticationRequest;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +45,13 @@ public class UserController {
     @PutMapping("/{id}")
     public ResponseEntity<String> updateUser(@RequestBody AccountEntity accountEntity, @PathVariable Long id) {
         return new ResponseEntity<>(userService.updateUser(accountEntity, id), HttpStatus.OK);
+    }
+
+    @PutMapping("/secret/{id}")
+    public ResponseEntity<String> updateUserSecretData(
+            @RequestBody AuthenticationRequest authenticationRequest,
+            @PathVariable Long id) {
+        return new ResponseEntity<>(userService.updateUserSecretData(authenticationRequest, id), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")

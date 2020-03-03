@@ -1,6 +1,7 @@
 package com.CezaryZal.authentication.manager;
 
 import com.CezaryZal.api.user.model.AccountEntity;
+import com.CezaryZal.authentication.model.AuthenticationRequest;
 import com.CezaryZal.authentication.model.entity.UserAuthentication;
 import com.CezaryZal.authentication.repo.UserAuthRepository;
 import com.CezaryZal.exceptions.not.found.UserNotFoundException;
@@ -26,10 +27,20 @@ public class UserAuthService {
         this.passwordEncoder = passwordEncoder;
     }
 
+    public UserAuthentication getUserAuthByUserId(Long userId){
+        return userAuthRepository.getUserAuthByUserId(userId)
+                .orElseThrow(() -> new UserNotFoundException("User authentication not found by user id"));
+    }
+
     public UserAuthentication preparingEntityForSave(AccountEntity accountEntity){
         String passwordBcrypt = passwordEncoder.encode(accountEntity.getPassword());
         accountEntity.setPassword(passwordBcrypt);
         return userAuthenticationConverter.mappingAccountEntityToUserAuth(accountEntity);
+    }
+
+    public void updatePasswordOfUserAuthByUserId(AuthenticationRequest authenticationRequest, Long userId){
+        String passwordBcrypt = passwordEncoder.encode(authenticationRequest.getPassword());
+        userAuthRepository.updatePasswordUserByUserId(passwordBcrypt, userId);
     }
 
     public List<UserAuthentication> getUsersAuth(){
@@ -38,6 +49,6 @@ public class UserAuthService {
 
     public Long getUserAuthId(Long userId){
         return userAuthRepository.getUserAuthIdByUserId(userId)
-                .orElseThrow(() -> new UserNotFoundException("User authentication not found by id"));
+                .orElseThrow(() -> new UserNotFoundException("User authentication id not found by user id"));
     }
 }

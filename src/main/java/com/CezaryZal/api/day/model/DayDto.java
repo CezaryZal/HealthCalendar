@@ -4,6 +4,7 @@ import com.CezaryZal.api.meal.model.MealDto;
 import com.CezaryZal.api.note.model.NoteDto;
 import com.CezaryZal.api.report.shortened.model.ShortReportDto;
 import com.CezaryZal.api.training.model.TrainingDto;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -17,6 +18,8 @@ import java.util.List;
 public class DayDto {
 
     private Long id;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate date;
     private Long userId;
     private int portionsDrink;
@@ -27,11 +30,11 @@ public class DayDto {
     private List<NoteDto> listNotesDB;
     private ShortReportDto shortReportDto;
 
-    public static Builder builder(){
+    public static Builder builder() {
         return new Builder();
     }
 
-    public static final class Builder{
+    public static final class Builder {
         private Long id;
         private LocalDate date;
         private Long userId;
@@ -43,48 +46,57 @@ public class DayDto {
         private List<NoteDto> listNotesDB;
         private ShortReportDto shortReportDto;
 
-        public Builder id(Long id){
+        public Builder id(Long id) {
             this.id = id;
             return this;
         }
-        public Builder date(LocalDate date){
+
+        public Builder date(LocalDate date) {
             this.date = date;
             return this;
         }
-        public Builder userId(Long userId){
+
+        public Builder userId(Long userId) {
             this.userId = userId;
             return this;
         }
-        public Builder portionsDrink(int portionsDrink){
+
+        public Builder portionsDrink(int portionsDrink) {
             this.portionsDrink = portionsDrink;
             return this;
         }
-        public Builder portionsAlcohol(int portionsAlcohol){
+
+        public Builder portionsAlcohol(int portionsAlcohol) {
             this.portionsAlcohol = portionsAlcohol;
             return this;
         }
-        public Builder portionsSnack(int portionsSnack){
+
+        public Builder portionsSnack(int portionsSnack) {
             this.portionsSnack = portionsSnack;
             return this;
         }
-        public Builder listMeal(List<MealDto> listMeals){
+
+        public Builder listMeal(List<MealDto> listMeals) {
             this.listMealsDB = listMeals;
             return this;
         }
-        public Builder listTrainings(List<TrainingDto> listTrainings){
+
+        public Builder listTrainings(List<TrainingDto> listTrainings) {
             this.listTrainingsDB = listTrainings;
             return this;
         }
+
         public Builder listNotes(List<NoteDto> listNotes) {
             this.listNotesDB = listNotes;
             return this;
         }
-        public Builder shortReport(ShortReportDto shortReportDto){
+
+        public Builder shortReport(ShortReportDto shortReportDto) {
             this.shortReportDto = shortReportDto;
             return this;
         }
 
-        public DayDto build(){
+        public DayDto build() {
             DayDto dayDto = new DayDto();
             dayDto.id = this.id;
             dayDto.date = this.date;

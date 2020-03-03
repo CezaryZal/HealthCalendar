@@ -4,6 +4,8 @@ import com.CezaryZal.api.user.model.AccountEntity;
 import com.CezaryZal.api.user.model.UserDto;
 import com.CezaryZal.api.user.model.entity.User;
 import com.CezaryZal.api.user.repo.UserRepository;
+import com.CezaryZal.authentication.manager.UserAuthService;
+import com.CezaryZal.authentication.model.AuthenticationRequest;
 import com.CezaryZal.authentication.model.ObjectToAuthResponse;
 import com.CezaryZal.exceptions.not.found.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,18 +22,21 @@ public class UserService {
     private final UserDtoCreator userDtoCreator;
     private final NewAccountCreator newAccountCreator;
     private final UpdateUser updateUser;
+    private final UserAuthService userAuthService;
 
     @Autowired
     public UserService(UserRepository userRepository,
                        UserConverter userConverter,
                        UserDtoCreator userDtoCreator,
                        NewAccountCreator newAccountCreator,
-                       UpdateUser updateUser) {
+                       UpdateUser updateUser,
+                       UserAuthService userAuthService) {
         this.userRepository = userRepository;
         this.userConverter = userConverter;
         this.userDtoCreator = userDtoCreator;
         this.newAccountCreator = newAccountCreator;
         this.updateUser = updateUser;
+        this.userAuthService = userAuthService;
     }
 
     private User getUserById(Long id) {
@@ -88,6 +93,11 @@ public class UserService {
     public String updateUser(AccountEntity accountEntity, Long userId) {
         User user = updateUser.updateByAccountEntity(accountEntity, userId);
         userRepository.save(user);
+        return "Received the AccountEntity object has been updated";
+    }
+
+    public String updateUserSecretData(AuthenticationRequest authenticationRequest, Long userId) {
+        updateUser.updatePasswordOfUser(authenticationRequest, userId);
         return "Received the AccountEntity object has been updated";
     }
 

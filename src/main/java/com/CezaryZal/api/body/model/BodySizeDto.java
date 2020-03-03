@@ -1,5 +1,6 @@
 package com.CezaryZal.api.body.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -20,6 +21,8 @@ public class BodySizeDto {
     private int hipsSize;
     private int femoralSize;
     private int calf;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate dateMeasurement;
     private Long userId;
 

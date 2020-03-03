@@ -2,6 +2,7 @@ package com.CezaryZal.api.user.manager;
 
 import com.CezaryZal.api.user.model.AccountEntity;
 import com.CezaryZal.api.user.model.entity.User;
+import com.CezaryZal.authentication.model.AuthenticationRequest;
 import com.CezaryZal.authentication.model.entity.UserAuthentication;
 import com.CezaryZal.authentication.manager.UserAuthService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ public class UpdateUser {
         this.userCreator = userCreator;
     }
 
+    //method useful in the future while changing loginName
     private UserAuthentication handleUserAuthToUpdate(AccountEntity accountEntity, Long userId){
         Long userAuthId = userAuthService.getUserAuthId(userId);
         UserAuthentication userAuthentication = userAuthService.preparingEntityForSave(accountEntity);
@@ -28,8 +30,12 @@ public class UpdateUser {
     }
 
     public User updateByAccountEntity(AccountEntity accountEntity, Long userId){
-        UserAuthentication userAuthentication = handleUserAuthToUpdate(accountEntity, userId);
+        UserAuthentication userAuthentication = userAuthService.getUserAuthByUserId(userId);
         return userCreator.createUserToUpdateByAccountEntityAndLimitsAndUserAuth(
                 accountEntity, userAuthentication, userId);
+    }
+
+    public void updatePasswordOfUser(AuthenticationRequest authenticationRequest, Long userId){
+        userAuthService.updatePasswordOfUserAuthByUserId(authenticationRequest, userId);
     }
 }

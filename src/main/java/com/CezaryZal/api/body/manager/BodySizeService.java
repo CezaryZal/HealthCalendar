@@ -54,7 +54,7 @@ public class BodySizeService {
 
     public List<LocalDate> getListDatesByUserId(Long userId) {
         List<Date> listDateByUserId = bodySizeRepository.findByUserIdAllDate(userId)
-                .orElseThrow(() -> new BodySizeNotFoundException("User is didn't take measurements"));
+                .orElseThrow(() -> new BodySizeNotFoundException("The user has not taken measurements"));
         return listDateByUserId.stream()
                 .map(Date::toLocalDate)
                 .collect(Collectors.toList());

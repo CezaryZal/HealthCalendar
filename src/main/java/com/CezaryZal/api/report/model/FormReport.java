@@ -4,6 +4,7 @@ import com.CezaryZal.api.meal.model.DailyDiet;
 import com.CezaryZal.api.note.model.Header;
 import com.CezaryZal.api.report.shortened.model.ShortReportDto;
 import com.CezaryZal.api.training.model.TrainingsSummary;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -17,6 +18,8 @@ import java.util.List;
 public abstract class FormReport {
 
     private Long id;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate date;
     private Long userId;
     private int portionsDrink;
@@ -32,11 +35,11 @@ public abstract class FormReport {
     private List<ShortReportDto> listShortsDayDto;
 
 
-    public static Builder builder(){
+    public static Builder builder() {
         return new Builder();
     }
 
-    public static final class Builder{
+    public static final class Builder {
         private Long id;
         private LocalDate date;
         private Long userId;
@@ -52,69 +55,82 @@ public abstract class FormReport {
         private List<Header> listHeaders;
         private List<ShortReportDto> listShortsDayDto;
 
-        public Builder id(Long id){
+        public Builder id(Long id) {
             this.id = id;
             return this;
         }
-        public Builder date(LocalDate date){
+
+        public Builder date(LocalDate date) {
             this.date = date;
             return this;
         }
-        public Builder userId(Long userId){
+
+        public Builder userId(Long userId) {
             this.userId = userId;
             return this;
         }
-        public Builder portionsDrink(int portionsDrink){
+
+        public Builder portionsDrink(int portionsDrink) {
             this.portionsDrink = portionsDrink;
             return this;
         }
-        public Builder portionsAlcohol(int portionsAlcohol){
+
+        public Builder portionsAlcohol(int portionsAlcohol) {
             this.portionsAlcohol = portionsAlcohol;
             return this;
         }
-        public Builder portionsSnack(int portionsSnack){
+
+        public Builder portionsSnack(int portionsSnack) {
             this.portionsSnack = portionsSnack;
             return this;
         }
-        public Builder nick(String nick){
+
+        public Builder nick(String nick) {
             this.nick = nick;
             return this;
         }
-        public Builder isAchievedDrink(boolean isAchievedDrink){
+
+        public Builder isAchievedDrink(boolean isAchievedDrink) {
             this.isAchievedDrink = isAchievedDrink;
             return this;
         }
-        public Builder lastDateMeasureBody(String lastDateMeasureBody){
+
+        public Builder lastDateMeasureBody(String lastDateMeasureBody) {
             this.lastDateMeasureBody = lastDateMeasureBody;
             return this;
         }
-        public Builder isAchievedKcal(boolean isAchievedKcal){
+
+        public Builder isAchievedKcal(boolean isAchievedKcal) {
             this.isAchievedKcal = isAchievedKcal;
             return this;
         }
-        public Builder dailyDiet(DailyDiet dailyDiet){
+
+        public Builder dailyDiet(DailyDiet dailyDiet) {
             this.dailyDiet = dailyDiet;
             return this;
         }
-        public Builder trainings(TrainingsSummary trainings){
+
+        public Builder trainings(TrainingsSummary trainings) {
             this.trainings = trainings;
             return this;
         }
+
         public Builder listHeaders(List<Header> listHeaders) {
             this.listHeaders = listHeaders;
             return this;
         }
-        public Builder listShortsDayDto(List<ShortReportDto> listShortsDayDto){
+
+        public Builder listShortsDayDto(List<ShortReportDto> listShortsDayDto) {
             this.listShortsDayDto = listShortsDayDto;
             return this;
         }
 
-        public FormReport buildReport(){
+        public FormReport buildReport() {
             FormReport formReport = new Report();
             return buildBaseToCreateFormReport(formReport);
         }
 
-        public FormReport buildLongReport(){
+        public FormReport buildLongReport() {
             FormReport formReport = new LongReport();
             formReport.dailyDiet = this.dailyDiet;
             formReport.trainings = this.trainings;
@@ -123,7 +139,7 @@ public abstract class FormReport {
             return buildBaseToCreateFormReport(formReport);
         }
 
-        private FormReport buildBaseToCreateFormReport(FormReport formReport){
+        private FormReport buildBaseToCreateFormReport(FormReport formReport) {
             formReport.id = this.id;
             formReport.date = this.date;
             formReport.userId = this.userId;

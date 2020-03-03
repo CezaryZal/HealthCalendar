@@ -45,10 +45,6 @@ public class BodySize {
     private int calf;
 
     //    @NotBlank
-//    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    //Spring Boot change automation date type, but use this annotation to show it
-//    @JsonDeserialize(using = LocalDateDeserializer.class)
-//    @JsonSerialize(using = LocalDateSerializer.class)
     @Column(name = "date")
     private LocalDate dateMeasurement;
 

@@ -1,5 +1,6 @@
 package com.CezaryZal.api.report.shortened.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -12,6 +13,8 @@ import java.time.LocalDate;
 public class ShortReportDto {
 
     private Long id;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate date;
     private boolean isAchievedKcal;
     private boolean isAchievedDrink;
@@ -19,11 +22,11 @@ public class ShortReportDto {
     private boolean isSnacks;
 
 
-    public static Builder builder(){
+    public static Builder builder() {
         return new Builder();
     }
 
-    public static final class Builder{
+    public static final class Builder {
         private Long id;
         private LocalDate date;
         private boolean isAchievedKcal;
@@ -31,32 +34,37 @@ public class ShortReportDto {
         private boolean isAlcohol;
         private boolean isSnacks;
 
-        public Builder id(Long id){
+        public Builder id(Long id) {
             this.id = id;
             return this;
         }
-        public Builder date(LocalDate date){
+
+        public Builder date(LocalDate date) {
             this.date = date;
             return this;
         }
-        public Builder isAchievedKcal(boolean isAchievedKcal){
+
+        public Builder isAchievedKcal(boolean isAchievedKcal) {
             this.isAchievedKcal = isAchievedKcal;
             return this;
         }
-        public Builder isAchievedDrink(boolean isAchievedDrink){
+
+        public Builder isAchievedDrink(boolean isAchievedDrink) {
             this.isAchievedDrink = isAchievedDrink;
             return this;
         }
-        public Builder isAlcohol(boolean isAlcohol){
+
+        public Builder isAlcohol(boolean isAlcohol) {
             this.isAlcohol = isAlcohol;
             return this;
         }
-        public Builder isSnacks(boolean isSnacks){
+
+        public Builder isSnacks(boolean isSnacks) {
             this.isSnacks = isSnacks;
             return this;
         }
 
-        public ShortReportDto build(){
+        public ShortReportDto build() {
             ShortReportDto shortReportDto = new ShortReportDto();
             shortReportDto.id = this.id;
             shortReportDto.date = this.date;
