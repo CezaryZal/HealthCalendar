@@ -15,7 +15,7 @@ public class MealDto {
     private Long id;
     //    @JsonDeserialize(using = LocalDateDeserializer.class)
     //    @JsonSerialize(using = LocalDateSerializer.class)
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd_hh.mm")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd_HH:mm")
     private LocalDateTime dateTimeOfEat;
     private String type;
     private int kcal;

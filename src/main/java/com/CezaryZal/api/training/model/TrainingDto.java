@@ -15,11 +15,16 @@ public class TrainingDto {
 
     private Long id;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd_hh.mm")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd_HH:mm")
     private LocalDateTime dateTimeOfExecution;
+
     private String description;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
     private LocalTime elapsedTime;
+
     private int burnKcal;
+
     private Long dayId;
 
 
