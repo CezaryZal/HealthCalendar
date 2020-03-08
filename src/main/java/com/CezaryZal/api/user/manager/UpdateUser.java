@@ -29,10 +29,9 @@ public class UpdateUser {
         return userAuthentication;
     }
 
-    public User updateByAccountEntity(AccountEntity accountEntity, Long userId){
-        UserAuthentication userAuthentication = userAuthService.getUserAuthByUserId(userId);
+    public User updateByAccountEntity(User currentUser, AccountEntity accountEntity){
         return userCreator.createUserToUpdateByAccountEntityAndLimitsAndUserAuth(
-                accountEntity, userAuthentication, userId);
+                currentUser, accountEntity);
     }
 
     public void updatePasswordOfUser(AuthenticationRequest authenticationRequest, Long userId){

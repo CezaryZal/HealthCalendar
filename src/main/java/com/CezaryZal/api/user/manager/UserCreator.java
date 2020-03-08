@@ -24,12 +24,9 @@ public class UserCreator {
                 .build();
     }
 
-    User createUserToUpdateByAccountEntityAndLimitsAndUserAuth(
-            AccountEntity accountEntity,
-            UserAuthentication userAuthentication,
-            Long userId){
+    User createUserToUpdateByAccountEntityAndLimitsAndUserAuth(User currentUser, AccountEntity accountEntity){
         return User.builder()
-                .id(userId)
+                .id(currentUser.getId())
                 .loginName(accountEntity.getLoginName())
                 .nick(accountEntity.getNick())
                 .email(accountEntity.getEmail())
@@ -38,7 +35,9 @@ public class UserCreator {
                 .birthDate(accountEntity.getBirthDate())
                 .kcalDemandPerDay(accountEntity.getKcalDemandPerDay())
                 .drinkDemandPerDay(accountEntity.getDrinkDemandPerDay())
-                .userAuthentication(userAuthentication)
+                .userAuthentication(currentUser.getUserAuthentication())
+                .listMeasureByBodySize(currentUser.getListMeasureByBodySize())
+                .listDays(currentUser.getListDays())
                 .build();
     }
 }

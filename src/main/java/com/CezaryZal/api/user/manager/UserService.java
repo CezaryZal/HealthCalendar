@@ -39,11 +39,6 @@ public class UserService {
         this.userAuthService = userAuthService;
     }
 
-    private User getUserById(Long id) {
-        return userRepository.findById(id)
-                .orElseThrow(() -> new UserNotFoundException("User not found by id"));
-    }
-
     public UserDto getBasicUserDtoById(Long id) {
         return userConverter.mappingUserToDto(getUserById(id));
     }
@@ -90,8 +85,9 @@ public class UserService {
         return "Received the AccountEntity object has been saved to the database";
     }
 
+    //not optimal solution, make a special query with the UPDATE method
     public String updateUser(AccountEntity accountEntity, Long userId) {
-        User user = updateUser.updateByAccountEntity(accountEntity, userId);
+        User user = updateUser.updateByAccountEntity(getUserById(userId), accountEntity);
         userRepository.save(user);
         return "Received the AccountEntity object has been updated";
     }
@@ -104,5 +100,10 @@ public class UserService {
     public String deleteUser(Long id) {
         userRepository.deleteById(id);
         return "The user has been removed based on Id";
+    }
+
+    private User getUserById(Long id) {
+        return userRepository.findById(id)
+                .orElseThrow(() -> new UserNotFoundException("User not found by id"));
     }
 }

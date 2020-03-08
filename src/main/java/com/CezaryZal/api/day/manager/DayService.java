@@ -36,10 +36,9 @@ public class DayService {
         this.dayCreator = dayCreator;
     }
 
-    public DayDto getDayDtoById(Long id) {
-        Day day = dayRepository.findById(id)
-                .orElseThrow(() -> new DayNotFoundException("Day not found by id"));
-        return dayConverter.mappingDayToDto(day);
+    public DayDto getDayDtoById(Long dayId) {
+        Day foundDay = getDayByDayId(dayId);
+        return dayConverter.mappingDayToDto(foundDay);
     }
 
     public Long getDayIdByDateAndUserId(String inputDate, Long userId) {
@@ -72,14 +71,24 @@ public class DayService {
         return "Received the day object has been saved to the database with its shortcut";
     }
 
+    //not optimal solution, make a special query with the UPDATE method
     public String update(ObjectToSaveDay objectToSaveDay, Long dayId) {
+        Day foundDay = getDayByDayId(dayId);
         ShortReport updatedShortReport = shortReportUpdater.updateShortReportByObjectToSaveDay(objectToSaveDay, dayId);
-        dayRepository.save(dayCreator.createDayToUpdateByDayApiAndShortDay(objectToSaveDay, updatedShortReport, dayId));
+        dayRepository.save(dayCreator.createDayToUpdateByDayApiAndShortDay(
+                foundDay,
+                objectToSaveDay,
+                updatedShortReport));
         return "Received the day object has been updated with its shortcut";
     }
 
     public String deleteDay(Long id) {
         dayRepository.deleteById(id);
         return "The day with its shortcut has been removed based on Id";
+    }
+
+    private Day getDayByDayId(Long dayId){
+        return dayRepository.findById(dayId)
+                .orElseThrow(() -> new DayNotFoundException("Day not found by id"));
     }
 }

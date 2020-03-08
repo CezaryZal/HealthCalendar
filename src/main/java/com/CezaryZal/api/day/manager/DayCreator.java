@@ -8,23 +8,34 @@ import org.springframework.stereotype.Service;
 @Service
 public class DayCreator {
 
-    Day createDayToUpdateByDayApiAndShortDay(ObjectToSaveDay day, ShortReport shortReport, Long dayId){
-        return mappingDtoToDayBuilder(day, shortReport)
-                .id(dayId)
+    Day createDayToUpdateByDayApiAndShortDay(
+            Day currentDay,
+            ObjectToSaveDay objectToSaveDay,
+            ShortReport shortReport){
+
+        return Day.builder()
+                .id(currentDay.getId())
+                .date(objectToSaveDay.getDate())
+                .userId(objectToSaveDay.getUserId())
+                .portionsDrink(objectToSaveDay.getPortionsDrink())
+                .portionsAlcohol(objectToSaveDay.getPortionsAlcohol())
+                .portionsSnack(objectToSaveDay.getPortionsSnack())
+                .listMeal(currentDay.getListMealsDB())
+                .listTrainings(currentDay.getListTrainingsDB())
+                .listNotes(currentDay.getListNotesDB())
+                .shortReport(shortReport)
                 .build();
+
     }
 
     Day createDayByDayApi(ObjectToSaveDay day, ShortReport shortReport){
-        return mappingDtoToDayBuilder(day, shortReport).build();
-    }
-
-    private Day.Builder mappingDtoToDayBuilder(ObjectToSaveDay day, ShortReport shortReport){
         return Day.builder()
                 .date(day.getDate())
                 .userId(day.getUserId())
                 .portionsDrink(day.getPortionsDrink())
                 .portionsAlcohol(day.getPortionsAlcohol())
                 .portionsSnack(day.getPortionsSnack())
-                .shortReport(shortReport);
+                .shortReport(shortReport)
+                .build();
     }
 }

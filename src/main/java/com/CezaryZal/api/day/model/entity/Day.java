@@ -30,9 +30,6 @@ public class Day {
     private Long id;
 
     //    @NotBlank
-//    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-//    @JsonDeserialize(using = LocalDateDeserializer.class)
-//    @JsonSerialize(using = LocalDateSerializer.class)
     @Column(name = "date")
     private LocalDate date;
 
@@ -45,8 +42,6 @@ public class Day {
     @Column(name = "portions_alcohol")
     private int portionsAlcohol;
 
-
-    //loading like EAGER
     @OneToMany(cascade = CascadeType.ALL)
     @LazyCollection(LazyCollectionOption.TRUE)
     @JoinColumn(name = "day_id")

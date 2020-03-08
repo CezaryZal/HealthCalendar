@@ -43,6 +43,7 @@ public class ShortReportService {
         return getShortReportsByDateAndUserId(LocalDate.parse(inputDate), userId);
     }
 
+    //optimize and delete dates from entity
     public List<ShortReportDto> getShortReportsByDateAndUserId(LocalDate inputLocalDate, Long userId) {
         LocalDate localDateMin = inputLocalDate.minusDays(30);
         LocalDate localDateMax = inputLocalDate.plusDays(30);

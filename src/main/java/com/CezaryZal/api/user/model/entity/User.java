@@ -80,7 +80,6 @@ public class User {
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
-//    @JsonIgnore
     private List<BodySize> listMeasureByBodySize;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -110,6 +109,8 @@ public class User {
         private int kcalDemandPerDay;
         private int drinkDemandPerDay;
         private UserAuthentication userAuthentication;
+        private List<BodySize> listMeasureByBodySize;
+        private List<Day> listDays;
 
         public Builder id(Long id){
             this.id = id;
@@ -151,6 +152,14 @@ public class User {
             this.userAuthentication = userAuthentication;
             return this;
         }
+        public Builder listMeasureByBodySize(List<BodySize> listMeasureByBodySize){
+            this.listMeasureByBodySize = listMeasureByBodySize;
+            return this;
+        }
+        public Builder listDays(List<Day> listDays){
+            this.listDays = listDays;
+            return this;
+        }
 
         public User build(){
             User user = new User();
@@ -164,6 +173,8 @@ public class User {
             user.kcalDemandPerDay = this.kcalDemandPerDay;
             user.drinkDemandPerDay = this.drinkDemandPerDay;
             user.userAuthentication = this.userAuthentication;
+            user.listMeasureByBodySize = this.listMeasureByBodySize;
+            user.listDays = this.listDays;
             return user;
         }
     }
