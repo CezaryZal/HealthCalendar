@@ -87,8 +87,7 @@ public class UserService {
 
     //not optimal solution, make a special query with the UPDATE method
     public String updateUser(AccountEntity accountEntity, Long userId) {
-        User user = updateUser.updateByAccountEntity(getUserById(userId), accountEntity);
-        userRepository.save(user);
+        updateUser.updateByAccountEntity(accountEntity, userId);
         return "Received the AccountEntity object has been updated";
     }
 

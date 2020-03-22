@@ -1,7 +1,7 @@
 package com.CezaryZal.api.user.manager;
 
 import com.CezaryZal.api.user.model.AccountEntity;
-import com.CezaryZal.api.user.model.entity.User;
+import com.CezaryZal.api.user.repo.UserRepository;
 import com.CezaryZal.authentication.model.AuthenticationRequest;
 import com.CezaryZal.authentication.model.entity.UserAuthentication;
 import com.CezaryZal.authentication.manager.UserAuthService;
@@ -12,13 +12,13 @@ import org.springframework.stereotype.Service;
 public class UpdateUser {
 
     private final UserAuthService userAuthService;
-    private final UserCreator userCreator;
+    private final UserRepository userRepository;
 
     @Autowired
     public UpdateUser(UserAuthService userAuthService,
-                      UserCreator userCreator) {
+                      UserRepository userRepository) {
         this.userAuthService = userAuthService;
-        this.userCreator = userCreator;
+        this.userRepository = userRepository;
     }
 
     //method useful in the future while changing loginName
@@ -29,9 +29,16 @@ public class UpdateUser {
         return userAuthentication;
     }
 
-    public User updateByAccountEntity(User currentUser, AccountEntity accountEntity){
-        return userCreator.createUserToUpdateByAccountEntityAndLimitsAndUserAuth(
-                currentUser, accountEntity);
+    public void updateByAccountEntity(AccountEntity accountEntity, Long userId){
+        userRepository.updateUser(
+                accountEntity.getNick(),
+                accountEntity.getEmail(),
+                accountEntity.getPhoneNumber(),
+                accountEntity.isMan(),
+                accountEntity.getBirthDate(),
+                accountEntity.getKcalDemandPerDay(),
+                accountEntity.getDrinkDemandPerDay(),
+                userId);
     }
 
     public void updatePasswordOfUser(AuthenticationRequest authenticationRequest, Long userId){
