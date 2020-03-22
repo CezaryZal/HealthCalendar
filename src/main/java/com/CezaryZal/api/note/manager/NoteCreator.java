@@ -14,7 +14,7 @@ public class NoteCreator {
                 .build();
     }
 
-    Note createNoteByDtoAndNoteId(NoteDto noteDto){
+    Note createNoteByDto(NoteDto noteDto){
         return mappingDtoToNoteBuilder(noteDto).build();
     }
 

@@ -59,7 +59,7 @@ public class NoteService{
     }
 
     public String addNoteByDto (NoteDto noteDto){
-        noteRepository.save(noteCreator.createNoteByDtoAndNoteId(noteDto));
+        noteRepository.save(noteCreator.createNoteByDto(noteDto));
         return "Received the note object has been saved to the database";
     }
 
