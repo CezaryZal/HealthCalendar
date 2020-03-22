@@ -73,7 +73,7 @@ public class DayService {
 
     public String updateDay(ObjectToSaveDay objectToSaveDay, Long dayId) {
         shortReportService.updateShortReport(objectToSaveDay, dayId);
-        dayRepository.updatePortionsAlcohol(
+        dayRepository.updateDay(
                 objectToSaveDay.getPortionsAlcohol(),
                 objectToSaveDay.getPortionsDrink(),
                 objectToSaveDay.getPortionsSnack(),

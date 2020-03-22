@@ -22,10 +22,10 @@ public interface DayRepository extends JpaRepository<Day, Long> {
     @Modifying(clearAutomatically = true)
     @Query(value = "UPDATE day SET portions_alcohol=:portionsAlco, portions_drink=:portionsDrink, " +
             "portions_snack=:portionsSnack WHERE id =:dayId", nativeQuery = true)
-    void updatePortionsAlcohol(@Param("portionsAlco") int portionsAlcohol,
-                               @Param("portionsDrink") int portionsDrink,
-                               @Param("portionsSnack") int portionsSnack,
-                               @Param("dayId") Long dayId);
+    void updateDay(@Param("portionsAlco") int portionsAlcohol,
+                   @Param("portionsDrink") int portionsDrink,
+                   @Param("portionsSnack") int portionsSnack,
+                   @Param("dayId") Long dayId);
 
     Optional<Day> findDayByDateAndUserId(LocalDate localDate, Long userId);
 
