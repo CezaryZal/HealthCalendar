@@ -9,7 +9,6 @@
     <artifactId>HealthCalendar</artifactId>
     <version>1.0-SNAPSHOT</version>
     <name>HealthCalendar</name>
-    <packaging>war</packaging>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
