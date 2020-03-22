@@ -1,5 +1,6 @@
 package com.CezaryZal.api.report.shortened.manager;
 
+import com.CezaryZal.api.day.model.ObjectToSaveDay;
 import com.CezaryZal.api.report.shortened.repo.ShortReportRepository;
 import com.CezaryZal.api.report.shortened.model.entity.ShortReport;
 import com.CezaryZal.api.report.shortened.model.ShortReportDto;
@@ -15,12 +16,15 @@ public class ShortReportService {
 
     private final ShortReportRepository shortReportRepository;
     private final ShortReportConverter shortReportConverter;
+    private final ShortReportUpdater shortReportUpdater;
 
     @Autowired
     public ShortReportService(ShortReportRepository shortReportRepository,
-                              ShortReportConverter shortReportConverter) {
+                              ShortReportConverter shortReportConverter,
+                              ShortReportUpdater shortReportUpdater) {
         this.shortReportRepository = shortReportRepository;
         this.shortReportConverter = shortReportConverter;
+        this.shortReportUpdater = shortReportUpdater;
     }
 
     public ShortReportDto getShortReportDtoById(Long id) {
@@ -54,5 +58,10 @@ public class ShortReportService {
 
     public List<ShortReportDto> getShorts() {
         return shortReportConverter.mappingListShortReportToDto(shortReportRepository.findAll());
+    }
+
+    public void updateShortReport(ObjectToSaveDay objectToSaveDay, Long dayId){
+        ShortReport updatedShortReport = shortReportUpdater.updateShortReportByObjectToSaveDay(objectToSaveDay, dayId);
+        shortReportRepository.save(updatedShortReport);
     }
 }

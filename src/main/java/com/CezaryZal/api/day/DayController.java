@@ -37,7 +37,7 @@ public class DayController {
 
     @PutMapping("/{id}")
     public ResponseEntity<String> updateDay(@RequestBody ObjectToSaveDay day, @PathVariable Long id) {
-        return new ResponseEntity<>(dayService.update(day, id), HttpStatus.OK);
+        return new ResponseEntity<>(dayService.updateDay(day, id), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
