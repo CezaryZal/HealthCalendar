@@ -24,14 +24,19 @@ public class Meal {
     @Column(name = "type")
     private String type;
 
+    @NotNull
     @Max(value = 1500, message = "The value entered is too big, max is 1500")
     @Min(value = 50, message = "The value entered is too small, min is 50")
     @Column(name = "kcal")
     private int kcal;
 
+    @NotBlank(message = "The 'description' should not be blank")
+    @Size(min = 4, max = 100, message = "The 'description' should be between 3 and 50 characters")
     @Column(name = "description")
     private String description;
 
+    @NotNull
+    @Positive
     @Column(name = "day_id")
     private Long dayId;
 

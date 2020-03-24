@@ -46,7 +46,7 @@ class MealTest {
     }
 
     @Test
-    void shouldBuildCorrectMeal(){
+    void shouldBuildCorrectMeal() {
         Meal newMeal = Meal.builder()
                 .id(1L)
                 .dateTimeOfEat(LocalDateTime.of(2018, 12, 20, 12, 6, 23))
@@ -63,25 +63,117 @@ class MealTest {
     }
 
     @Test
-    void shouldThrowExceptionWhenSendTooSmallValueOfKcal() {
+    void shouldThrowExceptionWhenSendingTooSmallValueOfKcal() {
         Set<ConstraintViolation<Meal>> constraintViolations =
                 validator.validateValue(Meal.class, "kcal", 20);
 
         assertThat(1).isEqualTo(constraintViolations.size());
         assertThat("The value entered is too small, min is 50")
                 .isEqualTo(constraintViolations.iterator().next().getMessage());
-
     }
 
     @Test
-    void shouldThrowExceptionWhenSendTooBigValueOfKcal() {
+    void shouldThrowExceptionWhenSendingTooBigValueOfKcal() {
         Set<ConstraintViolation<Meal>> constraintViolations =
                 validator.validateValue(Meal.class, "kcal", 1600);
 
         assertThat(1).isEqualTo(constraintViolations.size());
         assertThat("The value entered is too big, max is 1500")
                 .isEqualTo(constraintViolations.iterator().next().getMessage());
+    }
 
+    @Test
+    void shouldThrowExceptionWhenSendingNegativeNumberToKcal() {
+        Set<ConstraintViolation<Meal>> constraintViolations =
+                validator.validateValue(Meal.class, "kcal", -8);
+
+        assertThat(1).isEqualTo(constraintViolations.size());
+        assertThat("The value entered is too small, min is 50")
+                .isEqualTo(constraintViolations.iterator().next().getMessage());
+    }
+
+    @Test
+    void shouldThrowExceptionWhenSendingNullToKcal() {
+        Set<ConstraintViolation<Meal>> constraintViolations =
+                validator.validateValue(Meal.class, "kcal", null);
+
+        assertThat(1).isEqualTo(constraintViolations.size());
+        assertThat("must not be null")
+                .isEqualTo(constraintViolations.iterator().next().getMessage());
+    }
+
+    @Test
+    void shouldThrowExceptionWhenSendingTooLongStringToDescription() {
+        Set<ConstraintViolation<Meal>> constraintViolations =
+                validator.validateValue(
+                        Meal.class,
+                        "description",
+                        "an example description of meal, that will be too long, " +
+                                "which should throw an exception with the error message");
+
+        assertThat(1).isEqualTo(constraintViolations.size());
+        assertThat("The 'description' should be between 3 and 50 characters")
+                .isEqualTo(constraintViolations.iterator().next().getMessage());
+    }
+
+    @Test
+    void shouldThrowExceptionWhenSendingTooShortStringToDescription(){
+        Set<ConstraintViolation<Meal>> constraintViolations =
+                validator.validateValue(Meal.class, "description", "tmp");
+
+        assertThat(1).isEqualTo(constraintViolations.size());
+        assertThat("The 'description' should be between 3 and 50 characters")
+                .isEqualTo(constraintViolations.iterator().next().getMessage());
+    }
+
+    @Test
+    void shouldThrowExceptionWhenSendingNullToDescription(){
+        Set<ConstraintViolation<Meal>> constraintViolations =
+                validator.validateValue(Meal.class, "description", null);
+
+        assertThat(1).isEqualTo(constraintViolations.size());
+        assertThat("The 'description' should not be blank")
+                .isEqualTo(constraintViolations.iterator().next().getMessage());
+    }
+
+    @Test
+    void shouldThrowExceptionWhenSendingBlankStringToDescription(){
+        Set<ConstraintViolation<Meal>> constraintViolations =
+                validator.validateValue(Meal.class, "description", "       ");
+
+        assertThat(1).isEqualTo(constraintViolations.size());
+        assertThat("The 'description' should not be blank")
+                .isEqualTo(constraintViolations.iterator().next().getMessage());
+    }
+
+    @Test
+    void shouldThrowExceptionWhenSendingNegativeValueToDayId(){
+        Set<ConstraintViolation<Meal>> constraintViolations =
+                validator.validateValue(Meal.class, "dayId", -1L);
+
+        assertThat(1).isEqualTo(constraintViolations.size());
+        assertThat("must be greater than 0")
+                .isEqualTo(constraintViolations.iterator().next().getMessage());
+    }
+
+    @Test
+    void shouldThrowExceptionWhenSendingNullToDayId(){
+        Set<ConstraintViolation<Meal>> constraintViolations =
+                validator.validateValue(Meal.class, "dayId", null);
+
+        assertThat(1).isEqualTo(constraintViolations.size());
+        assertThat("must not be null")
+                .isEqualTo(constraintViolations.iterator().next().getMessage());
+    }
+
+    @Test
+    void shouldThrowExceptionWhenSendingZeroNumberToDayId(){
+        Set<ConstraintViolation<Meal>> constraintViolations =
+                validator.validateValue(Meal.class, "dayId", 0L);
+
+        assertThat(1).isEqualTo(constraintViolations.size());
+        assertThat("must be greater than 0")
+                .isEqualTo(constraintViolations.iterator().next().getMessage());
     }
 
 }
