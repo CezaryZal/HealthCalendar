@@ -1,11 +1,10 @@
 package com.CezaryZal.api.meal.model.entity;
 
-import com.CezaryZal.api.meal.model.MealDto;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 import java.time.LocalDateTime;
 
 @Entity
@@ -25,6 +24,8 @@ public class Meal {
     @Column(name = "type")
     private String type;
 
+    @Max(value = 1500, message = "The value entered is too big, max is 1500")
+    @Min(value = 50, message = "The value entered is too small, min is 50")
     @Column(name = "kcal")
     private int kcal;
 
