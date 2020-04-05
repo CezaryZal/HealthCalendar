@@ -112,7 +112,7 @@ class MealTest {
                                 "which should throw an exception with the error message");
 
         assertThat(1).isEqualTo(constraintViolations.size());
-        assertThat("The 'description' should be between 3 and 50 characters")
+        assertThat("The 'description' should be between 3 and 100 characters")
                 .isEqualTo(constraintViolations.iterator().next().getMessage());
     }
 
@@ -122,7 +122,7 @@ class MealTest {
                 validator.validateValue(Meal.class, "description", "tmp");
 
         assertThat(1).isEqualTo(constraintViolations.size());
-        assertThat("The 'description' should be between 3 and 50 characters")
+        assertThat("The 'description' should be between 3 and 100 characters")
                 .isEqualTo(constraintViolations.iterator().next().getMessage());
     }
 
@@ -173,6 +173,49 @@ class MealTest {
 
         assertThat(1).isEqualTo(constraintViolations.size());
         assertThat("must be greater than 0")
+                .isEqualTo(constraintViolations.iterator().next().getMessage());
+    }
+
+    @Test
+    void shouldThrowExceptionWhenSendingTooLongStringToType() {
+        Set<ConstraintViolation<Meal>> constraintViolations =
+                validator.validateValue(
+                        Meal.class,
+                        "type",
+                        "an example type of meal, that will be too long, ");
+
+        assertThat(1).isEqualTo(constraintViolations.size());
+        assertThat("The 'type' should be between 3 and 20 characters")
+                .isEqualTo(constraintViolations.iterator().next().getMessage());
+    }
+
+    @Test
+    void shouldThrowExceptionWhenSendingTooShortStringToType(){
+        Set<ConstraintViolation<Meal>> constraintViolations =
+                validator.validateValue(Meal.class, "type", "tmp");
+
+        assertThat(1).isEqualTo(constraintViolations.size());
+        assertThat("The 'type' should be between 3 and 20 characters")
+                .isEqualTo(constraintViolations.iterator().next().getMessage());
+    }
+
+    @Test
+    void shouldThrowExceptionWhenSendingNullToType(){
+        Set<ConstraintViolation<Meal>> constraintViolations =
+                validator.validateValue(Meal.class, "type", null);
+
+        assertThat(1).isEqualTo(constraintViolations.size());
+        assertThat("The 'type' should not be blank")
+                .isEqualTo(constraintViolations.iterator().next().getMessage());
+    }
+
+    @Test
+    void shouldThrowExceptionWhenSendingBlankStringToType(){
+        Set<ConstraintViolation<Meal>> constraintViolations =
+                validator.validateValue(Meal.class, "type", "       ");
+
+        assertThat(1).isEqualTo(constraintViolations.size());
+        assertThat("The 'type' should not be blank")
                 .isEqualTo(constraintViolations.iterator().next().getMessage());
     }
 

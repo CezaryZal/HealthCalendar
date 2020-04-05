@@ -21,6 +21,8 @@ public class Meal {
     @Column(name = "date_time")
     private LocalDateTime dateTimeOfEat;
 
+    @NotBlank(message = "The 'type' should not be blank")
+    @Size(min = 4, max = 20, message = "The 'type' should be between 3 and 20 characters")
     @Column(name = "type")
     private String type;
 
@@ -31,7 +33,7 @@ public class Meal {
     private int kcal;
 
     @NotBlank(message = "The 'description' should not be blank")
-    @Size(min = 4, max = 100, message = "The 'description' should be between 3 and 50 characters")
+    @Size(min = 4, max = 100, message = "The 'description' should be between 3 and 100 characters")
     @Column(name = "description")
     private String description;
 
