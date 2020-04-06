@@ -253,4 +253,34 @@ class MealTest {
                 .isEqualTo(constraintViolations.iterator().next().getMessage());
     }
 
+    @Test
+    void shouldThrowExceptionWhenSendingNegativeValueToId(){
+        Set<ConstraintViolation<Meal>> constraintViolations =
+                validator.validateValue(Meal.class, "id", -1L);
+
+        assertThat(1).isEqualTo(constraintViolations.size());
+        assertThat("must be greater than 0")
+                .isEqualTo(constraintViolations.iterator().next().getMessage());
+    }
+
+    @Test
+    void shouldThrowExceptionWhenSendingNullToId(){
+        Set<ConstraintViolation<Meal>> constraintViolations =
+                validator.validateValue(Meal.class, "id", null);
+
+        assertThat(1).isEqualTo(constraintViolations.size());
+        assertThat("must not be null")
+                .isEqualTo(constraintViolations.iterator().next().getMessage());
+    }
+
+    @Test
+    void shouldThrowExceptionWhenSendingZeroNumberToId(){
+        Set<ConstraintViolation<Meal>> constraintViolations =
+                validator.validateValue(Meal.class, "id", 0L);
+
+        assertThat(1).isEqualTo(constraintViolations.size());
+        assertThat("must be greater than 0")
+                .isEqualTo(constraintViolations.iterator().next().getMessage());
+    }
+
 }

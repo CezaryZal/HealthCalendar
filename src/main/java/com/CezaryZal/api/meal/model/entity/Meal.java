@@ -17,6 +17,8 @@ public class Meal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
+    @NotNull
+    @Positive
     private Long id;
 
     @NotNull
