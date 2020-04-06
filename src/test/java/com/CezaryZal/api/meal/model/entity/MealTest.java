@@ -49,7 +49,7 @@ class MealTest {
     void shouldBuildCorrectMeal() {
         Meal newMeal = Meal.builder()
                 .id(1L)
-                .dateTimeOfEat(LocalDateTime.of(2018, 12, 20, 12, 6, 23))
+                .dateTimeOfEat(LocalDateTime.now())
                 .type("kolacja")
                 .kcal(200)
                 .description("serek")
@@ -108,7 +108,7 @@ class MealTest {
                 validator.validateValue(
                         Meal.class,
                         "description",
-                        "an example description of meal, that will be too long, " +
+                        "a sample description of meal, that will be too long, " +
                                 "which should throw an exception with the error message");
 
         assertThat(1).isEqualTo(constraintViolations.size());
@@ -182,7 +182,7 @@ class MealTest {
                 validator.validateValue(
                         Meal.class,
                         "type",
-                        "an example type of meal, that will be too long, ");
+                        "a sample type of meal, that will be too long, ");
 
         assertThat(1).isEqualTo(constraintViolations.size());
         assertThat("The 'type' should be between 3 and 20 characters")
@@ -216,6 +216,40 @@ class MealTest {
 
         assertThat(1).isEqualTo(constraintViolations.size());
         assertThat("The 'type' should not be blank")
+                .isEqualTo(constraintViolations.iterator().next().getMessage());
+    }
+
+    @Test
+    void shouldThrowExceptionWhenSendingNullToDataTimeOfEat(){
+        Set<ConstraintViolation<Meal>> constraintViolations =
+                validator.validateValue(Meal.class, "dateTimeOfEat", null);
+
+        assertThat(1).isEqualTo(constraintViolations.size());
+        assertThat("must not be null")
+                .isEqualTo(constraintViolations.iterator().next().getMessage());
+    }
+
+    @Test
+    void shouldThrowExceptionWhenSendingDateFromPastToDateTimeOfEat(){
+        Set<ConstraintViolation<Meal>> constraintViolations =
+                validator.validateValue(Meal.class,
+                        "dateTimeOfEat",
+                        LocalDateTime.now().minusHours(24).minusMinutes(1));
+
+        assertThat(1).isEqualTo(constraintViolations.size());
+        assertThat("The date time should be current")
+                .isEqualTo(constraintViolations.iterator().next().getMessage());
+    }
+
+    @Test
+    void shouldThrowExceptionWhenSendingDateFromFutureToDateTimeOfEat(){
+        Set<ConstraintViolation<Meal>> constraintViolations =
+                validator.validateValue(Meal.class,
+                        "dateTimeOfEat",
+                        LocalDateTime.now().plusHours(24).plusMinutes(1));
+
+        assertThat(1).isEqualTo(constraintViolations.size());
+        assertThat("The date time should be current")
                 .isEqualTo(constraintViolations.iterator().next().getMessage());
     }
 

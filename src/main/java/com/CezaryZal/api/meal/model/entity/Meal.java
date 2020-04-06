@@ -1,5 +1,6 @@
 package com.CezaryZal.api.meal.model.entity;
 
+import com.CezaryZal.validation.annotation.ActualDate;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -18,6 +19,8 @@ public class Meal {
     @Column(name = "id")
     private Long id;
 
+    @NotNull
+    @ActualDate
     @Column(name = "date_time")
     private LocalDateTime dateTimeOfEat;
 
