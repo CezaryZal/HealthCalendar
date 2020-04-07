@@ -21,9 +21,9 @@ public class MealCreator {
     private Meal.Builder mappingDtoToMealBuilder(MealDto mealDto){
         return Meal.builder()
                 .dateTimeOfEat(mealDto.getDateTimeOfEat())
-                .type(mealDto.getType())
+                .type(mealDto.getType().trim())
                 .kcal(mealDto.getKcal())
-                .description(mealDto.getDescription())
+                .description(mealDto.getDescription().trim())
                 .dayId(mealDto.getDayId());
     }
 }

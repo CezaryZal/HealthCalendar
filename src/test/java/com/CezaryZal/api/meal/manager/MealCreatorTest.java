@@ -2,7 +2,6 @@ package com.CezaryZal.api.meal.manager;
 
 import com.CezaryZal.api.meal.model.MealDto;
 import com.CezaryZal.api.meal.model.entity.Meal;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -19,6 +18,7 @@ class MealCreatorTest {
     void setUp() {
         mealCreator = new MealCreator();
         secondExpectedMeal = Meal.builder()
+                .dateTimeOfEat(LocalDateTime.of(2020, 5, 15, 15, 15))
                 .type("type")
                 .kcal(20)
                 .description("description")
@@ -27,7 +27,7 @@ class MealCreatorTest {
     }
 
     @Test
-    void shouldReturnProperlyMealFromCreateMealToUpdateByDtoAndMealIdMethod(){
+    void shouldReturnProperlyMealFromCreateMealToUpdateByDtoAndMealIdMethod() {
         MealDto firstActualMealDto;
         Meal firstExpectedMeal;
 
@@ -53,7 +53,7 @@ class MealCreatorTest {
     }
 
     @Test
-    void shouldReturnProperlyMealFromCreateMealByDtoAndMealId(){
+    void shouldReturnProperlyMealFromCreateMealByDtoAndMealId() {
         MealDto firstActualMealDto;
         Meal firstExpectedMeal;
 
@@ -75,6 +75,21 @@ class MealCreatorTest {
         Meal firstActualMeal = mealCreator.createMealByDtoAndMealId(firstActualMealDto);
         assertThat(firstActualMeal).isEqualTo(firstExpectedMeal);
         assertThat(firstExpectedMeal).isNotEqualTo(secondExpectedMeal);
+    }
+
+    @Test
+    void shouldRemoveBlankCharacters() {
+
+        MealDto actualMealDto = MealDto.builder()
+                .dateTimeOfEat(LocalDateTime.of(2020, 5, 15, 15, 15))
+                .type("   type    ")
+                .kcal(20)
+                .description("    description      ")
+                .dayId(2L)
+                .build();
+
+        Meal firstActualMeal = mealCreator.createMealByDtoAndMealId(actualMealDto);
+        assertThat(firstActualMeal).isEqualTo(secondExpectedMeal);
     }
 
 }
