@@ -115,8 +115,8 @@ CREATE TABLE `meal` (
                     `date_time` DATETIME NOT NULL ,
                     `description` VARCHAR(255) NOT NULL,
                     `kcal` SMALLINT UNSIGNED NOT NULL,
-                    `type` VARCHAR(55) DEFAULT NOT NULL,
-                    `day_id` BIGINT DEFAULT NOT NULL,
+                    `type` VARCHAR(55) NOT NULL,
+                    `day_id` BIGINT NOT NULL,
                     PRIMARY KEY (`id`),
                     KEY `meal_day` (`day_id`),
                     CONSTRAINT `meal_day` FOREIGN KEY (`day_id`) REFERENCES `day` (`id`)

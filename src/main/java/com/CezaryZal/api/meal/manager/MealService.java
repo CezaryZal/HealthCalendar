@@ -58,7 +58,6 @@ public class MealService {
     public List<MealDto> getMealsDtoByDayIdOrNull(Long dayId){
         List<Meal> mealListByDayId = mealRepository.findMealListByDayId(dayId);
         return mealListByDayId.isEmpty() ? null : mealConverter.mappingListMealToListDto(mealListByDayId);
-
     }
 
     private List<Meal> getMealsByDayId(Long dayId){
@@ -87,8 +86,8 @@ public class MealService {
         return "Received the meal object and the shortReport has been updated";
     }
 
-    public String deleteById(Long id) {
-        mealRepository.deleteById(id);
+    public String deleteByIdAndUserId(Long id, Long userId) {
+        mealRepository.deleteByIdAndUserID(id, userId);
         return "The meal has been removed based on Id";
     }
 }
