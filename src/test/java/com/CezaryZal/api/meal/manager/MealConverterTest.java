@@ -10,6 +10,8 @@ import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.*;
+
 class MealConverterTest {
 
     MealConverter mealConverter;
@@ -49,8 +51,8 @@ class MealConverterTest {
     @Test
     void shouldReturnProperlyCreatedMealDto(){
         MealDto actualMealDto = mealConverter.mappingMealToDto(firstActualMeal);
-        Assertions.assertThat(actualMealDto).isEqualTo(firstExpectedMealDto);
-        Assertions.assertThat(firstExpectedMealDto).isNotEqualTo(secondExpectedMealDto);
+        assertThat(actualMealDto).isEqualTo(firstExpectedMealDto);
+        assertThat(firstExpectedMealDto).isNotEqualTo(secondExpectedMealDto);
     }
 
     @Test
@@ -69,6 +71,6 @@ class MealConverterTest {
 
         List<MealDto> actualListMealDto = mealConverter.mappingListMealToListDto(actualListMeal);
 
-        Assertions.assertThat(actualListMealDto).isEqualTo(expectedListMealDto);
+        assertThat(actualListMealDto).isEqualTo(expectedListMealDto);
     }
 }

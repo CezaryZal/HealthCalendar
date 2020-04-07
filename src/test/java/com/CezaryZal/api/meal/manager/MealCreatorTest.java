@@ -8,6 +8,8 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
 
+import static org.assertj.core.api.Assertions.*;
+
 class MealCreatorTest {
 
     MealCreator mealCreator;
@@ -46,8 +48,8 @@ class MealCreatorTest {
                 .build();
 
         Meal firstActualMeal = mealCreator.createMealToUpdateByDtoAndMealId(firstActualMealDto, 1L);
-        Assertions.assertThat(firstActualMeal).isEqualTo(firstExpectedMeal);
-        Assertions.assertThat(firstExpectedMeal).isNotEqualTo(secondExpectedMeal);
+        assertThat(firstActualMeal).isEqualTo(firstExpectedMeal);
+        assertThat(firstExpectedMeal).isNotEqualTo(secondExpectedMeal);
     }
 
     @Test
@@ -71,8 +73,8 @@ class MealCreatorTest {
                 .build();
 
         Meal firstActualMeal = mealCreator.createMealByDtoAndMealId(firstActualMealDto);
-        Assertions.assertThat(firstActualMeal).isEqualTo(firstExpectedMeal);
-        Assertions.assertThat(firstExpectedMeal).isNotEqualTo(secondExpectedMeal);
+        assertThat(firstActualMeal).isEqualTo(firstExpectedMeal);
+        assertThat(firstExpectedMeal).isNotEqualTo(secondExpectedMeal);
     }
 
 }
