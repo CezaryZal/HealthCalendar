@@ -1,6 +1,7 @@
 package com.CezaryZal.api.meal.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -9,6 +10,7 @@ import java.time.LocalDateTime;
 
 @ToString
 @Getter
+@EqualsAndHashCode
 @NoArgsConstructor
 public class MealDto {
 
