@@ -17,11 +17,11 @@ public class Meal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    @NotNull
+    @NotNull(message = "The 'id' should not be null")
     @Positive
     private Long id;
 
-    @NotNull
+    @NotNull(message = "The 'dateTimeOfEat' should not be null")
     @ActualDate
     @Column(name = "date_time")
     private LocalDateTime dateTimeOfEat;
@@ -31,7 +31,7 @@ public class Meal {
     @Column(name = "type")
     private String type;
 
-    @NotNull
+    @NotNull(message = "The 'kcal' should not be null")
     @Max(value = 1500, message = "The value entered is too big, max is 1500")
     @Min(value = 50, message = "The value entered is too small, min is 50")
     @Column(name = "kcal")
@@ -42,7 +42,7 @@ public class Meal {
     @Column(name = "description")
     private String description;
 
-    @NotNull
+    @NotNull(message = "The 'dayId' should not be null")
     @Positive
     @Column(name = "day_id")
     private Long dayId;
