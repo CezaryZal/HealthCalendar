@@ -98,7 +98,7 @@ class MealTest {
                 validator.validateValue(Meal.class, "kcal", null);
 
         assertThat(1).isEqualTo(constraintViolations.size());
-        assertThat("must not be null")
+        assertThat("The 'kcal' should not be null")
                 .isEqualTo(constraintViolations.iterator().next().getMessage());
     }
 
@@ -162,7 +162,7 @@ class MealTest {
                 validator.validateValue(Meal.class, "dayId", null);
 
         assertThat(1).isEqualTo(constraintViolations.size());
-        assertThat("must not be null")
+        assertThat("The 'dayId' should not be null")
                 .isEqualTo(constraintViolations.iterator().next().getMessage());
     }
 
@@ -225,7 +225,7 @@ class MealTest {
                 validator.validateValue(Meal.class, "dateTimeOfEat", null);
 
         assertThat(1).isEqualTo(constraintViolations.size());
-        assertThat("must not be null")
+        assertThat("The 'dateTimeOfEat' should not be null")
                 .isEqualTo(constraintViolations.iterator().next().getMessage());
     }
 
@@ -269,7 +269,7 @@ class MealTest {
                 validator.validateValue(Meal.class, "id", null);
 
         assertThat(1).isEqualTo(constraintViolations.size());
-        assertThat("must not be null")
+        assertThat("The 'id' should not be null")
                 .isEqualTo(constraintViolations.iterator().next().getMessage());
     }
 
