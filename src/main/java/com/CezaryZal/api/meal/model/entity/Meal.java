@@ -17,7 +17,6 @@ public class Meal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    @NotNull(message = "The 'id' should not be null")
     @Positive
     private Long id;
 
@@ -32,8 +31,8 @@ public class Meal {
     private String type;
 
     @NotNull(message = "The 'kcal' should not be null")
-    @Max(value = 1500, message = "The value entered is too big, max is 1500")
-    @Min(value = 50, message = "The value entered is too small, min is 50")
+    @Max(value = 1500, message = "The value of kcal entered is too big, max is 1500")
+    @Min(value = 50, message = "The value of kcal entered is too small, min is 50")
     @Column(name = "kcal")
     private int kcal;
 

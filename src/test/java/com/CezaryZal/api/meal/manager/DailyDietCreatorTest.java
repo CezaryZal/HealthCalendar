@@ -9,6 +9,8 @@ import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.*;
+
 class DailyDietCreatorTest {
 
     @Test
@@ -38,8 +40,7 @@ class DailyDietCreatorTest {
         DailyDiet expectedDailyDiet = new DailyDiet(listMealDto, 30);
         DailyDiet notExpectedDailyDiet = new DailyDiet(listMealDto, 50);
 
-        Assertions.assertThat(actualDailyDiet).isEqualTo(expectedDailyDiet);
-        Assertions.assertThat(actualDailyDiet).isNotEqualTo(notExpectedDailyDiet);
+        assertThat(actualDailyDiet).isEqualTo(expectedDailyDiet);
+        assertThat(actualDailyDiet).isNotEqualTo(notExpectedDailyDiet);
     }
-
 }

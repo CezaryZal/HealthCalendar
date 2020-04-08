@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -68,6 +69,10 @@ public class MealService {
     public Integer getKcalByDayId(Long dayId) {
         return mealRepository.getKcal(dayId)
                 .orElse(0);
+    }
+
+    public int getNumberOfMealsContainedOnDayByDateAndUserId(String inputDate, Long userId){
+        return mealRepository.getNumberOfMealsContainedOnDay(LocalDate.parse(inputDate), userId);
     }
 
     public List<MealDto> getListMealDto() {
