@@ -35,11 +35,4 @@ public class AdminMealController {
     public ResponseEntity<List<MealDto>> getListMealDto(){
         return new ResponseEntity<>(mealService.getListMealDto(), HttpStatus.OK);
     }
-
-    @ApiOperation(value = "This will get a number of meals contained on day by date and user id")
-    @GetMapping("/number/meals/{date}/{userId}")
-    public int getDailyDietByDateAndUserId(
-            @PathVariable String date, @PathVariable Long userId){
-        return mealService.getNumberOfMealsContainedOnDayByDateAndUserId(date, userId);
-    }
 }

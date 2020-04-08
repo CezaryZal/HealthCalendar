@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -21,18 +20,20 @@ public class MealService {
     private final MealCreator mealCreator;
     private final MealRepository mealRepository;
     private final ShortReportUpdater shortReportUpdater;
+    private final MealValidator mealValidator;
 
     @Autowired
     public MealService(MealConverter mealConverter,
                        DailyDietCreator dailyDietCreator,
                        MealCreator mealCreator,
                        MealRepository mealRepository,
-                       ShortReportUpdater shortReportUpdater) {
+                       ShortReportUpdater shortReportUpdater, MealValidator mealValidator) {
         this.mealConverter = mealConverter;
         this.dailyDietCreator = dailyDietCreator;
         this.mealCreator = mealCreator;
         this.mealRepository = mealRepository;
         this.shortReportUpdater = shortReportUpdater;
+        this.mealValidator = mealValidator;
     }
 
     public MealDto getMealDtoById(Long mealId) {
@@ -71,15 +72,12 @@ public class MealService {
                 .orElse(0);
     }
 
-    public int getNumberOfMealsContainedOnDayByDateAndUserId(String inputDate, Long userId){
-        return mealRepository.getNumberOfMealsContainedOnDay(LocalDate.parse(inputDate), userId);
-    }
-
     public List<MealDto> getListMealDto() {
         return mealConverter.mappingListMealToListDto(mealRepository.findAll());
     }
 
-    public String addMealByDto(MealDto mealDto) {
+    public String addMealByDtoAndUserId(MealDto mealDto, Long userId) {
+        mealValidator.validationBeforeSaveMeal(mealDto, userId);
         mealRepository.save(mealCreator.createMealByDtoAndMealId(mealDto));
         shortReportUpdater.updateShortReportByDayId(mealDto.getDayId());
         return "Received the meal object has been saved to the database";

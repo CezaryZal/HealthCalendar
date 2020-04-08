@@ -38,9 +38,9 @@ public class MealController {
     }
 
     @ApiOperation(value = "This endpoint addition `Meal`")
-    @PostMapping
-    public ResponseEntity<String> addMeal (@RequestBody MealDto mealDto){
-        return new ResponseEntity<>(mealService.addMealByDto(mealDto), HttpStatus.CREATED);
+    @PostMapping("current/{userId}")
+    public ResponseEntity<String> addMeal (@RequestBody MealDto mealDto, @PathVariable Long userId){
+        return new ResponseEntity<>(mealService.addMealByDtoAndUserId(mealDto, userId), HttpStatus.CREATED);
     }
 
     @ApiOperation(value = "This endpoint input `Meal` object update ")
