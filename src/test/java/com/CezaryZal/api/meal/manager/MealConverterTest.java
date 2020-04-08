@@ -2,7 +2,6 @@ package com.CezaryZal.api.meal.manager;
 
 import com.CezaryZal.api.meal.model.MealDto;
 import com.CezaryZal.api.meal.model.entity.Meal;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
