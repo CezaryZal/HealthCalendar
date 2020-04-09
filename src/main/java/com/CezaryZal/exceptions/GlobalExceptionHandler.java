@@ -49,6 +49,13 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return handleExceptionInternal(ex, apiError, new HttpHeaders(), apiError.getStatus(), request);
     }
 
+    @ExceptionHandler(InvalidPasswordException.class)
+    protected ResponseEntity<Object> handleInvalidPasswordException(Exception ex, WebRequest request) {
+        ApiError apiError = createApiError(ex, request, HttpStatus.UNAUTHORIZED);
+
+        return handleExceptionInternal(ex, apiError, new HttpHeaders(), apiError.getStatus(), request);
+    }
+
     private ApiError createApiError(Exception ex, WebRequest request, HttpStatus status){
         return new ApiError(
                 new Date(),
