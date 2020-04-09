@@ -1,12 +1,14 @@
 package com.CezaryZal.exceptions;
 
 import com.CezaryZal.exceptions.model.ApiError;
+import com.CezaryZal.exceptions.not.found.ApiModelNotFoundException;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
@@ -39,4 +41,19 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
         return handleExceptionInternal(ex, apiError, headers, apiError.getStatus(), request);
     }
+
+    @ExceptionHandler(ApiModelNotFoundException.class)
+    protected ResponseEntity<Object> handleApiModelNotFoundException(Exception ex, WebRequest request) {
+        ApiError apiError = new ApiError(
+                new Date(),
+                request.getDescription(false),
+                ((ServletWebRequest) request).getHttpMethod(),
+                HttpStatus.NOT_FOUND,
+                ex.getLocalizedMessage(),
+                ex.getMessage());
+
+        ResponseEntity<Object> tmp = handleExceptionInternal(ex, apiError, new HttpHeaders(), apiError.getStatus(), request);
+        return tmp;
+    }
+
 }
