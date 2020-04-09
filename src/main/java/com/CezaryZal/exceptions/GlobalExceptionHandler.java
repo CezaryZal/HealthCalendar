@@ -44,16 +44,18 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(ApiModelNotFoundException.class)
     protected ResponseEntity<Object> handleApiModelNotFoundException(Exception ex, WebRequest request) {
-        ApiError apiError = new ApiError(
+        ApiError apiError = createApiError(ex, request, HttpStatus.NOT_FOUND);
+
+        return handleExceptionInternal(ex, apiError, new HttpHeaders(), apiError.getStatus(), request);
+    }
+
+    private ApiError createApiError(Exception ex, WebRequest request, HttpStatus status){
+        return new ApiError(
                 new Date(),
                 request.getDescription(false),
                 ((ServletWebRequest) request).getHttpMethod(),
-                HttpStatus.NOT_FOUND,
+                status,
                 ex.getLocalizedMessage(),
                 ex.getMessage());
-
-        ResponseEntity<Object> tmp = handleExceptionInternal(ex, apiError, new HttpHeaders(), apiError.getStatus(), request);
-        return tmp;
     }
-
 }
