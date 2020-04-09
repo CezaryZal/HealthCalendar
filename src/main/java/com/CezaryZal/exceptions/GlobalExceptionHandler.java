@@ -56,6 +56,15 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return handleExceptionInternal(ex, apiError, new HttpHeaders(), apiError.getStatus(), request);
     }
 
+    @ExceptionHandler({MaximumNumberOfMealsPerDayException.class, NonOverlappingIdNumberException.class})
+    protected ResponseEntity<Object> handleValidationMaximumNumberAndNonOverlappingIdExceptions(
+            Exception ex, WebRequest request) {
+
+        ApiError apiError = createApiError(ex, request, HttpStatus.BAD_REQUEST);
+
+        return handleExceptionInternal(ex, apiError, new HttpHeaders(), apiError.getStatus(), request);
+    }
+
     private ApiError createApiError(Exception ex, WebRequest request, HttpStatus status){
         return new ApiError(
                 new Date(),
