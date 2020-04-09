@@ -1,11 +1,9 @@
 package com.CezaryZal.api.meal.model.entity;
 
-import com.CezaryZal.validation.annotation.ActualDate;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.validation.constraints.*;
 import java.time.LocalDateTime;
 
 @Entity
@@ -17,32 +15,20 @@ public class Meal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    @Positive
     private Long id;
 
-    @NotNull(message = "The 'dateTimeOfEat' should not be null")
-    @ActualDate
     @Column(name = "date_time")
     private LocalDateTime dateTimeOfEat;
 
-    @NotBlank(message = "The 'type' should not be blank")
-    @Size(min = 4, max = 20, message = "The 'type' should be between 3 and 20 characters")
     @Column(name = "type")
     private String type;
 
-    @NotNull(message = "The 'kcal' should not be null")
-    @Max(value = 1500, message = "The value of kcal entered is too big, max is 1500")
-    @Min(value = 50, message = "The value of kcal entered is too small, min is 50")
     @Column(name = "kcal")
     private int kcal;
 
-    @NotBlank(message = "The 'description' should not be blank")
-    @Size(min = 4, max = 100, message = "The 'description' should be between 3 and 100 characters")
     @Column(name = "description")
     private String description;
 
-    @NotNull(message = "The 'dayId' should not be null")
-    @Positive
     @Column(name = "day_id")
     private Long dayId;
 

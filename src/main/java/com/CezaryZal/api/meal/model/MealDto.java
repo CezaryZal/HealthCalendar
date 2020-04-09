@@ -1,11 +1,13 @@
 package com.CezaryZal.api.meal.model;
 
+import com.CezaryZal.validation.annotation.ActualDate;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import javax.validation.constraints.*;
 import java.time.LocalDateTime;
 
 @ToString
@@ -14,14 +16,29 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class MealDto {
 
+    @Positive
     private Long id;
-    //    @JsonDeserialize(using = LocalDateDeserializer.class)
-    //    @JsonSerialize(using = LocalDateSerializer.class)
+
+    @NotNull(message = "The 'dateTimeOfEat' should not be null")
+    @ActualDate
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd_HH:mm")
     private LocalDateTime dateTimeOfEat;
+
+    @NotBlank(message = "The 'type' should not be blank")
+    @Size(min = 4, max = 20, message = "The 'type' should be between 3 and 20 characters")
     private String type;
+
+    @NotNull(message = "The 'kcal' should not be null")
+    @Max(value = 1500, message = "The value of kcal entered is too big, max is 1500")
+    @Min(value = 50, message = "The value of kcal entered is too small, min is 50")
     private int kcal;
+
+    @NotBlank(message = "The 'description' should not be blank")
+    @Size(min = 4, max = 100, message = "The 'description' should be between 3 and 100 characters")
     private String description;
+
+    @NotNull(message = "The 'dayId' should not be null")
+    @Positive
     private Long dayId;
 
 
