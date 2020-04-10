@@ -17,8 +17,7 @@ import javax.annotation.Resource;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -61,6 +60,22 @@ public class MealControllerTest {
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isCreated());
+    }
+
+    @Test
+    public void ShouldReturnCreateStatusFromUpdateMealMethod() throws Exception {
+
+        String mealDtoInJson = "{\"dateTimeOfEat\": \"" + dateFormat.format(new Date()) +"\"," +
+                " \"dayId\": 9," +
+                " \"description\": \"jaja2\"," +
+                " \"kcal\": 200," +
+                " \"type\": \"sniadanie2\"}";
+
+        mockMvc.perform(put("/api/meal/{id}", 1L)
+                .content(mealDtoInJson)
+                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isAccepted());
     }
 
     public static String asJsonString(final Object obj) {
