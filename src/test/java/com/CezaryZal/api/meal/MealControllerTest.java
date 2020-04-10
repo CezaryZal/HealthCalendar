@@ -1,10 +1,12 @@
 package com.CezaryZal.api.meal;
 
+import com.CezaryZal.api.meal.manager.MealService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -74,6 +76,14 @@ public class MealControllerTest {
         mockMvc.perform(put("/api/meal/{id}", 1L)
                 .content(mealDtoInJson)
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isAccepted());
+    }
+
+    @Test
+    public void ShouldReturnOkStatusFromDeleteMealMethod() throws Exception {
+
+        mockMvc.perform(delete("/api/meal/{id}/{userId}", 1L, 1L))
                 .andDo(print())
                 .andExpect(status().isAccepted());
     }
