@@ -2,6 +2,7 @@ package com.CezaryZal.validation.validator;
 
 import com.CezaryZal.api.day.repo.DayRepository;
 import com.CezaryZal.validation.OverlappingDataValidator;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -10,8 +11,9 @@ import java.time.LocalDateTime;
 @Service
 public class IdsByDateOverlappingDataValidator implements OverlappingDataValidator {
 
-    private DayRepository dayRepository;
+    private final DayRepository dayRepository;
 
+    @Autowired
     public IdsByDateOverlappingDataValidator(DayRepository dayRepository) {
         this.dayRepository = dayRepository;
     }
