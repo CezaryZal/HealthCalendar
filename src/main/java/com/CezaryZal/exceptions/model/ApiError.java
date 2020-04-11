@@ -26,7 +26,6 @@ public class ApiError {
                     HttpStatus status,
                     String message,
                     List<String> errors) {
-        super();
         this.timestamp = timestamp;
         this.status = status;
         this.path = path;
@@ -41,7 +40,6 @@ public class ApiError {
                     HttpStatus status,
                     String message,
                     String error) {
-        super();
         this.timestamp = timestamp;
         this.status = status;
         this.path = path;
