@@ -1,5 +1,6 @@
 package com.CezaryZal.api.meal.model;
 
+import com.CezaryZal.api.ModelDto;
 import com.CezaryZal.validation.annotation.ActualDate;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.EqualsAndHashCode;
@@ -14,7 +15,7 @@ import java.time.LocalDateTime;
 @Getter
 @EqualsAndHashCode
 @NoArgsConstructor
-public class MealDto {
+public class MealDto implements ModelDto {
 
     @Positive
     private Long id;

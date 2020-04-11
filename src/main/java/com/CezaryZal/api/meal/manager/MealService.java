@@ -6,6 +6,7 @@ import com.CezaryZal.api.meal.model.MealDto;
 import com.CezaryZal.api.meal.repo.MealRepository;
 import com.CezaryZal.api.report.shortened.manager.ShortReportUpdater;
 import com.CezaryZal.exceptions.not.found.MealNotFoundException;
+import com.CezaryZal.validation.validator.ModelServiceValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,14 +21,14 @@ public class MealService {
     private final MealCreator mealCreator;
     private final MealRepository mealRepository;
     private final ShortReportUpdater shortReportUpdater;
-    private final MealValidator mealValidator;
+    private final ModelServiceValidator mealValidator;
 
     @Autowired
     public MealService(MealConverter mealConverter,
                        DailyDietCreator dailyDietCreator,
                        MealCreator mealCreator,
                        MealRepository mealRepository,
-                       ShortReportUpdater shortReportUpdater, MealValidator mealValidator) {
+                       ShortReportUpdater shortReportUpdater, MealModelServiceValidator mealValidator) {
         this.mealConverter = mealConverter;
         this.dailyDietCreator = dailyDietCreator;
         this.mealCreator = mealCreator;
@@ -77,7 +78,7 @@ public class MealService {
     }
 
     public String addMealByDtoAndUserId(MealDto mealDto, Long userId) {
-        mealValidator.validationBeforeSaveMeal(mealDto, userId);
+        mealValidator.validationModelDtoBeforeSaveOrUpdate(mealDto, userId);
         mealRepository.save(mealCreator.createMealByDtoAndMealId(mealDto));
         shortReportUpdater.updateShortReportByDayId(mealDto.getDayId());
         return "Received the meal object has been saved to the database";
