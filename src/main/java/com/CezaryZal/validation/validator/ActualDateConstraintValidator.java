@@ -6,7 +6,7 @@ import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import java.time.LocalDateTime;
 
-public class ActualDateValidator implements ConstraintValidator<ActualDate, LocalDateTime> {
+public class ActualDateConstraintValidator implements ConstraintValidator<ActualDate, LocalDateTime> {
 
     @Override
     public boolean isValid(LocalDateTime inputDateTime, ConstraintValidatorContext context) {

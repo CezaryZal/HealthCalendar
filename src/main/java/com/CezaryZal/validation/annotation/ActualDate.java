@@ -1,6 +1,6 @@
 package com.CezaryZal.validation.annotation;
 
-import com.CezaryZal.validation.validator.ActualDateValidator;
+import com.CezaryZal.validation.validator.ActualDateConstraintValidator;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
@@ -13,7 +13,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 @Target({FIELD})
 @Retention(RUNTIME)
-@Constraint(validatedBy = ActualDateValidator.class)
+@Constraint(validatedBy = ActualDateConstraintValidator.class)
 @Documented
 public @interface ActualDate {
 
