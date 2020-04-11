@@ -189,4 +189,35 @@ public class MealControllerTest {
                         "must be greater than 0")));
     }
 
+    @Test
+    public void checkIncorrectBlankTypeAndMaxKcalAndMinDescriptionAndNegativeDayIdInPutMethod() throws Exception {
+
+        String mealDtoInJson = "{\"dateTimeOfEat\": \"" + dateFormat.format(new Date()) + "\",\n" +
+                " \"dayId\": -2,\n" +
+                " \"description\": \"abd\",\n" +
+                " \"kcal\": 1800,\n" +
+                " \"type\": \"            \"}";
+
+        mockMvc.perform(put("/api/meal/{id}", 1L)
+                .content(mealDtoInJson)
+                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.timestamp", is(notNullValue())))
+                .andExpect(jsonPath("$.path", is("uri=/api/meal/1")))
+                .andExpect(jsonPath("$.httpMethod", is("PUT")))
+                .andExpect(jsonPath("$.status", is("BAD_REQUEST")))
+                .andExpect(jsonPath("$.message", is(notNullValue())))
+                .andExpect(jsonPath("$.errors").isArray())
+                .andExpect(jsonPath("$.errors", hasSize(4)))
+                .andExpect(jsonPath("$.errors", hasItem(
+                        "The 'type' should not be blank")))
+                .andExpect(jsonPath("$.errors", hasItem(
+                        "The value of kcal entered is too big, max is 1500")))
+                .andExpect(jsonPath("$.errors", hasItem(
+                        "The 'description' should be between 3 and 100 characters")))
+                .andExpect(jsonPath("$.errors", hasItem(
+                        "must be greater than 0")));
+    }
+
 }
