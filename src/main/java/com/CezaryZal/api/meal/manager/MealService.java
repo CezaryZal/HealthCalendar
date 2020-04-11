@@ -83,8 +83,14 @@ public class MealService {
         return "Received the meal object has been saved to the database";
     }
 
-    public String updateMealByDto(MealDto mealDto, Long mealId) {
-        mealRepository.save(mealCreator.createMealToUpdateByDtoAndMealId(mealDto));
+    public String updateMealByDto(MealDto mealDto, Long userId) {
+        Meal mealToUpdateByDtoAndUserId = mealCreator.createMealToUpdateByDtoAndMealId(mealDto);
+        mealRepository.updateMeal(mealToUpdateByDtoAndUserId.getId(),
+                mealToUpdateByDtoAndUserId.getDateTimeOfEat(),
+                mealToUpdateByDtoAndUserId.getType(),
+                mealToUpdateByDtoAndUserId.getKcal(),
+                mealToUpdateByDtoAndUserId.getDescription(),
+                userId);
         shortReportUpdater.updateShortReportByDayId(mealDto.getDayId());
         return "Received the meal object and the shortReport has been updated";
     }

@@ -33,6 +33,17 @@ public interface MealRepository extends JpaRepository<Meal, Long> {
             "m.day_id =d.id AND d.date=:inputDate AND d.user_id=:inputUserId", nativeQuery = true)
     int getNumberOfMealsContainedOnDay(@Param("inputDate") LocalDate date, @Param("inputUserId") Long userId);
 
+    @Modifying(clearAutomatically = true)
+    @Query(value = "UPDATE meal m INNER JOIN day d ON m.day_id=d.id SET m.date_time=:dateTimeOfEat, " +
+            "m.type=:type, m.kcal=:kcal, m.description=:description WHERE m.id=:mealId AND d.user_id=:userId",
+            nativeQuery = true)
+    void updateMeal(@Param("mealId") Long mealId,
+                    @Param("dateTimeOfEat") LocalDateTime dateTimeOfEat,
+                    @Param("type") String type,
+                    @Param("kcal") int kcal,
+                    @Param("description") String description,
+                    @Param("userId") Long userId);
+
     @Modifying
     @Query(value = "DELETE m FROM meal m, day d WHERE m.day_id = d.id AND m.id=:inputId AND d.user_id=:inputUserId",
             nativeQuery = true)
