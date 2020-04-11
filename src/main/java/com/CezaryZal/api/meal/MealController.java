@@ -46,9 +46,9 @@ public class MealController {
     }
 
     @ApiOperation(value = "This endpoint input `Meal` object update ")
-    @PutMapping("/{id}")
-    public ResponseEntity<String> updateMeal (@Valid @RequestBody MealDto mealDto, @PathVariable Long id){
-        return new ResponseEntity<>(mealService.updateMealByDto(mealDto, id), HttpStatus.ACCEPTED);
+    @PutMapping("/{userId}")
+    public ResponseEntity<String> updateMeal (@Valid @RequestBody MealDto mealDto, @PathVariable Long userId){
+        return new ResponseEntity<>(mealService.updateMealByDto(mealDto, userId), HttpStatus.ACCEPTED);
     }
 
     @ApiOperation(value = "This endpoint remove `Meal` by id and userId")

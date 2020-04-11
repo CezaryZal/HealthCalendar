@@ -84,7 +84,7 @@ public class MealService {
     }
 
     public String updateMealByDto(MealDto mealDto, Long mealId) {
-        mealRepository.save(mealCreator.createMealToUpdateByDtoAndMealId(mealDto, mealId));
+        mealRepository.save(mealCreator.createMealToUpdateByDtoAndMealId(mealDto));
         shortReportUpdater.updateShortReportByDayId(mealDto.getDayId());
         return "Received the meal object and the shortReport has been updated";
     }
