@@ -126,4 +126,35 @@ public class MealControllerTest {
                 .andExpect(jsonPath("$.errors", hasItem("The date time should be current")));
     }
 
+    @Test
+    public void checkIncorrectMinTypeAndMinKcalAndMinDescriptionAndZeroDayIdInPostMethod() throws Exception {
+
+        String mealDtoInJson = "{\"dateTimeOfEat\": \"" + dateFormat.format(new Date()) + "\",\n" +
+                " \"dayId\": 0,\n" +
+                " \"description\": \"tmp\",\n" +
+                " \"kcal\": 40,\n" +
+                " \"type\": \"obi\"}";
+
+        mockMvc.perform(post("/api/meal/current/{userId}", 1L)
+                .content(mealDtoInJson)
+                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.timestamp", is(notNullValue())))
+                .andExpect(jsonPath("$.path", is("uri=/api/meal/current/1")))
+                .andExpect(jsonPath("$.httpMethod", is("POST")))
+                .andExpect(jsonPath("$.status", is("BAD_REQUEST")))
+                .andExpect(jsonPath("$.message", is(notNullValue())))
+                .andExpect(jsonPath("$.errors").isArray())
+                .andExpect(jsonPath("$.errors", hasSize(4)))
+                .andExpect(jsonPath("$.errors", hasItem(
+                        "The 'type' should be between 3 and 20 characters")))
+                .andExpect(jsonPath("$.errors", hasItem(
+                        "The value of kcal entered is too small, min is 50")))
+                .andExpect(jsonPath("$.errors", hasItem(
+                        "The 'description' should be between 3 and 100 characters")))
+                .andExpect(jsonPath("$.errors", hasItem(
+                        "must be greater than 0")));
+    }
+
 }
