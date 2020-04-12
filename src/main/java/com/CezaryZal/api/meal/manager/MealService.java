@@ -1,8 +1,6 @@
 package com.CezaryZal.api.meal.manager;
 
-import com.CezaryZal.api.ApiEntity;
-import com.CezaryZal.api.ApiEntityDto;
-import com.CezaryZal.api.ApiEntityService;
+import com.CezaryZal.api.*;
 import com.CezaryZal.api.meal.model.DailyDiet;
 import com.CezaryZal.api.meal.model.entity.Meal;
 import com.CezaryZal.api.meal.model.MealDto;
@@ -21,17 +19,17 @@ import java.util.stream.Collectors;
 @Service
 public class MealService implements ApiEntityService {
 
-    private final MealConverter mealConverter;
+    private final ApiEntityConverter mealConverter;
     private final DailyDietCreator dailyDietCreator;
-    private final MealCreator mealCreator;
+    private final ApiEntityCreator mealCreator;
     private final MealRepository mealRepository;
     private final ShortReportUpdater shortReportUpdater;
     private final ModelServiceValidator mealValidator;
 
     @Autowired
-    public MealService(MealConverter mealConverter,
+    public MealService(ApiEntityConverter mealConverter,
                        DailyDietCreator dailyDietCreator,
-                       MealCreator mealCreator,
+                       ApiEntityCreator mealCreator,
                        MealRepository mealRepository,
                        ShortReportUpdater shortReportUpdater, MealModelServiceValidator mealValidator) {
         this.mealConverter = mealConverter;
@@ -97,7 +95,7 @@ public class MealService implements ApiEntityService {
     public String addModelByDtoAndUserId(ApiEntityDto apiEntityDto, Long userId) {
         MealDto mealDto = (MealDto) apiEntityDto;
         mealValidator.validationModelDtoBeforeSaveOrUpdate(mealDto, userId);
-        mealRepository.save(mealCreator.createMealByDtoAndMealId(mealDto));
+        mealRepository.save((Meal)mealCreator.createApiEntityByDtoAndApiEntityId(apiEntityDto));
         shortReportUpdater.updateShortReportByDayId(mealDto.getDayId());
         return "Received the meal object has been saved to the database";
     }
@@ -105,7 +103,7 @@ public class MealService implements ApiEntityService {
     @Override
     public String updateModelByDtoAndUserId(ApiEntityDto apiEntityDto, Long userId) {
         MealDto mealDto = (MealDto) apiEntityDto;
-        Meal mealToUpdateByDtoAndUserId = mealCreator.createMealToUpdateByDtoAndMealId(mealDto);
+        Meal mealToUpdateByDtoAndUserId = (Meal)mealCreator.createApiEntityToUpdateByDtoAndApiEntityId(apiEntityDto);
         mealRepository.updateMeal(mealToUpdateByDtoAndUserId.getId(),
                 mealToUpdateByDtoAndUserId.getDateTimeOfEat(),
                 mealToUpdateByDtoAndUserId.getType(),

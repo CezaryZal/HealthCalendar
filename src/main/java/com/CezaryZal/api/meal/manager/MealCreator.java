@@ -1,20 +1,27 @@
 package com.CezaryZal.api.meal.manager;
 
+import com.CezaryZal.api.ApiEntity;
+import com.CezaryZal.api.ApiEntityCreator;
+import com.CezaryZal.api.ApiEntityDto;
 import com.CezaryZal.api.meal.model.MealDto;
 import com.CezaryZal.api.meal.model.entity.Meal;
 import org.springframework.stereotype.Service;
 
 @Service
-public class MealCreator {
+public class MealCreator implements ApiEntityCreator {
 
-    Meal createMealToUpdateByDtoAndMealId(MealDto mealDto){
+    @Override
+    public ApiEntity createApiEntityToUpdateByDtoAndApiEntityId(ApiEntityDto apiEntityDto) {
+        MealDto mealDto = (MealDto)apiEntityDto;
         Meal.Builder builder = mappingDtoToMealBuilder(mealDto);
         return builder
                 .id(mealDto.getId())
                 .build();
     }
 
-    Meal createMealByDtoAndMealId(MealDto mealDto){
+    @Override
+    public ApiEntity createApiEntityByDtoAndApiEntityId(ApiEntityDto apiEntityDto) {
+        MealDto mealDto = (MealDto)apiEntityDto;
         return mappingDtoToMealBuilder(mealDto).build();
     }
 

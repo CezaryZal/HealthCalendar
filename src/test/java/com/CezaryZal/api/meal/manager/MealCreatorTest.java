@@ -48,7 +48,7 @@ class MealCreatorTest {
                 .dayId(1L)
                 .build();
 
-        Meal firstActualMeal = mealCreator.createMealToUpdateByDtoAndMealId(firstActualMealDto);
+        Meal firstActualMeal = (Meal)mealCreator.createApiEntityToUpdateByDtoAndApiEntityId(firstActualMealDto);
         assertThat(firstActualMeal).isEqualTo(firstExpectedMeal);
         assertThat(firstExpectedMeal).isNotEqualTo(secondExpectedMeal);
     }
@@ -73,7 +73,7 @@ class MealCreatorTest {
                 .dayId(1L)
                 .build();
 
-        Meal firstActualMeal = mealCreator.createMealByDtoAndMealId(firstActualMealDto);
+        Meal firstActualMeal = (Meal)mealCreator.createApiEntityByDtoAndApiEntityId(firstActualMealDto);
         assertThat(firstActualMeal).isEqualTo(firstExpectedMeal);
         assertThat(firstExpectedMeal).isNotEqualTo(secondExpectedMeal);
     }
@@ -89,7 +89,7 @@ class MealCreatorTest {
                 .dayId(2L)
                 .build();
 
-        Meal firstActualMeal = mealCreator.createMealByDtoAndMealId(actualMealDto);
+        Meal firstActualMeal = (Meal)mealCreator.createApiEntityByDtoAndApiEntityId(actualMealDto);
         assertThat(firstActualMeal).isEqualTo(secondExpectedMeal);
     }
 
