@@ -32,6 +32,7 @@ class MealCreatorTest {
         Meal firstExpectedMeal;
 
         firstActualMealDto = MealDto.builder()
+                .id(1L)
                 .dateTimeOfEat(LocalDateTime.of(2020, 11, 11, 11, 11))
                 .type("type")
                 .kcal(10)
@@ -47,7 +48,7 @@ class MealCreatorTest {
                 .dayId(1L)
                 .build();
 
-        Meal firstActualMeal = mealCreator.createMealToUpdateByDtoAndMealId(firstActualMealDto, 1L);
+        Meal firstActualMeal = mealCreator.createMealToUpdateByDtoAndMealId(firstActualMealDto);
         assertThat(firstActualMeal).isEqualTo(firstExpectedMeal);
         assertThat(firstExpectedMeal).isNotEqualTo(secondExpectedMeal);
     }
