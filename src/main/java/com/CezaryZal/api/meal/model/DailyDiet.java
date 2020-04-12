@@ -1,5 +1,6 @@
 package com.CezaryZal.api.meal.model;
 
+import com.CezaryZal.api.ApiEntityDto;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -13,7 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 public class DailyDiet {
 
-    private List<MealDto> listMeals;
+    private List<ApiEntityDto> listMeals;
     private int sumOfKcal;
 
 }

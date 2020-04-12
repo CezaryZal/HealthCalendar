@@ -1,5 +1,6 @@
 package com.CezaryZal.api.meal.manager;
 
+import com.CezaryZal.api.ApiEntityDto;
 import com.CezaryZal.api.meal.model.DailyDiet;
 import com.CezaryZal.api.meal.model.MealDto;
 import org.assertj.core.api.Assertions;
@@ -34,7 +35,7 @@ class DailyDietCreatorTest {
                 .dayId(2L)
                 .build();
 
-        List<MealDto> listMealDto = Arrays.asList(firstExpectedMealDto, secondExpectedMealDto);
+        List<ApiEntityDto> listMealDto = Arrays.asList(firstExpectedMealDto, secondExpectedMealDto);
 
         DailyDiet actualDailyDiet = dailyDietCreator.createDailyDiet(listMealDto);
         DailyDiet expectedDailyDiet = new DailyDiet(listMealDto, 30);

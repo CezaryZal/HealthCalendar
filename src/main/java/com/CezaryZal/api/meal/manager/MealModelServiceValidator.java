@@ -1,6 +1,6 @@
 package com.CezaryZal.api.meal.manager;
 
-import com.CezaryZal.api.ModelDto;
+import com.CezaryZal.api.ApiEntityDto;
 import com.CezaryZal.api.meal.model.MealDto;
 import com.CezaryZal.exceptions.MaximumNumberOfMealsPerDayException;
 import com.CezaryZal.exceptions.NonOverlappingIdNumberException;
@@ -25,8 +25,8 @@ public class MealModelServiceValidator implements ModelServiceValidator {
     }
 
     @Override
-    public void validationModelDtoBeforeSaveOrUpdate(ModelDto modelDto, Long userId) {
-        MealDto mealDto = (MealDto) modelDto;
+    public void validationModelDtoBeforeSaveOrUpdate(ApiEntityDto apiEntityDto, Long userId) {
+        MealDto mealDto = (MealDto) apiEntityDto;
         throwIfIdsByDateIsNotOverlapping(mealDto, userId);
         throwIfModelsPerDayHasBeenReached(mealDto, userId);
     }

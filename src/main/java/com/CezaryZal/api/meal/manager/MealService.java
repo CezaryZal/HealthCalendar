@@ -1,5 +1,8 @@
 package com.CezaryZal.api.meal.manager;
 
+import com.CezaryZal.api.ApiEntity;
+import com.CezaryZal.api.ApiEntityDto;
+import com.CezaryZal.api.ApiEntityService;
 import com.CezaryZal.api.meal.model.DailyDiet;
 import com.CezaryZal.api.meal.model.entity.Meal;
 import com.CezaryZal.api.meal.model.MealDto;
@@ -11,10 +14,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
-public class MealService {
+public class MealService implements ApiEntityService {
 
     private final MealConverter mealConverter;
     private final DailyDietCreator dailyDietCreator;
@@ -37,35 +42,44 @@ public class MealService {
         this.mealValidator = mealValidator;
     }
 
-    public MealDto getMealDtoById(Long mealId) {
+    @Override
+    public ApiEntityDto getModelDtoByModelId(Long mealId) {
         Meal meal = mealRepository.findById(mealId)
                 .orElseThrow(() -> new MealNotFoundException("Meal not found by id"));
-        return mealConverter.mappingMealToDto(meal);
+        return mealConverter.mappingApiEntityToDto(meal);
     }
 
     public DailyDiet getDailyDietByDayId(Long dayId) {
         return getDailyDietByListMeal(getMealsByDayId(dayId));
     }
 
-    public DailyDiet getDailyDietByDateAndUserId(String inputDate, Long userId){
-        List<Meal> mealListByDateAndUserId =
-                mealRepository.findMealListByDateAndUserId(LocalDate.parse(inputDate), userId);
+    public DailyDiet getDailyDietByDateAndUserId(String inputDate, Long userId) {
+        List<ApiEntity> mealListByDateAndUserId =
+                mealRepository.findMealListByDateAndUserId(LocalDate.parse(inputDate), userId).stream()
+                .map(meal -> (ApiEntity)meal)
+                .collect(Collectors.toList());
         return getDailyDietByListMeal(mealListByDateAndUserId);
     }
 
-    public DailyDiet getDailyDietByListMeal(List<Meal> meals){
-        List<MealDto> listMealDto = mealConverter.mappingListMealToListDto(meals);
-        return dailyDietCreator.createDailyDiet(listMealDto);
+    public DailyDiet getDailyDietByListMeal(List<ApiEntity> meals) {
+        return dailyDietCreator.createDailyDiet(mealConverter.mappingListApiEntityToListDto(meals));
     }
 
-    public List<MealDto> getMealsDtoByDayIdOrNull(Long dayId){
-        List<Meal> mealListByDayId = mealRepository.findMealListByDayId(dayId);
-        return mealListByDayId.isEmpty() ? null : mealConverter.mappingListMealToListDto(mealListByDayId);
+    public List<MealDto> getMealsDtoByDayIdOrNull(Long dayId) {
+        List<ApiEntity> mealListByDayId = mealRepository.findMealListByDayId(dayId).stream()
+                                                .map(meal -> (ApiEntity) meal)
+                                                .collect(Collectors.toList());
+
+        return mealListByDayId.isEmpty() ?
+                null : mealConverter.mappingListApiEntityToListDto(mealListByDayId).stream()
+                                                .map(apiEntityDto -> (MealDto) apiEntityDto)
+                                                .collect(Collectors.toList());
     }
 
-    private List<Meal> getMealsByDayId(Long dayId){
-        return mealRepository.findAllByDayId(dayId)
-                .orElseThrow(() -> new MealNotFoundException("Meals not found by day id"));
+    private List<ApiEntity> getMealsByDayId(Long dayId) {
+
+        return new ArrayList<>(mealRepository.findAllByDayId(dayId)
+                .orElseThrow(() -> new MealNotFoundException("Meals not found by day id")));
     }
 
     public Integer getKcalByDayId(Long dayId) {
@@ -73,18 +87,24 @@ public class MealService {
                 .orElse(0);
     }
 
-    public List<MealDto> getListMealDto() {
-        return mealConverter.mappingListMealToListDto(mealRepository.findAll());
+    @Override
+    public List<ApiEntityDto> getModelsDtoByModelId() {
+        List<ApiEntity> meals = new ArrayList<>(mealRepository.findAll());
+        return mealConverter.mappingListApiEntityToListDto(meals);
     }
 
-    public String addMealByDtoAndUserId(MealDto mealDto, Long userId) {
+    @Override
+    public String addModelByDtoAndUserId(ApiEntityDto apiEntityDto, Long userId) {
+        MealDto mealDto = (MealDto) apiEntityDto;
         mealValidator.validationModelDtoBeforeSaveOrUpdate(mealDto, userId);
         mealRepository.save(mealCreator.createMealByDtoAndMealId(mealDto));
         shortReportUpdater.updateShortReportByDayId(mealDto.getDayId());
         return "Received the meal object has been saved to the database";
     }
 
-    public String updateMealByDto(MealDto mealDto, Long userId) {
+    @Override
+    public String updateModelByDtoAndUserId(ApiEntityDto apiEntityDto, Long userId) {
+        MealDto mealDto = (MealDto) apiEntityDto;
         Meal mealToUpdateByDtoAndUserId = mealCreator.createMealToUpdateByDtoAndMealId(mealDto);
         mealRepository.updateMeal(mealToUpdateByDtoAndUserId.getId(),
                 mealToUpdateByDtoAndUserId.getDateTimeOfEat(),
@@ -96,8 +116,9 @@ public class MealService {
         return "Received the meal object and the shortReport has been updated";
     }
 
-    public String deleteByIdAndUserId(Long id, Long userId) {
-        mealRepository.deleteByIdAndUserID(id, userId);
+    @Override
+    public String deleteByModelIdAndUserId(Long mealId, Long userId) {
+        mealRepository.deleteByIdAndUserID(mealId, userId);
         return "The meal has been removed based on Id";
     }
 }

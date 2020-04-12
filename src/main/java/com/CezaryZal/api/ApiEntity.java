@@ -1,4 +1,4 @@
 package com.CezaryZal.api;
 
-public interface ModelDto {
+public interface ApiEntity {
 }

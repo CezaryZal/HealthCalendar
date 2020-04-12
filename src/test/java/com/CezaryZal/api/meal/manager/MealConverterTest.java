@@ -1,5 +1,7 @@
 package com.CezaryZal.api.meal.manager;
 
+import com.CezaryZal.api.ApiEntity;
+import com.CezaryZal.api.ApiEntityDto;
 import com.CezaryZal.api.meal.model.MealDto;
 import com.CezaryZal.api.meal.model.entity.Meal;
 import org.junit.jupiter.api.BeforeEach;
@@ -49,7 +51,7 @@ class MealConverterTest {
 
     @Test
     void shouldReturnProperlyCreatedMealDto(){
-        MealDto actualMealDto = mealConverter.mappingMealToDto(firstActualMeal);
+        MealDto actualMealDto = (MealDto) mealConverter.mappingApiEntityToDto(firstActualMeal);
         assertThat(actualMealDto).isEqualTo(firstExpectedMealDto);
         assertThat(firstExpectedMealDto).isNotEqualTo(secondExpectedMealDto);
     }
@@ -66,9 +68,9 @@ class MealConverterTest {
                 .build();
 
         List<MealDto> expectedListMealDto = Arrays.asList(firstExpectedMealDto, secondExpectedMealDto);
-        List<Meal> actualListMeal = Arrays.asList(firstActualMeal, secondActualMeal);
+        List<ApiEntity> actualListMeal = Arrays.asList(firstActualMeal, secondActualMeal);
 
-        List<MealDto> actualListMealDto = mealConverter.mappingListMealToListDto(actualListMeal);
+        List<ApiEntityDto> actualListMealDto = mealConverter.mappingListApiEntityToListDto(actualListMeal);
 
         assertThat(actualListMealDto).isEqualTo(expectedListMealDto);
     }

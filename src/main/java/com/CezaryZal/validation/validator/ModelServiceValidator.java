@@ -1,8 +1,8 @@
 package com.CezaryZal.validation.validator;
 
-import com.CezaryZal.api.ModelDto;
+import com.CezaryZal.api.ApiEntityDto;
 
 public interface ModelServiceValidator {
 
-    void validationModelDtoBeforeSaveOrUpdate(ModelDto modelDto, Long id);
+    void validationModelDtoBeforeSaveOrUpdate(ApiEntityDto apiEntityDto, Long id);
 }
