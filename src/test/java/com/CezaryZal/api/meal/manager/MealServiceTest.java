@@ -18,7 +18,11 @@ import org.mockito.Spy;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(SpringExtension.class)
@@ -47,31 +51,69 @@ class MealServiceTest {
     @InjectMocks
     private MealService mealService;
 
-    @Test
-    public void shouldGetMealDtoByMealId() {
-        Meal sampleMeal = Meal.builder()
+    private Meal firstSampleMeal;
+    private MealDto firstSampleMealDto;
+    private Meal secondSampleMeal;
+    private MealDto secondSampleMealDto;
+
+    @BeforeEach
+    void setUp() {
+        firstSampleMeal = Meal.builder()
                 .id(1L)
                 .dateTimeOfEat(LocalDateTime.of(2020, 4, 12, 10, 8))
-                .type("sample type")
+                .type("first type")
                 .kcal(60)
-                .description("sample description")
-                .dayId(1L)
-                .build();
-        MealDto sampleMealDto = MealDto.builder()
-                .id(1L)
-                .dateTimeOfEat(LocalDateTime.of(2020, 4, 12, 10, 8))
-                .type("sample type")
-                .kcal(60)
-                .description("sample description")
+                .description("first description")
                 .dayId(1L)
                 .build();
 
-        when(mealRepository.findById(1L)).thenReturn(java.util.Optional.of(sampleMeal));
+        firstSampleMealDto = MealDto.builder()
+                .id(1L)
+                .dateTimeOfEat(LocalDateTime.of(2020, 4, 12, 10, 8))
+                .type("first type")
+                .kcal(60)
+                .description("first description")
+                .dayId(1L)
+                .build();
 
-        ApiEntityDto modelDtoByModelId = mealService.getModelDtoByModelId(1L);
+        secondSampleMeal = Meal.builder()
+                .id(2L)
+                .dateTimeOfEat(LocalDateTime.of(2020, 4, 13, 11, 9))
+                .type("second type")
+                .kcal(70)
+                .description("second description")
+                .dayId(2L)
+                .build();
 
-        Assertions.assertEquals(sampleMealDto, modelDtoByModelId);
+        secondSampleMealDto = MealDto.builder()
+                .id(2L)
+                .dateTimeOfEat(LocalDateTime.of(2020, 4, 13, 11, 9))
+                .type("second type")
+                .kcal(70)
+                .description("second description")
+                .dayId(2L)
+                .build();
     }
 
+    @Test
+    public void shouldGetMealDtoByMealId() {
+        when(mealRepository.findById(1L)).thenReturn(Optional.of(firstSampleMeal));
+
+        ApiEntityDto actualModelDtoByModelId = mealService.getModelDtoByModelId(1L);
+
+        assertEquals(firstSampleMealDto, actualModelDtoByModelId);
+        assertNotEquals(secondSampleMealDto, actualModelDtoByModelId);
+    }
+
+    @Test
+    public void shouldGetMealsDtoByDayId(){
+        List<Meal> mealList = Arrays.asList(firstSampleMeal, secondSampleMeal);
+        List<MealDto> expectedMealDtoList = Arrays.asList(firstSampleMealDto, secondSampleMealDto);
+        when(mealRepository.findMealListByDayId(1L)).thenReturn(mealList);
+
+        List<MealDto> actualMealDtoList = mealService.getMealsDtoByDayIdOrNull(1L);
+
+        assertEquals(expectedMealDtoList, actualMealDtoList);
+    }
 
 }
