@@ -1,6 +1,6 @@
 package com.CezaryZal.api;
 
-public interface ApiEntityServiceValidator {
+public interface ApiEntityValidator {
 
     void validationModelDtoBeforeSaveOrUpdate(ApiEntityDto apiEntityDto, Long id);
 }

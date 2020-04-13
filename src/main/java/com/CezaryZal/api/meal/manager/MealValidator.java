@@ -7,19 +7,19 @@ import com.CezaryZal.exceptions.NonOverlappingIdNumberException;
 import com.CezaryZal.validation.OverlappingDataValidator;
 import com.CezaryZal.validation.PerDayValidator;
 import com.CezaryZal.validation.validator.IdsByDateOverlappingDataValidator;
-import com.CezaryZal.api.ApiEntityServiceValidator;
+import com.CezaryZal.api.ApiEntityValidator;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 
 @Service
-public class MealApiEntityServiceValidator implements ApiEntityServiceValidator {
+public class MealValidator implements ApiEntityValidator {
 
     private final OverlappingDataValidator idsByDateOverlappingDataValidator;
     private final PerDayValidator perDayValidator;
 
-    public MealApiEntityServiceValidator(IdsByDateOverlappingDataValidator idsByDateOverlappingDataValidator,
-                                         PerDayValidator perDayValidator) {
+    public MealValidator(IdsByDateOverlappingDataValidator idsByDateOverlappingDataValidator,
+                         PerDayValidator perDayValidator) {
         this.idsByDateOverlappingDataValidator = idsByDateOverlappingDataValidator;
         this.perDayValidator = perDayValidator;
     }
