@@ -16,12 +16,12 @@ import java.time.LocalDate;
 public class MealValidator implements ApiEntityValidator {
 
     private final OverlappingDataValidator idsByDateOverlappingDataValidator;
-    private final PerDayValidator perDayValidator;
+    private final PerDayValidator maxNumberOfMealsPerDayValidator;
 
     public MealValidator(IdsByDateOverlappingDataValidator idsByDateOverlappingDataValidator,
-                         PerDayValidator perDayValidator) {
+                         PerDayValidator maxNumberOfMealsPerDayValidator) {
         this.idsByDateOverlappingDataValidator = idsByDateOverlappingDataValidator;
-        this.perDayValidator = perDayValidator;
+        this.maxNumberOfMealsPerDayValidator = maxNumberOfMealsPerDayValidator;
     }
 
     @Override
@@ -41,7 +41,7 @@ public class MealValidator implements ApiEntityValidator {
     }
 
     private void throwIfModelsPerDayHasBeenReached(MealDto mealDto, Long userId) {
-        if (perDayValidator.hasMaxNumberOfModelsPerDay(LocalDate.from(mealDto.getDateTimeOfEat()), userId)) {
+        if (maxNumberOfMealsPerDayValidator.hasMaxNumberOfModelsPerDay(LocalDate.from(mealDto.getDateTimeOfEat()), userId)) {
             throw new MaximumNumberOfMealsPerDayException("This Day has maximum amount of meals");
         }
     }
