@@ -1,7 +1,9 @@
 package com.CezaryZal.api.meal.manager;
 
+import com.CezaryZal.api.ApiEntity;
 import com.CezaryZal.api.ApiEntityDto;
 import com.CezaryZal.api.day.repo.DayRepository;
+import com.CezaryZal.api.meal.model.DailyDiet;
 import com.CezaryZal.api.meal.model.MealDto;
 import com.CezaryZal.api.meal.model.entity.Meal;
 import com.CezaryZal.api.meal.repo.MealRepository;
@@ -19,8 +21,10 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
@@ -55,6 +59,9 @@ class MealServiceTest {
     private MealDto firstSampleMealDto;
     private Meal secondSampleMeal;
     private MealDto secondSampleMealDto;
+
+    private List<Meal> firstMealList;
+    private List<MealDto> firstMealDtoList;
 
     @BeforeEach
     void setUp() {
@@ -93,6 +100,9 @@ class MealServiceTest {
                 .description("second description")
                 .dayId(2L)
                 .build();
+
+        firstMealList = Arrays.asList(firstSampleMeal, secondSampleMeal);
+        firstMealDtoList = Arrays.asList(firstSampleMealDto, secondSampleMealDto);
     }
 
     @Test
@@ -106,14 +116,26 @@ class MealServiceTest {
     }
 
     @Test
-    public void shouldGetMealsDtoByDayId(){
-        List<Meal> mealList = Arrays.asList(firstSampleMeal, secondSampleMeal);
-        List<MealDto> expectedMealDtoList = Arrays.asList(firstSampleMealDto, secondSampleMealDto);
-        when(mealRepository.findMealListByDayId(1L)).thenReturn(mealList);
+    public void shouldGetMealsDtoByDayId() {
+        when(mealRepository.findMealListByDayId(1L)).thenReturn(firstMealList);
 
         List<MealDto> actualMealDtoList = mealService.getMealsDtoByDayIdOrNull(1L);
 
-        assertEquals(expectedMealDtoList, actualMealDtoList);
+        assertEquals(firstMealDtoList, actualMealDtoList);
+    }
+
+    @Test
+    public void shouldGetDailyDietByListMeal() {
+        DailyDiet expectedDailyDiet = new DailyDiet(
+                        firstMealDtoList.stream().map(mealDto ->(ApiEntityDto)mealDto).collect(Collectors.toList()),
+                130);
+        List<ApiEntity> actualListApiEntity = firstMealList.stream()
+                .map(meal -> (ApiEntity) meal)
+                .collect(Collectors.toList());
+
+        DailyDiet actualDailyDiet = mealService.getDailyDietByListMeal(actualListApiEntity);
+
+        assertEquals(expectedDailyDiet, actualDailyDiet);
     }
 
 }
