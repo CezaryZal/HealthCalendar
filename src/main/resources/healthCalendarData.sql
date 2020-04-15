@@ -112,11 +112,11 @@ INSERT INTO `day` VALUES
 DROP TABLE IF EXISTS `meal`;
 CREATE TABLE `meal` (
                     `id` BIGINT NOT NULL AUTO_INCREMENT,
-                    `date_time` DATETIME DEFAULT NULL,
-                    `description` VARCHAR(255) DEFAULT NULL,
-                    `kcal` SMALLINT UNSIGNED DEFAULT NULL,
-                    `type` VARCHAR(55) DEFAULT NULL,
-                    `day_id` BIGINT DEFAULT NULL,
+                    `date_time` DATETIME NOT NULL ,
+                    `description` VARCHAR(255) NOT NULL,
+                    `kcal` SMALLINT UNSIGNED NOT NULL,
+                    `type` VARCHAR(55) NOT NULL,
+                    `day_id` BIGINT NOT NULL,
                     PRIMARY KEY (`id`),
                     KEY `meal_day` (`day_id`),
                     CONSTRAINT `meal_day` FOREIGN KEY (`day_id`) REFERENCES `day` (`id`)

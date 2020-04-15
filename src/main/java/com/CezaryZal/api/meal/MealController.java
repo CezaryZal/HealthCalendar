@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @Api(tags = "Meal")
@@ -38,21 +39,21 @@ public class MealController {
     }
 
     @ApiOperation(value = "This endpoint addition `Meal`")
-    @PostMapping
-    public ResponseEntity<String> addMeal (@RequestBody MealDto mealDto){
-        return new ResponseEntity<>(mealService.addMealByDto(mealDto), HttpStatus.CREATED);
+    @PostMapping("current/{userId}")
+    public ResponseEntity<String> addMeal (@Valid @RequestBody MealDto mealDto, @PathVariable Long userId){
+        return new ResponseEntity<>(mealService.addModelByDtoAndUserId(mealDto, userId), HttpStatus.CREATED);
     }
 
     @ApiOperation(value = "This endpoint input `Meal` object update ")
-    @PutMapping("/{id}")
-    public ResponseEntity<String> updateMeal (@RequestBody MealDto mealDto, @PathVariable Long id){
-        return new ResponseEntity<>(mealService.updateMealByDto(mealDto, id), HttpStatus.OK);
+    @PutMapping("/{userId}")
+    public ResponseEntity<String> updateMeal (@Valid @RequestBody MealDto mealDto, @PathVariable Long userId){
+        return new ResponseEntity<>(mealService.updateModelByDtoAndUserId(mealDto, userId), HttpStatus.ACCEPTED);
     }
 
-    @ApiOperation(value = "This endpoint remove `Meal` by id")
-    @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteMeal (@PathVariable Long id){
-        return new ResponseEntity<>(mealService.deleteById(id), HttpStatus.NO_CONTENT);
+    @ApiOperation(value = "This endpoint remove `Meal` by id and userId")
+    @DeleteMapping("/{id}/{userId}")
+    public ResponseEntity<String> deleteMeal (@PathVariable Long id, @PathVariable Long userId){
+        return new ResponseEntity<>(mealService.deleteByModelIdAndUserId(id, userId), HttpStatus.ACCEPTED);
     }
 
 }

@@ -1,5 +1,6 @@
 package com.CezaryZal.api.report.manager;
 
+import com.CezaryZal.api.ApiEntity;
 import com.CezaryZal.api.body.manager.BodySizeService;
 import com.CezaryZal.api.meal.model.DailyDiet;
 import com.CezaryZal.api.note.manager.NoteService;
@@ -13,6 +14,9 @@ import com.CezaryZal.api.training.manager.TrainingService;
 import com.CezaryZal.api.user.manager.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class ReportCreator {
@@ -52,7 +56,8 @@ public class ReportCreator {
         boolean isAchievedDrink = dailyLimitsService.checkIsAchievedDrink(
                 dailyLimits.getDrinkDemandPerDay(), day.getPortionsDrink());
         if (isLongReport){
-            DailyDiet dailyDietByListMeal = mealService.getDailyDietByListMeal(day.getListMealsDB());
+            List<ApiEntity> meals = new ArrayList<>(day.getListMealsDB());
+            DailyDiet dailyDietByListMeal = mealService.getDailyDietByListMeal(meals);
             boolean isAchievedKcal = dailyLimitsService.checkIsAchievedKcal(
                     dailyLimits.getKcalDemandPerDay(), dailyDietByListMeal.getSumOfKcal());
             return FormReport.builder()
