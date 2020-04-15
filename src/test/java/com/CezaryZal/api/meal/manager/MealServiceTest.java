@@ -19,6 +19,7 @@ import org.mockito.Mock;
 import org.mockito.Spy;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Collections;
@@ -134,6 +135,19 @@ class MealServiceTest {
                 .collect(Collectors.toList());
 
         DailyDiet actualDailyDiet = mealService.getDailyDietByListMeal(actualListApiEntity);
+
+        assertEquals(expectedDailyDiet, actualDailyDiet);
+    }
+
+    @Test
+    public void shouldGetDailyDietByDateAndUserId() {
+        DailyDiet expectedDailyDiet = new DailyDiet(
+                firstMealDtoList.stream().map(mealDto ->(ApiEntityDto)mealDto).collect(Collectors.toList()),
+                130);
+        when(mealRepository.findMealListByDateAndUserId(LocalDate.of(2020,4,8), 1L))
+                .thenReturn(firstMealList);
+
+        DailyDiet actualDailyDiet = mealService.getDailyDietByDateAndUserId("2020-04-08", 1L);
 
         assertEquals(expectedDailyDiet, actualDailyDiet);
     }
