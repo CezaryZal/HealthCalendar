@@ -166,11 +166,11 @@ $ mvn test
 
 ## Status
 
-[HealthCalendar](https://pgajek.github.io/HealthCallendar/home) project's in alpha phase - version 1.0.0
+[HealthCalendar](https://pgajek.github.io/HealthCallendar) project's in alpha phase - version 1.0.0
 
 #### API
 
-[HealthCalendar API](https://164.132.97.42:8443/health-calendar)
+[HealthCalendar API](https://164.132.97.42:8443/health-calendar/swagger-ui.html#!)
 
 ## Authors
 
