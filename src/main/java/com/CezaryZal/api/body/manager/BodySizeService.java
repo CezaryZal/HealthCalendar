@@ -37,12 +37,12 @@ public class BodySizeService {
     }
 
     public LocalDate getDateLastMeasureByUserIdForBSController(Long userId) {
-        return getDateLastMeasureByUserId(userId)
+        return getDateOfLastMeasureByUserId(userId)
                 .orElseThrow(() -> new DateNotFoundException("Date not found by user id"));
     }
 
-    public Optional<LocalDate> getDateLastMeasureByUserId(Long userId) {
-        return bodySizeRepository.findDateLastMeasureByUserId(userId)
+    public Optional<LocalDate> getDateOfLastMeasureByUserId(Long userId) {
+        return bodySizeRepository.findDateOfLastMeasureByUserId(userId)
                 .map(Date::toLocalDate);
     }
 
