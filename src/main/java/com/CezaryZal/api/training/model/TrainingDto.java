@@ -1,6 +1,7 @@
 package com.CezaryZal.api.training.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -10,6 +11,7 @@ import java.time.LocalTime;
 
 @ToString
 @Getter
+@EqualsAndHashCode
 @NoArgsConstructor
 public class TrainingDto {
 
