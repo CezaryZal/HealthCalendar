@@ -4,6 +4,7 @@ import com.CezaryZal.api.ApiEntity;
 import com.CezaryZal.api.body.manager.BodySizeService;
 import com.CezaryZal.api.meal.model.DailyDiet;
 import com.CezaryZal.api.note.manager.NoteService;
+import com.CezaryZal.api.report.model.BasicReport;
 import com.CezaryZal.api.user.limits.manager.DailyLimitsService;
 import com.CezaryZal.api.user.limits.model.DailyLimits;
 import com.CezaryZal.api.report.model.FormReport;
@@ -46,10 +47,16 @@ public class ReportCreator {
         this.dailyLimitsService = dailyLimitsService;
     }
 
+    BasicReport creatBasicReport(String loginName){
+        Long userIdByLoginName = userService.getIdByLoginName(loginName);
+
+        return new BasicReport(userIdByLoginName,
+                userService.getNickByUserId(userIdByLoginName),
+                getDateOfLastMeasureBody(userIdByLoginName));
+    }
+
     FormReport createFormReportByDayAndUser(Day day, Long userId, boolean isLongReport){
-        String dateLastMeasureBody = bodySizeService.getDateLastMeasureByUserId(userId)
-                .map(String::valueOf)
-                .orElse("The body measurement has not been done ");
+        String dateOfLastMeasureBody = getDateOfLastMeasureBody(userId);
 
         DailyLimits dailyLimits = dailyLimitsService.getDailyLimitsByUserId(userId);
         String nickByUserId = userService.getNickByUserId(userId);
@@ -68,7 +75,7 @@ public class ReportCreator {
                     .portionsAlcohol(day.getPortionsAlcohol())
                     .portionsSnack(day.getPortionsSnack())
                     .nick(nickByUserId)
-                    .lastDateMeasureBody(dateLastMeasureBody)
+                    .lastDateMeasureBody(dateOfLastMeasureBody)
                     .isAchievedDrink(isAchievedDrink)
                     .isAchievedKcal(isAchievedKcal)
                     .dailyDiet(dailyDietByListMeal)
@@ -88,9 +95,15 @@ public class ReportCreator {
                 .portionsAlcohol(day.getPortionsAlcohol())
                 .portionsSnack(day.getPortionsSnack())
                 .nick(nickByUserId)
-                .lastDateMeasureBody(dateLastMeasureBody)
+                .lastDateMeasureBody(dateOfLastMeasureBody)
                 .isAchievedDrink(isAchievedDrink)
                 .isAchievedKcal(isAchievedKcal)
                 .buildReport();
+    }
+
+    private String getDateOfLastMeasureBody(Long userId) {
+        return bodySizeService.getDateOfLastMeasureByUserId(userId)
+                    .map(String::valueOf)
+                    .orElse("The body measurement has not been done ");
     }
 }

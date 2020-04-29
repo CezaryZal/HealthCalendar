@@ -12,6 +12,7 @@ import lombok.ToString;
 import java.time.LocalDate;
 import java.util.List;
 
+//Use generic type to extends Report
 @ToString
 @Getter
 @NoArgsConstructor

@@ -1,6 +1,7 @@
-package com.CezaryZal.api.report.controller;
+package com.CezaryZal.api.report;
 
 import com.CezaryZal.api.report.manager.ReportService;
+import com.CezaryZal.api.report.model.BasicReport;
 import com.CezaryZal.api.report.model.FormReport;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -20,6 +21,13 @@ public class ReportController {
     @Autowired
     public ReportController(ReportService reportService) {
         this.reportService = reportService;
+    }
+
+    @ApiOperation(value = "This will get a `BasicReport` by date and user id")
+    @GetMapping("/basic/{loginName}")
+    public ResponseEntity<BasicReport> getBasicReportByLoginNameAndUserId(
+            @PathVariable String loginName){
+        return new ResponseEntity<>(reportService.getBasicReportByLoginNameAndUserId(loginName), HttpStatus.OK);
     }
 
     @ApiOperation(value = "This will get a `Report` by date and user id")
