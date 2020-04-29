@@ -38,9 +38,9 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
 
 INSERT INTO `user` VALUES
-(1, '1966-05-23', 'anna@gmail.com', 'janek','jan', '569 842 365', true, 2500, 2000, 1),
-(2, '1996-05-23', 'fiona@gmail.com', 'tomek','tomy', '846 152 365', true, 4000, 3000, 2),
-(3, '1999-05-23', 'kris@gmail.com', 'czar','czarek', '849 642 365', true, 3000, 2500, 3);
+(1, '1966-05-23', 'anna@gmail.com', 'janek14','jan', '569 842 365', true, 2500, 2000, 1),
+(2, '1996-05-23', 'fiona@gmail.com', 'tomek92','tomy', '846 152 365', true, 4000, 3000, 2),
+(3, '1999-05-23', 'kris@gmail.com', 'czar9001','czarek', '849 642 365', true, 3000, 2500, 3);
 
 DROP TABLE IF EXISTS `body_size`;
 CREATE TABLE `body_size` (
