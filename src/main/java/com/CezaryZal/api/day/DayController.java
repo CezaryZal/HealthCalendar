@@ -1,5 +1,6 @@
 package com.CezaryZal.api.day;
 
+import com.CezaryZal.api.day.model.DayDto;
 import com.CezaryZal.api.day.model.ObjectToSaveDay;
 import com.CezaryZal.api.day.manager.DayService;
 import io.swagger.annotations.Api;
@@ -31,7 +32,7 @@ public class DayController {
     }
 
     @PostMapping
-    public ResponseEntity<String> addDay(@RequestBody ObjectToSaveDay day) {
+    public ResponseEntity<DayDto> addDay(@RequestBody ObjectToSaveDay day) {
         return new ResponseEntity<>(dayService.addNewDay(day), HttpStatus.CREATED);
     }
 

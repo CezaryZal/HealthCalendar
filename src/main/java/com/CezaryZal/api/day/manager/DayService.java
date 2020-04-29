@@ -65,10 +65,10 @@ public class DayService {
         return dayConverter.mappingListDayToListDto(all);
     }
 
-    public String addNewDay(ObjectToSaveDay objectToSaveDay){
+    public DayDto addNewDay(ObjectToSaveDay objectToSaveDay){
         ShortReport newShortReport = shortReportCreator.createNewShortReport(objectToSaveDay);
-        dayRepository.save(dayCreator.createDayByDayApi(objectToSaveDay, newShortReport));
-        return "Received the day object has been saved to the database with its shortcut";
+        Day newDay = dayRepository.save(dayCreator.createDayByDayApi(objectToSaveDay, newShortReport));
+        return dayConverter.mappingDayToDto(newDay);
     }
 
     public String updateDay(ObjectToSaveDay objectToSaveDay, Long dayId) {
