@@ -101,4 +101,48 @@ class TrainingDtoTest {
                 .isEqualTo(constraintViolations.iterator().next().getMessage());
     }
 
+    @Test
+    void shouldThrowExceptionWhenSendingTooLongStringToDescription() {
+        Set<ConstraintViolation<TrainingDto>> constraintViolations =
+                validator.validateValue(
+                        TrainingDto.class,
+                        "description",
+                        "a sample description of meal, that will be too long, " +
+                                "which should throw an exception with the error message");
+
+        assertThat(1).isEqualTo(constraintViolations.size());
+        assertThat("The 'description' should be between 3 and 100 characters")
+                .isEqualTo(constraintViolations.iterator().next().getMessage());
+    }
+
+    @Test
+    void shouldThrowExceptionWhenSendingTooShortStringToDescription(){
+        Set<ConstraintViolation<TrainingDto>> constraintViolations =
+                validator.validateValue(TrainingDto.class, "description", "tmp");
+
+        assertThat(1).isEqualTo(constraintViolations.size());
+        assertThat("The 'description' should be between 3 and 100 characters")
+                .isEqualTo(constraintViolations.iterator().next().getMessage());
+    }
+
+    @Test
+    void shouldThrowExceptionWhenSendingNullToDescription(){
+        Set<ConstraintViolation<TrainingDto>> constraintViolations =
+                validator.validateValue(TrainingDto.class, "description", null);
+
+        assertThat(1).isEqualTo(constraintViolations.size());
+        assertThat("The 'description' should not be blank")
+                .isEqualTo(constraintViolations.iterator().next().getMessage());
+    }
+
+    @Test
+    void shouldThrowExceptionWhenSendingBlankStringToDescription(){
+        Set<ConstraintViolation<TrainingDto>> constraintViolations =
+                validator.validateValue(TrainingDto.class, "description", "       ");
+
+        assertThat(1).isEqualTo(constraintViolations.size());
+        assertThat("The 'description' should not be blank")
+                .isEqualTo(constraintViolations.iterator().next().getMessage());
+    }
+
 }

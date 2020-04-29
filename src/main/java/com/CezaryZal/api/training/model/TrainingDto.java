@@ -7,8 +7,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
+import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
@@ -26,6 +28,8 @@ public class TrainingDto {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd_HH:mm")
     private LocalDateTime dateTimeOfExecution;
 
+    @NotBlank(message = "The 'description' should not be blank")
+    @Size(min = 4, max = 100, message = "The 'description' should be between 3 and 100 characters")
     private String description;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
