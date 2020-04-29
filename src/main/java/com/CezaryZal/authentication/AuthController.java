@@ -11,19 +11,19 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
-@Api(tags = "Login controller")
+@Api(tags = "Authentication controller")
 @RestController
-public class LoginController {
+public class AuthController {
 
     private final LoginService loginService;
 
     @Autowired
-    public LoginController(LoginService loginService) {
+    public AuthController(LoginService loginService) {
         this.loginService = loginService;
     }
 
     @ApiOperation(value = "This will get a token and user id by input login name and password")
-    @PostMapping("/login")
+    @PostMapping("/token")
     public ResponseEntity<AuthenticationResponse> getAuthResponse(@RequestBody AuthenticationRequest inputAuthenticationRequest) {
         return new ResponseEntity<>(loginService.getAuthResponseByUserLogin(inputAuthenticationRequest), HttpStatus.OK);
     }
