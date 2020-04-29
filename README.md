@@ -109,7 +109,7 @@ The application uses relational database MySQL, dependency diagram below.
 #### Usage
 
 Initially, you need to authenticate the received an access token.
-You can do this by login at path `**/login`. 
+You can do this by login at path `**/token`. 
 
 ## Applied technologies
 
