@@ -67,4 +67,38 @@ class TrainingDtoTest {
                 .isEqualTo(constraintViolations.iterator().next().getMessage());
     }
 
+    @Test
+    void shouldThrowExceptionWhenSendingNullToDataTimeOfEat(){
+        Set<ConstraintViolation<TrainingDto>> constraintViolations =
+                validator.validateValue(TrainingDto.class, "dateTimeOfExecution", null);
+
+        assertThat(1).isEqualTo(constraintViolations.size());
+        assertThat("The 'dateTimeOfExecution' should not be null")
+                .isEqualTo(constraintViolations.iterator().next().getMessage());
+    }
+
+    @Test
+    void shouldThrowExceptionWhenSendingDateFromPastToDateTimeOfEat(){
+        Set<ConstraintViolation<TrainingDto>> constraintViolations =
+                validator.validateValue(TrainingDto.class,
+                        "dateTimeOfExecution",
+                        LocalDateTime.now().minusHours(24).minusMinutes(1));
+
+        assertThat(1).isEqualTo(constraintViolations.size());
+        assertThat("The date time should be current")
+                .isEqualTo(constraintViolations.iterator().next().getMessage());
+    }
+
+    @Test
+    void shouldThrowExceptionWhenSendingDateFromFutureToDateTimeOfEat(){
+        Set<ConstraintViolation<TrainingDto>> constraintViolations =
+                validator.validateValue(TrainingDto.class,
+                        "dateTimeOfExecution",
+                        LocalDateTime.now().plusHours(24).plusMinutes(1));
+
+        assertThat(1).isEqualTo(constraintViolations.size());
+        assertThat("The date time should be current")
+                .isEqualTo(constraintViolations.iterator().next().getMessage());
+    }
+
 }

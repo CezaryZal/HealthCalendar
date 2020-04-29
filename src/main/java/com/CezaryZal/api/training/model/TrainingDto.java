@@ -1,11 +1,13 @@
 package com.CezaryZal.api.training.model;
 
+import com.CezaryZal.validation.annotation.ActualDate;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -19,6 +21,8 @@ public class TrainingDto {
     @Positive
     private Long id;
 
+    @NotNull(message = "The 'dateTimeOfExecution' should not be null")
+    @ActualDate
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd_HH:mm")
     private LocalDateTime dateTimeOfExecution;
 
