@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import javax.validation.constraints.Positive;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
@@ -15,6 +16,7 @@ import java.time.LocalTime;
 @NoArgsConstructor
 public class TrainingDto {
 
+    @Positive
     private Long id;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd_HH:mm")
