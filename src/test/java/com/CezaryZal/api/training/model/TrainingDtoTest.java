@@ -145,4 +145,33 @@ class TrainingDtoTest {
                 .isEqualTo(constraintViolations.iterator().next().getMessage());
     }
 
+    @Test
+    void shouldThrowExceptionWhenSendingNullToElapsedTime(){
+        Set<ConstraintViolation<TrainingDto>> constraintViolations =
+                validator.validateValue(TrainingDto.class, "elapsedTime", null);
+
+        assertThat(1).isEqualTo(constraintViolations.size());
+        assertThat("The 'elapsedTime' should not be null")
+                .isEqualTo(constraintViolations.iterator().next().getMessage());
+    }
+
+    @Test
+    void shouldThrowExceptionWhenSendingTimeEqualZeroToElapsedTime(){
+        Set<ConstraintViolation<TrainingDto>> constraintViolations =
+                validator.validateValue(TrainingDto.class, "elapsedTime", LocalTime.of(0,0));
+
+        assertThat(1).isEqualTo(constraintViolations.size());
+        assertThat("The training time should be between 0:01 and 3:00 hours")
+                .isEqualTo(constraintViolations.iterator().next().getMessage());
+    }
+
+    @Test
+    void shouldThrowExceptionWhenSendingTimeOver3HourToElapsedTime(){
+        Set<ConstraintViolation<TrainingDto>> constraintViolations =
+                validator.validateValue(TrainingDto.class, "elapsedTime", LocalTime.of(3,1));
+
+        assertThat(1).isEqualTo(constraintViolations.size());
+        assertThat("The training time should be between 0:01 and 3:00 hours")
+                .isEqualTo(constraintViolations.iterator().next().getMessage());
+    }
 }

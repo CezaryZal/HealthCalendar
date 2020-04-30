@@ -1,6 +1,7 @@
 package com.CezaryZal.api.training.model;
 
 import com.CezaryZal.validation.annotation.ActualDate;
+import com.CezaryZal.validation.annotation.Timeline;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -32,6 +33,8 @@ public class TrainingDto {
     @Size(min = 4, max = 100, message = "The 'description' should be between 3 and 100 characters")
     private String description;
 
+    @NotNull(message = "The 'elapsedTime' should not be null")
+    @Timeline
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
     private LocalTime elapsedTime;
 
