@@ -48,6 +48,23 @@ class TrainingDtoTest {
     }
 
     @Test
+    void shouldBuildCorrectTrainingDto(){
+        TrainingDto newTraining = TrainingDto.builder()
+                .id(1L)
+                .dateTimeOfExecution(LocalDateTime.now())
+                .description("Bieganie")
+                .elapsedTime(LocalTime.of(1, 15))
+                .burnKcal(300)
+                .dayId(2L)
+                .buildDto();
+
+        Set<ConstraintViolation<TrainingDto>> constraintViolations =
+                validator.validate(newTraining);
+
+        assertThat(0).isEqualTo(constraintViolations.size());
+    }
+
+    @Test
     void shouldThrowExceptionWhenSendingNegativeValueToId(){
         Set<ConstraintViolation<TrainingDto>> constraintViolations =
                 validator.validateValue(TrainingDto.class, "id", -1L);
@@ -107,7 +124,7 @@ class TrainingDtoTest {
                 validator.validateValue(
                         TrainingDto.class,
                         "description",
-                        "a sample description of meal, that will be too long, " +
+                        "a sample description of training, that will be too long, " +
                                 "which should throw an exception with the error message");
 
         assertThat(1).isEqualTo(constraintViolations.size());
