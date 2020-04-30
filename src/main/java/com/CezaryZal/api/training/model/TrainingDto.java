@@ -8,10 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
@@ -38,6 +35,9 @@ public class TrainingDto {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
     private LocalTime elapsedTime;
 
+    @NotNull(message = "The 'burnKcal' should not be null")
+    @Max(value = 6000, message = "The value of burnKcal entered is too big, max is 6000")
+    @Min(value = 30, message = "The value of burnKcal entered is too small, min is 30")
     private int burnKcal;
 
     private Long dayId;

@@ -174,4 +174,44 @@ class TrainingDtoTest {
         assertThat("The training time should be between 0:01 and 3:00 hours")
                 .isEqualTo(constraintViolations.iterator().next().getMessage());
     }
+
+    @Test
+    void shouldThrowExceptionWhenSendingTooSmallValueOfKcal() {
+        Set<ConstraintViolation<TrainingDto>> constraintViolations =
+                validator.validateValue(TrainingDto.class, "burnKcal", 20);
+
+        assertThat(1).isEqualTo(constraintViolations.size());
+        assertThat("The value of burnKcal entered is too small, min is 30")
+                .isEqualTo(constraintViolations.iterator().next().getMessage());
+    }
+
+    @Test
+    void shouldThrowExceptionWhenSendingTooBigValueOfKcal() {
+        Set<ConstraintViolation<TrainingDto>> constraintViolations =
+                validator.validateValue(TrainingDto.class, "burnKcal", 6001);
+
+        assertThat(1).isEqualTo(constraintViolations.size());
+        assertThat("The value of burnKcal entered is too big, max is 6000")
+                .isEqualTo(constraintViolations.iterator().next().getMessage());
+    }
+
+    @Test
+    void shouldThrowExceptionWhenSendingNegativeNumberToKcal() {
+        Set<ConstraintViolation<TrainingDto>> constraintViolations =
+                validator.validateValue(TrainingDto.class, "burnKcal", -8);
+
+        assertThat(1).isEqualTo(constraintViolations.size());
+        assertThat("The value of burnKcal entered is too small, min is 30")
+                .isEqualTo(constraintViolations.iterator().next().getMessage());
+    }
+
+    @Test
+    void shouldThrowExceptionWhenSendingNullToKcal() {
+        Set<ConstraintViolation<TrainingDto>> constraintViolations =
+                validator.validateValue(TrainingDto.class, "burnKcal", null);
+
+        assertThat(1).isEqualTo(constraintViolations.size());
+        assertThat("The 'burnKcal' should not be null")
+                .isEqualTo(constraintViolations.iterator().next().getMessage());
+    }
 }
