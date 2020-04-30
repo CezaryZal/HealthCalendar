@@ -214,4 +214,34 @@ class TrainingDtoTest {
         assertThat("The 'burnKcal' should not be null")
                 .isEqualTo(constraintViolations.iterator().next().getMessage());
     }
+
+    @Test
+    void shouldThrowExceptionWhenSendingNegativeValueToDayId(){
+        Set<ConstraintViolation<TrainingDto>> constraintViolations =
+                validator.validateValue(TrainingDto.class, "dayId", -1L);
+
+        assertThat(1).isEqualTo(constraintViolations.size());
+        assertThat("must be greater than 0")
+                .isEqualTo(constraintViolations.iterator().next().getMessage());
+    }
+
+    @Test
+    void shouldThrowExceptionWhenSendingNullToDayId(){
+        Set<ConstraintViolation<TrainingDto>> constraintViolations =
+                validator.validateValue(TrainingDto.class, "dayId", null);
+
+        assertThat(1).isEqualTo(constraintViolations.size());
+        assertThat("The 'dayId' should not be null")
+                .isEqualTo(constraintViolations.iterator().next().getMessage());
+    }
+
+    @Test
+    void shouldThrowExceptionWhenSendingZeroNumberToDayId(){
+        Set<ConstraintViolation<TrainingDto>> constraintViolations =
+                validator.validateValue(TrainingDto.class, "dayId", 0L);
+
+        assertThat(1).isEqualTo(constraintViolations.size());
+        assertThat("must be greater than 0")
+                .isEqualTo(constraintViolations.iterator().next().getMessage());
+    }
 }

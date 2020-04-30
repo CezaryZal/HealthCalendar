@@ -40,6 +40,8 @@ public class TrainingDto {
     @Min(value = 30, message = "The value of burnKcal entered is too small, min is 30")
     private int burnKcal;
 
+    @NotNull(message = "The 'dayId' should not be null")
+    @Positive
     private Long dayId;
 
 
