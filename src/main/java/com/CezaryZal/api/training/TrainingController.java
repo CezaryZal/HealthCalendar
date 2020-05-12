@@ -30,18 +30,18 @@ public class TrainingController implements ApiEntityController {
         return new ResponseEntity<>(trainingService.getTrainingsSummaryByDayId(dayId), HttpStatus.OK);
     }
 
-    @PostMapping
-    public ResponseEntity<String> add (@RequestBody TrainingDto trainingDto){
-        return new ResponseEntity<>(trainingService.addTrainingByDto(trainingDto), HttpStatus.CREATED);
+    @PostMapping("current/{userId}")
+    public ResponseEntity<String> add (@RequestBody TrainingDto trainingDto, @PathVariable Long userId){
+        return new ResponseEntity<>(trainingService.addModelByDtoAndUserId(trainingDto, userId), HttpStatus.CREATED);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<String> update (@RequestBody TrainingDto trainingDto, @PathVariable Long id){
-        return new ResponseEntity<>(trainingService.updateTrainingByDto(trainingDto, id), HttpStatus.OK);
+    @PutMapping("/{userId}")
+    public ResponseEntity<String> update (@RequestBody TrainingDto trainingDto, @PathVariable Long userId){
+        return new ResponseEntity<>(trainingService.updateModelByDtoAndUserId(trainingDto, userId), HttpStatus.OK);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<String> delete (@PathVariable Long id){
-        return new ResponseEntity<>(trainingService.deleteTraining(id), HttpStatus.NO_CONTENT);
+    @DeleteMapping("/{mealId}/{userId}")
+    public ResponseEntity<String> delete (@PathVariable Long mealId, @PathVariable Long userId){
+        return new ResponseEntity<>(trainingService.deleteByModelIdAndUserId(mealId, userId), HttpStatus.NO_CONTENT);
     }
 }

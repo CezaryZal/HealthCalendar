@@ -1,5 +1,6 @@
 package com.CezaryZal.api.training.model;
 
+import com.CezaryZal.api.ApiEntityDto;
 import com.CezaryZal.validation.annotation.ActualDate;
 import com.CezaryZal.validation.annotation.Timeline;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -16,7 +17,7 @@ import java.time.LocalTime;
 @Getter
 @EqualsAndHashCode
 @NoArgsConstructor
-public class TrainingDto {
+public class TrainingDto implements ApiEntityDto {
 
     @Positive
     private Long id;

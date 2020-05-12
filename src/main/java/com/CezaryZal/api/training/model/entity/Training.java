@@ -1,5 +1,6 @@
 package com.CezaryZal.api.training.model.entity;
 
+import com.CezaryZal.api.ApiEntity;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -11,7 +12,7 @@ import java.time.LocalTime;
 @Table(name = "training")
 @Data
 @NoArgsConstructor
-public class Training {
+public class Training implements ApiEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,5 +1,6 @@
 package com.CezaryZal.api.training.manager;
 
+import com.CezaryZal.api.*;
 import com.CezaryZal.api.training.model.TrainingDto;
 import com.CezaryZal.api.training.model.entity.Training;
 import com.CezaryZal.api.training.model.TrainingsSummary;
@@ -8,69 +9,83 @@ import com.CezaryZal.exceptions.not.found.TrainingNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
-public class TrainingService {
+public class TrainingService implements ApiEntityService {
 
     private final TrainingRepository trainingRepository;
-    private final TrainingConverter trainingConverter;
+    private final ApiEntityConverter trainingConverter;
     private final TrainingsSummaryCreator trainingsSummaryCreator;
-    private final TrainingCreator trainingCreator;
+    private final ApiEntityCreator trainingCreator;
 
     @Autowired
     public TrainingService(TrainingRepository trainingRepository,
-                           TrainingConverter trainingConverter,
+                           ApiEntityConverter trainingConverter,
                            TrainingsSummaryCreator trainingsSummaryCreator,
-                           TrainingCreator trainingCreator) {
+                           ApiEntityCreator trainingCreator) {
         this.trainingRepository = trainingRepository;
         this.trainingConverter = trainingConverter;
         this.trainingsSummaryCreator = trainingsSummaryCreator;
         this.trainingCreator = trainingCreator;
     }
 
-    public TrainingDto getTrainingDtoById (Long id){
-        Training training = trainingRepository.findById(id)
+    @Override
+    public ApiEntityDto getModelDtoByModelId(Long trainingId) {
+        Training training = trainingRepository.findById(trainingId)
                 .orElseThrow(() -> new TrainingNotFoundException("Training not found by id"));
-        return trainingConverter.mappingTrainingToDto(training);
+        return trainingConverter.mappingApiEntityToDto(training);
     }
 
     public TrainingsSummary getTrainingsSummaryByTrainings(List<Training> trainingsByDayId){
-        List<TrainingDto> trainingsDto = trainingConverter.mappingListTrainingToListDto(trainingsByDayId);
+        List<ApiEntity> apiEntities = new ArrayList<>(trainingsByDayId);
+        List<ApiEntityDto> trainingsDto = trainingConverter.mappingListApiEntityToListDto(apiEntities);
         return trainingsSummaryCreator.createTrainingsSummary(trainingsDto);
     }
 
     public TrainingsSummary getTrainingsSummaryByDayId (Long dayId){
-        return getTrainingsSummaryByTrainings(getTrainingsByDayId(dayId));
+        List<Training> trainingList = getTrainingsByDayId(dayId).stream()
+                .map(apiEntity -> (Training)apiEntity)
+                .collect(Collectors.toList());
+        return getTrainingsSummaryByTrainings(trainingList);
+    }
+
+    private List<ApiEntity> getTrainingsByDayId(Long dayId){
+        return new ArrayList<>(trainingRepository.findAllByDayId(dayId)
+                .orElseThrow(() -> new TrainingNotFoundException("Trainings not found by id")));
     }
 
     public List<TrainingDto> getTrainingsDtoByDayId(Long dayId){
-        List<Training> trainingListByDayId = trainingRepository.findTrainingListByDayId(dayId);
-        return trainingListByDayId.isEmpty()?
-                null : trainingConverter.mappingListTrainingToListDto(trainingListByDayId);
+        List<ApiEntity> trainingListByDayId = new ArrayList<>(trainingRepository.findTrainingListByDayId(dayId));
+        List<TrainingDto> trainingDtoList = trainingConverter.mappingListApiEntityToListDto(trainingListByDayId).stream()
+                .map(apiEntityDto -> (TrainingDto)apiEntityDto)
+                .collect(Collectors.toList());
+        return trainingListByDayId.isEmpty() ?
+                null : trainingDtoList;
     }
 
-    private List<Training> getTrainingsByDayId(Long dayId){
-        return trainingRepository.findAllByDayId(dayId)
-                .orElseThrow(() -> new TrainingNotFoundException("Trainings not found by id"));
+    @Override
+    public List<ApiEntityDto> getModelsDtoByModelId() {
+        return trainingConverter.mappingListApiEntityToListDto(new ArrayList<>(trainingRepository.findAll()));
     }
 
-    public List<TrainingDto> getAllTrainingsDto (){
-        return trainingConverter.mappingListTrainingToListDto(trainingRepository.findAll());
-    }
-
-    public String addTrainingByDto (TrainingDto trainingDto){
-        trainingRepository.save(trainingCreator.createTrainingByDtoAndId(trainingDto));
+    @Override
+    public String addModelByDtoAndUserId(ApiEntityDto trainingDto, Long userId) {
+        trainingRepository.save((Training) trainingCreator.createApiEntityByDtoAndApiEntityId(trainingDto));
         return "Received the training object has been saved to the database";
     }
 
-    public String updateTrainingByDto (TrainingDto trainingDto, Long trainingId){
-        trainingRepository.save(trainingCreator.createTrainingToUpdateByDtoAndId(trainingDto, trainingId));
+    @Override
+    public String updateModelByDtoAndUserId(ApiEntityDto trainingDto, Long userId) {
+        trainingRepository.save((Training) trainingCreator.createApiEntityToUpdateByDtoAndApiEntityId(trainingDto));
         return "Received the training object and the shortReport has been updated";
     }
 
-    public String deleteTraining (Long id){
-        trainingRepository.deleteById(id);
+    @Override
+    public String deleteByModelIdAndUserId(Long mealId, Long userId) {
+        trainingRepository.deleteById(mealId);
         return "The training has been removed based on Id";
     }
 }

@@ -1,5 +1,6 @@
 package com.CezaryZal.api.training.model;
 
+import com.CezaryZal.api.ApiEntityDto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,11 +14,11 @@ import java.util.List;
 @AllArgsConstructor
 public class TrainingsSummary {
 
-    private List<TrainingDto> listTrainings;
+    private final List<ApiEntityDto> listTrainings;
 
-    private int sumOfBurnKcal;
+    private final int sumOfBurnKcal;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
-    private LocalTime sumOfTimes;
+    private final LocalTime sumOfTimes;
 
 }

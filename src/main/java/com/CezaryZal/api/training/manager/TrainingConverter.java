@@ -1,5 +1,8 @@
 package com.CezaryZal.api.training.manager;
 
+import com.CezaryZal.api.ApiEntity;
+import com.CezaryZal.api.ApiEntityConverter;
+import com.CezaryZal.api.ApiEntityDto;
 import com.CezaryZal.api.training.model.TrainingDto;
 import com.CezaryZal.api.training.model.entity.Training;
 import org.springframework.stereotype.Service;
@@ -8,9 +11,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class TrainingConverter {
+public class TrainingConverter implements ApiEntityConverter {
 
-    TrainingDto mappingTrainingToDto(Training training){
+    @Override
+    public ApiEntityDto mappingApiEntityToDto(ApiEntity apiEntity) {
+        Training training = (Training) apiEntity;
         return TrainingDto.builder()
                 .id(training.getId())
                 .dateTimeOfExecution(training.getDateTimeOfExecution())
@@ -21,10 +26,10 @@ public class TrainingConverter {
                 .buildDto();
     }
 
-    List<TrainingDto> mappingListTrainingToListDto(List<Training> trainings){
-        return trainings.stream()
-                .map(this::mappingTrainingToDto)
+    @Override
+    public List<ApiEntityDto> mappingListApiEntityToListDto(List<ApiEntity> apiEntities) {
+        return apiEntities.stream()
+                .map(this::mappingApiEntityToDto)
                 .collect(Collectors.toList());
     }
-
 }

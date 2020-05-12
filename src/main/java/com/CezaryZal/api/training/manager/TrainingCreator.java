@@ -1,20 +1,27 @@
 package com.CezaryZal.api.training.manager;
 
+import com.CezaryZal.api.ApiEntity;
+import com.CezaryZal.api.ApiEntityCreator;
+import com.CezaryZal.api.ApiEntityDto;
 import com.CezaryZal.api.training.model.TrainingDto;
 import com.CezaryZal.api.training.model.entity.Training;
 import org.springframework.stereotype.Service;
 
 @Service
-public class TrainingCreator {
+public class TrainingCreator implements ApiEntityCreator {
 
-    Training createTrainingToUpdateByDtoAndId(TrainingDto trainingDto, Long id){
+    @Override
+    public ApiEntity createApiEntityToUpdateByDtoAndApiEntityId(ApiEntityDto apiEntityDto) {
+        TrainingDto trainingDto = (TrainingDto) apiEntityDto;
         Training.Builder builder = mappingDtoToTraining(trainingDto);
         return builder
-                .id(id)
+                .id(trainingDto.getId())
                 .build();
     }
 
-    Training createTrainingByDtoAndId(TrainingDto trainingDto){
+    @Override
+    public ApiEntity createApiEntityByDtoAndApiEntityId(ApiEntityDto apiEntityDto) {
+        TrainingDto trainingDto = (TrainingDto) apiEntityDto;
         return mappingDtoToTraining(trainingDto).build();
     }
 
