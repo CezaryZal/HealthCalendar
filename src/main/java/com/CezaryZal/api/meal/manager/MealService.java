@@ -42,9 +42,8 @@ public class MealService implements ApiEntityService {
 
     @Override
     public ApiEntityDto getModelDtoByModelId(Long mealId) {
-        Meal meal = mealRepository.findById(mealId)
-                .orElseThrow(() -> new MealNotFoundException("Meal not found by id"));
-        return mealConverter.mappingApiEntityToDto(meal);
+        return mealConverter.mappingApiEntityToDto(mealRepository.findById(mealId)
+                .orElseThrow(() -> new MealNotFoundException("Meal not found by id")));
     }
 
     public DailyDiet getDailyDietByDayId(Long dayId) {
@@ -52,11 +51,11 @@ public class MealService implements ApiEntityService {
     }
 
     public DailyDiet getDailyDietByDateAndUserId(String inputDate, Long userId) {
-        List<ApiEntity> mealListByDateAndUserId =
-                mealRepository.findMealListByDateAndUserId(LocalDate.parse(inputDate), userId).stream()
-                .map(meal -> (ApiEntity)meal)
-                .collect(Collectors.toList());
-        return getDailyDietByListMeal(mealListByDateAndUserId);
+        return getDailyDietByListMeal(mealRepository.findMealListByDateAndUserId(
+                                                            LocalDate.parse(inputDate),
+                                                            userId).stream()
+                                                                    .map(meal -> (ApiEntity)meal)
+                                                                    .collect(Collectors.toList()));
     }
 
     public DailyDiet getDailyDietByListMeal(List<ApiEntity> meals) {
@@ -75,7 +74,6 @@ public class MealService implements ApiEntityService {
     }
 
     private List<ApiEntity> getMealsByDayId(Long dayId) {
-
         return new ArrayList<>(mealRepository.findAllByDayId(dayId)
                 .orElseThrow(() -> new MealNotFoundException("Meals not found by day id")));
     }
@@ -87,8 +85,7 @@ public class MealService implements ApiEntityService {
 
     @Override
     public List<ApiEntityDto> getModelsDtoByModelId() {
-        List<ApiEntity> meals = new ArrayList<>(mealRepository.findAll());
-        return mealConverter.mappingListApiEntityToListDto(meals);
+        return mealConverter.mappingListApiEntityToListDto(new ArrayList<>(mealRepository.findAll()));
     }
 
     @Override
