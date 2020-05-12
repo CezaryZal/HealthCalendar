@@ -17,7 +17,9 @@ import java.util.Optional;
 @Repository
 public interface MealRepository extends JpaRepository<Meal, Long> {
 
-    Optional<List<Meal>> findAllByDayId(Long dayId);
+    @Query(value = "SELECT * FROM meal m INNER JOIN day d ON m.day_id =d.id WHERE m.day_id=:inputDayId " +
+            "AND d.user_id=:inputUserId", nativeQuery = true)
+    Optional<List<Meal>> findAllByDayIdAndUserId(@Param("inputDayId") Long dayId, @Param("inputUserId") Long userId);
 
     @Query(value = "SELECT * FROM meal WHERE day_id =:inputDayId", nativeQuery = true)
     List<Meal> findMealListByDayId(@Param("inputDayId") Long dayId);

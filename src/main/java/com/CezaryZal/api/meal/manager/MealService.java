@@ -46,8 +46,8 @@ public class MealService implements ApiEntityService {
                 .orElseThrow(() -> new MealNotFoundException("Meal not found by id")));
     }
 
-    public DailyDiet getDailyDietByDayId(Long dayId) {
-        return getDailyDietByListMeal(getMealsByDayId(dayId));
+    public DailyDiet getDailyDietByDayId(Long dayId, Long userId) {
+        return getDailyDietByListMeal(getMealsByDayId(dayId, userId));
     }
 
     public DailyDiet getDailyDietByDateAndUserId(String inputDate, Long userId) {
@@ -73,8 +73,8 @@ public class MealService implements ApiEntityService {
                                                 .collect(Collectors.toList());
     }
 
-    private List<ApiEntity> getMealsByDayId(Long dayId) {
-        return new ArrayList<>(mealRepository.findAllByDayId(dayId)
+    private List<ApiEntity> getMealsByDayId(Long dayId, Long userId) {
+        return new ArrayList<>(mealRepository.findAllByDayIdAndUserId(dayId, userId)
                 .orElseThrow(() -> new MealNotFoundException("Meals not found by day id")));
     }
 

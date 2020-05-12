@@ -26,14 +26,14 @@ public class MealController  implements ApiEntityController{
         this.mealService = mealService;
     }
 
-    @ApiOperation(value = "This will get a `DailyDietDTO` by day id")
-    @GetMapping("/dto/day-id/{dayId}")
-    public ResponseEntity<DailyDiet> getDailyDietByDayId(@PathVariable Long dayId){
-        return new ResponseEntity<>(mealService.getDailyDietByDayId(dayId), HttpStatus.OK);
+    @ApiOperation(value = "This will get a `DailyDietDTO` by day id and user id")
+    @GetMapping("/daily-diet/day-id/{dayId}/{userId}")
+    public ResponseEntity<DailyDiet> getDailyDietByDayId(@PathVariable Long dayId, @PathVariable Long userId){
+        return new ResponseEntity<>(mealService.getDailyDietByDayId(dayId, userId), HttpStatus.OK);
     }
 
     @ApiOperation(value = "This will get a `DailyDietDTO` by date and user id")
-    @GetMapping("/dto/date/user-id/{date}/{userId}")
+    @GetMapping("/daily-diet/date/{date}/{userId}")
     public ResponseEntity<DailyDiet> getDailyDietByDateAndUserId(
             @PathVariable String date, @PathVariable Long userId){
         return new ResponseEntity<>(mealService.getDailyDietByDateAndUserId(date, userId), HttpStatus.OK);
@@ -56,5 +56,4 @@ public class MealController  implements ApiEntityController{
     public ResponseEntity<String> deleteMeal (@PathVariable Long id, @PathVariable Long userId){
         return new ResponseEntity<>(mealService.deleteByModelIdAndUserId(id, userId), HttpStatus.ACCEPTED);
     }
-
 }
