@@ -1,5 +1,6 @@
 package com.CezaryZal.api.meal;
 
+import com.CezaryZal.api.ApiEntityController;
 import com.CezaryZal.api.meal.model.DailyDiet;
 import com.CezaryZal.api.meal.model.MealDto;
 import com.CezaryZal.api.meal.manager.MealService;
@@ -16,7 +17,7 @@ import javax.validation.Valid;
 @Api(tags = "Meal")
 @RestController
 @RequestMapping("/api/meal")
-public class MealController {
+public class MealController  implements ApiEntityController{
 
     private final MealService mealService;
 

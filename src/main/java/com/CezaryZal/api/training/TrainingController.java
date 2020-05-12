@@ -1,5 +1,6 @@
 package com.CezaryZal.api.training;
 
+import com.CezaryZal.api.ApiEntityController;
 import com.CezaryZal.api.training.model.TrainingDto;
 import com.CezaryZal.api.training.model.TrainingsSummary;
 import com.CezaryZal.api.training.manager.TrainingService;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 @Api(tags = "Training")
 @RestController
 @RequestMapping("/api/training")
-public class TrainingController {
+public class TrainingController implements ApiEntityController {
 
     private final TrainingService trainingService;
 
