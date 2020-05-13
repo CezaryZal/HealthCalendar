@@ -100,6 +100,7 @@ public class MealService implements ApiEntityService {
     @Override
     public String updateModelByDtoAndUserId(ApiEntityDto apiEntityDto, Long userId) {
         MealDto mealDto = (MealDto) apiEntityDto;
+        mealValidator.validationModelDtoBeforeSaveOrUpdate(mealDto, userId);
         Meal mealToUpdateByDtoAndUserId = (Meal)mealCreator.createApiEntityToUpdateByDtoAndApiEntityId(apiEntityDto);
         mealRepository.updateMeal(mealToUpdateByDtoAndUserId.getId(),
                 mealToUpdateByDtoAndUserId.getDateTimeOfEat(),
