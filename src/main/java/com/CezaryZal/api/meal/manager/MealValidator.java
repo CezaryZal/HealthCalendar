@@ -27,11 +27,11 @@ public class MealValidator implements ApiEntityValidator {
     @Override
     public void validationModelDtoBeforeSaveOrUpdate(ApiEntityDto apiEntityDto, Long userId) {
         MealDto mealDto = (MealDto) apiEntityDto;
-        throwIfIdsByDateIsNotOverlapping(mealDto, userId);
-        throwIfModelsPerDayHasBeenReached(mealDto, userId);
+        throwIfMealsIdDoesNotMatchDate(mealDto, userId);
+        throwIfNumberOfMealsPerDayHasBeenReached(mealDto, userId);
     }
 
-    private void throwIfIdsByDateIsNotOverlapping(MealDto mealDto, Long userId){
+    private void throwIfMealsIdDoesNotMatchDate(MealDto mealDto, Long userId){
         if (!idsByDateOverlappingDataValidator.isOverlappingIdsByDate(
                 mealDto.getDateTimeOfEat(),
                 mealDto.getDayId(),
@@ -40,8 +40,10 @@ public class MealValidator implements ApiEntityValidator {
         }
     }
 
-    private void throwIfModelsPerDayHasBeenReached(MealDto mealDto, Long userId) {
-        if (maxNumberOfMealsPerDayValidator.hasMaxNumberOfModelsPerDay(LocalDate.from(mealDto.getDateTimeOfEat()), userId)) {
+    private void throwIfNumberOfMealsPerDayHasBeenReached(MealDto mealDto, Long userId) {
+        if (maxNumberOfMealsPerDayValidator.hasMaxNumberOfModelsPerDay(
+                LocalDate.from(mealDto.getDateTimeOfEat()),
+                userId)) {
             throw new MaximumNumberOfMealsPerDayException("This Day has maximum amount of meals");
         }
     }
