@@ -1,6 +1,7 @@
 package com.CezaryZal.api.training.manager;
 
 import com.CezaryZal.api.*;
+import com.CezaryZal.api.report.shortened.manager.ShortReportUpdater;
 import com.CezaryZal.api.training.model.TrainingDto;
 import com.CezaryZal.api.training.model.entity.Training;
 import com.CezaryZal.api.training.model.TrainingsSummary;
@@ -21,16 +22,19 @@ public class TrainingService implements ApiEntityService {
     private final ApiEntityConverter trainingConverter;
     private final TrainingsSummaryCreator trainingsSummaryCreator;
     private final ApiEntityCreator trainingCreator;
+    private final ShortReportUpdater shortReportUpdater;
 
     @Autowired
     public TrainingService(TrainingRepository trainingRepository,
                            ApiEntityConverter trainingConverter,
                            TrainingsSummaryCreator trainingsSummaryCreator,
-                           ApiEntityCreator trainingCreator) {
+                           ApiEntityCreator trainingCreator,
+                           ShortReportUpdater shortReportUpdater) {
         this.trainingRepository = trainingRepository;
         this.trainingConverter = trainingConverter;
         this.trainingsSummaryCreator = trainingsSummaryCreator;
         this.trainingCreator = trainingCreator;
+        this.shortReportUpdater = shortReportUpdater;
     }
 
     @Override
@@ -60,12 +64,9 @@ public class TrainingService implements ApiEntityService {
     }
 
     public TrainingsSummary getTrainingSummaryByDateAndUserId(String inputDate, Long userId){
-        LocalDate inputLocalDate = LocalDate.parse(inputDate);
-
         List<ApiEntityDto> apiEntityDtos = trainingConverter.mappingListApiEntityToListDto(new ArrayList<>(
                 trainingRepository.findTrainingListByDateAndUserId(
-                        inputLocalDate.atTime(0,0),
-                        inputLocalDate.atTime(23,59),
+                        LocalDate.parse(inputDate),
                         userId)));
 
         return trainingsSummaryCreator.createTrainingsSummary(apiEntityDtos);
@@ -86,20 +87,30 @@ public class TrainingService implements ApiEntityService {
     }
 
     @Override
-    public String addModelByDtoAndUserId(ApiEntityDto trainingDto, Long userId) {
+    public String addModelByDtoAndUserId(ApiEntityDto apiEntityDto, Long userId) {
+        TrainingDto trainingDto = (TrainingDto) apiEntityDto;
         trainingRepository.save((Training) trainingCreator.createApiEntityByDtoAndApiEntityId(trainingDto));
+        shortReportUpdater.updateShortReportByDayId(trainingDto.getDayId());
         return "Received the training object has been saved to the database";
     }
 
     @Override
-    public String updateModelByDtoAndUserId(ApiEntityDto trainingDto, Long userId) {
-        trainingRepository.save((Training) trainingCreator.createApiEntityToUpdateByDtoAndApiEntityId(trainingDto));
+    public String updateModelByDtoAndUserId(ApiEntityDto apiEntityDto, Long userId) {
+        TrainingDto trainingDto = (TrainingDto) apiEntityDto;
+        Training updatedTraining = (Training)trainingCreator.createApiEntityToUpdateByDtoAndApiEntityId(trainingDto);
+        trainingRepository.updateTraining(updatedTraining.getId(),
+                updatedTraining.getDateTimeOfExecution(),
+                updatedTraining.getElapsedTime(),
+                updatedTraining.getBurnKcal(),
+                updatedTraining.getDescription(),
+                userId);
+        shortReportUpdater.updateShortReportByDayId(trainingDto.getDayId());
         return "Received the training object and the shortReport has been updated";
     }
 
     @Override
-    public String deleteByModelIdAndUserId(Long mealId, Long userId) {
-        trainingRepository.deleteById(mealId);
+    public String deleteByModelIdAndUserId(Long trainingId, Long userId) {
+        trainingRepository.deleteByIdAndUserID(trainingId, userId);
         return "The training has been removed based on Id";
     }
 }
