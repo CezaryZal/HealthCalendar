@@ -9,6 +9,7 @@ import com.CezaryZal.exceptions.not.found.TrainingNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -36,34 +37,47 @@ public class TrainingService implements ApiEntityService {
     public ApiEntityDto getModelDtoByModelId(Long trainingId) {
         Training training = trainingRepository.findById(trainingId)
                 .orElseThrow(() -> new TrainingNotFoundException("Training not found by id"));
+
         return trainingConverter.mappingApiEntityToDto(training);
     }
 
     public TrainingsSummary getTrainingsSummaryByTrainings(List<Training> trainingsByDayId){
-        List<ApiEntity> apiEntities = new ArrayList<>(trainingsByDayId);
-        List<ApiEntityDto> trainingsDto = trainingConverter.mappingListApiEntityToListDto(apiEntities);
+        List<ApiEntityDto> trainingsDto = trainingConverter.mappingListApiEntityToListDto(
+                new ArrayList<>(trainingsByDayId));
+
         return trainingsSummaryCreator.createTrainingsSummary(trainingsDto);
     }
 
-    public TrainingsSummary getTrainingsSummaryByDayId (Long dayId){
-        List<Training> trainingList = getTrainingsByDayId(dayId).stream()
-                .map(apiEntity -> (Training)apiEntity)
-                .collect(Collectors.toList());
-        return getTrainingsSummaryByTrainings(trainingList);
+    public TrainingsSummary getTrainingsSummaryByDayId (Long dayId, Long userId){
+        return getTrainingsSummaryByTrainings(getTrainingsByDayId(dayId, userId).stream()
+                                                    .map(apiEntity -> (Training)apiEntity)
+                                                    .collect(Collectors.toList()));
     }
 
-    private List<ApiEntity> getTrainingsByDayId(Long dayId){
-        return new ArrayList<>(trainingRepository.findAllByDayId(dayId)
-                .orElseThrow(() -> new TrainingNotFoundException("Trainings not found by id")));
+    private List<ApiEntity> getTrainingsByDayId(Long dayId, Long userId){
+        return new ArrayList<>(trainingRepository.findTrainingListByDayIdAndUserId(dayId, userId)
+                .orElseThrow(() -> new TrainingNotFoundException("Trainings not found by id and user id")));
+    }
+
+    public TrainingsSummary getTrainingSummaryByDateAndUserId(String inputDate, Long userId){
+        LocalDate inputLocalDate = LocalDate.parse(inputDate);
+
+        List<ApiEntityDto> apiEntityDtos = trainingConverter.mappingListApiEntityToListDto(new ArrayList<>(
+                trainingRepository.findTrainingListByDateAndUserId(
+                        inputLocalDate.atTime(0,0),
+                        inputLocalDate.atTime(23,59),
+                        userId)));
+
+        return trainingsSummaryCreator.createTrainingsSummary(apiEntityDtos);
     }
 
     public List<TrainingDto> getTrainingsDtoByDayId(Long dayId){
         List<ApiEntity> trainingListByDayId = new ArrayList<>(trainingRepository.findTrainingListByDayId(dayId));
-        List<TrainingDto> trainingDtoList = trainingConverter.mappingListApiEntityToListDto(trainingListByDayId).stream()
-                .map(apiEntityDto -> (TrainingDto)apiEntityDto)
-                .collect(Collectors.toList());
+
         return trainingListByDayId.isEmpty() ?
-                null : trainingDtoList;
+                null : trainingConverter.mappingListApiEntityToListDto(trainingListByDayId).stream()
+                                                .map(apiEntityDto -> (TrainingDto)apiEntityDto)
+                                                .collect(Collectors.toList());
     }
 
     @Override

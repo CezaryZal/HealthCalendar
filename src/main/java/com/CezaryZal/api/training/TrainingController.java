@@ -24,10 +24,17 @@ public class TrainingController implements ApiEntityController {
         this.trainingService = trainingService;
     }
 
-    @ApiOperation(value = "This will get a `TrainingsSummary` by day id")
-    @GetMapping("/trainings-summary/{dayId}")
-    public ResponseEntity<TrainingsSummary> getTrainingsSummary(@PathVariable Long dayId){
-        return new ResponseEntity<>(trainingService.getTrainingsSummaryByDayId(dayId), HttpStatus.OK);
+    @ApiOperation(value = "This will get a `TrainingsSummary` by day id and user id")
+    @GetMapping("/trainings-summary/day-id/{dayId}/{userId}")
+    public ResponseEntity<TrainingsSummary> getTrainingsSummary(@PathVariable Long dayId, @PathVariable Long userId){
+        return new ResponseEntity<>(trainingService.getTrainingsSummaryByDayId(dayId, userId), HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "This will get a `TrainingsSummary` by day date and userId")
+    @GetMapping("/trainings-summary/date/{inputDate}/{userId}")
+    public ResponseEntity<TrainingsSummary> getTrainingsSummaryByDateAndUserId(
+            @PathVariable String inputDate, @PathVariable Long userId){
+        return new ResponseEntity<>(trainingService.getTrainingSummaryByDateAndUserId(inputDate, userId), HttpStatus.OK);
     }
 
     @PostMapping("current/{userId}")
