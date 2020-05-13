@@ -11,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @CrossOrigin(origins = "*", maxAge = 3600)
 @Api(tags = "Training")
 @RestController
@@ -38,12 +40,12 @@ public class TrainingController implements ApiEntityController {
     }
 
     @PostMapping("current/{userId}")
-    public ResponseEntity<String> add (@RequestBody TrainingDto trainingDto, @PathVariable Long userId){
+    public ResponseEntity<String> add (@Valid @RequestBody TrainingDto trainingDto, @PathVariable Long userId){
         return new ResponseEntity<>(trainingService.addModelByDtoAndUserId(trainingDto, userId), HttpStatus.CREATED);
     }
 
     @PutMapping("/{userId}")
-    public ResponseEntity<String> update (@RequestBody TrainingDto trainingDto, @PathVariable Long userId){
+    public ResponseEntity<String> update (@Valid @RequestBody TrainingDto trainingDto, @PathVariable Long userId){
         return new ResponseEntity<>(trainingService.updateModelByDtoAndUserId(trainingDto, userId), HttpStatus.OK);
     }
 
