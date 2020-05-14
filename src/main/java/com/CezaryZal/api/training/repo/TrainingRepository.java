@@ -31,6 +31,11 @@ public interface TrainingRepository extends JpaRepository<Training, Long> {
     List<Training> findTrainingListByDateAndUserId(@Param("inputDate") LocalDate inputDate,
                                                    @Param("inputUserId") Long userId);
 
+    @Query(value = "SELECT COUNT(t.id) FROM training t INNER JOIN day d ON t.day_id=d.id " +
+            "WHERE d.date=:inputDate AND d.user_id=:inputUserId", nativeQuery = true)
+    int getNumberOfTrainingsContainedOnDay(@Param("inputDate") LocalDate localDate,
+                                           @Param("inputUserId")Long userId);
+
     @Modifying(clearAutomatically = true)
     @Query(value = "UPDATE training t INNER JOIN day d ON t.day_id=d.id SET t.date_time=:dateTimeOfEat, " +
             "t.time=:elapsedTime, t.burn_kcal=:burnKcal, t.description=:description " +

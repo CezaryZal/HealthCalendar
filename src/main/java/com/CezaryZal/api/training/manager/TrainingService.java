@@ -2,6 +2,7 @@ package com.CezaryZal.api.training.manager;
 
 import com.CezaryZal.api.*;
 import com.CezaryZal.api.report.shortened.manager.ShortReportUpdater;
+import com.CezaryZal.api.training.manager.validation.TrainingValidator;
 import com.CezaryZal.api.training.model.TrainingDto;
 import com.CezaryZal.api.training.model.entity.Training;
 import com.CezaryZal.api.training.model.TrainingsSummary;
@@ -23,18 +24,21 @@ public class TrainingService implements ApiEntityService {
     private final TrainingsSummaryCreator trainingsSummaryCreator;
     private final ApiEntityCreator trainingCreator;
     private final ShortReportUpdater shortReportUpdater;
+    private final ApiEntityValidator trainingValidator;
 
     @Autowired
     public TrainingService(TrainingRepository trainingRepository,
                            ApiEntityConverter trainingConverter,
                            TrainingsSummaryCreator trainingsSummaryCreator,
                            ApiEntityCreator trainingCreator,
-                           ShortReportUpdater shortReportUpdater) {
+                           ShortReportUpdater shortReportUpdater,
+                           ApiEntityValidator trainingValidator) {
         this.trainingRepository = trainingRepository;
         this.trainingConverter = trainingConverter;
         this.trainingsSummaryCreator = trainingsSummaryCreator;
         this.trainingCreator = trainingCreator;
         this.shortReportUpdater = shortReportUpdater;
+        this.trainingValidator = trainingValidator;
     }
 
     @Override
@@ -89,6 +93,7 @@ public class TrainingService implements ApiEntityService {
     @Override
     public String addModelByDtoAndUserId(ApiEntityDto apiEntityDto, Long userId) {
         TrainingDto trainingDto = (TrainingDto) apiEntityDto;
+        trainingValidator.validationModelDtoBeforeSaveOrUpdate(trainingDto, userId);
         trainingRepository.save((Training) trainingCreator.createApiEntityByDtoAndApiEntityId(trainingDto));
         shortReportUpdater.updateShortReportByDayId(trainingDto.getDayId());
         return "Received the training object has been saved to the database";
@@ -97,6 +102,7 @@ public class TrainingService implements ApiEntityService {
     @Override
     public String updateModelByDtoAndUserId(ApiEntityDto apiEntityDto, Long userId) {
         TrainingDto trainingDto = (TrainingDto) apiEntityDto;
+        trainingValidator.validationModelDtoBeforeSaveOrUpdate(trainingDto, userId);
         Training updatedTraining = (Training)trainingCreator.createApiEntityToUpdateByDtoAndApiEntityId(trainingDto);
         trainingRepository.updateTraining(updatedTraining.getId(),
                 updatedTraining.getDateTimeOfExecution(),
