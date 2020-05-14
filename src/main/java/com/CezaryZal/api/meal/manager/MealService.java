@@ -1,6 +1,7 @@
 package com.CezaryZal.api.meal.manager;
 
 import com.CezaryZal.api.*;
+import com.CezaryZal.api.meal.manager.validation.MealValidator;
 import com.CezaryZal.api.meal.model.DailyDiet;
 import com.CezaryZal.api.meal.model.entity.Meal;
 import com.CezaryZal.api.meal.model.MealDto;
@@ -9,6 +10,7 @@ import com.CezaryZal.api.report.shortened.manager.ShortReportUpdater;
 import com.CezaryZal.exceptions.not.found.MealNotFoundException;
 import com.CezaryZal.api.ApiEntityValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -31,7 +33,8 @@ public class MealService implements ApiEntityService {
                        DailyDietCreator dailyDietCreator,
                        ApiEntityCreator mealCreator,
                        MealRepository mealRepository,
-                       ShortReportUpdater shortReportUpdater, MealValidator mealValidator) {
+                       ShortReportUpdater shortReportUpdater,
+                       ApiEntityValidator mealValidator) {
         this.mealConverter = mealConverter;
         this.dailyDietCreator = dailyDietCreator;
         this.mealCreator = mealCreator;
