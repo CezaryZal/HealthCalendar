@@ -3,6 +3,7 @@ package com.CezaryZal.api.training.model;
 import com.CezaryZal.api.ApiEntityDto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -11,6 +12,7 @@ import java.util.List;
 
 @ToString
 @Getter
+@EqualsAndHashCode
 @AllArgsConstructor
 public class TrainingsSummary {
 
