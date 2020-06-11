@@ -1,12 +1,12 @@
 package com.CezaryZal.validation.validator;
 
-import com.CezaryZal.validation.annotation.Timeline;
+import com.CezaryZal.validation.annotation.TimeScope;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import java.time.LocalTime;
 
-public class TimelineConstraintValidator implements ConstraintValidator<Timeline, LocalTime> {
+public class TimeScopeConstraintValidator implements ConstraintValidator<TimeScope, LocalTime> {
 
 
     @Override

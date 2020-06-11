@@ -2,7 +2,7 @@ package com.CezaryZal.api.training.model;
 
 import com.CezaryZal.api.ApiEntityDto;
 import com.CezaryZal.validation.annotation.ActualDate;
-import com.CezaryZal.validation.annotation.Timeline;
+import com.CezaryZal.validation.annotation.TimeScope;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -32,7 +32,7 @@ public class TrainingDto implements ApiEntityDto {
     private String description;
 
     @NotNull(message = "The 'elapsedTime' should not be null")
-    @Timeline
+    @TimeScope
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
     private LocalTime elapsedTime;
 

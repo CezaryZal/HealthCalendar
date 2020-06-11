@@ -1,7 +1,6 @@
 package com.CezaryZal.validation.annotation;
 
-import com.CezaryZal.validation.validator.ActualDateConstraintValidator;
-import com.CezaryZal.validation.validator.TimelineConstraintValidator;
+import com.CezaryZal.validation.validator.TimeScopeConstraintValidator;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
@@ -14,9 +13,9 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 @Target({FIELD})
 @Retention(RUNTIME)
-@Constraint(validatedBy = TimelineConstraintValidator.class)
+@Constraint(validatedBy = TimeScopeConstraintValidator.class)
 @Documented
-public @interface Timeline {
+public @interface TimeScope {
 
     String message () default "The training time should be between 0:01 and 3:00 hours";
 
