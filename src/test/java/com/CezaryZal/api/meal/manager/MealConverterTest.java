@@ -15,10 +15,10 @@ import static org.assertj.core.api.Assertions.*;
 
 class MealConverterTest {
 
-    MealConverter mealConverter;
-    MealDto firstExpectedMealDto;
-    MealDto secondExpectedMealDto;
-    Meal firstActualMeal;
+    private MealConverter mealConverter;
+    private MealDto firstExpectedMealDto;
+    private MealDto secondExpectedMealDto;
+    private Meal firstActualMeal;
 
     @BeforeEach
     void setUp() {

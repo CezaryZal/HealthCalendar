@@ -14,7 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 public class DailyDiet {
 
-    private List<ApiEntityDto> listMeals;
-    private int sumOfKcal;
+    private final List<ApiEntityDto> listMeals;
+    private final int sumOfKcal;
 
 }

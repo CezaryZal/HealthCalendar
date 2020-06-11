@@ -1,30 +1,48 @@
 package com.CezaryZal.api.training.model;
 
+import com.CezaryZal.api.ApiEntityDto;
+import com.CezaryZal.validation.annotation.ActualDate;
+import com.CezaryZal.validation.annotation.TimeScope;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import javax.validation.constraints.*;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 @ToString
 @Getter
+@EqualsAndHashCode
 @NoArgsConstructor
-public class TrainingDto {
+public class TrainingDto implements ApiEntityDto {
 
+    @Positive
     private Long id;
 
+    @NotNull(message = "The 'dateTimeOfExecution' should not be null")
+    @ActualDate
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd_HH:mm")
     private LocalDateTime dateTimeOfExecution;
 
+    @NotBlank(message = "The 'description' should not be blank")
+    @Size(min = 4, max = 100, message = "The 'description' should be between 3 and 100 characters")
     private String description;
 
+    @NotNull(message = "The 'elapsedTime' should not be null")
+    @TimeScope
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
     private LocalTime elapsedTime;
 
+    @NotNull(message = "The 'burnKcal' should not be null")
+    @Max(value = 6000, message = "The value of burnKcal entered is too big, max is 6000")
+    @Min(value = 30, message = "The value of burnKcal entered is too small, min is 30")
     private int burnKcal;
 
+    @NotNull(message = "The 'dayId' should not be null")
+    @Positive
     private Long dayId;
 
 

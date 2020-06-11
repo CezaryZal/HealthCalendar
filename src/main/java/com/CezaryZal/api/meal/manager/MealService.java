@@ -1,6 +1,7 @@
 package com.CezaryZal.api.meal.manager;
 
 import com.CezaryZal.api.*;
+import com.CezaryZal.api.meal.manager.validation.MealValidator;
 import com.CezaryZal.api.meal.model.DailyDiet;
 import com.CezaryZal.api.meal.model.entity.Meal;
 import com.CezaryZal.api.meal.model.MealDto;
@@ -9,6 +10,7 @@ import com.CezaryZal.api.report.shortened.manager.ShortReportUpdater;
 import com.CezaryZal.exceptions.not.found.MealNotFoundException;
 import com.CezaryZal.api.ApiEntityValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -31,7 +33,8 @@ public class MealService implements ApiEntityService {
                        DailyDietCreator dailyDietCreator,
                        ApiEntityCreator mealCreator,
                        MealRepository mealRepository,
-                       ShortReportUpdater shortReportUpdater, MealValidator mealValidator) {
+                       ShortReportUpdater shortReportUpdater,
+                       ApiEntityValidator mealValidator) {
         this.mealConverter = mealConverter;
         this.dailyDietCreator = dailyDietCreator;
         this.mealCreator = mealCreator;
@@ -42,21 +45,20 @@ public class MealService implements ApiEntityService {
 
     @Override
     public ApiEntityDto getModelDtoByModelId(Long mealId) {
-        Meal meal = mealRepository.findById(mealId)
-                .orElseThrow(() -> new MealNotFoundException("Meal not found by id"));
-        return mealConverter.mappingApiEntityToDto(meal);
+        return mealConverter.mappingApiEntityToDto(mealRepository.findById(mealId)
+                .orElseThrow(() -> new MealNotFoundException("Meal not found by id")));
     }
 
-    public DailyDiet getDailyDietByDayId(Long dayId) {
-        return getDailyDietByListMeal(getMealsByDayId(dayId));
+    public DailyDiet getDailyDietByDayId(Long dayId, Long userId) {
+        return getDailyDietByListMeal(getMealsByDayId(dayId, userId));
     }
 
     public DailyDiet getDailyDietByDateAndUserId(String inputDate, Long userId) {
-        List<ApiEntity> mealListByDateAndUserId =
-                mealRepository.findMealListByDateAndUserId(LocalDate.parse(inputDate), userId).stream()
-                .map(meal -> (ApiEntity)meal)
-                .collect(Collectors.toList());
-        return getDailyDietByListMeal(mealListByDateAndUserId);
+        return getDailyDietByListMeal(mealRepository.findMealListByDateAndUserId(
+                                                            LocalDate.parse(inputDate),
+                                                            userId).stream()
+                                                                    .map(meal -> (ApiEntity)meal)
+                                                                    .collect(Collectors.toList()));
     }
 
     public DailyDiet getDailyDietByListMeal(List<ApiEntity> meals) {
@@ -74,9 +76,8 @@ public class MealService implements ApiEntityService {
                                                 .collect(Collectors.toList());
     }
 
-    private List<ApiEntity> getMealsByDayId(Long dayId) {
-
-        return new ArrayList<>(mealRepository.findAllByDayId(dayId)
+    private List<ApiEntity> getMealsByDayId(Long dayId, Long userId) {
+        return new ArrayList<>(mealRepository.findAllByDayIdAndUserId(dayId, userId)
                 .orElseThrow(() -> new MealNotFoundException("Meals not found by day id")));
     }
 
@@ -87,8 +88,7 @@ public class MealService implements ApiEntityService {
 
     @Override
     public List<ApiEntityDto> getModelsDtoByModelId() {
-        List<ApiEntity> meals = new ArrayList<>(mealRepository.findAll());
-        return mealConverter.mappingListApiEntityToListDto(meals);
+        return mealConverter.mappingListApiEntityToListDto(new ArrayList<>(mealRepository.findAll()));
     }
 
     @Override
@@ -103,6 +103,7 @@ public class MealService implements ApiEntityService {
     @Override
     public String updateModelByDtoAndUserId(ApiEntityDto apiEntityDto, Long userId) {
         MealDto mealDto = (MealDto) apiEntityDto;
+        mealValidator.validationModelDtoBeforeSaveOrUpdate(mealDto, userId);
         Meal mealToUpdateByDtoAndUserId = (Meal)mealCreator.createApiEntityToUpdateByDtoAndApiEntityId(apiEntityDto);
         mealRepository.updateMeal(mealToUpdateByDtoAndUserId.getId(),
                 mealToUpdateByDtoAndUserId.getDateTimeOfEat(),

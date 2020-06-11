@@ -3,14 +3,14 @@ package com.CezaryZal.api.meal.manager;
 import com.CezaryZal.api.ApiEntity;
 import com.CezaryZal.api.ApiEntityDto;
 import com.CezaryZal.api.day.repo.DayRepository;
+import com.CezaryZal.api.meal.manager.validation.MealValidator;
 import com.CezaryZal.api.meal.model.DailyDiet;
 import com.CezaryZal.api.meal.model.MealDto;
 import com.CezaryZal.api.meal.model.entity.Meal;
 import com.CezaryZal.api.meal.repo.MealRepository;
 import com.CezaryZal.api.report.shortened.manager.ShortReportUpdater;
 import com.CezaryZal.validation.validator.IdsByDateOverlappingDataValidator;
-import com.CezaryZal.validation.validator.MaxNumberOfMealsPerDayValidator;
-import org.junit.jupiter.api.Assertions;
+import com.CezaryZal.api.meal.manager.validation.MaxNumberOfMealsPerDayValidator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -22,7 +22,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -151,5 +150,4 @@ class MealServiceTest {
 
         assertEquals(expectedDailyDiet, actualDailyDiet);
     }
-
 }

@@ -11,8 +11,8 @@ import static org.assertj.core.api.Assertions.*;
 
 class MealCreatorTest {
 
-    MealCreator mealCreator;
-    Meal secondExpectedMeal;
+    private MealCreator mealCreator;
+    private Meal secondExpectedMeal;
 
     @BeforeEach
     void setUp() {
@@ -28,10 +28,7 @@ class MealCreatorTest {
 
     @Test
     void shouldReturnProperlyMealFromCreateMealToUpdateByDtoAndMealIdMethod() {
-        MealDto firstActualMealDto;
-        Meal firstExpectedMeal;
-
-        firstActualMealDto = MealDto.builder()
+        MealDto firstActualMealDto = MealDto.builder()
                 .id(1L)
                 .dateTimeOfEat(LocalDateTime.of(2020, 11, 11, 11, 11))
                 .type("type")
@@ -39,7 +36,7 @@ class MealCreatorTest {
                 .description("description")
                 .dayId(1L)
                 .build();
-        firstExpectedMeal = Meal.builder()
+        Meal firstExpectedMeal = Meal.builder()
                 .id(1L)
                 .dateTimeOfEat(LocalDateTime.of(2020, 11, 11, 11, 11))
                 .type("type")
@@ -55,17 +52,14 @@ class MealCreatorTest {
 
     @Test
     void shouldReturnProperlyMealFromCreateMealByDtoAndMealId() {
-        MealDto firstActualMealDto;
-        Meal firstExpectedMeal;
-
-        firstActualMealDto = MealDto.builder()
+        MealDto firstActualMealDto = MealDto.builder()
                 .dateTimeOfEat(LocalDateTime.of(2020, 11, 11, 11, 11))
                 .type("type")
                 .kcal(10)
                 .description("description")
                 .dayId(1L)
                 .build();
-        firstExpectedMeal = Meal.builder()
+        Meal firstExpectedMeal = Meal.builder()
                 .dateTimeOfEat(LocalDateTime.of(2020, 11, 11, 11, 11))
                 .type("type")
                 .kcal(10)

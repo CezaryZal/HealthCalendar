@@ -29,7 +29,6 @@ public class MealConverter implements ApiEntityConverter {
     @Override
     public List<ApiEntityDto> mappingListApiEntityToListDto(List<ApiEntity> meals) {
         return meals.stream()
-                .map(apiEntity -> ((Meal)apiEntity))
                 .map(this::mappingApiEntityToDto)
                 .collect(Collectors.toList());
     }

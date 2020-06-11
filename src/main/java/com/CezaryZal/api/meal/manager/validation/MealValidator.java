@@ -1,13 +1,14 @@
-package com.CezaryZal.api.meal.manager;
+package com.CezaryZal.api.meal.manager.validation;
 
 import com.CezaryZal.api.ApiEntityDto;
 import com.CezaryZal.api.meal.model.MealDto;
-import com.CezaryZal.exceptions.MaximumNumberOfMealsPerDayException;
+import com.CezaryZal.exceptions.MaximumNumberOfEntitiesPerDayException;
 import com.CezaryZal.exceptions.NonOverlappingIdNumberException;
 import com.CezaryZal.validation.OverlappingDataValidator;
 import com.CezaryZal.validation.PerDayValidator;
 import com.CezaryZal.validation.validator.IdsByDateOverlappingDataValidator;
 import com.CezaryZal.api.ApiEntityValidator;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -19,7 +20,7 @@ public class MealValidator implements ApiEntityValidator {
     private final PerDayValidator maxNumberOfMealsPerDayValidator;
 
     public MealValidator(IdsByDateOverlappingDataValidator idsByDateOverlappingDataValidator,
-                         PerDayValidator maxNumberOfMealsPerDayValidator) {
+                         @Qualifier("mealsPerDayValidator") PerDayValidator maxNumberOfMealsPerDayValidator) {
         this.idsByDateOverlappingDataValidator = idsByDateOverlappingDataValidator;
         this.maxNumberOfMealsPerDayValidator = maxNumberOfMealsPerDayValidator;
     }
@@ -27,11 +28,11 @@ public class MealValidator implements ApiEntityValidator {
     @Override
     public void validationModelDtoBeforeSaveOrUpdate(ApiEntityDto apiEntityDto, Long userId) {
         MealDto mealDto = (MealDto) apiEntityDto;
-        throwIfIdsByDateIsNotOverlapping(mealDto, userId);
-        throwIfModelsPerDayHasBeenReached(mealDto, userId);
+        throwIfMealsIdDoesNotMatchDate(mealDto, userId);
+        throwIfNumberOfMealsPerDayHasBeenReached(mealDto, userId);
     }
 
-    private void throwIfIdsByDateIsNotOverlapping(MealDto mealDto, Long userId){
+    private void throwIfMealsIdDoesNotMatchDate(MealDto mealDto, Long userId){
         if (!idsByDateOverlappingDataValidator.isOverlappingIdsByDate(
                 mealDto.getDateTimeOfEat(),
                 mealDto.getDayId(),
@@ -40,9 +41,11 @@ public class MealValidator implements ApiEntityValidator {
         }
     }
 
-    private void throwIfModelsPerDayHasBeenReached(MealDto mealDto, Long userId) {
-        if (maxNumberOfMealsPerDayValidator.hasMaxNumberOfModelsPerDay(LocalDate.from(mealDto.getDateTimeOfEat()), userId)) {
-            throw new MaximumNumberOfMealsPerDayException("This Day has maximum amount of meals");
+    private void throwIfNumberOfMealsPerDayHasBeenReached(MealDto mealDto, Long userId) {
+        if (maxNumberOfMealsPerDayValidator.hasMaxNumberOfModelsPerDay(
+                LocalDate.from(mealDto.getDateTimeOfEat()),
+                userId)) {
+            throw new MaximumNumberOfEntitiesPerDayException("This Day has maximum amount of meals");
         }
     }
 }

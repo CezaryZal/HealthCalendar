@@ -1,4 +1,4 @@
-package com.CezaryZal.validation.validator;
+package com.CezaryZal.api.meal.manager.validation;
 
 import com.CezaryZal.api.meal.repo.MealRepository;
 import com.CezaryZal.validation.PerDayValidator;
@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 
-@Service
+@Service("mealsPerDayValidator")
 public class MaxNumberOfMealsPerDayValidator implements PerDayValidator {
 
     private final byte maxNumberOfMealsPerDay = 4;
